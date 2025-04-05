@@ -23,5 +23,5 @@ body {
 }
 
 @utility bg-vns-noise {
-    background-image: url("@/public/VNS_NoiseBG.png");
+    background-image: url("../public/VNS_NoiseBG.png");
 }
