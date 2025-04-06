@@ -31,7 +31,7 @@ export default function RootLayout({
                 <NavBar />
                 <div
                     className={
-                        "bg-vns-noise flex h-screen max-w-screen flex-col items-center justify-center gap-y-1 font-[family-name:var(--font-jb-mono)] font-extrabold"
+                        "bg-vns-noise flex h-screen max-w-screen flex-col items-center justify-center font-[family-name:var(--font-jb-mono)] font-extrabold"
                     }
                 >
                     {children}
