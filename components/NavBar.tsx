@@ -7,7 +7,7 @@ function NavbarItems() {
     return (
         <div className="list-none font-extrabold">
             <li>
-                <Link href={"/about/crew"}>Về chúng tôi</Link>
+                <Link href={"/about/crew"}>Nhân sự</Link>
             </li>
         </div>
     );
@@ -24,7 +24,7 @@ export default function NavBar() {
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-5"
                             fill="none"
-                            viewBox="0 0 18 18"
+                            viewBox="0 0 20 20"
                             stroke="currentColor"
                         >
                             <path

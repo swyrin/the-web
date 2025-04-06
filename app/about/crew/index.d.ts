@@ -1,0 +1,19 @@
+export type VNS_Member = {
+    image: string | null;
+    name: string;
+    quote: string;
+
+    // https://github.com/microsoft/TypeScript/issues/26552
+    // the reason behind this bogus.
+    role:
+        | string
+        | "Head_Admin"
+        | "Lead_Staff"
+        | "Mini_Tournament"
+        | "Logistics"
+        | "Wordle"
+        | "Kahoot"
+        | "Media"
+        | "Donator"
+        | "Partner";
+};
