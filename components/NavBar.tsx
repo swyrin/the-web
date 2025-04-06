@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 function NavbarItems() {
+    //TODO: spacing between navbar entries
     return (
-        <div className="list-none font-extrabold">
+        <div className="mx-auto list-none px-4 font-extrabold">
             <li>
                 <Link href={"/about/crew"}>Nhân sự</Link>
+                <Link href={"/about/dreamchasers"}>Chúng tôi là ai?</Link>
             </li>
         </div>
     );
