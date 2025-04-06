@@ -23,4 +23,5 @@ body {
 }
 
 @utility bg-vns-noise {
+    background-color: white;
 }
