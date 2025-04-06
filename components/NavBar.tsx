@@ -8,8 +8,8 @@ function NavbarItems() {
     return (
         <div className="mx-auto list-none px-4 font-extrabold">
             <li>
-                <Link href={"/about/crew"}>Nhân sự</Link>
                 <Link href={"/about/dreamchasers"}>Chúng tôi là ai?</Link>
+                <Link href={"/about/crew"}>Nhân sự</Link>
             </li>
         </div>
     );
