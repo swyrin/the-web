@@ -15,7 +15,8 @@ function NavbarItems() {
 
 export default function NavBar() {
     return (
-        <div className={"navbar fixed bg-white font-[family-name:var(--font-jb-mono)] shadow-2xl"}>
+        // https://github.com/saadeghi/daisyui/discussions/2277#discussioncomment-7400878
+        <div className={"navbar sticky top-0 z-50 bg-white font-[family-name:var(--font-jb-mono)] shadow-lg"}>
             <div className={"navbar-start"}>
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="lg:hidden">
