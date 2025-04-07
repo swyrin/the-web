@@ -1,6 +1,6 @@
 function PartnerList() {
     return (
-        <div className={"w-220 items-center font-normal"}>
+        <div className={"ml-5 w-220 items-center font-normal"}>
             <ol className={"list-decimal space-y-5"}>
                 <li>
                     <a href={"https://www.facebook.com/ngan.tinh.3958"} className={"underline"}>
@@ -42,7 +42,7 @@ export default function AboutDreamchasers() {
                     , đồng thời cũng là một trong những nhánh của Station Network / Project VNS
                 </p>
                 <br></br>
-                <p>Arknights VNS hiện có các nền tảng khác để kết nối cộng đồng trong Project VNS như::{"\n\n"}</p>
+                <p>Arknights VNS hiện có các nền tảng khác để kết nối cộng đồng trong Project VNS như:{"\n\n"}</p>
                 <br></br>
                 <ul className={"ml-10 w-200 list-disc space-y-5"}>
                     <li>
