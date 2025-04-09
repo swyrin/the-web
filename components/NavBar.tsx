@@ -5,11 +5,14 @@ import Link from "next/link";
 
 function NavbarItems() {
     return (
-        <div className="list-none font-extrabold">
+        <>
+            <li>
+                <Link href={"/about/dreamchasers"}>Chúng tôi là ai?</Link>
+            </li>
             <li>
                 <Link href={"/about/crew"}>Nhân sự</Link>
             </li>
-        </div>
+        </>
     );
 }
 
@@ -48,8 +51,10 @@ export default function NavBar() {
                 <a className={"hidden content-center px-5 text-lg font-bold lg:block"}>Arknights VNS: Dreamchasers</a>
                 <a className={"block text-sm font-bold lg:hidden"}>Dreamchasers</a>
             </div>
-            <div className={"navbar-center hidden lg:block"}>
-                <NavbarItems />
+            <div className={"navbar-center hidden lg:flex"}>
+                <ul className="menu menu-horizontal">
+                    <NavbarItems />
+                </ul>
             </div>
             <div className={"navbar-end"}>
                 <PurchaseTicketButton />
