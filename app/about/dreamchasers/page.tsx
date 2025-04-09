@@ -40,7 +40,10 @@ export default function AboutDreamchasers() {
             <br></br>
             <div className={"w-235 items-center font-normal"}>
                 <p>
-                    Dreamchasers, là một đội ngũ chuyên về làm sự kiện Offline, trực thuộc cộng đồng <Link href={"https://www.facebook.com/groups/arknights.vietnam.station"} className={"underline"}><b>Arknights Vietnam Station [Arknights VNS]</b></Link>
+                    Dreamchasers, là một đội ngũ chuyên về làm sự kiện Offline, trực thuộc cộng đồng{" "}
+                    <Link href={"https://www.facebook.com/groups/arknights.vietnam.station"} className={"underline"}>
+                        <b>Arknights Vietnam Station [Arknights VNS]</b>
+                    </Link>
                     , đồng thời cũng là một trong những nhánh của Station Network / Project VNS
                 </p>
                 <br></br>
@@ -48,7 +51,10 @@ export default function AboutDreamchasers() {
                 <br></br>
                 <ul className={"ml-10 w-200 list-disc space-y-5"}>
                     <li>
-                        <Link href={"https://www.facebook.com/terrastationvn"} className = {"underline"}><b>Tram dừng chân chốn Terra / @terrastationvn</b></Link>: Fanpage chính thức của nhóm, là một team chuyên dịch truyện tranh được phát hành bởi{" "}
+                        <Link href={"https://www.facebook.com/terrastationvn"} className={"underline"}>
+                            <b>Tram dừng chân chốn Terra / @terrastationvn</b>
+                        </Link>
+                        : Fanpage chính thức của nhóm, là một team chuyên dịch truyện tranh được phát hành bởi{" "}
                         Hypergryph (dưới tên Terra Historicus) hoặc fanart cộng đồng. Ngoài ra, page thỉnh thoảng cũng
                         sẽ cập nhật & chia sẻ các nội dung, tin tức liên quan đến Arknights .
                     </li>
