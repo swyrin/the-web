@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function PartnerList() {
     return (
-        <div className={"ml-5 w-220 items-center font-normal"}>
+        <div className={"ml-5 items-center"}>
             <ol className={"list-decimal space-y-5"}>
                 <li>
                     <Link href={"https://www.facebook.com/ngan.tinh.3958"} className={"underline"}>
@@ -35,28 +35,31 @@ function PartnerList() {
 
 export default function AboutDreamchasers() {
     return (
-        <div className={"py-10"}>
-            <div className={"text-center text-3xl"}>About the Dreamchasers</div>
-            <br></br>
-            <div className={"w-235 items-center font-normal"}>
+        <div className={"w-150 p-10"}>
+            <div className={"text-center text-3xl font-extrabold"}>About the Dreamchasers</div>
+            <br />
+            <div className={"items-center font-normal"}>
                 <p>
-                    Dreamchasers, là một đội ngũ chuyên về làm sự kiện Offline, trực thuộc cộng đồng{" "}
+                    <b>
+                        <i>Dreamchasers</i>
+                    </b>
+                    , là một đội ngũ chuyên về làm sự kiện Offline, trực thuộc cộng đồng{" "}
                     <Link href={"https://www.facebook.com/groups/arknights.vietnam.station"} className={"underline"}>
                         <b>Arknights Vietnam Station [Arknights VNS]</b>
                     </Link>
                     , đồng thời cũng là một trong những nhánh của Station Network / Project VNS
                 </p>
-                <br></br>
+                <br />
                 <p>Arknights VNS hiện có các nền tảng khác để kết nối cộng đồng trong Project VNS như:{"\n\n"}</p>
-                <br></br>
-                <ul className={"ml-10 w-200 list-disc space-y-5"}>
+                <br />
+                <ul className={"ml-10 list-disc space-y-5"}>
                     <li>
                         <Link href={"https://www.facebook.com/terrastationvn"} className={"underline"}>
                             <b>Tram dừng chân chốn Terra / @terrastationvn</b>
                         </Link>
                         : Fanpage chính thức của nhóm, là một team chuyên dịch truyện tranh được phát hành bởi{" "}
                         Hypergryph (dưới tên Terra Historicus) hoặc fanart cộng đồng. Ngoài ra, page thỉnh thoảng cũng
-                        sẽ cập nhật & chia sẻ các nội dung, tin tức liên quan đến Arknights .
+                        sẽ cập nhật & chia sẻ các nội dung, tin tức liên quan đến Arknights.
                     </li>
                     <li>
                         <b>「 Arknights VNS 」</b>- Máy chủ Discord chính thức của nhóm (
@@ -67,12 +70,10 @@ export default function AboutDreamchasers() {
                     </li>
                 </ul>
             </div>
-            <br></br>
-            <br></br>
-            <div className={"text-center text-2xl"}>Đối tác phát triển</div>
-            <br></br>
+            <br />
+            <div className={"text-center text-2xl font-extrabold"}>Đối tác phát triển</div>
+            <br />
             <PartnerList />
-            <br></br>
         </div>
     );
 }
