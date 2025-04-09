@@ -46,7 +46,7 @@ export default function AboutDreamchasers() {
                 <br></br>
                 <ul className={"ml-10 w-200 list-disc space-y-5"}>
                     <li>
-                        <a href={"https://www.facebook.com/terrastationvn"} className = {"underline"}><b>Tram dừng chân chốn Terra / @terrastationvn </b></a>: Fanpage chính thức của nhóm, là một team chuyên dịch truyện tranh được phát hành bởi{" "}
+                        <a href={"https://www.facebook.com/terrastationvn"} className = {"underline"}><b>Tram dừng chân chốn Terra / @terrastationvn</b></a>: Fanpage chính thức của nhóm, là một team chuyên dịch truyện tranh được phát hành bởi{" "}
                         Hypergryph (dưới tên Terra Historicus) hoặc fanart cộng đồng. Ngoài ra, page thỉnh thoảng cũng
                         sẽ cập nhật & chia sẻ các nội dung, tin tức liên quan đến Arknights .
                     </li>
