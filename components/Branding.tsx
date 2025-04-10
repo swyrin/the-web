@@ -8,7 +8,9 @@ export default function Branding() {
             <Link href={"/"}>
                 <Image src={VNS_Logo} alt={"VNS-logo"} height={40} />
             </Link>
-            <div className={"block content-center text-sm font-bold lg:px-5 lg:text-xl"}>Dreamchasers</div>
+            <div className={"block content-center text-sm font-bold lg:px-5 lg:text-xl"}>
+                <Link href={"/"}>Dreamchasers</Link>
+            </div>
         </>
     );
 }
