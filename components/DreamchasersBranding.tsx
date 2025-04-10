@@ -8,8 +8,7 @@ export default function DreamchasersBranding() {
             <Link href={"/"}>
                 <Image src={VNS_Logo} alt={"VNS-logo"} height={60} />
             </Link>
-            <div className={"hidden content-center px-5 text-lg font-bold lg:block"}>Arknights VNS: Dreamchasers</div>
-            <div className={"block text-sm font-bold lg:hidden"}>Dreamchasers</div>
+            <div className={"block content-center text-sm font-bold lg:px-5 lg:text-xl"}>Dreamchasers</div>
         </>
     );
 }
