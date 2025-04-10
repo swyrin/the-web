@@ -1,5 +1,4 @@
 export type VNS_Member = {
-    image: string | null;
     name: string;
     quote: string;
 
