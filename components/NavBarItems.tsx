@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function NavbarItems() {
     return (
-        <>
+        <div className="flex items-center gap-20">
             <li>
                 <Link href={"/about/dreamchasers"}>Chúng tôi là ai?</Link>
             </li>
@@ -12,6 +12,6 @@ export default function NavbarItems() {
             <li>
                 <Link href={"/timeline"}>Kế hoạch</Link>
             </li>
-        </>
+        </div>
     );
 }
