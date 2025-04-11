@@ -28,13 +28,16 @@ body {
     border-radius: 1rem;
 }
 
+.Secretary, .Logistics {
+    color: var(--color-white);
+}
+
 .Head_Admin {
     background-color: aquamarine;
 }
 
 .Secretary {
     background-color: var(--color-red-600);
-    color: var(--color-white);
 }
 
 .Lead_Staff {
