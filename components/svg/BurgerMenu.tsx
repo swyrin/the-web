@@ -1,4 +1,4 @@
-export default function BurgerMenuButton() {
+export default function BurgerMenu() {
     return (
         <div tabIndex={0} role="button" className="lg:hidden">
             <svg
