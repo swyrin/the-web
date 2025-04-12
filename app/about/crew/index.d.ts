@@ -6,13 +6,16 @@ export type VNS_Member = {
     // the reason behind this bogus.
     role:
         | string
-        | "Head_Admin"
-        | "Lead_Staff"
+        | "Event_Director"
+        | "Secretary"
+        | "Co-Director"
         | "Mini_Tournament"
         | "Logistics"
         | "Wordle"
         | "Kahoot"
-        | "Media"
+        | "Multimedia"
         | "Donator"
-        | "Partner";
+        | "Artist"
+        | "Collaborator"
+        | "Sponsor";
 };
