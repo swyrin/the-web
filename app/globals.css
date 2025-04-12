@@ -28,19 +28,23 @@ body {
     border-radius: 1rem;
 }
 
-.Secretary, .Logistics {
+.Logistics, .Sponsor {
     color: var(--color-white);
 }
 
-.Head_Admin {
-    background-color: aquamarine;
+.Event_Director {
+    background-color: var(--color-emerald-300);
+}
+
+.Consultant\_\&\_MC {
+    background-color: var(--color-violet-400);
 }
 
 .Secretary {
-    background-color: var(--color-red-600);
+    background-color: var(--color-red-200);
 }
 
-.Lead_Staff {
+.Co-Director {
     background-color: var(--color-red-300);
 }
 
@@ -52,7 +56,7 @@ body {
     background-color: cornflowerblue;
 }
 
-.Media {
+.Multimedia {
     background-color: aqua;
 }
 
@@ -64,8 +68,20 @@ body {
     background-color: var(--color-amber-300);
 }
 
-.Partner, .Donator, .Collaborator {
+.Donator {
     background-color: var(--color-orange-300);
+}
+
+.Sponsor {
+    background-color: var(--color-rose-600);
+}
+
+.Artist {
+    background-color: var(--color-lime-300);
+}
+
+.Collaborator {
+    background-color: var(--color-sky-400);
 }
 
 @utility bg-vns-noise {

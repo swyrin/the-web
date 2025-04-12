@@ -2,28 +2,28 @@
   "members": [
     {
       "name": "shou.",
-      "role": "Head_Admin",
+      "role": "Event_Director",
       "quote": "tao đa thê kệ tao"
     },
     {
       "name": "greenyoshiyt",
-      "role": "Lead_Staff",
+      "role": "Co-Director",
       "quote": "How can I help ya?"
     },
     {
       "name": "Shihotori",
-      "role": "Lead_Staff",
+      "role": "Co-Director",
       "quote": "Been composing music since 2018"
     },
     {
-      "name": "Sukiri",
-      "role": "Lead_Staff",
-      "quote": "I brighten up your day not for you to cry"
+      "name": "Kamaeri",
+      "role": "Consultant_&_MC",
+      "quote": "I’m not a robot, I’m just… dumb"
     },
     {
-      "name": "Kamaeri",
-      "role": "Lead_Staff",
-      "quote": "I’m not a robot, I’m just… dumb"
+      "name": "Sukiri",
+      "role": "Secretary",
+      "quote": "I brighten up your day not for you to cry"
     },
     {
       "name": "AkaneOSK",
@@ -37,12 +37,12 @@
     },
     {
       "name": "WhaTa SixX",
-      "role": "Media",
+      "role": "Multimedia",
       "quote": "Book shoot đi, làm ơn, đói lắm rồi"
     },
     {
       "name": "Succhusa",
-      "role": "Media",
+      "role": "Multimedia",
       "quote": "Pay us Wiz"
     },
     {
@@ -82,17 +82,17 @@
     },
     {
       "name": "Rei",
-      "role": "Partner",
+      "role": "Artist",
       "quote": "Keep Moving Forward"
     },
     {
       "name": "bibom10",
-      "role": "Partner",
+      "role": "Artist",
       "quote": "For the Doctors, by the Doctors!"
     },
     {
       "name": "Phổ Lang",
-      "role": "Partner",
+      "role": "Sponsor",
       "quote": "New merch is coming!!\nSeize firmly your wallet"
     },
     {
