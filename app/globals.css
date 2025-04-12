@@ -22,9 +22,7 @@ body {
     color: var(--foreground);
 }
 
-
-.Head_Admin, .Secretary, .Lead_Staff, .Kahoot, .Logistics, .Media,
-.Wordle, .Mini_Tournament, .Partner, .Donator, .Collaborator {
+.Crew_Role {
     border-radius: 1rem;
 }
 
