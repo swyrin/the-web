@@ -11,22 +11,24 @@ const jbMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+    metadataBase: new URL("https://arknights-vietnam-station.github.io/"),
     title: "Dreamchasers @ 2025 🔥",
+    description: "From VNS Dev Squad with love ❤️️",
     authors: [
         {
             name: "Trạm dừng chân chốn Terra",
             url: "https://www.facebook.com/terrastationvn",
         },
     ],
-    description: "From VNS Dev Squad with love ❤️️",
     openGraph: {
         images: [
             {
-                url: "VNS_Banner.png",
-                secureUrl: "VNS_Banner.png",
+                url: "./VNS_Banner.png",
+                alt: "VNS banner",
             },
         ],
         locale: "vi_VN",
+        type: "website",
     },
 };
 
