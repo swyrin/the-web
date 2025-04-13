@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     openGraph: {
         images: [
             {
-                url: "./VNS_Banner.png",
+                url: "https://arknights-vietnam-station.github.io/VNS_Banner.png",
                 alt: "VNS banner",
             },
         ],
