@@ -36,7 +36,7 @@ function PartnerList() {
 export default function AboutDreamchasers() {
     return (
         <div className={"p-10 sm:w-150 md:w-200 lg:w-250"}>
-            <div className={"text-center text-3xl font-extrabold"}>About the Dreamchasers</div>
+            <div className={"text-center text-3xl font-extrabold"}>Về tụi mình</div>
             <br />
             <div className={"items-center font-normal"}>
                 <p>
