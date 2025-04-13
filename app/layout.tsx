@@ -11,8 +11,28 @@ const jbMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Dreamchasers 🔥🔥🔥🔥",
-    description: "From VNS dev squad with love.",
+    title: "Dreamchasers @ 2025 🔥",
+    authors: [
+        {
+            name: "Trạm dừng chân chốn Terra",
+            url: "https://www.facebook.com/terrastationvn",
+        },
+    ],
+    description: "From VNS Dev Squad with love ❤️️",
+    openGraph: {
+        images: [
+            {
+                url: "VNS_Banner.png",
+                secureUrl: "VNS_Banner.png",
+            },
+        ],
+        locale: "vi_VN",
+    },
+};
+
+export const viewport: Viewport = {
+    colorScheme: "only light",
+    initialScale: 1.0,
 };
 
 export default function RootLayout({
