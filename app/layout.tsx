@@ -1,14 +1,9 @@
 import NavBar from "@/components/NavBar";
-import type { Metadata } from "next";
-import { Geist, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { JetBrains_Mono } from "next/font/google";
 import { ReactNode } from "react";
 
 import "./globals.css";
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
 
 const jbMono = JetBrains_Mono({
     variable: "--font-jb-mono",
@@ -27,7 +22,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${jbMono.variable} antialiased`}>
+            <body className={`${jbMono.variable} antialiased`}>
                 <NavBar />
                 <div
                     className={
