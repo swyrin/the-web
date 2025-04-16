@@ -1,9 +1,8 @@
-import NavBar from "@/components/NavBar";
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { ReactNode } from "react";
 
-import "./globals.css";
+import "../globals.css";
 
 const jbMono = JetBrains_Mono({
     variable: "--font-jb-mono",
@@ -44,16 +43,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${jbMono.variable} antialiased`}>
-                <NavBar />
-                <div
-                    className={
-                        "flex min-h-screen max-w-screen items-center justify-center font-[family-name:var(--font-jb-mono)]"
-                    }
-                >
-                    {children}
-                </div>
-            </body>
+            <body className={`${jbMono.variable} antialiased`}>{children}</body>
         </html>
     );
 }

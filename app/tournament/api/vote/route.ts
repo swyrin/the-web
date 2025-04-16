@@ -1,5 +1,5 @@
-import { MemberOperatorChoice } from "@/app/tournament/api/dto/choice";
-import { OperatorSelectionCounter } from "@/app/tournament/api/dto/selection";
+import { MemberOperatorChoice } from "@/app/tournament/api/vote/dto/choice";
+import { OperatorSelectionCounter } from "@/app/tournament/api/vote/dto/selection";
 import { prismaClient } from "@/lib/prisma_client";
 import { type NextRequest } from "next/server";
 
