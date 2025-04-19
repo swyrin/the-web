@@ -12,7 +12,7 @@ export async function GET() {
 
     let voteCount = 0;
 
-    entries.forEach((x) => {
+    entries.forEach((x: { count: number }) => {
         voteCount += x.count;
     });
 
