@@ -41,12 +41,3 @@ export async function POST(req: NextRequest) {
 
     return new Response("", { status: 200 });
 }
-
-/**
- * WIPE ALL RECORDED operator choices.
- * Use this to clear the count when 1-minute timer runs out.
- */
-export async function DELETE() {
-    await prismaClient.memberVote.deleteMany({});
-    return new Response("", { status: 200 });
-}

@@ -12,3 +12,8 @@ model MemberVote {
     id    String @id @default(auto()) @map("_id") @db.ObjectId
     count Int    @default(0)
 }
+
+model BannedOperators {
+    id    String @id @default(auto()) @map("_id") @db.ObjectId
+    count Int    @default(0)
+}
