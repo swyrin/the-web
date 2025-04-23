@@ -29,10 +29,10 @@ export default function PurchaseTicketButton() {
                 <span>Mua vé</span>
             </button>
 
-            <dialog id="ticket_modal" className="modal">
-                <div className="modal-box bg-white">
-                    <h3 className="text-lg font-bold">Hiện tại vé chưa mở bán.</h3>
-                    <p className="py-4">
+            <dialog id={"ticket_modal"} className={"modal"}>
+                <div className={"modal-box bg-white"}>
+                    <h3 className={"text-lg font-bold"}>Hiện tại vé chưa mở bán.</h3>
+                    <p className={"py-4"}>
                         Bạn hãy theo dõi fanpage{" "}
                         <Link className={"font-bold underline"} href={"https://www.facebook.com/terrastationvn"}>
                             Trạm dừng chân chốn Terra
@@ -43,7 +43,7 @@ export default function PurchaseTicketButton() {
                         <span className={"text-sm italic"}>(Bấm ra bên ngoài để đóng)</span>
                     </p>
                 </div>
-                <form method="dialog" className="modal-backdrop">
+                <form method={"dialog"} className={"modal-backdrop"}>
                     <button />
                 </form>
             </dialog>

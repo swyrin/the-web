@@ -18,6 +18,14 @@ const eslintConfig = [
     },
     {
         rules: {
+            "react/jsx-curly-brace-presence": [
+                "error",
+                {
+                    props: "always",
+                    children: "never",
+                    propElementValues: "always",
+                },
+            ],
             "prettier/prettier": [
                 "error",
                 {

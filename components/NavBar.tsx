@@ -12,7 +12,7 @@ export default function NavBar() {
                     <BurgerMenu />
                     <ul
                         tabIndex={0}
-                        className="menu dropdown-content menu-sm rounded-box z-1 mt-8 w-52 bg-white p-2 shadow-lg"
+                        className={"menu dropdown-content menu-sm rounded-box z-1 mt-8 w-52 bg-white p-2 shadow-lg"}
                     >
                         <NavbarItems />
                     </ul>
@@ -20,7 +20,7 @@ export default function NavBar() {
                 <Branding />
             </div>
             <div className={"navbar-center hidden lg:flex"}>
-                <ul className="menu menu-horizontal">
+                <ul className={"menu menu-horizontal"}>
                     <NavbarItems />
                 </ul>
             </div>

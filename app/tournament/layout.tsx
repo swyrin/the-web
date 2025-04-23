@@ -43,7 +43,7 @@ export default function RootLayout({
     children: ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang={"en"}>
             <body className={`${jbMono.variable} antialiased`}>
                 <NavBar />
                 <div
