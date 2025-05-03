@@ -41,6 +41,11 @@
       "quote": "Book shoot đi, làm ơn, đói lắm rồi"
     },
     {
+      "name": "Succhusa",
+      "role": "Multimedia",
+      "quote": "Pay us Wiz"
+    },
+    {
       "name": "Red",
       "role": "Kahoot",
       "quote": "Yeah, Science! - Jesse Pinkman"
@@ -72,11 +77,6 @@
     }
   ],
   "partners": [
-    {
-      "name": "Succhusa",
-      "role": "Concept_Artist",
-      "quote": "Pay us Wiz"
-    },
     {
       "name": "Tkieen",
       "role": "Graphic_Designer",
@@ -145,7 +145,7 @@
     {
       "name": "Moorce",
       "role": "Videographer",
-      "quote": "I don't even play Arknights"
+      "quote": ""
     }
   ]
 }
