@@ -7,7 +7,7 @@ export default function NavBar() {
     return (
         // https://github.com/saadeghi/daisyui/discussions/2277#discussioncomment-7400878
         <div className={"navbar sticky top-0 bg-white font-[family-name:var(--font-jb-mono)] shadow-lg"}>
-            <div className={"navbar-start"}>
+            <div className={"navbar-start space-x-2"}>
                 <div className={"dropdown"}>
                     <BurgerMenu />
                     <ul
