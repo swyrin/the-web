@@ -36,7 +36,13 @@ function OperatorIcon({ operator }: { operator: Operator }) {
                     borderBottom: `4px solid ${rarityColor}`,
                 }}
             >
-                <Image src={`/operators/char_${operator.id}.png`} alt={operator.name} className={"object-contain"} />
+                <Image
+                    src={`/operators/char_${operator.id}.png`}
+                    width={48}
+                    height={48}
+                    alt={operator.name}
+                    className={"object-contain"}
+                />
             </div>
             <div className={"h-full w-full text-center text-xs break-words"}>{operator.name}</div>
         </div>
