@@ -20,7 +20,7 @@ body {
 @utility layout-height {
     /* Credit: Cerberose @ PR#5 */
     /* 65px is the height of NavBar */
-    @apply min-h-[calc(100vh_-_65px)];
+    @apply min-h-[calc(100svh_-_65px)];
 }
 
 @utility bg-vns-noise {
