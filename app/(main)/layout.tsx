@@ -48,7 +48,7 @@ export default function RootLayout({
                 <NavBar />
                 <div
                     className={
-                        "flex min-h-screen max-w-screen items-center justify-center font-[family-name:var(--font-jb-mono)]"
+                        "layout-height flex max-w-screen items-center justify-center font-[family-name:var(--font-jb-mono)]"
                     }
                 >
                     {children}
