@@ -14,7 +14,7 @@ export default function NavbarItems() {
                     <summary>Nhân sự</summary>
                     <ul>
                         <li>
-                            <Link href={"/about/crew"}>&#34;Dreamchasers&#34;</Link>
+                            <Link href={"/about/crew"}>&quot;Dreamchasers&quot;</Link>
                         </li>
                         <li>
                             <Link href={"/about/partners"}>Đối tác</Link>
@@ -24,6 +24,18 @@ export default function NavbarItems() {
             </li>
             <li>
                 <Link href={"/timeline"}>Kế hoạch</Link>
+            </li>
+            <li className={"w-40"}>
+                <details open={false}>
+                    <summary>Retro</summary>
+                    <ul>
+                        <li>
+                            <Link href={"/about/events/the-show-must-go-on"}>
+                                2024 - &quot;The show must go on!&quot;
+                            </Link>
+                        </li>
+                    </ul>
+                </details>
             </li>
         </>
     );

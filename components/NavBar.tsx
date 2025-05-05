@@ -20,7 +20,7 @@ export default function NavBar() {
                 <Branding />
             </div>
             <div className={"navbar-center hidden lg:flex"}>
-                <ul className={"menu menu-horizontal px-1 lg:grid lg:grid-cols-5"}>
+                <ul className={"menu menu-horizontal px-1 lg:grid lg:grid-cols-4"}>
                     <NavbarItems />
                 </ul>
             </div>
