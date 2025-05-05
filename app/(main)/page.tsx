@@ -25,7 +25,7 @@ export default function Home() {
                     <div className={"px-2"}>
                         <Calendar size={30} />
                     </div>
-                    <span className={"text-center"}>Ngày nào đó trong năm 2025.</span>
+                    <span className={"text-center"}>2025-08-??</span>
                 </div>
             </div>
         </div>
