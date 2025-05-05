@@ -23,9 +23,6 @@ export default function NavbarItems() {
                 </details>
             </li>
             <li>
-                <Link href={"/tournament"}>???</Link>
-            </li>
-            <li>
                 <Link href={"/timeline"}>Kế hoạch</Link>
             </li>
         </>
