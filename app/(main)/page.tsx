@@ -11,8 +11,8 @@ export default function Home() {
                 alt={"VNS-banner"}
                 loading={"eager"}
                 priority
-                width={900}
-                height={400}
+                width={700}
+                height={500}
             />
             <div className={"flex flex-col space-y-5 text-sm font-extrabold lg:text-xl"}>
                 <div className={"flex items-center"}>
