@@ -23,9 +23,9 @@ export default function NavbarItems() {
                 </details>
             </li>
             <li>
-                <Link href={"/timeline"}>Kế hoạch</Link>
+                <Link href={"/timeline"}>Kế hoạch sự kiện</Link>
             </li>
-            <li className={"w-40"}>
+            <li>
                 <details open={false}>
                     <summary>Retro</summary>
                     <ul>
