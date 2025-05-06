@@ -63,7 +63,6 @@ body {
 /* Partner roles */
 .\[VCL\] {
     background-color: var(--color-rose-500);
-    color: var(--color-white);
 }
 
 .Illustration_Artist {
@@ -71,11 +70,12 @@ body {
 }
 
 .Sponsor {
-    background-color: var(--color-blue-200);
+    background-color: var(--color-emerald-800);
+    color: var(--color-white);
 }
 
 .Donator {
-    background-color: var(--color-emerald-400);
+    background-color: var(--color-emerald-200);
 }
 
 .Concept_Artist {
@@ -84,8 +84,7 @@ body {
 }
 
 .Graphic_Designer {
-    background-color: var(--color-emerald-800);
-    color: var(--color-white);
+    background-color: var(--color-blue-200);
 }
 
 .Photographer {
@@ -93,6 +92,5 @@ body {
 }
 
 .Videographer {
-    background-color: var(--color-red-400);
-    color: var(--color-white);
+    background-color: var(--color-red-300);
 }
