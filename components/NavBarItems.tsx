@@ -7,11 +7,13 @@ export default function NavbarItems() {
     return (
         <>
             <li>
-                <Link href={"/about/dreamchasers"}>Chúng tôi là ai?</Link>
+                <Link className={"lg:justify-center"} href={"/about/dreamchasers"}>
+                    Chúng tôi là ai?
+                </Link>
             </li>
             <li>
                 <details open={false}>
-                    <summary>Nhân sự</summary>
+                    <summary className={"lg:justify-center"}>Nhân sự</summary>
                     <ul>
                         <li>
                             <Link href={"/about/crew"}>&quot;Dreamchasers&quot;</Link>
@@ -23,11 +25,13 @@ export default function NavbarItems() {
                 </details>
             </li>
             <li>
-                <Link href={"/timeline"}>Kế hoạch sự kiện</Link>
+                <Link className={"lg:justify-center"} href={"/timeline"}>
+                    Timeline
+                </Link>
             </li>
             <li>
                 <details open={false}>
-                    <summary>Retro</summary>
+                    <summary className={"lg:justify-center"}>Kỉ niệm</summary>
                     <ul>
                         <li>
                             <Link href={"/about/events/the-show-must-go-on"}>
