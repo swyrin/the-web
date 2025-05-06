@@ -1,80 +1,97 @@
-import TimelinePoint from "@/components/svg/TimelinePoint";
+import TimelineItem from "@/components/TimelineItem";
+import Link from "next/link";
 
 export default function EventTimeLine() {
     return (
-        <div className={"layout-height flex flex-col"}>
-            <ul className={"timeline timeline-vertical lg:timeline-horizontal flex-1"}>
-                <li className={"flex flex-1 flex-col justify-between lg:flex-row"}>
-                    <div className={"timeline-start text-sm"}>2024-01-14</div>
-                    <div className={"timeline-middle"}>
-                        <TimelinePoint />
-                    </div>
-                    <div className={"timeline-end timeline-box"}>Offline #1: The show must go on!</div>
-                    <hr className={"bg-black"} />
-                </li>
+        <div className={"p-10 sm:w-150 md:w-200 lg:w-300"}>
+            <div className={"text-center text-3xl font-extrabold"}>Timeline</div>
+            <br />
 
-                <li className={"flex flex-1 flex-col justify-between lg:flex-row"}>
-                    <hr className={"bg-black"} />
-                    <div className={"timeline-start text-sm"}>2024-12-31</div>
-                    <div className={"timeline-middle"}>
-                        <TimelinePoint />
-                    </div>
-                    <div className={"timeline-end timeline-box"}>Thông báo ra mắt Offline #2: Dreamchasers</div>
-                    <hr className={"bg-black"} />
-                </li>
+            <div className={"items-center text-center font-normal"}>
+                Để tiện lợi trong quá trình cập nhật thông tin offline, các bạn vui lòng chú ý timeline bên dưới.
+                <br />
+                Và đừng quên theo dõi fanpage{" "}
+                <Link className={"font-bold underline"} href={"https://www.facebook.com/terrastationvn"}>
+                    Trạm dừng chân chốn Terra
+                </Link>{" "}
+                nhé!
+                <br />
+                Hẹn gặp các bạn tại Offline #2: Dreamchasers.
+            </div>
 
-                <li className={"flex flex-1 flex-col justify-between lg:flex-row"}>
-                    <hr className={"bg-black"} />
-                    <div className={"timeline-start text-sm"}>2025-01-12</div>
-                    <div className={"timeline-middle"}>
-                        <TimelinePoint />
-                    </div>
-                    <div className={"timeline-end timeline-box"}>Khảo sát &quot;Dreamchasers&quot; lần 1</div>
-                    <hr className={"bg-black"} />
-                </li>
+            <div className={"py-10"}>
+                <ul className={"timeline timeline-vertical lg:timeline-horizontal flex-1"}>
+                    <TimelineItem
+                        date={"2024-01-14"}
+                        data={"Offline #1: The show must go on!"}
+                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2035816776811242/"}
+                        finished={true}
+                        middle={false}
+                        head={true}
+                        tail={false}
+                    />
 
-                <li className={"flex flex-1 flex-col justify-between lg:flex-row"}>
-                    <hr className={"bg-black"} />
-                    <div className={"timeline-start text-sm"}>2025-04-01</div>
-                    <div className={"timeline-middle"}>
-                        <TimelinePoint />
-                    </div>
-                    <div className={"timeline-end timeline-box"}>
-                        VCL x Dreamchas- WAIT TUS, ĐỪNG LÔI TÔI VÀO HẦM NỮA MÀ.
-                    </div>
-                    <hr className={"bg-black"} />
-                </li>
+                    <TimelineItem
+                        date={"2024-12-31"}
+                        data={"Thông báo ra mắt Offline #2: Dreamchasers."}
+                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2299747417084842/"}
+                        finished={true}
+                        middle={true}
+                        head={false}
+                        tail={false}
+                    />
 
-                <li className={"flex flex-1 flex-col justify-between lg:flex-row"}>
-                    <hr className={"bg-black"} />
-                    <div className={"timeline-start text-sm"}>2025-05-04</div>
-                    <div className={"timeline-middle"}>
-                        <TimelinePoint />
-                    </div>
-                    <div className={"timeline-end timeline-box"}>Khảo sát &quot;Dreamchasers&quot; lần 2</div>
-                    <hr />
-                    <hr className={"bg-black"} />
-                </li>
+                    <TimelineItem
+                        date={"2025-01-12"}
+                        data={"Khảo sát 'Dreamchasers' lần 1."}
+                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2308946422831608/"}
+                        finished={true}
+                        middle={true}
+                        head={false}
+                        tail={false}
+                    />
 
-                <li className={"flex flex-1 flex-col justify-between lg:flex-row"}>
-                    <hr />
-                    <div className={"timeline-start text-sm"}>2025-??-??</div>
-                    <div className={"timeline-middle"}>
-                        <TimelinePoint />
-                    </div>
-                    <div className={"timeline-end timeline-box"}>???</div>
-                    <hr />
-                </li>
+                    <TimelineItem
+                        date={"2025-04-01"}
+                        data={"VCL x Dreamchas- WAIT TUS, ĐỪNG LÔI TÔI VÀO HẦM NỮA MÀ."}
+                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2377421212650795/"}
+                        finished={true}
+                        middle={true}
+                        head={false}
+                        tail={false}
+                    />
 
-                <li className={"flex flex-1 flex-col justify-between lg:flex-row"}>
-                    <hr />
-                    <div className={"timeline-start text-sm"}>2025-08-??</div>
-                    <div className={"timeline-middle"}>
-                        <TimelinePoint />
-                    </div>
-                    <div className={"timeline-end timeline-box"}>Offline #2: Dreamchasers</div>
-                </li>
-            </ul>
+                    <TimelineItem
+                        date={"2025-05-04"}
+                        data={"Khảo sát 'Dreamchasers' lần 2."}
+                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2409448572781392/"}
+                        finished={true}
+                        middle={true}
+                        head={false}
+                        tail={false}
+                    />
+
+                    <TimelineItem
+                        date={"2025-??-??"}
+                        data={"??????"}
+                        href={""}
+                        finished={false}
+                        middle={false}
+                        head={false}
+                        tail={false}
+                    />
+
+                    <TimelineItem
+                        date={"2025-08-??"}
+                        data={"Offline #2: Dreamchasers"}
+                        href={""}
+                        finished={false}
+                        middle={false}
+                        tail={true}
+                        head={false}
+                    />
+                </ul>
+            </div>
         </div>
     );
 }
