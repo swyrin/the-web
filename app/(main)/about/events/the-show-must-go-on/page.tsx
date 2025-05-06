@@ -1,6 +1,5 @@
-import ImageCarousel from "@/components/ImageCarousel";
+import InProgress from "@/components/InProgress";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function TheShowMustGoOn() {
     return (
@@ -44,27 +43,9 @@ export default function TheShowMustGoOn() {
             </div>
             <br />
             <div className={"text-center text-3xl font-extrabold"}>Gallery</div>
-            <div className={"items-center text-center italic"}>
-                (Nếu ảnh nhìn nó vỡ af, thì 100% do Đụt quên nhìn cái resolution - Source: Đụt viết cái này)
-                <br />
-                (Ye nó là cái carousel)
-            </div>
-            <ImageCarousel
-                images={[
-                    "/retro/2024/gallery/test1.jpg",
-                    "/retro/2024/gallery/test2.jpg",
-                    // "/retro/2024/gallery/test3.jpg",
-                ]}
-            />
-            <div className={"items-center text-center italic"}>
-                (Toàn bộ gallery của offline nằm ở trong{" "}
-                <Link
-                    className={"font-bold underline"}
-                    href={"https://www.facebook.com/media/set/?set=a.524212957032919&type=3"}
-                >
-                    Album này
-                </Link>
-                )
+            <div className={"text-center"}>
+                {/* TODO: Rework image viewer. */}
+                <InProgress />
             </div>
         </div>
     );
