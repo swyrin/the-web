@@ -62,11 +62,12 @@ body {
 
 /* Partner roles */
 .\[VCL\] {
-    background-color: var(--color-rose-500);
+    background-color: var(--color-rose-400);
 }
 
 .Illustration_Artist {
-    background-color: var(--color-purple-400);
+    background-color: var(--color-purple-700);
+    color: var(--color-white);
 }
 
 .Sponsor {
