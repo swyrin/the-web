@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function MemberBox(props: VNS_Member) {
     return (
-        <div className={"my-auto h-75 w-60 p-8 text-center"}>
+        <div className={"my-auto h-75 w-70 p-8 text-center"}>
             <Image
                 className={"mx-auto rounded-full border-2 border-gray-400 shadow-md"}
                 src={`/crew/${props.name}.png`}
