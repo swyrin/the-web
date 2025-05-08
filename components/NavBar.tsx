@@ -12,7 +12,9 @@ export default function NavBar() {
                     <BurgerMenu />
                     <ul
                         tabIndex={0}
-                        className={"menu dropdown-content menu-sm rounded-box z-1 mt-8 w-52 bg-white p-2 shadow-lg"}
+                        className={
+                            "menu dropdown-content sm:menu-sm md:menu-md lg:menu-lg rounded-box z-1 mt-8 w-52 bg-white p-2 shadow-lg"
+                        }
                     >
                         <NavbarItems />
                     </ul>

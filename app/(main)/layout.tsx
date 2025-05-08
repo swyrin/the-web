@@ -1,17 +1,17 @@
 import NavBar from "@/components/NavBar";
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { ReactNode } from "react";
 
 import "../globals.css";
 
-const jbMono = JetBrains_Mono({
-    variable: "--font-jb-mono",
-    subsets: ["latin"],
+const roboto = Roboto({
+    variable: "--font-roboto",
+    subsets: ["latin", "vietnamese"],
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://vns.giabao06.xyz/VNS_Banner.png"),
+    metadataBase: new URL("https://a9vns.giabao06.xyz/VNS_Banner.png"),
     title: "Dreamchasers @ 2025 🔥",
     description: "From VNS Dev Squad with love ❤️️",
     authors: [
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     openGraph: {
         images: [
             {
-                url: "https://vns.giabao06.xyz/VNS_Banner.png",
+                url: "https://a9vns.giabao06.xyz/VNS_Banner.png",
                 alt: "VNS banner",
             },
         ],
@@ -44,7 +44,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang={"en"} data-theme={"light"}>
-            <body className={`${jbMono.variable} antialiased`}>
+            <body className={`${roboto.variable} antialiased`}>
                 <NavBar />
                 <div
                     className={
