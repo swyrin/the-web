@@ -1,6 +1,6 @@
 import MemberBox from "@/components/MemberBox";
-import crewList from "@/data/crew.json";
 import { VNS_Member } from "@/lib/vns_types";
+import crewList from "@/public/crew.json";
 
 export default function PartnerPage() {
     const members: VNS_Member[] = crewList.partners;

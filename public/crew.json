@@ -83,6 +83,11 @@
       "quote": "Cợt nhả có lông"
     },
     {
+      "name": "Zopu",
+      "role": "Graphic_Designer",
+      "quote": ""
+    },
+    {
       "name": "Monoka",
       "role": "Illustration_Artist",
       "quote": ""
@@ -108,8 +113,18 @@
       "quote": "NOT EXIST"
     },
     {
-      "name": "Zopu",
-      "role": "Graphic_Designer",
+      "name": "Cerberose",
+      "role": "IT",
+      "quote": "I don't even play Arknights"
+    },
+    {
+      "name": "Ｈｙｐｅｒ－Ｖ△",
+      "role": "Photographer",
+      "quote": "Làm tí 1 shoot nhom nhom bạn eyyyy"
+    },
+    {
+      "name": "Moorce",
+      "role": "Videographer",
       "quote": ""
     },
     {
@@ -130,21 +145,6 @@
     {
       "name": "Phoeni",
       "role": "[VCL]",
-      "quote": ""
-    },
-    {
-      "name": "Cerberose",
-      "role": "IT",
-      "quote": "I don't even play Arknights"
-    },
-    {
-      "name": "Ｈｙｐｅｒ－Ｖ△",
-      "role": "Photographer",
-      "quote": "Làm tí 1 shoot nhom nhom bạn eyyyy"
-    },
-    {
-      "name": "Moorce",
-      "role": "Videographer",
       "quote": ""
     }
   ]
