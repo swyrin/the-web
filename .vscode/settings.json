@@ -11,6 +11,9 @@
     "[typescriptreact]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
     "files.exclude": {
         ".idea": true,
         ".next": true,
