@@ -1,12 +1,12 @@
 import NavBar from "@/components/NavBar";
 import type { Metadata, Viewport } from "next";
-import { Roboto } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import { ReactNode } from "react";
 
 import "../globals.css";
 
-const roboto = Roboto({
-    variable: "--font-roboto",
+const mainFont = JetBrains_Mono({
+    variable: "--font-vns",
     subsets: ["latin", "vietnamese"],
 });
 
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
         ],
         locale: "vi_VN",
         type: "website",
+        url: "https://a9vns.giabao06.xyz",
     },
 };
 
@@ -44,15 +45,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang={"en"} data-theme={"light"}>
-            <body className={`${roboto.variable} antialiased`}>
+            <body className={`${mainFont.variable} font-[family-name:var(--font-vns)] antialiased`}>
                 <NavBar />
-                <div
-                    className={
-                        "layout-height flex max-w-screen items-center justify-center font-[family-name:var(--font-jb-mono)]"
-                    }
-                >
-                    {children}
-                </div>
+                <div className={"layout-height max-w-screen font-[family-name:var(--font-jb-mono)]"}>{children}</div>
             </body>
         </html>
     );

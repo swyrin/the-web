@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function NavbarItems() {
@@ -7,31 +9,23 @@ export default function NavbarItems() {
     return (
         <>
             <li>
-                <Link className={"lg:justify-center"} href={"/about/dreamchasers"}>
+                <Link className={"lg:w-40 lg:justify-center"} href={"/about/dreamchasers"}>
                     Chúng tôi là ai?
                 </Link>
             </li>
             <li>
-                <details open={false}>
-                    <summary className={"lg:justify-center"}>Nhân sự</summary>
-                    <ul>
-                        <li>
-                            <Link href={"/about/crew"}>&quot;Dreamchasers&quot;</Link>
-                        </li>
-                        <li>
-                            <Link href={"/about/partners"}>Đối tác</Link>
-                        </li>
-                    </ul>
-                </details>
+                <Link className={"lg:w-25 lg:justify-center"} href={"/about/crew"}>
+                    Staff
+                </Link>
             </li>
             <li>
-                <Link className={"lg:justify-center"} href={"/timeline"}>
+                <Link className={"lg:w-30 lg:justify-center"} href={"/timeline"}>
                     Timeline
                 </Link>
             </li>
             <li>
-                <details open={false}>
-                    <summary className={"lg:justify-center"}>Kỉ niệm</summary>
+                <details>
+                    <summary className={"lg:w-30 lg:justify-center"}>Kỉ niệm</summary>
                     <ul>
                         <li>
                             <Link href={"/about/events/the-show-must-go-on"}>

@@ -3,22 +3,26 @@ import Link from "next/link";
 
 export default function EventTimeLine() {
     return (
-        <div className={"p-10 sm:w-150 md:w-200 lg:w-300"}>
-            <div className={"text-center text-3xl font-extrabold"}>Timeline</div>
-            <br />
-
-            <div className={"items-center text-center font-normal"}>
-                Để tiện lợi trong quá trình cập nhật thông tin offline, các bạn vui lòng chú ý timeline bên dưới.
-                <br />
-                Và đừng quên theo dõi fanpage{" "}
-                <Link className={"font-bold underline"} href={"https://www.facebook.com/terrastationvn"}>
-                    Trạm dừng chân chốn Terra
-                </Link>{" "}
-                nhé!
-                <br />
-                Hẹn gặp các bạn tại Offline #2: Dreamchasers.
+        <>
+            <div className={"hero w-full"}>
+                <div className={"hero-content text-center"}>
+                    <div>
+                        <h1 className={"mt-5 text-5xl font-bold underline underline-offset-8"}>Timeline</h1>
+                        <p className={"mt-5"}>
+                            Để tiện lợi trong quá trình cập nhật thông tin offline, các bạn vui lòng chú ý timeline bên
+                            dưới.
+                            <br />
+                            Và đừng quên theo dõi fanpage{" "}
+                            <Link className={"font-bold underline"} href={"https://www.facebook.com/terrastationvn"}>
+                                Trạm dừng chân chốn Terra
+                            </Link>{" "}
+                            nhé!
+                            <br />
+                            Hẹn gặp các bạn tại Offline #2: Dreamchasers.
+                        </p>
+                    </div>
+                </div>
             </div>
-
             <div className={"py-10"}>
                 <ul className={"timeline timeline-vertical lg:timeline-horizontal flex-1"}>
                     <TimelineItem
@@ -45,16 +49,6 @@ export default function EventTimeLine() {
                         date={"2025-01-12"}
                         data={"Khảo sát 'Dreamchasers' lần 1."}
                         href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2308946422831608/"}
-                        finished={true}
-                        middle={true}
-                        head={false}
-                        tail={false}
-                    />
-
-                    <TimelineItem
-                        date={"2025-04-01"}
-                        data={"VCL x Dreamchas- WAIT TUS, ĐỪNG LÔI TÔI VÀO HẦM NỮA MÀ."}
-                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2377421212650795/"}
                         finished={true}
                         middle={true}
                         head={false}
@@ -92,6 +86,6 @@ export default function EventTimeLine() {
                     />
                 </ul>
             </div>
-        </div>
+        </>
     );
 }
