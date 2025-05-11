@@ -22,11 +22,15 @@ function HumanResourceList(props: HRListProps) {
 }
 
 export default function CrewPage() {
-    const [crewTab, setCrewTab] = useState<string>("dreamchasers");
+    const [crewTab, setCrewTab] = useState<string>(() => {
+        // https://stackoverflow.com/a/76071002
+        if (typeof window === "undefined") {
+            return "dreamchasers";
+        }
 
-    useEffect(() => {
-        setCrewTab(localStorage.getItem("crew-tab") ?? "dreamchasers");
-    }, []);
+        const stored = window.localStorage.getItem("crew-tab");
+        return stored && stored !== "" ? stored : "dreamchasers";
+    });
 
     useEffect(() => {
         localStorage.setItem("crew-tab", crewTab);
