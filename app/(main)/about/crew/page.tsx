@@ -68,7 +68,7 @@ export default function CrewPage() {
                     type={"radio"}
                     name={"my_tabs_6"}
                     className={"tab text-md w-1/2"}
-                    aria-label={"Đối tác"}
+                    aria-label={"Hợp tác phát triển"}
                     checked={crewTab === "partners"}
                     onChange={() => setCrewTab("partners")}
                 />
