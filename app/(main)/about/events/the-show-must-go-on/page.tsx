@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function TheShowMustGoOn() {
     return (
-        <div className={"p-10 sm:w-150 md:w-200 lg:w-250"}>
+        <div className={"mx-auto p-10 sm:w-150 md:w-200 lg:w-250"}>
             <div className={"text-center text-3xl font-extrabold"}>The show must go on!</div>
             <br />
             <div className={"items-center font-normal"}>
