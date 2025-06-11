@@ -67,6 +67,36 @@ export default function EventTimeLine() {
 
                     <TimelineItem
                         date={"2025-??-??"}
+                        data={"Re:Memories of the Show - ep. 01"}
+                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2439802763079306"}
+                        finished={false}
+                        middle={false}
+                        head={false}
+                        tail={false}
+                    />
+
+                    <TimelineItem
+                        date={"2025-??-??"}
+                        data={"Re:Memories of the Show - ep. 02"}
+                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2439802763079306"}
+                        finished={false}
+                        middle={false}
+                        head={false}
+                        tail={false}
+                    />
+
+                    <TimelineItem
+                        date={"2025-??-??"}
+                        data={"Re:Memories of the Show - ep. 03"}
+                        href={"https://www.facebook.com/groups/arknights.vietnam.station/posts/2439802763079306"}
+                        finished={false}
+                        middle={false}
+                        head={false}
+                        tail={false}
+                    />
+
+                    <TimelineItem
+                        date={"2025-??-??"}
                         data={"??????"}
                         href={""}
                         finished={false}
