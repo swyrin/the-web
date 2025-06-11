@@ -10,7 +10,7 @@ export default function NavbarItems() {
         <>
             <li>
                 <Link className={"lg:w-40 lg:justify-center"} href={"/about/dreamchasers"}>
-                    Chúng tôi là ai?
+                    Tụi mình là ai?
                 </Link>
             </li>
             <li>

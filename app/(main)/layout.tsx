@@ -1,11 +1,11 @@
 import NavBar from "@/components/NavBar";
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Inter as VNS_Font } from "next/font/google";
 import { ReactNode } from "react";
 
 import "../globals.css";
 
-const mainFont = JetBrains_Mono({
+const mainFont = VNS_Font({
     variable: "--font-vns",
     subsets: ["latin", "vietnamese"],
 });
@@ -47,7 +47,7 @@ export default function RootLayout({
         <html lang={"en"} data-theme={"light"}>
             <body className={`${mainFont.variable} font-[family-name:var(--font-vns)] antialiased`}>
                 <NavBar />
-                <div className={"layout-height max-w-screen font-[family-name:var(--font-jb-mono)]"}>{children}</div>
+                <div className={"layout-height max-w-screen"}>{children}</div>
             </body>
         </html>
     );

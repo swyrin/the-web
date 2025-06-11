@@ -21,7 +21,7 @@ export default function NavBar() {
                 <Branding />
             </div>
             <div className={"navbar-end hidden lg:flex"}>
-                <ul className={"menu menu-horizontal px-1"}>
+                <ul className={"menu menu-horizontal px-1 text-lg"}>
                     <NavbarItems />
                 </ul>
             </div>

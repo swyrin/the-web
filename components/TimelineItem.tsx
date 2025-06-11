@@ -5,9 +5,21 @@ type TimelineItemProps = {
     date: string;
     data: string;
     href: string;
+    /*
+        This item is the start of timeline.
+     */
     head: boolean;
+    /*
+        This item is the end of timeline.
+     */
     tail: boolean;
+    /*
+        This item is finished - will be checked.
+     */
     finished: boolean;
+    /*
+        This PREVIOUS item is finished.
+     */
     middle: boolean;
 };
 

@@ -55,7 +55,7 @@ export default function CrewPage() {
                 <input
                     type={"radio"}
                     name={"my_tabs_6"}
-                    className={"tab text-md w-1/2"}
+                    className={"tab w-1/2 sm:text-sm lg:text-lg"}
                     aria-label={"Dreamchasers"}
                     checked={crewTab === "dreamchasers"}
                     onChange={() => setCrewTab("dreamchasers")}
@@ -67,7 +67,7 @@ export default function CrewPage() {
                 <input
                     type={"radio"}
                     name={"my_tabs_6"}
-                    className={"tab text-md w-1/2"}
+                    className={"tab w-1/2 sm:text-sm lg:text-lg"}
                     aria-label={"Hợp tác phát triển"}
                     checked={crewTab === "partners"}
                     onChange={() => setCrewTab("partners")}
