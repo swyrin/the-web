@@ -106,7 +106,7 @@ export default function EventTimeLine() {
                     />
 
                     <TimelineItem
-                        date={"2025-08-??"}
+                        date={"2025-08-10"}
                         data={"Offline #2: Dreamchasers"}
                         href={""}
                         finished={false}
