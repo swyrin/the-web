@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 
 export default function NavbarItems() {
@@ -24,16 +22,9 @@ export default function NavbarItems() {
                 </Link>
             </li>
             <li>
-                <details>
-                    <summary className={"lg:w-30 lg:justify-center"}>Kỉ niệm</summary>
-                    <ul>
-                        <li>
-                            <Link href={"/about/events/the-show-must-go-on"}>
-                                2024 - &quot;The show must go on!&quot;
-                            </Link>
-                        </li>
-                    </ul>
-                </details>
+                <Link className={"lg:w-30 lg:justify-center"} href={"/retro"}>
+                    Kỷ niệm
+                </Link>
             </li>
         </>
     );
