@@ -3,7 +3,7 @@
 import { Operator } from "@/app/tournament/models/Operator";
 import ClassIcon from "@/components/tournament/ClassIcon";
 import OperatorIcon from "@/components/tournament/OperatorIcon";
-import VNS_Banner from "@/public/VNS_Banner.png";
+import VNS_Banner from "@/public/DRCH_Banner.png";
 import Image from "next/image";
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
