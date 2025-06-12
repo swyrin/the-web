@@ -47,8 +47,8 @@ export default function CrewPage() {
         localStorage.setItem("crew-tab", crewTab);
     }, [crewTab]);
 
-    const members: VNS_Member[] = crewList.members;
-    const partners: VNS_Member[] = crewList.partners;
+    const members = crewList.members;
+    const partners = crewList.partners;
 
     return (
         <>

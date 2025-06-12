@@ -2,149 +2,149 @@
   "members": [
     {
       "name": "shou.",
-      "role": "Event_Director",
+      "role": ["Event_Director", "IT"],
       "quote": "tao đa thê kệ tao"
     },
     {
       "name": "Shihotori",
-      "role": "Co-Director",
+      "role": ["Co-Director"],
       "quote": "Been composing music since 2018"
     },
     {
       "name": "Kamaeri",
-      "role": "Consultant_&_MC",
+      "role": ["Consultant_&_MC"],
       "quote": "I'm not a robot, I'm just… dumb"
     },
     {
       "name": "Sukiri",
-      "role": "Secretary",
+      "role": ["Secretary"],
       "quote": "I brighten up your day not for you to cry"
     },
     {
       "name": "AkaneOSK",
-      "role": "Secretary",
+      "role": ["Secretary"],
       "quote": "Akane Ousaka is my love omg she's so cute!!"
     },
     {
       "name": "Meruko",
-      "role": "Secretary",
+      "role": ["Secretary"],
       "quote": "In relationsheep with Eyja"
     },
     {
       "name": "WhaTa SixX",
-      "role": "Multimedia",
+      "role": ["Multimedia"],
       "quote": "Book shoot đi, làm ơn, đói lắm rồi"
     },
     {
       "name": "Succhusa",
-      "role": "Multimedia",
+      "role": ["Multimedia"],
       "quote": "Pay us Wiz"
     },
     {
       "name": "Red",
-      "role": "Kahoot",
+      "role": ["Kahoot"],
       "quote": "Yeah, Science! - Jesse Pinkman"
     },
     {
       "name": "SADUS",
-      "role": "Logistics",
+      "role": ["Logistics"],
       "quote": "Why does life slumber?"
     },
     {
       "name": "TuanAnh",
-      "role": "IT",
+      "role": ["IT"],
       "quote": "Limbussy"
     },
     {
       "name": "Erich C. H.",
-      "role": "IT",
+      "role": ["IT"],
       "quote": "Information alone is not enough..."
     },
     {
       "name": "シイナ•コチヤ",
-      "role": "IT",
+      "role": ["IT"],
       "quote": "Someday, our dreams will come true"
     },
     {
       "name": "スイリン•です",
-      "role": "IT",
+      "role": ["IT"],
       "quote": "I play Balatro 48 hours a day."
     }
   ],
   "partners": [
     {
       "name": "Tkieen",
-      "role": "Graphic_Designer",
+      "role": ["Graphic_Designer"],
       "quote": "Cợt nhả có lông"
     },
     {
       "name": "DuyBong",
-      "role": "Graphic_Designer",
+      "role": ["Graphic_Designer"],
       "quote": ""
     },
     {
       "name": "Zopu",
-      "role": "Graphic_Designer",
+      "role": ["Graphic_Designer"],
       "quote": ""
     },
     {
       "name": "Monoka",
-      "role": "Illustration_Artist",
+      "role": ["Illustration_Artist"],
       "quote": ""
     },
     {
       "name": "Rei",
-      "role": "Sponsor",
+      "role": ["Sponsor"],
       "quote": "Keep Moving Forward"
     },
     {
       "name": "bibom10",
-      "role": "Sponsor",
+      "role": ["Sponsor"],
       "quote": "For the Doctors, by the Doctors!"
     },
     {
       "name": "Phổ Lang",
-      "role": "Sponsor",
+      "role": ["Sponsor"],
       "quote": "New merch is coming!!\nSeize firmly your wallet"
     },
     {
       "name": "Staug",
-      "role": "Donator",
+      "role": ["Donator"],
       "quote": "NOT EXIST"
     },
     {
       "name": "Cerberose",
-      "role": "IT",
+      "role": ["IT"],
       "quote": "I don't even play Arknights"
     },
     {
       "name": "Ｈｙｐｅｒ－Ｖ△",
-      "role": "Photographer",
+      "role": ["Photographer"],
       "quote": "Làm tí 1 shoot nhom nhom bạn eyyyy"
     },
     {
       "name": "Moorce",
-      "role": "Videographer",
+      "role": ["Videographer"],
       "quote": ""
     },
     {
       "name": "Hoaq",
-      "role": "[VCL]",
+      "role": ["[VCL]"],
       "quote": ""
     },
     {
       "name": "Orei",
-      "role": "[VCL]",
+      "role": ["[VCL]"],
       "quote": ""
     },
     {
       "name": "HieuTrungMc",
-      "role": "[VCL]",
+      "role": ["[VCL]"],
       "quote": ""
     },
     {
       "name": "Phoeni",
-      "role": "[VCL]",
+      "role": ["[VCL]"],
       "quote": ""
     }
   ]
