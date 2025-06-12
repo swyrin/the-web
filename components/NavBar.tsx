@@ -1,11 +1,12 @@
 import Branding from "@/components/Branding";
 import NavbarItems from "@/components/NavBarItems";
+import PurchaseTicketButton from "@/components/PurchaseTicketButton";
 import BurgerMenu from "@/components/svg/BurgerMenu";
 
 export default function NavBar() {
     return (
         // https://github.com/saadeghi/daisyui/discussions/2277#discussioncomment-7400878
-        <div className={"navbar sticky top-0 z-1 bg-white font-[family-name:var(--font-vns)] shadow-md"}>
+        <div className={"navbar sticky top-0 z-1 bg-white shadow-md"}>
             <div className={"navbar-start space-x-2"}>
                 <div className={"dropdown"}>
                     <BurgerMenu />
@@ -20,10 +21,15 @@ export default function NavBar() {
                 </div>
                 <Branding />
             </div>
-            <div className={"navbar-end hidden lg:flex"}>
-                <ul className={"menu menu-horizontal px-1 text-lg"}>
+            <div className={"navbar-end"}>
+                <ul
+                    className={
+                        "menu menu-horizontal hidden px-1 text-lg lg:flex"
+                    }
+                >
                     <NavbarItems />
                 </ul>
+                <PurchaseTicketButton />
             </div>
         </div>
     );
