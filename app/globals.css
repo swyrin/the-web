@@ -19,12 +19,22 @@
     background-color: var(--color-red-500);
     color: var(--color-white);
 }
-
+.Consultant {
+    background-color: var(--color-red-500);
+    color: var(--color-white);
+}
 .Secretary {
     background-color: var(--color-red-300);
     color: var(--color-amber-900)
 }
-
+.Minigame{
+    background-color: #ffe5a0;
+    color: #000000;
+}
+.ALL {
+    background-color: var(--color-purple-300);
+    color: var(--color-white)
+}
 .IT {
     background-color: var(--color-orange-400);
 }

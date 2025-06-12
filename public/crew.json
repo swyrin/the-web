@@ -2,12 +2,12 @@
   "members": [
     {
       "name": "shou.",
-      "role": ["Event_Director", "IT", "Multimedia", "Kahoot"],
+      "role": ["Event_Director", "ALL"],
       "quote": "tao đa thê kệ tao"
     },
     {
       "name": "Shihotori",
-      "role": ["Co-Director"],
+      "role": [" Consultant", "Minigame"],
       "quote": "Been composing music since 2018"
     },
     {
@@ -27,7 +27,7 @@
     },
     {
       "name": "Meruko",
-      "role": ["Secretary"],
+      "role": ["Secretary", "Minigame", "Logistics"],
       "quote": "In relationsheep with Eyja"
     },
     {
@@ -52,22 +52,22 @@
     },
     {
       "name": "TuanAnh",
-      "role": ["IT"],
+      "role": ["IT", "Minigame","Kahoot"],
       "quote": "Limbussy"
     },
     {
       "name": "Erich C. H.",
-      "role": ["IT"],
+      "role": ["IT", "Minigame"],
       "quote": "Information alone is not enough..."
     },
     {
       "name": "シイナ•コチヤ",
-      "role": ["IT"],
+      "role": ["IT", "Minigame", "Multimedia"],
       "quote": "Someday, our dreams will come true"
     },
     {
       "name": "スイリン•です",
-      "role": ["IT"],
+      "role": ["IT", "Minigame"],
       "quote": "I play Balatro 48 hours a day."
     }
   ],
