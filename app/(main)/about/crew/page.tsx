@@ -78,7 +78,11 @@ export default function CrewPage() {
                     checked={crewTab === "dreamchasers"}
                     onChange={() => setCrewTab("dreamchasers")}
                 />
-                <div className={"tab-content border-base-300 p-6"}>
+                <div
+                    className={
+                        "tab-content border-base-300 max-w-full overflow-auto p-10"
+                    }
+                >
                     <HumanResourceList members={members} />
                 </div>
 

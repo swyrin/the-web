@@ -12,6 +12,11 @@ export default function MemberBox(props: VNS_Member) {
                 alt={"VNS_Crew"}
             />
             <div className={"py-1 text-xl font-extrabold"}>{props.name}</div>
+            {props.quote !== "" && (
+                <div className={"py-1 text-xs text-gray-600 italic"}>
+                    &#34;{props.quote}&#34;
+                </div>
+            )}
             <div className={"flex flex-wrap justify-center gap-2 py-1"}>
                 {Array.isArray(props.role) &&
                     props.role.map((role: string) => (
@@ -28,11 +33,6 @@ export default function MemberBox(props: VNS_Member) {
                         </span>
                     ))}
             </div>
-            {props.quote !== "" && (
-                <div className={"py-1 text-xs text-gray-600 italic"}>
-                    &#34;{props.quote}&#34;
-                </div>
-            )}
         </div>
     );
 }
