@@ -23,16 +23,20 @@ const getRarityColor = (rarity: number) => {
 function OperatorIcon({ operator }: { operator: Operator }) {
     const rarityColor = getRarityColor(operator.rarity);
     return (
-        <div className={"flex h-full w-full flex-col items-center justify-center"}>
+        <div
+            className={
+                "flex h-full w-full flex-col items-center justify-center"
+            }
+        >
             <div
                 className={`flex h-15 w-14 items-center justify-center`}
                 style={{
                     background: `linear-gradient(
-            to top,
-            ${rarityColor} 0%,
-            ${rarityColor}70 50%,
-            ${rarityColor}00 100%
-          )`,
+                        to top,
+                        ${rarityColor} 0%,
+                        ${rarityColor}70 50%,
+                        ${rarityColor}00 100%
+                    )`,
                     borderBottom: `4px solid ${rarityColor}`,
                 }}
             >
@@ -44,7 +48,9 @@ function OperatorIcon({ operator }: { operator: Operator }) {
                     className={"object-contain"}
                 />
             </div>
-            <div className={"h-full w-full text-center text-xs break-words"}>{operator.name}</div>
+            <div className={"h-full w-full text-center text-xs break-words"}>
+                {operator.name}
+            </div>
         </div>
     );
 }

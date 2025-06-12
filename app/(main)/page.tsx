@@ -17,10 +17,23 @@ export default function Home() {
             }}
         >
             <div className={"hero-overlay"}></div>
-            <div className={"hero-content flex flex-col place-content-center-safe gap-y-5"}>
-                <Image className={"invert"} src={DRCH_Banner} alt={"DRCH"} height={185} />
+            <div
+                className={
+                    "hero-content flex flex-col place-content-center-safe gap-y-5"
+                }
+            >
+                <Image
+                    className={"invert"}
+                    src={DRCH_Banner}
+                    alt={"DRCH"}
+                    height={185}
+                />
 
-                <div className={"easter-egg-for-members hidden font-light text-white italic"}>
+                <div
+                    className={
+                        "easter-egg-for-members hidden font-light text-white italic"
+                    }
+                >
                     Every artist paints with a fiery soul <br />
                     Every poet weaves words into prayers <br />
                     Every dream has its own chasers. <br />
@@ -29,16 +42,30 @@ export default function Home() {
                 </div>
 
                 <div className={"text-xl text-white"}>
-                    Sẽ ra mắt vào tháng 8 <span className={"italic"}>(chắc thế)</span>
+                    Sẽ ra mắt vào tháng 8{" "}
+                    <span className={"italic"}>(chắc thế)</span>
                 </div>
 
-                <div className={"absolute bottom-5 mx-4 flex flex-col gap-y-2 text-center"}>
-                    <span className={"text-md text-white italic"}>Được mang đến cho bạn bởi</span>
-                    <div className={"flex flex-col gap-x-10 gap-y-4 text-white lg:flex-row"}>
+                <div
+                    className={
+                        "absolute bottom-5 mx-4 flex flex-col gap-y-2 text-center"
+                    }
+                >
+                    <span className={"text-md text-white italic"}>
+                        Được mang đến cho bạn bởi
+                    </span>
+                    <div
+                        className={
+                            "flex flex-col gap-x-10 gap-y-4 text-white lg:flex-row"
+                        }
+                    >
                         <OrganizerImage src={VNS_Banner} alt={"VNS_Banner"} />
                         <OrganizerImage src={VCL_Banner} alt={"VCL_Banner"} />
                     </div>
-                    <Link href={"/about/crew"} className={"text-sm text-white italic underline"}>
+                    <Link
+                        href={"/about/crew"}
+                        className={"text-sm text-white italic underline"}
+                    >
                         và hơn thế nữa
                     </Link>
                 </div>

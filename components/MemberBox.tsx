@@ -12,8 +12,14 @@ export default function MemberBox(props: VNS_Member) {
                 alt={"VNS_Crew"}
             />
             <div className={"py-1 text-xl font-extrabold"}>{props.name}</div>
-            <div className={`crew-role-generic py-1 ${props.role}`}>{props.role.replaceAll("_", " ")}</div>
-            {props.quote !== "" && <div className={"py-1 text-xs text-gray-600 italic"}>&#34;{props.quote}&#34;</div>}
+            <div className={`crew-role-generic py-1 ${props.role}`}>
+                {props.role.replaceAll("_", " ")}
+            </div>
+            {props.quote !== "" && (
+                <div className={"py-1 text-xs text-gray-600 italic"}>
+                    &#34;{props.quote}&#34;
+                </div>
+            )}
         </div>
     );
 }

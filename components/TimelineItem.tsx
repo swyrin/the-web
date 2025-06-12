@@ -26,8 +26,18 @@ type TimelineItemProps = {
 export default function TimelineItem(props: TimelineItemProps) {
     return (
         <li className={"flex flex-1 flex-col justify-between lg:flex-row"}>
-            {!props.head ? props.middle ? <hr className={"bg-black"} /> : <hr /> : <></>}
-            <div className={"timeline-start text-sm font-bold"}>{props.date}</div>
+            {!props.head ? (
+                props.middle ? (
+                    <hr className={"bg-black"} />
+                ) : (
+                    <hr />
+                )
+            ) : (
+                <></>
+            )}
+            <div className={"timeline-start text-sm font-bold"}>
+                {props.date}
+            </div>
             <div className={"timeline-middle"}>
                 <TimelinePoint />
             </div>
@@ -36,7 +46,15 @@ export default function TimelineItem(props: TimelineItemProps) {
                     {props.data}
                 </Link>
             </div>
-            {!props.tail ? props.finished ? <hr className={"bg-black"} /> : <hr /> : <></>}
+            {!props.tail ? (
+                props.finished ? (
+                    <hr className={"bg-black"} />
+                ) : (
+                    <hr />
+                )
+            ) : (
+                <></>
+            )}
         </li>
     );
 }

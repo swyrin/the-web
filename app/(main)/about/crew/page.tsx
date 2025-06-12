@@ -1,7 +1,7 @@
 "use client";
 
 import MemberBox from "@/components/MemberBox";
-import { VNS_Member } from "@/lib/vns_types";
+import { VNS_Member } from "@/lib/types/vns_member";
 import crewList from "@/public/crew.json";
 import { useEffect, useState } from "react";
 
@@ -12,9 +12,20 @@ type HRListProps = {
 function HumanResourceList(props: HRListProps) {
     return (
         <>
-            <div className={"grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"}>
+            <div
+                className={
+                    "grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
+                }
+            >
                 {props.members.map((member) => {
-                    return <MemberBox key={member.name} name={member.name} role={member.role} quote={member.quote} />;
+                    return (
+                        <MemberBox
+                            key={member.name}
+                            name={member.name}
+                            role={member.role}
+                            quote={member.quote}
+                        />
+                    );
                 })}
             </div>
         </>
@@ -44,9 +55,16 @@ export default function CrewPage() {
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <div>
-                        <h1 className={"mt-5 text-5xl font-bold underline underline-offset-8"}>Staff</h1>
+                        <h1
+                            className={
+                                "mt-5 text-5xl font-bold underline underline-offset-8"
+                            }
+                        >
+                            Staff
+                        </h1>
                         <p className={"mt-5"}>
-                            Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy.
+                            Những người đã góp hết sức mình để mang đến cho các
+                            bạn những cái event cực cháy.
                         </p>
                     </div>
                 </div>
