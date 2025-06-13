@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function MemberBox(props: VNS_Member) {
     return (
-        <div className={"my-auto mt-5 h-65 w-80 p-8 text-center"}>
+        <div className={"h-60 w-78"}>
             <Image
                 className={"mx-auto rounded-full shadow-lg"}
                 src={`/crew/${props.name}.png`}
@@ -11,9 +11,13 @@ export default function MemberBox(props: VNS_Member) {
                 height={100}
                 alt={"VNS_Crew"}
             />
-            <div className={"py-1 text-xl font-extrabold"}>{props.name}</div>
+            <div className={"py-1 text-center text-xl font-extrabold"}>
+                {props.name}
+            </div>
             {props.quote !== "" && (
-                <div className={"py-1 text-xs text-gray-600 italic"}>
+                <div
+                    className={"py-1 text-center text-xs text-gray-600 italic"}
+                >
                     &#34;{props.quote}&#34;
                 </div>
             )}
@@ -22,12 +26,7 @@ export default function MemberBox(props: VNS_Member) {
                     props.role.map((role: string) => (
                         <span
                             key={role}
-                            className={`crew-role-generic px-2 py-1 text-center ${role}`}
-                            style={{
-                                minWidth: "7rem",
-                                width: "fit-content",
-                                display: "inline-block",
-                            }}
+                            className={`crew-role-generic px-3 py-1 text-center ${role} inline-block min-w-[3rem]`}
                         >
                             {role.replaceAll("_", " ")}
                         </span>

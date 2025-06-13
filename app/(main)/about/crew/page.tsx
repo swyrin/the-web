@@ -69,33 +69,35 @@ export default function CrewPage() {
                     </div>
                 </div>
             </div>
-            <div className={"tabs tabs-border mt-4 place-content-center-safe"}>
-                <input
-                    type={"radio"}
-                    name={"my_tabs_6"}
-                    className={"tab w-1/2 sm:text-sm lg:text-lg"}
-                    aria-label={"Dreamchasers"}
-                    checked={crewTab === "dreamchasers"}
-                    onChange={() => setCrewTab("dreamchasers")}
-                />
+            <div>
                 <div
                     className={
-                        "tab-content border-base-300 max-w-full overflow-auto p-10"
+                        "tabs tabs-border top-18 mx-4 place-content-center-safe"
                     }
                 >
-                    <HumanResourceList members={members} />
-                </div>
+                    <input
+                        type={"radio"}
+                        name={"my_tabs_6"}
+                        className={"tab sticky w-1/2 sm:text-sm lg:text-lg"}
+                        aria-label={"Dreamchasers"}
+                        checked={crewTab === "dreamchasers"}
+                        onChange={() => setCrewTab("dreamchasers")}
+                    />
+                    <div className={"tab-content max-w-screen pt-10"}>
+                        <HumanResourceList members={members} />
+                    </div>
 
-                <input
-                    type={"radio"}
-                    name={"my_tabs_6"}
-                    className={"tab w-1/2 sm:text-sm lg:text-lg"}
-                    aria-label={"Hợp tác phát triển"}
-                    checked={crewTab === "partners"}
-                    onChange={() => setCrewTab("partners")}
-                />
-                <div className={"tab-content border-base-300 p-6"}>
-                    <HumanResourceList members={partners} />
+                    <input
+                        type={"radio"}
+                        name={"my_tabs_6"}
+                        className={"tab sticky w-1/2 sm:text-sm lg:text-lg"}
+                        aria-label={"Hợp tác phát triển"}
+                        checked={crewTab === "partners"}
+                        onChange={() => setCrewTab("partners")}
+                    />
+                    <div className={"tab-content max-w-screen pt-10"}>
+                        <HumanResourceList members={partners} />
+                    </div>
                 </div>
             </div>
         </>

@@ -50,7 +50,7 @@ export default function RootLayout({
                 className={`${mainFont.variable} font-[family-name:var(--font-vns)] antialiased`}
             >
                 <NavBar />
-                <div className={"layout-height max-w-screen"}>{children}</div>
+                <div>{children}</div>
             </body>
         </html>
     );
