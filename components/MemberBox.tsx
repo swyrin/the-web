@@ -11,13 +11,9 @@ export default function MemberBox(props: VNS_Member) {
                 height={100}
                 alt={"VNS_Crew"}
             />
-            <div className={"py-1 text-center text-xl font-extrabold"}>
-                {props.name}
-            </div>
+            <div className={"py-1 text-center text-xl font-extrabold"}>{props.name}</div>
             {props.quote !== "" && (
-                <div
-                    className={"py-1 text-center text-xs text-gray-600 italic"}
-                >
+                <div className={"py-1 text-center text-xs text-gray-600 italic"}>
                     &#34;{props.quote}&#34;
                 </div>
             )}

@@ -7,16 +7,12 @@ export default function EventTimeLine() {
             <div className={"hero w-full"}>
                 <div className={"hero-content text-center"}>
                     <div>
-                        <h1
-                            className={
-                                "mt-5 text-5xl font-bold underline underline-offset-8"
-                            }
-                        >
+                        <h1 className={"mt-5 text-5xl font-bold underline underline-offset-8"}>
                             Timeline
                         </h1>
                         <p className={"mt-5"}>
-                            Để tiện lợi trong quá trình cập nhật thông tin
-                            offline, các bạn vui lòng chú ý timeline bên dưới.
+                            Để tiện lợi trong quá trình cập nhật thông tin offline, các bạn vui lòng
+                            chú ý timeline bên dưới.
                             <br />
                             Và đừng quên theo dõi fanpage{" "}
                             <Link
@@ -33,11 +29,7 @@ export default function EventTimeLine() {
                 </div>
             </div>
             <div className={"py-10"}>
-                <ul
-                    className={
-                        "timeline timeline-vertical lg:timeline-horizontal flex-1"
-                    }
-                >
+                <ul className={"timeline timeline-vertical lg:timeline-horizontal flex-1"}>
                     <TimelineItem
                         date={"2024-01-14"}
                         data={"Offline #1: The show must go on!"}

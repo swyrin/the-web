@@ -5,7 +5,7 @@
 @utility layout-height {
     /* Credit: Cerberose @ PR#5 */
     /* 72px is the height of NavBar */
-    @apply min-h-[calc(100svh_-_72px)];
+    @apply min-h-[calc(100svh_-_70px)];
 }
 
 @utility crew-role-generic {

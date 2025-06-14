@@ -55,26 +55,18 @@ export default function CrewPage() {
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <div>
-                        <h1
-                            className={
-                                "mt-5 text-5xl font-bold underline underline-offset-8"
-                            }
-                        >
+                        <h1 className={"mt-5 text-5xl font-bold underline underline-offset-8"}>
                             Staff
                         </h1>
                         <p className={"mt-5"}>
-                            Những người đã góp hết sức mình để mang đến cho các
-                            bạn những cái event cực cháy.
+                            Những người đã góp hết sức mình để mang đến cho các bạn những cái event
+                            cực cháy.
                         </p>
                     </div>
                 </div>
             </div>
             <div>
-                <div
-                    className={
-                        "tabs tabs-border top-18 mx-4 place-content-center-safe"
-                    }
-                >
+                <div className={"tabs tabs-border top-18 mx-4 place-content-center-safe"}>
                     <input
                         type={"radio"}
                         name={"my_tabs_6"}

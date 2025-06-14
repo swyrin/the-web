@@ -33,7 +33,7 @@ const eslintConfig = [
                         "@trivago/prettier-plugin-sort-imports",
                         "prettier-plugin-tailwindcss",
                     ],
-                    printWidth: 80,
+                    printWidth: 100,
                     singleQuote: false,
                     trailingComma: "all",
                     endOfLine: "auto",
