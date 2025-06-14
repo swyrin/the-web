@@ -1,6 +1,5 @@
 {
     "recommendations": [
-        "Prisma.prisma",
         "dbaeumer.vscode-eslint",
         "bradlc.vscode-tailwindcss"
     ]

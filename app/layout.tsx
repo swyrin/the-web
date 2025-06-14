@@ -7,7 +7,7 @@ import "./globals.css";
 
 const mainFont = VNS_Font({
     variable: "--font-vns",
-    subsets: ["latin", "latin-ext", "vietnamese"],
+    subsets: ["latin", "vietnamese"],
 });
 
 export const metadata: Metadata = {

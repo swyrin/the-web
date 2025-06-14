@@ -1,8 +1,8 @@
 "use client";
 
-import { Operator } from "@/app/tournament/models/Operator";
 import ClassIcon from "@/components/tournament/ClassIcon";
 import OperatorIcon from "@/components/tournament/OperatorIcon";
+import { Operator } from "@/lib/types/vns_types";
 import VNS_Banner from "@/public/DRCH_Banner_Group.png";
 import Image from "next/image";
 import { useState } from "react";

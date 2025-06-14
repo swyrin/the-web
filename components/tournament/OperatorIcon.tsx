@@ -1,4 +1,4 @@
-import { Operator } from "@/app/tournament/models/Operator";
+import { Operator } from "@/lib/types/vns_types";
 import Image from "next/image";
 
 const getRarityColor = (rarity: number) => {

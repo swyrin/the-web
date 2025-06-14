@@ -1,7 +1,7 @@
 "use client";
 
 import MemberBox from "@/components/MemberBox";
-import { VNS_Member } from "@/lib/types/vns_member";
+import { VNS_Member } from "@/lib/types/vns_types";
 import crewList from "@/public/crew.json";
 import { useEffect, useState } from "react";
 

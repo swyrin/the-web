@@ -1,5 +1,4 @@
-"use client";
-
+// "use client";
 import OrganizerImage from "@/components/OrganizerImage";
 import DRCH_Banner from "@/public/DRCH_Banner_Group.png";
 import BG_1 from "@/public/landing-bg/BG_1.png";
