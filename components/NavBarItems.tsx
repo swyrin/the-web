@@ -25,7 +25,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
     }
 
     return (
-        <div className={"hidden items-center text-base font-semibold text-black lg:flex"}>
+        <div className={"hidden items-center text-base font-semibold text-black lg:flex text-[0.993rem]"}>
             {links.map((link, index) => (
                 <div key={link.name} className={"flex items-center"}>
                     {index !== 0 && <Divider />}
