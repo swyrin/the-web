@@ -4,7 +4,7 @@
 
 @utility layout-height {
     /* Credit: Cerberose @ PR#5 */
-    /* 72px is the height of NavBar */
+    /* 70px is the height of NavBar */
     @apply min-h-[calc(100svh_-_70px)];
 }
 
@@ -12,28 +12,31 @@
     border-radius: 1rem;
 }
 
-/* Crew roles */
 .Event_Director,
 .Co-Director,
-.Consultant\_\&\_MC {
+.MC {
     background-color: var(--color-red-500);
     color: var(--color-white);
 }
+
 .Consultant {
     background-color: var(--color-red-500);
     color: var(--color-white);
 }
+
 .Secretary {
     background-color: var(--color-red-300);
     color: var(--color-amber-900)
 }
+
 .Minigame{
-    background-color: #ffe5a0;
-    color: #000000;
+    background-color: var(--color-yellow-100);
+    color: var(--color-black);
 }
+
 .ALL {
-    background-color: #000000;;
-    color: var(--color-white)
+    background-color: var(--color-black);
+    color: var(--color-white);
 }
 .IT {
     background-color: var(--color-orange-400);
@@ -52,7 +55,7 @@
 }
 
 /* Partner roles */
-.\[VCL\] {
+.VCL {
     background-color: var(--color-rose-500);
     color: var(--color-white);
 }

@@ -48,7 +48,7 @@ export default function Home() {
 
                 <div className={"absolute bottom-5 mx-4 flex flex-col gap-y-2 text-center"}>
                     <span className={"text-lg font-thin text-white"}>Được mang đến bởi</span>
-                    <div className={"flex items-center gap-x-5 gap-y-4 text-white"}>
+                    <div className={"flex items-center gap-x-4 gap-y-4 text-white lg:gap-x-8"}>
                         <OrganizerImage src={VNS_Banner} alt={"VNS"} />
                         <div className={"hidden text-xl text-white lg:block"}>•</div>
                         <OrganizerImage src={ModSquad_Banner} alt={"Mod_Squad"} />
