@@ -1,14 +1,18 @@
 import Link from "next/link";
 
-function Divider() {
-    return <div className={`h-[2px] w-[33px] bg-black`} />;
+type DividerProps = {
+    width: number;
+};
+
+function Divider(props: DividerProps) {
+    return <div className={"h-[3px] bg-black"} style={{ width: props.width + "px" }} />;
 }
 
 export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }) {
     const links = [
         { name: "Sự kiện", href: "#" },
         { name: "Tổ chức", href: "/about/crew" },
-        { name: "Kỷ niệm", href: "#" },
+        { name: "Kỷ niệm", href: "/retro" },
         { name: "Tournament", href: "#" },
     ];
 
@@ -28,13 +32,16 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
         <div className={"hidden items-center text-base font-semibold text-black lg:flex text-[0.993rem]"}>
             {links.map((link, index) => (
                 <div key={link.name} className={"flex items-center"}>
-                    {index !== 0 && <Divider />}
-                    <Link className={"px-5 underline-offset-5 hover:underline"} href={link.href}>
+                    {index !== 0 && <Divider width={72} />}
+                    <Link
+                        className={"px-5 text-xl underline-offset-5 hover:underline"}
+                        href={link.href}
+                    >
                         {link.name}
                     </Link>
                 </div>
             ))}
-            <Divider />
+            <Divider width={140} />
         </div>
     );
 }

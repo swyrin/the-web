@@ -12,7 +12,7 @@
     },
     {
       "name": "Kamaeri",
-      "role": ["Consultant_&_MC"],
+      "role": ["Consultant", "MC"],
       "quote": "I'm not a robot, I'm just… dumb"
     },
     {
@@ -129,22 +129,22 @@
     },
     {
       "name": "Hoaq",
-      "role": ["[VCL]"],
+      "role": ["VCL"],
       "quote": ""
     },
     {
       "name": "Orei",
-      "role": ["[VCL]"],
+      "role": ["VCL"],
       "quote": ""
     },
     {
       "name": "HieuTrungMc",
-      "role": ["[VCL]"],
+      "role": ["VCL"],
       "quote": ""
     },
     {
       "name": "Phoeni",
-      "role": ["[VCL]"],
+      "role": ["VCL"],
       "quote": ""
     }
   ]

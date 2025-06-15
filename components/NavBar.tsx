@@ -6,8 +6,8 @@ import Sparkle from "@/components/svg/Sparkle";
 
 export default function NavBar() {
     return (
-        <header className={"navbar sticky top-0 z-1 h-[70px] bg-white shadow-md"}>
-            <div className={"navbar-start space-x-2"}>
+        <header className={"sticky top-0 z-1 flex h-[70px] items-center bg-white"}>
+            <div className={"ml-4 flex items-center justify-center"}>
                 <div className={"dropdown"}>
                     <BurgerMenu />
                     <ul
@@ -21,7 +21,7 @@ export default function NavBar() {
                 </div>
                 <Branding />
             </div>
-            <div className={"navbar-end gap-x-5 lg:flex"}>
+            <div className={"mr-4 ml-auto flex items-center gap-x-5 lg:flex"}>
                 <NavBarItems />
                 <PurchaseTicketButton />
                 <Sparkle />
