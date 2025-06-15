@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function CrewPage() {
+export default function AboutUsPage() {
     return (
         <>
             <div className={"hero"}>

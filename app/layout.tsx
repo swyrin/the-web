@@ -45,7 +45,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang={"en"} data-theme={"light"}>
-            <body className={`${mainFont.variable} font-[family-name:var(--font-vns)] antialiased`}>
+            <body
+                className={`${mainFont.variable} layout-height font-[family-name:var(--font-vns)] antialiased`}
+            >
                 <NavBar />
                 <div>{children}</div>
             </body>

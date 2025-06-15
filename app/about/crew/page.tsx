@@ -3,7 +3,6 @@
 import MemberBox from "@/components/MemberBox";
 import PageTitle from "@/components/PageTitle";
 import { VNS_Member } from "@/lib/types/vns_types";
-// import WhiteBackground from "@/public/White_Background_No_Triangle.png";
 import crewList from "@/public/crew.json";
 import { useEffect, useState } from "react";
 
@@ -114,11 +113,9 @@ export default function CrewPage() {
 
     return (
         <div
-            className={"w-screen bg-cover bg-fixed"}
-            style={
-                {
-                    // backgroundImage: `url(${WhiteBackground.src})`,
-                }
+            className={
+                // "bg-none bg-cover bg-fixed bg-no-repeat lg:bg-[url(/BG_White.png)]"
+                "bg-none bg-cover bg-fixed bg-no-repeat"
             }
         >
             <div className={"hero"}>
@@ -129,14 +126,13 @@ export default function CrewPage() {
                             favorText={
                                 "Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."
                             }
-                            light
                         />
                     </div>
                 </div>
             </div>
             <div
                 className={
-                    "tabs tabs-border sticky top-[70px] z-0 h-[calc(100vh-80px)] place-content-center-safe overflow-hidden bg-white shadow-sm"
+                    "tabs tabs-border sticky top-[70px] z-0 h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none"
                 }
             >
                 <input
@@ -147,7 +143,7 @@ export default function CrewPage() {
                     checked={crewTab === "dreamchasers"}
                     onChange={() => setCrewTab("dreamchasers")}
                 />
-                <div className={"tab-content h-full max-w-screen overflow-y-auto pt-10"}>
+                <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
                     <CrewList members={members} />
                 </div>
                 <input
@@ -158,7 +154,7 @@ export default function CrewPage() {
                     checked={crewTab === "partners"}
                     onChange={() => setCrewTab("partners")}
                 />
-                <div className={"tab-content h-full max-w-screen overflow-y-auto pt-10"}>
+                <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
                     <PartnerList members={partners} />
                 </div>
             </div>
