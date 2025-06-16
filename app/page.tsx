@@ -1,4 +1,5 @@
-// "use client";
+"use client";
+
 import OrganizerImage from "@/components/OrganizerImage";
 import DRCH_Banner from "@/public/DRCH_Banner_Group.png";
 import BG_1 from "@/public/landing-bg/BG_1.png";
@@ -7,6 +8,8 @@ import BG_3 from "@/public/landing-bg/BG_3.jpg";
 import Jiangles_Banner from "@/public/organizers/jiangles_banner.png";
 import ModSquad_Banner from "@/public/organizers/mod_squad_banner.png";
 import VNS_Banner from "@/public/organizers/vns_banner.png";
+import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 
 // import { useEffect, useState } from "react";
@@ -23,6 +26,7 @@ export default function Home() {
     // });
     //
     const images = [BG_1, BG_2, BG_3];
+    const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 3727 })]);
     //
     // setInterval(() => {
     //     document.getElementById("banner")!.style.backgroundImage = `url(${images[imageOrder].src})`;
@@ -36,14 +40,32 @@ export default function Home() {
     return (
         <div
             id={"banner"}
-            className={"hero layout-height"}
-            style={{
-                // backgroundImage: `url(${images[imageOrder].src})`,
-                backgroundImage: `url(${images[0].src})`,
-            }}
+            className={"hero layout-height relative"}
+            style={
+                {
+                    // backgroundImage: `url(${images[imageOrder].src})`,
+                    // backgroundImage: `url(${images[0].src})`,
+                }
+            }
         >
-            <div className={"hero-overlay"}></div>
-            <div className={"hero-content flex flex-col place-content-center-safe"}>
+            {/* Embla Carousel Autoplay Section */}
+            <div className={"embla absolute inset-0 z-0 h-full w-full"} ref={emblaRef}>
+                <div className={"embla__container h-full w-full"}>
+                    {images.map((img, idx) => (
+                        <div className={"embla__slide relative h-full w-full"} key={idx}>
+                            <Image
+                                src={img}
+                                alt={`Banner ${idx + 1}`}
+                                fill
+                                style={{ objectFit: "cover" }}
+                                priority={idx === 0}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className={"hero-overlay z-10"}></div>
+            <div className={"hero-content z-20 flex flex-col place-content-center-safe"}>
                 <Image src={DRCH_Banner} alt={"DRCH"} height={185} />
 
                 <div className={"absolute bottom-5 mx-4 flex flex-col gap-y-2 text-center"}>
