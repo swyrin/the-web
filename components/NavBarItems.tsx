@@ -10,7 +10,7 @@ function Divider(props: DividerProps) {
 
 export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }) {
     const links = [
-        { name: "Tổ chức", href: "/about/crew" },
+        { name: "Tổ chức", href: "/crew" },
         { name: "Kỷ niệm", href: "/retro" },
         { name: "Tournament", href: "#" },
     ];

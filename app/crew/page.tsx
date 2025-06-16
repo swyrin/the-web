@@ -112,12 +112,7 @@ export default function CrewPage() {
     const partners = crewList.partners;
 
     return (
-        <div
-            className={
-                // "bg-none bg-cover bg-fixed bg-no-repeat lg:bg-[url(/BG_White.png)]"
-                "bg-none bg-cover bg-fixed bg-no-repeat"
-            }
-        >
+        <div className={"bg-[url(/BG_Black.png)] bg-cover bg-fixed bg-no-repeat"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <div>
@@ -126,6 +121,7 @@ export default function CrewPage() {
                             favorText={
                                 "Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."
                             }
+                            dark
                         />
                     </div>
                 </div>
@@ -134,11 +130,12 @@ export default function CrewPage() {
                 className={
                     "tabs tabs-border sticky top-[70px] z-0 h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none"
                 }
+                data-theme={"dark"}
             >
                 <input
                     type={"radio"}
                     name={"my_tabs_6"}
-                    className={"tab sm:text-md w-1/2 md:text-lg lg:text-2xl"}
+                    className={"tab sm:text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
                     aria-label={"Dreamchasers"}
                     checked={crewTab === "dreamchasers"}
                     onChange={() => setCrewTab("dreamchasers")}
@@ -149,7 +146,7 @@ export default function CrewPage() {
                 <input
                     type={"radio"}
                     name={"my_tabs_6"}
-                    className={"tab sm:text-md w-1/2 md:text-lg lg:text-2xl"}
+                    className={"tab sm:text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
                     aria-label={"Hợp tác phát triển"}
                     checked={crewTab === "partners"}
                     onChange={() => setCrewTab("partners")}

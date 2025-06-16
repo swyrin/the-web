@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-@plugin "daisyui";
+@plugin "daisyui" {
+    exclude: rootcolor;
+}
 
 @utility layout-height {
     /* Credit: Cerberose @ PR#5 */

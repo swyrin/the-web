@@ -3,19 +3,21 @@ import Image from "next/image";
 
 export default function MemberBox(props: VNS_Member) {
     return (
-        <div className={"h-65 w-72"}>
+        <div className={"h-60 w-72"}>
             <Image
-                className={"mx-auto rounded-full shadow-lg"}
+                className={"mx-auto mb-2 rounded-full ring-1 ring-white"}
                 src={`/crew/${props.name}.png`}
                 width={100}
                 height={100}
                 alt={"VNS_Crew"}
             />
-            <div className={"text-center text-xl font-extrabold"}>{props.name}</div>
+            <div className={"text-base-content text-center text-xl font-bold"}>{props.name}</div>
             {props.quote !== "" && (
-                <div className={"text-md text-center"}>&#34;{props.quote}&#34;</div>
+                <div className={"text-md text-base-content text-center font-extralight"}>
+                    &#34;{props.quote}&#34;
+                </div>
             )}
-            <div className={"flex justify-center gap-2 py-1"}>
+            <div className={"mt-2 flex justify-center gap-x-2"}>
                 {Array.isArray(props.role) &&
                     props.role.map((role: string) => (
                         <span

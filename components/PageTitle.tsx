@@ -18,7 +18,7 @@ export default function PageTitle(props: PageTitleProps) {
                 <div className={"mr-5"}>
                     <TitleDecorLeft width={115} height={24} />
                 </div>
-                <h1 className={"text-center text-2xl font-extrabold md:text-4xl lg:text-6xl"}>
+                <h1 className={"text-center text-lg font-extrabold md:text-2xl lg:text-5xl"}>
                     {props.title}
                 </h1>
                 <div className={"ml-5"}>
