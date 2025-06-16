@@ -26,7 +26,7 @@ export default function Home() {
     // });
     //
     const images = [BG_1, BG_2, BG_3];
-    const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 3727 })]);
+    const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
     //
     // setInterval(() => {
     //     document.getElementById("banner")!.style.backgroundImage = `url(${images[imageOrder].src})`;
