@@ -1,54 +1,76 @@
-// import DRCH from "@/public/DRCH_Banner.png";
+import PageTitle from "@/components/PageTitle";
+import Dreamchasers from "@/public/retro/dreamchasers/dreamchasers.png";
 import TheShowMustGoOn from "@/public/retro/the-show-must-go-on/the-show-must-go-on.jpg";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
+
+type RetroItemProps = {
+    title: string;
+    description: string;
+    imageSrc: StaticImageData | string;
+    href: string;
+};
+
+function RetroItem(props: RetroItemProps) {
+    return (
+        <Link
+            href={props.href}
+            className={
+                "card lg:card-side mx-8 mb-10 w-96 shadow-2xl/25 shadow-white md:mx-32 lg:w-256"
+            }
+        >
+            <figure className={"h-30 w-96"}>
+                <Image src={props.imageSrc} alt={"retro_image"} />
+            </figure>
+            <div
+                className={
+                    "card-body flex items-center justify-center rounded-b-lg bg-white md:rounded-r-lg md:rounded-bl-none lg:w-180 lg:flex-col"
+                }
+                data-theme={"light"}
+            >
+                <div className={"font-lg card-title text-base-content text-center hover:underline"}>
+                    {props.title}
+                </div>
+                <p className={"text-base-content text-center"}>{props.description}</p>
+            </div>
+        </Link>
+    );
+}
 
 export default function RetroPage() {
     return (
-        <>
+        <div className={"layout-height bg-[url(/BG_Black.png)] bg-cover bg-fixed bg-no-repeat"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <div>
-                        <h1 className={"mt-5 text-5xl font-bold underline underline-offset-8"}>
-                            Kỷ niệm
-                        </h1>
-                        <p className={"mt-5 italic"}>Lâu lâu ôn lại quá khứ, tại sao không?</p>
+                        <PageTitle
+                            title={"Kỷ niệm"}
+                            favorText={"Nơi lưu giữ album của những buổi Offline."}
+                            dark
+                        />
                     </div>
                 </div>
             </div>
-            <div className={"mx-14 flex flex-col flex-wrap content-center justify-center gap-y-8"}>
-                <Link
-                    href={"/retro/the-show-must-go-on"}
-                    className={
-                        "card lg:card-side h-60 shadow-md hover:border-1 hover:border-gray-400"
+            <div
+                className={"flex flex-col items-center justify-center space-y-8"}
+                data-theme={"dark"}
+            >
+                <RetroItem
+                    title={"VNS Offline 2024: The Show Must Go On!"}
+                    description={
+                        "Offline đầu tiên của VNS, cũng như là tiền đề cho Dreamchasers và VNS Network."
                     }
-                >
-                    <figure>
-                        <Image src={TheShowMustGoOn} alt={"The_Show_Must_Go_On"} />
-                    </figure>
-                    <div className={"card-body"}>
-                        <div className={"font-lg card-title hover:underline"}>
-                            VNS Offline 2024: The Show Must Go On!
-                        </div>
-                        <p>
-                            Offline đầu tiên của VNS, cũng như là tiền đề cho Dreamchasers và VNS
-                            Network.
-                        </p>
-                    </div>
-                </Link>
-                {/*<Link*/}
-                {/*    href={"/"}*/}
-                {/*    className={"card lg:card-side h-60 w-auto shadow-md hover:border-1 hover:border-gray-400"}*/}
-                {/*>*/}
-                {/*    <figure>*/}
-                {/*        <Image src={DRCH} alt={"Dreamchasers"} />*/}
-                {/*    </figure>*/}
-                {/*    <div className={"card-body"}>*/}
-                {/*        <div className={"font-lg card-title hover:underline"}>VNS Offline 2025: Dreamchasers</div>*/}
-                {/*        <p>Nó còn chưa ra mắt...</p>*/}
-                {/*    </div>*/}
-                {/*</Link>*/}
+                    href={"#"}
+                    imageSrc={TheShowMustGoOn}
+                />
+
+                <RetroItem
+                    title={"VNS Offline 2025: Dreamchasers"}
+                    description={"COMING SOON!"}
+                    href={"#"}
+                    imageSrc={Dreamchasers}
+                />
             </div>
-        </>
+        </div>
     );
 }
