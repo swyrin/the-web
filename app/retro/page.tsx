@@ -1,45 +1,11 @@
 import PageTitle from "@/components/PageTitle";
+import RetroItem from "@/components/RetroItem";
 import Dreamchasers from "@/public/retro/dreamchasers/dreamchasers.png";
 import TheShowMustGoOn from "@/public/retro/the-show-must-go-on/the-show-must-go-on.jpg";
-import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
-
-type RetroItemProps = {
-    title: string;
-    description: string;
-    imageSrc: StaticImageData | string;
-    href: string;
-};
-
-function RetroItem(props: RetroItemProps) {
-    return (
-        <Link
-            href={props.href}
-            className={
-                "card lg:card-side mx-8 mb-10 w-96 shadow-2xl/25 shadow-white md:mx-32 lg:w-256"
-            }
-        >
-            <figure className={"h-30 w-96"}>
-                <Image src={props.imageSrc} alt={"retro_image"} />
-            </figure>
-            <div
-                className={
-                    "card-body flex items-center justify-center rounded-b-lg bg-white md:rounded-r-lg md:rounded-bl-none lg:w-180 lg:flex-col"
-                }
-                data-theme={"light"}
-            >
-                <div className={"font-lg card-title text-base-content text-center hover:underline"}>
-                    {props.title}
-                </div>
-                <p className={"text-base-content text-center"}>{props.description}</p>
-            </div>
-        </Link>
-    );
-}
 
 export default function RetroPage() {
     return (
-        <div className={"layout-height bg-[url(/BG_Black.png)] bg-cover bg-fixed bg-no-repeat"}>
+        <div className={"h-visible vns-background"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <div>
@@ -52,7 +18,7 @@ export default function RetroPage() {
                 </div>
             </div>
             <div
-                className={"flex flex-col items-center justify-center space-y-8"}
+                className={"flex flex-col items-center justify-center gap-y-8"}
                 data-theme={"dark"}
             >
                 <RetroItem

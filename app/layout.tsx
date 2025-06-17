@@ -1,6 +1,6 @@
 import NavBar from "@/components/NavBar";
 import type { Metadata, Viewport } from "next";
-import { Inter as VNS_Font } from "next/font/google";
+import { Montserrat as VNS_Font } from "next/font/google";
 import { ReactNode } from "react";
 
 import "./globals.css";
@@ -45,9 +45,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang={"en"} data-theme={"light"}>
-            <body
-                className={`${mainFont.variable} layout-height font-[family-name:var(--font-vns)] antialiased`}
-            >
+            <body className={`${mainFont.variable} font-[family-name:var(--font-vns)] antialiased`}>
                 <NavBar />
                 <div>{children}</div>
             </body>

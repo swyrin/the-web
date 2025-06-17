@@ -112,7 +112,7 @@ export default function CrewPage() {
     const partners = crewList.partners;
 
     return (
-        <div className={"bg-[url(/BG_Black.png)] bg-cover bg-fixed bg-no-repeat"}>
+        <div className={"h-visible vns-background"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <div>

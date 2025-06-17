@@ -4,14 +4,28 @@
     exclude: rootcolor;
 }
 
-@utility layout-height {
+@utility h-visible {
     /* Credit: Cerberose @ PR#5 */
     /* 70px is the height of NavBar */
     @apply min-h-[calc(100svh_-_70px)];
 }
 
-@utility crew-role-generic {
-    border-radius: 1rem;
+@utility crew-role-container {
+    @apply rounded-2xl;
+    @apply px-2;
+    @apply py-1;
+    @apply text-center;
+    @apply min-w-12; 
+}
+
+@utility vns-background {
+    @apply bg-black/50;
+    @apply bg-[url(/BG_Black.png)];
+    @apply bg-cover;
+    @apply bg-fixed;
+    @apply bg-center;
+    @apply bg-no-repeat;
+    @apply bg-blend-multiply;
 }
 
 .Event_Director,

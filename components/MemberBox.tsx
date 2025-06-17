@@ -20,10 +20,7 @@ export default function MemberBox(props: VNS_Member) {
             <div className={"mt-2 flex justify-center gap-x-2"}>
                 {Array.isArray(props.role) &&
                     props.role.map((role: string) => (
-                        <span
-                            key={role}
-                            className={`crew-role-generic px-2 py-1 text-center ${role} min-w-12`}
-                        >
+                        <span key={role} className={`crew-role-container ${role}`}>
                             {role.replaceAll("_", " ")}
                         </span>
                     ))}

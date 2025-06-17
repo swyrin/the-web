@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function LocationPage() {
     return (
-        <div className={"layout-height bg-[url(/BG_Black.png)] bg-cover bg-fixed bg-no-repeat"}>
+        <div className={"h-visible vns-background"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <div>

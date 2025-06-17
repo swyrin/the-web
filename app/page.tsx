@@ -17,7 +17,7 @@ export default function Home() {
     const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
 
     return (
-        <div className={"hero layout-height"}>
+        <div className={"hero h-visible"}>
             {/* Embla Carousel Autoplay Section */}
             <div className={"embla absolute inset-0 z-0 h-full w-full"} ref={emblaRef}>
                 <div className={"embla__container h-full w-full"}>
