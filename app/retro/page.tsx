@@ -1,14 +1,18 @@
 import PageTitle from "@/components/PageTitle";
 import RetroItem from "@/components/RetroItem";
-import Dreamchasers from "@/public/retro/dreamchasers/dreamchasers.png";
+import Dreamchasers from "@/public/retro/dreamchasers/dreamchaser.png";
 import TheShowMustGoOn from "@/public/retro/the-show-must-go-on/the-show-must-go-on.jpg";
 
 export default function RetroPage() {
     return (
-        <div className={"h-visible vns-background"}>
-            <div className={"hero"}>
-                <div className={"hero-content text-center"}>
-                    <div>
+        <div
+            className={
+                "vns-background flex min-h-screen flex-col items-center justify-start overflow-x-hidden"
+            }
+        >
+            <div className={"hero mb-0 w-full"}>
+                <div className={"hero-content mb-0 text-center"}>
+                    <div className={"mb-0"}>
                         <PageTitle
                             title={"Kỷ niệm"}
                             favorText={"Nơi lưu giữ album của những buổi Offline."}
@@ -18,7 +22,7 @@ export default function RetroPage() {
                 </div>
             </div>
             <div
-                className={"flex flex-col items-center justify-center gap-y-8"}
+                className={"flex w-[82%] flex-col items-center gap-y-4 self-center px-2"}
                 data-theme={"dark"}
             >
                 <RetroItem
