@@ -11,7 +11,7 @@ const mainFont = VNS_Font({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://a9vns.giabao06.xyz/DRCH_Banner_Group.png"),
+    metadataBase: new URL("https://dreamchasers.akvns.org/DRCH_Banner_Group.png"),
     title: "Dreamchasers @ 2025 🔥",
     description: "From VNS Dev Squad with love ❤️️",
     authors: [
@@ -23,13 +23,13 @@ export const metadata: Metadata = {
     openGraph: {
         images: [
             {
-                url: "https://a9vns.giabao06.xyz/DRCH_Banner_Group.png",
+                url: "https://dreamchasers.akvns.org/DRCH_Banner_Group.png",
                 alt: "VNS banner",
             },
         ],
         locale: "vi_VN",
         type: "website",
-        url: "https://a9vns.giabao06.xyz",
+        url: "https://dreamchasers.akvns.org",
     },
 };
 
