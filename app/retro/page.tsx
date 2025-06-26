@@ -37,7 +37,7 @@ export default function RetroPage() {
                 <RetroItem
                     title={"VNS Offline 2025: Dreamchasers"}
                     description={"COMING SOON!"}
-                    href={"#"}
+                    href={"/retro/dreamchasers"}
                     imageSrc={Dreamchasers}
                 />
             </div>
