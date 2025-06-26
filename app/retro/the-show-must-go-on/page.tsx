@@ -1,4 +1,4 @@
-import InProgress from "@/components/InProgress";
+import ImageGallery from "@/components/ImageGallery";
 import TheShowMustGoOnImg from "@/public/retro/the-show-must-go-on/the-show-must-go-on.jpg";
 import Image from "next/image";
 
@@ -46,9 +46,9 @@ export default function TheShowMustGoOn() {
             </div>
             <br />
             <div className={"text-center text-3xl font-extrabold"}>Gallery</div>
-            <div className={"text-center"}>
-                {/* TODO: Rework image viewer. */}
-                <InProgress />
+            <div className={"my-8"}>
+                {/* eslint-disable-next-line react/jsx-curly-brace-presence */}
+                <ImageGallery albumPath="/retro/the-show-must-go-on/album" imageCount={16} />
             </div>
         </div>
     );
