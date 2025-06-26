@@ -30,7 +30,7 @@ export default function RetroPage() {
                     description={
                         "Offline đầu tiên của VNS, cũng như là tiền đề cho Dreamchasers và VNS Network."
                     }
-                    href={"#"}
+                    href={"/retro/the-show-must-go-on"}
                     imageSrc={TheShowMustGoOn}
                 />
 

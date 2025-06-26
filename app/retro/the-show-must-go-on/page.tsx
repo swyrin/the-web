@@ -1,4 +1,5 @@
 import InProgress from "@/components/InProgress";
+import TheShowMustGoOnImg from "@/public/retro/the-show-must-go-on/the-show-must-go-on.jpg";
 import Image from "next/image";
 
 export default function TheShowMustGoOn() {
@@ -33,7 +34,7 @@ export default function TheShowMustGoOn() {
             <Image
                 alt={"VNS_The_Show_Must_Go_On"}
                 className={"place-content-center-safe"}
-                src={"/retro/2024/the-show-must-go-on.jpg"}
+                src={TheShowMustGoOnImg}
                 width={3000}
                 height={1000}
             />
