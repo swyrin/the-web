@@ -26,14 +26,14 @@ export default function ImageGallery({
         >
             <div
                 className={
-                    "max-w-full [column-gap:2rem] [column-count:2] sm:[column-count:2] md:[column-count:3] lg:[column-count:4]"
+                    "max-w-full [column-gap:1.12rem] [column-count:2] sm:[column-count:2] md:[column-count:3] lg:[column-count:4]"
                 }
             >
                 {images.map((src) => (
                     <div
                         key={src}
                         className={
-                            "mb-8 w-full break-inside-avoid overflow-hidden rounded-xl shadow-lg"
+                            "mb-[1.12rem] w-full break-inside-avoid overflow-hidden rounded-xl shadow-lg"
                         }
                     >
                         <Image
