@@ -26,20 +26,22 @@ export default function ImageGallery({
         >
             <div
                 className={
-                    "max-w-full [column-gap:2rem] [column-count:4] sm:[column-count:1] md:[column-count:2] lg:[column-count:3] xl:[column-count:4]"
+                    "xs:[column-count:2] max-w-full [column-gap:2rem] [column-count:4] sm:[column-count:2] md:[column-count:2] lg:[column-count:3] xl:[column-count:4]"
                 }
             >
                 {images.map((src) => (
                     <div
                         key={src}
-                        className={"mb-8 break-inside-avoid overflow-hidden rounded-xl shadow-lg"}
+                        className={
+                            "mb-8 w-full break-inside-avoid overflow-hidden rounded-xl shadow-lg"
+                        }
                     >
                         <Image
                             src={src}
                             alt={""}
                             width={900}
                             height={1200}
-                            className={"block h-auto w-full max-w-full min-w-[320px]"}
+                            className={"block h-auto w-full max-w-full min-w-[320px] object-cover"}
                             loading={"lazy"}
                         />
                     </div>
