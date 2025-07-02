@@ -1,5 +1,5 @@
 import Container from "@/components/Container/Container";
-import PageTitle from "@/components/PageTitle/PageTitle";
+import PageTitle from "@/components/PageTitle";
 import Text from "@/components/Text/Text";
 import styles from "@/styles/TournamentPage.module.scss";
 import classNames from "classnames";

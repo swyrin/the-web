@@ -47,8 +47,7 @@ export default function TheShowMustGoOn() {
             <br />
             <div className={"text-center text-3xl font-extrabold"}>Gallery</div>
             <div className={"my-8"}>
-                {/* eslint-disable-next-line react/jsx-curly-brace-presence */}
-                <ImageGallery albumPath="/retro/the-show-must-go-on/album" imageCount={31} />
+                <ImageGallery albumPath={"/retro/the-show-must-go-on/album"} imageCount={31} />
             </div>
         </div>
     );

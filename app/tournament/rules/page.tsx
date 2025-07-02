@@ -1,7 +1,7 @@
 "use client";
 
 import Container from "@/components/Container/Container";
-import PageTitle from "@/components/PageTitle/PageTitle";
+import PageTitle from "@/components/PageTitle";
 import Text from "@/components/Text/Text";
 import ArrowIcon from "@/components/svg/ArrowIcon";
 import BanIcon from "@/components/svg/BanIcon";

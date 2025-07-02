@@ -26,7 +26,7 @@ export type TypographyType =
     | "label-4"
     | "label-5";
 
-export interface TypographyProps {
+export type TypographyProps = {
     id?: string;
     type?: TypographyType;
     weight?: 400 | 500 | 600 | 700 | 800 | 900;
@@ -41,7 +41,7 @@ export interface TypographyProps {
     style?: CSSProperties;
     htmlFor?: string;
     suppressHydrationWarning?: boolean;
-}
+};
 
 const Typography: FC<TypographyProps> = ({
     type = "body-2",

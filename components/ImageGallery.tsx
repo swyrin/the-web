@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 
-interface ImageGalleryProps {
+type ImageGalleryProps = {
     albumPath: string;
     imageCount: number;
     extension?: string;
     className?: string;
-}
+};
 
 export default function ImageGallery({
     albumPath,
@@ -42,7 +42,7 @@ export default function ImageGallery({
                             width={900}
                             height={1200}
                             className={"block h-auto w-full max-w-full min-w-[160px] object-cover"}
-                            loading={"lazy"}
+                            loading={"eager"}
                         />
                     </div>
                 ))}

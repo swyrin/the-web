@@ -1,5 +1,5 @@
 // import InProgress from "@/components/InProgress";
-import PageTitle from "@/components/PageTitle/PageTitle";
+import PageTitle from "@/components/PageTitle";
 import Hourglass from "@/public/Hourglass.png";
 import Image from "next/image";
 import React from "react";

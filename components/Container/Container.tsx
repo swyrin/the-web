@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { ReactNode } from "react";
 
-interface ContainerProps {
+type ContainerProps = {
     className?: string;
     children?: ReactNode;
-}
+};
 
 export default function Container(props: ContainerProps) {
     return (

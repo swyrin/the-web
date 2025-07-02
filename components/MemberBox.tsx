@@ -13,7 +13,7 @@ export default function MemberBox(props: VNS_Member) {
             />
             <div className={"text-base-content text-center text-xl font-bold"}>{props.name}</div>
             {props.quote !== "" && (
-                <div className={"text-md text-base-content text-center font-extralight"}>
+                <div className={"text-md text-base-content text-center font-extralight italic"}>
                     &#34;{props.quote}&#34;
                 </div>
             )}

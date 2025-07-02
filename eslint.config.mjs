@@ -18,6 +18,7 @@ const eslintConfig = [
     },
     {
         rules: {
+            "@typescript-eslint/consistent-type-definitions": ["error", "type"],
             "react/jsx-curly-brace-presence": [
                 "error",
                 {
