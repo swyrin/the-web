@@ -7,15 +7,13 @@ export default function LocationPage() {
         <div className={"h-visible vns-background"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <div>
-                        <PageTitle
-                            title={"Địa điểm"}
-                            favorText={
-                                "Một số thông tin hỗ trợ bạn trong quá trình di chuyển đến địa điểm offline."
-                            }
-                            dark
-                        />
-                    </div>
+                    <PageTitle
+                        title={"Địa điểm"}
+                        favorText={
+                            "Một số thông tin hỗ trợ bạn trong quá trình di chuyển đến địa điểm offline."
+                        }
+                        dark
+                    />
                 </div>
             </div>
             <div

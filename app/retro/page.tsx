@@ -8,13 +8,11 @@ export default function RetroPage() {
         <div className={"h-visible vns-background"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <div>
-                        <PageTitle
-                            title={"Kỷ niệm"}
-                            favorText={"Nơi lưu giữ album của những buổi Offline."}
-                            dark
-                        />
-                    </div>
+                    <PageTitle
+                        title={"Kỷ niệm"}
+                        favorText={"Nơi lưu giữ album của những buổi Offline."}
+                        dark
+                    />
                 </div>
             </div>
             <div
@@ -33,7 +31,7 @@ export default function RetroPage() {
                 <RetroItem
                     title={"VNS Offline 2025: Dreamchasers"}
                     description={"COMING SOON!"}
-                    href={"/retro/dreamchasers"}
+                    href={"#"}
                     imageSrc={Dreamchasers}
                 />
             </div>

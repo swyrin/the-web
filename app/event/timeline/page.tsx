@@ -119,9 +119,7 @@ export default function SchedulePage() {
             <div className={"h-visible vns-background"}>
                 <div className={"hero"}>
                     <div className={"hero-content text-center"}>
-                        <div>
-                            <PageTitle title={"TIMELINE"} favorText={""} dark />
-                        </div>
+                        <PageTitle title={"TIMELINE"} favorText={""} dark />
                     </div>
                 </div>
                 <div>

@@ -143,15 +143,13 @@ export default function CrewPage() {
         <div className={"h-visible vns-background"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <div>
-                        <PageTitle
-                            title={"Tổ chức"}
-                            favorText={
-                                "Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."
-                            }
-                            dark
-                        />
-                    </div>
+                    <PageTitle
+                        title={"Tổ chức"}
+                        favorText={
+                            "Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."
+                        }
+                        dark
+                    />
                 </div>
             </div>
             {/* Desktop tabs - original design */}
