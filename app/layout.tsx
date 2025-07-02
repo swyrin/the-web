@@ -11,7 +11,7 @@ const mainFont = VNS_Font({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://dreamchasers.akvns.org/DRCH_Banner_Group.png"),
+    metadataBase: new URL("https://dreamchasers.akvns.org"),
     title: "Dreamchasers @ 2025 🔥",
     description: "From VNS Dev Squad with love ❤️️",
     authors: [
