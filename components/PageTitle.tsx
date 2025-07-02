@@ -17,17 +17,19 @@ export default function PageTitle(props: PageTitleProps) {
             <div
                 className={`mt-4 flex items-center justify-center text-center ${invertStyle} relative mx-auto w-fit`}
             >
-                <div className={"pr-4"}>
+                <div className={"hidden pr-4 md:block"}>
                     <TitleDecorLeft width={115} height={24} />
                 </div>
-                <h1 className={"text-center text-lg font-extrabold md:text-2xl lg:text-5xl"}>
+                <div className={"text-center text-3xl font-extrabold md:text-4xl lg:text-5xl"}>
                     {props.title}
-                </h1>
-                <div className={"pl-4"}>
+                </div>
+                <div className={"hidden pl-4 md:block"}>
                     <TitleDecorRight width={115} height={24} />
                 </div>
             </div>
-            {props.favorText && <p className={`mt-4 ${favorTextStyle}`}>{props.favorText}</p>}
+            {props.favorText && (
+                <p className={`mt-4 text-2xl font-light ${favorTextStyle}`}>{props.favorText}</p>
+            )}
         </div>
     );
 }
