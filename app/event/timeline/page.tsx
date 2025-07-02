@@ -1,6 +1,6 @@
 "use client";
 
-import PageTitle from "@/components/PageTitle";
+import PageTitle from "@/components/PageTitle/PageTitle";
 import Arrow from "@/public/Arrow.png";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";

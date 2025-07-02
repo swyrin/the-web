@@ -20,17 +20,6 @@ export const metadata: Metadata = {
             url: "https://www.facebook.com/terrastationvn",
         },
     ],
-    openGraph: {
-        images: [
-            {
-                url: "https://dreamchasers.akvns.org/DRCH_Banner_Group.png",
-                alt: "VNS banner",
-            },
-        ],
-        locale: "vi_VN",
-        type: "website",
-        url: "https://dreamchasers.akvns.org",
-    },
 };
 
 export const viewport: Viewport = {
