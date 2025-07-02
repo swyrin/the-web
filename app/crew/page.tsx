@@ -4,7 +4,8 @@ import MemberBox from "@/components/MemberBox";
 import PageTitle from "@/components/PageTitle";
 import { VNS_Member } from "@/lib/vns_types";
 import crewList from "@/public/crew.json";
-import { useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { useCallback, useEffect, useState } from "react";
 
 type HRListProps = {
     members: VNS_Member[];
@@ -104,9 +105,36 @@ export default function CrewPage() {
         return stored && stored !== "" ? stored : "dreamchasers";
     });
 
+    const [emblaRef, emblaApi] = useEmblaCarousel({
+        startIndex: crewTab === "dreamchasers" ? 0 : 1,
+    });
+
     useEffect(() => {
         localStorage.setItem("crew-tab", crewTab);
     }, [crewTab]);
+
+    const onSelect = useCallback(() => {
+        if (!emblaApi) return;
+        const selectedIndex = emblaApi.selectedScrollSnap();
+        setCrewTab(selectedIndex === 0 ? "dreamchasers" : "partners");
+    }, [emblaApi]);
+
+    useEffect(() => {
+        if (!emblaApi) return;
+        emblaApi.on("select", onSelect);
+        onSelect();
+
+        return () => {
+            emblaApi.off("select", onSelect);
+        };
+    }, [emblaApi, onSelect]);
+
+    const scrollTo = useCallback(
+        (index: number) => {
+            if (emblaApi) emblaApi.scrollTo(index);
+        },
+        [emblaApi],
+    );
 
     const members = crewList.members;
     const partners = crewList.partners;
@@ -126,9 +154,10 @@ export default function CrewPage() {
                     </div>
                 </div>
             </div>
+            {/* Desktop tabs - original design */}
             <div
                 className={
-                    "tabs tabs-border sticky top-[70px] z-0 h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none"
+                    "tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"
                 }
                 data-theme={"dark"}
             >
@@ -153,6 +182,48 @@ export default function CrewPage() {
                 />
                 <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
                     <PartnerList members={partners} />
+                </div>
+            </div>
+
+            {/* Mobile swipable tabs */}
+            <div
+                className={"swipe-tabs sticky top-[70px] z-0 h-[calc(100vh-70px)] md:hidden"}
+                data-theme={"dark"}
+            >
+                {/* Tab indicators */}
+                <div className={"flex w-full border-b border-gray-400"}>
+                    <button
+                        className={`tab-indicator text-base-content flex-1 py-3 text-center transition-colors ${
+                            crewTab === "dreamchasers"
+                                ? "border-b-2 border-white text-white"
+                                : "text-gray-400"
+                        }`}
+                        onClick={() => scrollTo(0)}
+                    >
+                        Dreamchasers
+                    </button>
+                    <button
+                        className={`tab-indicator text-base-content flex-1 py-3 text-center transition-colors ${
+                            crewTab === "partners"
+                                ? "border-b-2 border-white text-white"
+                                : "text-gray-400"
+                        }`}
+                        onClick={() => scrollTo(1)}
+                    >
+                        Hợp tác phát triển
+                    </button>
+                </div>
+
+                {/* Swipable content */}
+                <div className={"embla h-[calc(100%-48px)] overflow-hidden"} ref={emblaRef}>
+                    <div className={"embla__container flex h-full"}>
+                        <div className={"embla__slide flex-[0_0_100%] overflow-y-auto py-10"}>
+                            <CrewList members={members} />
+                        </div>
+                        <div className={"embla__slide flex-[0_0_100%] overflow-y-auto py-10"}>
+                            <PartnerList members={partners} />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
