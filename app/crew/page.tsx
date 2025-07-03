@@ -22,7 +22,7 @@ function CrewList(props: HRListProps) {
             <div className={"hidden place-content-center-safe lg:block"}>
                 <div
                     className={
-                        "mb-4 flex flex-col place-content-center-safe items-center md:flex-row"
+                        "mx-36 mb-4 flex flex-col flex-wrap place-content-evenly md:flex-row"
                     }
                 >
                     {eliteMembers.map((member) => {
@@ -54,6 +54,7 @@ function CrewList(props: HRListProps) {
                     })}
                 </div>
             </div>
+            {/* The other-than-hell layout. */}
             <div
                 className={
                     "grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:hidden lg:grid-cols-5"
@@ -191,7 +192,7 @@ export default function CrewPage() {
                 {/* Tab indicators */}
                 <div className={"flex w-full border-b border-gray-400"}>
                     <button
-                        className={`tab-indicator text-base-content flex-1 py-3 text-center transition-colors ${
+                        className={`text-base-content flex-1 py-3 text-center transition-colors ${
                             crewTab === "dreamchasers"
                                 ? "border-b-2 border-white text-white"
                                 : "text-gray-400"
@@ -201,7 +202,7 @@ export default function CrewPage() {
                         Dreamchasers
                     </button>
                     <button
-                        className={`tab-indicator text-base-content flex-1 py-3 text-center transition-colors ${
+                        className={`text-base-content flex-1 py-3 text-center transition-colors ${
                             crewTab === "partners"
                                 ? "border-b-2 border-white text-white"
                                 : "text-gray-400"
