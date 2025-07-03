@@ -11,7 +11,7 @@ export default function OverviewPage() {
                 </div>
             </div>
             <div
-                className={"mt-8 flex flex-col items-center justify-center space-y-12"}
+                className={"my-8 flex flex-col items-center justify-center space-y-12"}
                 data-theme={"dark"}
             >
                 <div className={"mx-4 max-w-192 text-center text-2xl font-extralight text-white"}>

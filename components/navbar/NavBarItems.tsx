@@ -23,20 +23,52 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                         <summary>Sự kiện</summary>
                         <ul>
                             <li>
-                                <Link href={"/event/timeline"}>Timeline</Link>
+                                <Link
+                                    href={"/event/timeline"}
+                                    className={classNames({
+                                        "bg-black text-white": pathname === "/event/timeline",
+                                        "text-black": pathname !== "/event/timeline",
+                                    })}
+                                >
+                                    Timeline
+                                </Link>
                             </li>
                             <li>
-                                <Link href={"/event/schedule"}>Lịch trình</Link>
+                                <Link
+                                    href={"/event/schedule"}
+                                    className={classNames({
+                                        "bg-black text-white": pathname === "/event/schedule",
+                                        "text-black": pathname !== "/event/schedule",
+                                    })}
+                                >
+                                    Lịch trình
+                                </Link>
                             </li>
                             <li>
-                                <Link href={"/event/location"}>Địa điểm</Link>
+                                <Link
+                                    href={"/event/location"}
+                                    className={classNames({
+                                        "bg-black text-white": pathname === "/event/location",
+                                        "text-black": pathname !== "/event/location",
+                                    })}
+                                >
+                                    Địa điểm
+                                </Link>
                             </li>
                         </ul>
                     </details>
                 </li>
                 {links.map((link) => (
                     <li key={link.name}>
-                        <Link href={link.href}>{link.name}</Link>
+                        <Link
+                            href={link.href}
+                            className={classNames({
+                                "bg-black text-white": pathname === link.href,
+                                "text-black": pathname !== link.href,
+                            })}
+                        >
+                            {link.name}
+                        </Link>
                     </li>
                 ))}
                 <li>
@@ -44,13 +76,37 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                         <summary>Tournament</summary>
                         <ul>
                             <li>
-                                <Link href={"/tournament/overview"}>Giới thiệu</Link>
+                                <Link
+                                    href={"/tournament/overview"}
+                                    className={classNames({
+                                        "bg-black text-white": pathname === "/tournament/overview",
+                                        "text-black": pathname !== "/tournament/overview",
+                                    })}
+                                >
+                                    Giới thiệu
+                                </Link>
                             </li>
                             <li>
-                                <Link href={"/tournament/rules"}>Luật chơi</Link>
+                                <Link
+                                    href={"/tournament/rules"}
+                                    className={classNames({
+                                        "bg-black text-white": pathname === "/tournament/rules",
+                                        "text-black": pathname !== "/tournament/rules",
+                                    })}
+                                >
+                                    Luật chơi
+                                </Link>
                             </li>
                             <li>
-                                <Link href={"/tournament/prizes"}>Giải thưởng</Link>
+                                <Link
+                                    href={"/tournament/prizes"}
+                                    className={classNames({
+                                        "bg-black text-white": pathname === "/tournament/prizes",
+                                        "text-black": pathname !== "/tournament/prizes",
+                                    })}
+                                >
+                                    Giải thưởng
+                                </Link>
                             </li>
                         </ul>
                     </details>
@@ -69,10 +125,12 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                 <Text
                     type={"title-4"}
                     className={classNames(
-                        "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-[''] hover:after:scale-x-100",
+                        "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
                         {
-                            "bg-black font-bold text-white": pathname.includes("/event"),
-                            "bg-white text-black after:bg-black": !pathname.includes("/event"),
+                            "font-bold text-black after:scale-x-100 after:bg-black":
+                                pathname.includes("/event"),
+                            "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
+                                !pathname.includes("/event"),
                         },
                     )}
                 >
@@ -80,18 +138,40 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                 </Text>
                 <ul
                     tabIndex={0}
-                    className={
-                        "dropdown-content menu rounded-box z-1000 w-52 bg-white p-2 shadow-sm"
-                    }
+                    className={"dropdown-content menu rounded-box w-52 bg-white p-2 shadow-sm"}
                 >
                     <li>
-                        <Link href={"/event/timeline"}>Timeline</Link>
+                        <Link
+                            href={"/event/timeline"}
+                            className={classNames({
+                                "bg-black text-white": pathname === "/event/timeline",
+                                "text-black": pathname !== "/event/timeline",
+                            })}
+                        >
+                            Timeline
+                        </Link>
                     </li>
                     <li>
-                        <Link href={"/event/schedule"}>Lịch trình</Link>
+                        <Link
+                            href={"/event/schedule"}
+                            className={classNames({
+                                "bg-black text-white": pathname === "/event/schedule",
+                                "text-black": pathname !== "/event/schedule",
+                            })}
+                        >
+                            Lịch trình
+                        </Link>
                     </li>
                     <li>
-                        <Link href={"/event/location"}>Địa điểm</Link>
+                        <Link
+                            href={"/event/location"}
+                            className={classNames({
+                                "bg-black text-white": pathname === "/event/location",
+                                "text-black": pathname !== "/event/location",
+                            })}
+                        >
+                            Địa điểm
+                        </Link>
                     </li>
                 </ul>
             </div>
@@ -102,10 +182,12 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                     <Link
                         href={link.href}
                         className={classNames(
-                            "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-[''] hover:after:scale-x-100",
+                            "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
                             {
-                                "bg-black font-bold text-white": pathname === link.href,
-                                "bg-white text-black after:bg-black": pathname !== link.href,
+                                "font-bold text-black after:scale-x-100 after:bg-black":
+                                    pathname === link.href,
+                                "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
+                                    pathname !== link.href,
                             },
                         )}
                     >
@@ -118,10 +200,12 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                 <Text
                     type={"title-4"}
                     className={classNames(
-                        "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-x-0 after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-[''] hover:after:scale-x-100",
+                        "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
                         {
-                            "bg-black font-bold text-white": pathname.includes("/tournament"),
-                            "bg-white text-black after:bg-black": !pathname.includes("/tournament"),
+                            "font-bold text-black after:scale-x-100 after:bg-black":
+                                pathname.includes("/tournament"),
+                            "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
+                                !pathname.includes("/tournament"),
                         },
                     )}
                 >
@@ -129,21 +213,44 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                 </Text>
                 <ul
                     tabIndex={0}
-                    className={
-                        "dropdown-content menu rounded-box z-1000 w-52 bg-white p-2 shadow-sm"
-                    }
+                    className={"dropdown-content menu rounded-box w-52 bg-white p-2 shadow-sm"}
                 >
                     <li>
-                        <Link href={"/tournament/overview"}>Giới thiệu</Link>
+                        <Link
+                            href={"/tournament/overview"}
+                            className={classNames({
+                                "bg-black text-white": pathname === "/tournament/overview",
+                                "text-black": pathname !== "/tournament/overview",
+                            })}
+                        >
+                            Giới thiệu
+                        </Link>
                     </li>
                     <li>
-                        <Link href={"/tournament/rules"}>Luật chơi </Link>
+                        <Link
+                            href={"/tournament/rules"}
+                            className={classNames({
+                                "bg-black text-white": pathname === "/tournament/rules",
+                                "text-black": pathname !== "/tournament/rules",
+                            })}
+                        >
+                            Luật chơi
+                        </Link>
                     </li>
                     <li>
-                        <Link href={"/tournament/prize"}>Giải thưởng</Link>
+                        <Link
+                            href={"/tournament/prizes"}
+                            className={classNames({
+                                "bg-black text-white": pathname === "/tournament/prizes",
+                                "text-black": pathname !== "/tournament/prizes",
+                            })}
+                        >
+                            Giải thưởng
+                        </Link>
                     </li>
                 </ul>
             </div>
+            <div className={"h-0.5 w-32 bg-black"} />
         </div>
     );
 }
