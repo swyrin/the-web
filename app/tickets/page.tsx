@@ -9,16 +9,61 @@ export default function OverviewPage() {
                     <PageTitle title={"Mua vé"} favorText={""} dark />
                 </div>
             </div>
+            {/* Whale & Dolphin tiers */}
             <div
-                className={"my-8 flex flex-col items-center justify-center space-y-12"}
+                className={"my-8 flex flex-row items-stretch justify-center gap-8"}
                 data-theme={"dark"}
             >
+                {/* Dolphin Tier */}
                 <div
                     className={
-                        "relative mx-4 flex max-w-192 flex-col items-center justify-center overflow-hidden rounded-3xl border-4 border-white/80 bg-black/70 p-4 shadow-lg"
+                        "relative mx-4 flex max-w-192 flex-1 flex-col items-center overflow-hidden rounded-3xl border-4 border-white/80 bg-black/70 p-4 shadow-lg"
                     }
                 >
-                    {/* Blue part (Image) */}
+                    <div className={"relative z-[1] w-full"}>
+                        <Image
+                            src={"/tickets/prisma_dolphin.jpg"}
+                            alt={""}
+                            width={600}
+                            height={60}
+                            className={"h-[80px] w-full rounded-md object-cover"}
+                        />
+                        <div
+                            className={
+                                "absolute top-0 left-0 z-[2] flex h-[80px] w-full items-center justify-center text-[2.5rem] font-bold tracking-wider text-[#222]"
+                            }
+                            style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
+                        >
+                            DOLPHIN TIER
+                        </div>
+                    </div>
+                    <div
+                        className={"flex flex-col items-center justify-center px-4 py-8 text-white"}
+                    >
+                        <div className={"mb-2 text-lg font-bold"}>
+                            Keychain Amiya - Chasing the Dream
+                        </div>
+                        <div className={"mb-2 text-lg font-bold"}>
+                            Sticker (ngẫu nhiên 1 trong 4)
+                        </div>
+                        <div className={"mb-2 text-lg font-bold"}>
+                            {"Badge nắp chai by "}
+                            <span className={"font-extrabold"}>Rei Não Cá</span>
+                        </div>
+                        <div className={"mb-6 text-lg font-bold"}>
+                            {"Card bo góc by "}
+                            <span className={"font-extrabold"}>Rei Não Cá</span>
+                        </div>
+                        <div className={"mb-0 text-4xl font-extrabold"}>119.000</div>
+                        <div className={"text-lg font-bold tracking-widest"}>VNĐ</div>
+                    </div>
+                </div>
+                {/* Whale Tier */}
+                <div
+                    className={
+                        "relative mx-4 flex max-w-192 flex-1 flex-col items-center overflow-hidden rounded-3xl border-4 border-white/80 bg-black/70 p-4 shadow-lg"
+                    }
+                >
                     <div className={"relative z-[1] w-full"}>
                         <Image
                             src={"/tickets/prisma_whale.jpg"}
@@ -31,23 +76,26 @@ export default function OverviewPage() {
                             className={
                                 "absolute top-0 left-0 z-[2] flex h-[80px] w-full items-center justify-center text-[2.5rem] font-bold tracking-wider text-[#222]"
                             }
+                            style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
                         >
                             WHALE TIER
                         </div>
                     </div>
-                    {/* Content */}
                     <div
                         className={"flex flex-col items-center justify-center px-4 py-8 text-white"}
                     >
+                        <div className={"mb-2 text-lg font-bold"}>Bao gồm quà từ Dolphin Tier</div>
                         <div className={"mb-2 text-lg font-bold"}>
-                            {"Bao gồm quà từ "}
-                            <span className={"font-extrabold"}>Dolphin Tier</span>
+                            Badge Amiya - Chasing the Dream
                         </div>
-                        <div className={"mb-1 text-xl font-light"}>
-                            Badge Amiya – Chasing the Dream
+                        <div className={"mb-2 text-lg font-bold"}>
+                            {"Badge nắp chai by "}
+                            Lanyard Dreamchasers
                         </div>
-                        <div className={"mb-6 text-xl font-light"}>Lanyard – Dreamchasers</div>
-                        <div className={"mb-0 text-4xl font-extrabold"}>199.000</div>
+                        <div className={"mb-6 text-lg font-bold"}>
+                            <span className={"font-extrabold"}> </span>
+                        </div>
+                        <div className={"mb-0 text-4xl font-extrabold"}>119.000</div>
                         <div className={"text-lg font-bold tracking-widest"}>VNĐ</div>
                     </div>
                 </div>
