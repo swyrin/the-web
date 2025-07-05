@@ -1,19 +1,18 @@
-// import InProgress from "@/components/InProgress";
 import PageTitle from "@/components/PageTitle";
-import Bag from "@/public/rules/bag.png";
-import Broom from "@/public/rules/broom.png";
-import Chat from "@/public/rules/chat.png";
-import Children from "@/public/rules/children.png";
-import Clothes from "@/public/rules/clothes.png";
-import Hammer from "@/public/rules/hammer.png";
-import People from "@/public/rules/people.png";
-import Pet from "@/public/rules/pet.png";
-import Scale from "@/public/rules/scale.png";
-import Stop from "@/public/rules/stop.png";
-import Syringe from "@/public/rules/syringe.png";
-import Weapon from "@/public/rules/weapon.png";
+import Bag from "@/public/rules/bag.svg";
+import Broom from "@/public/rules/broom.svg";
+import Chat from "@/public/rules/chat.svg";
+import Children from "@/public/rules/children.svg";
+import Clothes from "@/public/rules/clothes.svg";
+import Hammer from "@/public/rules/hammer.svg";
+import People from "@/public/rules/people.svg";
+import Pet from "@/public/rules/pet.svg";
+import Scale from "@/public/rules/scale.svg";
+import Stop from "@/public/rules/stop.svg";
+import Syringe from "@/public/rules/syringe.svg";
+import Weapon from "@/public/rules/weapon.svg";
 import Image, { StaticImageData } from "next/image";
-import React from "react";
+import { Fragment } from "react";
 
 function VerticalLine({ height }: { height: number }) {
     return <div className={"w-0 border-2 border-white"} style={{ height: `${height}px` }}></div>;
@@ -143,7 +142,11 @@ export default function RulesPage() {
             <div className={"h-visible vns-background"}>
                 <div className={"hero"}>
                     <div className={"hero-content text-center"}>
-                        <PageTitle title={"NỘI QUY"} favorText={""} dark />
+                        <PageTitle
+                            title={"NỘI QUY"}
+                            favorText={"Một số điều cần lưu ý khi tham gia offline"}
+                            dark
+                        />
                     </div>
                 </div>
                 <div className={"h-full flex-1 px-5"}>
@@ -162,7 +165,7 @@ export default function RulesPage() {
                                                 title={rule.title}
                                                 titleColor={rule.titleColor}
                                                 description={rule.description}
-                                                side="left"
+                                                side={"left"}
                                             />
                                         );
                                     })}
@@ -171,7 +174,7 @@ export default function RulesPage() {
                             <div className={"flex flex-col items-center justify-center"}>
                                 <VerticalLine height={50} />
                                 {rules.map((rule, index) => (
-                                    <React.Fragment key={index}>
+                                    <Fragment key={index}>
                                         <div
                                             className={"flex h-25 w-25 items-center justify-center"}
                                             key={index}
@@ -190,7 +193,7 @@ export default function RulesPage() {
                                         ) : (
                                             <></>
                                         )}
-                                    </React.Fragment>
+                                    </Fragment>
                                 ))}
                             </div>
 
