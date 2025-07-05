@@ -10,7 +10,7 @@ type RetroItemProps = {
 
 export default function RetroItem(props: RetroItemProps) {
     return (
-        <div className={"mx-8 flex flex-col shadow-2xl/25 shadow-white lg:flex-row"}>
+        <div className={"m-4 flex flex-col shadow-2xl/25 shadow-white lg:flex-row"}>
             <figure className={"flex max-h-48 max-w-full min-w-1/2 overflow-hidden"}>
                 <Image src={props.imageSrc} alt={"retro_image"} className={"self-center"} />
             </figure>
@@ -21,7 +21,7 @@ export default function RetroItem(props: RetroItemProps) {
                 >
                     {props.title}
                 </Link>
-                <p className={"mx-4 mb-3 text-center"}>{props.description}</p>
+                <p className={"mx-auto my-3 text-center"}>{props.description}</p>
             </div>
         </div>
     );

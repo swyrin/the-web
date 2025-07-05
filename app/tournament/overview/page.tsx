@@ -4,14 +4,14 @@ import Image from "next/image";
 
 export default function OverviewPage() {
     return (
-        <div className={"h-visible vns-background"}>
+        <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle title={"Tournament"} favorText={"Giới thiệu"} dark />
                 </div>
             </div>
             <div
-                className={"my-8 flex flex-col items-center justify-center space-y-12"}
+                className={"flex flex-1/2 flex-col items-center justify-center"}
                 data-theme={"dark"}
             >
                 <div className={"mx-4 max-w-192 text-center text-2xl font-extralight text-white"}>
@@ -21,7 +21,7 @@ export default function OverviewPage() {
                     thú vị để thưởng cho các Doctor mang đến kết quả đáng kinh ngạc nhất vào cuối
                     buổi chương trình!
                 </div>
-                <Image src={TournamentLogo} alt={"Tournament Logo"} width={128} height={128} />
+                <Image src={TournamentLogo} alt={"Tournament Logo"} className={"my-8"} />
             </div>
         </div>
     );

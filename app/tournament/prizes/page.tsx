@@ -30,7 +30,7 @@ export default function PrizePage() {
     }, [emblaApi, onSelect]);
 
     return (
-        <div className={"h-visible vns-background overflow-y-hidden"}>
+        <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle title={"Tournament"} favorText={"Giải thưởng"} dark />
