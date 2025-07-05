@@ -62,27 +62,27 @@ export default function RulesPage() {
             title: "CẤM",
             titleColor: "red",
             description:
-                "tất cả các hình thức quấy rối, xâm phạm đến tài sản và quyền riêng tư cá nhân.",
+                "Tất cả các hình thức quấy rối, xâm phạm đến tài sản và quyền riêng tư cá nhân.",
             icon: Stop,
         },
         {
             title: "CẤM",
             titleColor: "red",
             description:
-                "mang vũ khí quân sự (s.ú.n.g, d.a.o,...) và các vật dụng nguy hiểm vào trong khu vực sự kiện.",
+                "Mang vũ khí quân sự (s.ú.n.g, d.a.o,...) và các vật dụng nguy hiểm vào trong khu vực sự kiện.",
             icon: Weapon,
         },
         {
             title: "CẤM",
             titleColor: "red",
             description:
-                "tất cả các loại chất kích thích, cấm các hành vi gây mất trật tự công cộng.",
+                "Tất cả các loại chất kích thích, cấm các hành vi gây mất trật tự công cộng.",
             icon: Syringe,
         },
         {
             title: "CẤM",
             titleColor: "red",
-            description: "bàn về chính trị, phân biệt vùng miền, gây mâu thuẫn, và bạo lực.",
+            description: "Bàn về chính trị, phân biệt vùng miền, gây mâu thuẫn, và bạo lực.",
             icon: Scale,
         },
         {
