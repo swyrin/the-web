@@ -17,7 +17,7 @@ export default function RetroItem(props: RetroItemProps) {
             <div className={"flex min-w-1/2 flex-col items-center justify-center bg-white"}>
                 <Link
                     href={props.href}
-                    className={"font-lg card-title m-2 text-center hover:underline"}
+                    className={"font-lg card-title m-2 text-center font-extrabold hover:underline"}
                 >
                     {props.title}
                 </Link>

@@ -1,4 +1,4 @@
-import PurchaseTicketButton from "@/components/PurchaseTicketButton";
+import PurchaseTicketButton from "@/components/PreviewTicketButton";
 import NavBarItems from "@/components/navbar/NavBarItems";
 import BurgerMenu from "@/components/svg/BurgerMenu";
 import Sparkle from "@/components/svg/Sparkle";
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function NavBar() {
     return (
-        <header className={"sticky top-0 z-1 flex h-[70px] items-center bg-white"}>
+        <header className={"sticky top-0 z-727 flex h-[70px] items-center bg-white"}>
             <div className={"ml-4 flex items-center justify-center"}>
                 <div className={"dropdown"}>
                     <BurgerMenu />

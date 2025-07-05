@@ -5,12 +5,151 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
 
-import Text from "../Text/Text";
+// Reusable component for individual dropdown items
+function DropdownItem({
+    href,
+    children,
+    pathname,
+}: {
+    href: string;
+    children: React.ReactNode;
+    pathname: string;
+}) {
+    return (
+        <li>
+            <Link
+                href={href}
+                className={classNames({
+                    "bg-black text-white": pathname === href,
+                    "text-black": pathname !== href,
+                })}
+            >
+                {children}
+            </Link>
+        </li>
+    );
+}
+
+// Reusable component for mobile dropdown sections
+function MobileDropdownSection({
+    title,
+    items,
+    pathname,
+}: {
+    title: string;
+    items: Array<{ href: string; label: string }>;
+    pathname: string;
+}) {
+    return (
+        <li>
+            <details>
+                <summary>{title}</summary>
+                <ul>
+                    {items.map((item) => (
+                        <DropdownItem key={item.href} href={item.href} pathname={pathname}>
+                            {item.label}
+                        </DropdownItem>
+                    ))}
+                </ul>
+            </details>
+        </li>
+    );
+}
+
+// Reusable component for desktop dropdown menus
+function DesktopDropdown({
+    title,
+    items,
+    pathname,
+    pathPrefix,
+}: {
+    title: string;
+    items: Array<{ href: string; label: string }>;
+    pathname: string;
+    pathPrefix: string;
+}) {
+    return (
+        <div className={"dropdown dropdown-hover group"}>
+            <div
+                className={classNames(
+                    "relative rounded-md py-2 text-lg font-bold transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
+                    {
+                        "font-bold text-black after:scale-x-100 after:bg-black":
+                            pathname.includes(pathPrefix),
+                        "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
+                            !pathname.includes(pathPrefix),
+                    },
+                )}
+            >
+                {title}
+            </div>
+            <div
+                className={"invisible absolute top-full left-0 h-4 w-full group-hover:visible"}
+            ></div>
+            <ul
+                tabIndex={0}
+                className={"dropdown-content menu rounded-box mt-4 w-52 bg-white p-2 shadow-sm"}
+            >
+                {items.map((item) => (
+                    <DropdownItem key={item.href} href={item.href} pathname={pathname}>
+                        {item.label}
+                    </DropdownItem>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+// Reusable component for navigation links with underline animation
+function NavLink({
+    href,
+    children,
+    pathname,
+}: {
+    href: string;
+    children: React.ReactNode;
+    pathname: string;
+}) {
+    return (
+        <Link
+            href={href}
+            className={classNames(
+                "relative rounded-md py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
+                {
+                    "font-bold text-black after:scale-x-100 after:bg-black": pathname === href,
+                    "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
+                        pathname !== href,
+                },
+            )}
+        >
+            <div className={"text-lg font-bold"}>{children}</div>
+        </Link>
+    );
+}
+
+// Reusable divider component
+function NavDivider({ width = "w-8" }: { width?: string }) {
+    return <div className={`h-0.5 ${width} bg-black`} />;
+}
 
 export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }) {
     const links = [
         { name: "Tổ chức", href: "/crew" },
         { name: "Kỷ niệm", href: "/retro" },
+        { name: "Tournament", href: "/keocontranhba" },
+    ];
+
+    const eventItems = [
+        { href: "/event/timeline", label: "Timeline" },
+        { href: "/event/schedule", label: "Lịch trình" },
+        { href: "/event/location", label: "Địa điểm" },
+        { href: "/event/rules", label: "Nội quy" },
+    ];
+
+    const tournamentItems = [
+        { href: "/tournament/overview", label: "Giới thiệu" },
+        { href: "/tournament/rules", label: "Luật chơi" },
+        { href: "/tournament/prizes", label: "Giải thưởng" },
     ];
 
     const pathname = usePathname();
@@ -18,57 +157,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
     if (isMobile) {
         return (
             <>
-                <li>
-                    <details>
-                        <summary>Sự kiện</summary>
-                        <ul>
-                            <li>
-                                <Link
-                                    href={"/event/timeline"}
-                                    className={classNames({
-                                        "bg-black text-white": pathname === "/event/timeline",
-                                        "text-black": pathname !== "/event/timeline",
-                                    })}
-                                >
-                                    Timeline
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={"/event/schedule"}
-                                    className={classNames({
-                                        "bg-black text-white": pathname === "/event/schedule",
-                                        "text-black": pathname !== "/event/schedule",
-                                    })}
-                                >
-                                    Lịch trình
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={"/event/location"}
-                                    className={classNames({
-                                        "bg-black text-white": pathname === "/event/location",
-                                        "text-black": pathname !== "/event/location",
-                                    })}
-                                >
-                                    Địa điểm
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={"/event/rules"}
-                                    className={classNames({
-                                        "bg-black text-white": pathname === "/event/rules",
-                                        "text-black": pathname !== "/event/rules",
-                                    })}
-                                >
-                                    Nội quy
-                                </Link>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
+                <MobileDropdownSection title={"Sự kiện"} items={eventItems} pathname={pathname} />
                 {links.map((link) => (
                     <li key={link.name}>
                         <Link
@@ -82,46 +171,11 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                         </Link>
                     </li>
                 ))}
-                <li>
-                    <details>
-                        <summary>Tournament</summary>
-                        <ul>
-                            <li>
-                                <Link
-                                    href={"/tournament/overview"}
-                                    className={classNames({
-                                        "bg-black text-white": pathname === "/tournament/overview",
-                                        "text-black": pathname !== "/tournament/overview",
-                                    })}
-                                >
-                                    Giới thiệu
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={"/tournament/rules"}
-                                    className={classNames({
-                                        "bg-black text-white": pathname === "/tournament/rules",
-                                        "text-black": pathname !== "/tournament/rules",
-                                    })}
-                                >
-                                    Luật chơi
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href={"/tournament/prizes"}
-                                    className={classNames({
-                                        "bg-black text-white": pathname === "/tournament/prizes",
-                                        "text-black": pathname !== "/tournament/prizes",
-                                    })}
-                                >
-                                    Giải thưởng
-                                </Link>
-                            </li>
-                        </ul>
-                    </details>
-                </li>
+                {/* <MobileDropdownSection
+                    title={"Tournament"}
+                    items={tournamentItems}
+                    pathname={pathname}
+                /> */}
             </>
         );
     }
@@ -132,147 +186,29 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                 "relative hidden cursor-pointer items-center gap-4 text-base font-semibold text-black lg:flex"
             }
         >
-            <div className={"dropdown dropdown-hover"}>
-                <Text
-                    type={"title-4"}
-                    className={classNames(
-                        "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
-                        {
-                            "font-bold text-black after:scale-x-100 after:bg-black":
-                                pathname.includes("/event"),
-                            "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
-                                !pathname.includes("/event"),
-                        },
-                    )}
-                >
-                    Sự kiện
-                </Text>
-                <ul
-                    tabIndex={0}
-                    className={"dropdown-content menu rounded-box w-52 bg-white p-2 shadow-sm"}
-                >
-                    <li>
-                        <Link
-                            href={"/event/timeline"}
-                            className={classNames({
-                                "bg-black text-white": pathname === "/event/timeline",
-                                "text-black": pathname !== "/event/timeline",
-                            })}
-                        >
-                            Timeline
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href={"/event/schedule"}
-                            className={classNames({
-                                "bg-black text-white": pathname === "/event/schedule",
-                                "text-black": pathname !== "/event/schedule",
-                            })}
-                        >
-                            Lịch trình
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href={"/event/location"}
-                            className={classNames({
-                                "bg-black text-white": pathname === "/event/location",
-                                "text-black": pathname !== "/event/location",
-                            })}
-                        >
-                            Địa điểm
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href={"/event/rules"}
-                            className={classNames({
-                                "bg-black text-white": pathname === "/event/rules",
-                                "text-black": pathname !== "/event/rules",
-                            })}
-                        >
-                            Nội quy
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-            <div className={"h-0.5 w-8 bg-black"} />
+            <DesktopDropdown
+                title={"Sự kiện"}
+                items={eventItems}
+                pathname={pathname}
+                pathPrefix={"/event"}
+            />
+            <NavDivider />
             {links.map((link, index) => (
                 <Fragment key={link.name}>
-                    {index !== 0 && <div className={"h-0.5 w-8 bg-black"} />}
-                    <Link
-                        href={link.href}
-                        className={classNames(
-                            "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
-                            {
-                                "font-bold text-black after:scale-x-100 after:bg-black":
-                                    pathname === link.href,
-                                "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
-                                    pathname !== link.href,
-                            },
-                        )}
-                    >
-                        <Text type={"title-4"}>{link.name}</Text>
-                    </Link>
+                    {index !== 0 && <NavDivider />}
+                    <NavLink href={link.href} pathname={pathname}>
+                        {link.name}
+                    </NavLink>
                 </Fragment>
             ))}
-            <div className={"h-0.5 w-8 bg-black"} />
-            <div className={"dropdown dropdown-hover"}>
-                <Text
-                    type={"title-4"}
-                    className={classNames(
-                        "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
-                        {
-                            "font-bold text-black after:scale-x-100 after:bg-black":
-                                pathname.includes("/tournament"),
-                            "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
-                                !pathname.includes("/tournament"),
-                        },
-                    )}
-                >
-                    Tournament
-                </Text>
-                <ul
-                    tabIndex={0}
-                    className={"dropdown-content menu rounded-box w-52 bg-white p-2 shadow-sm"}
-                >
-                    <li>
-                        <Link
-                            href={"/tournament/overview"}
-                            className={classNames({
-                                "bg-black text-white": pathname === "/tournament/overview",
-                                "text-black": pathname !== "/tournament/overview",
-                            })}
-                        >
-                            Giới thiệu
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href={"/tournament/rules"}
-                            className={classNames({
-                                "bg-black text-white": pathname === "/tournament/rules",
-                                "text-black": pathname !== "/tournament/rules",
-                            })}
-                        >
-                            Luật chơi
-                        </Link>
-                    </li>
-                    <li>
-                        <Link
-                            href={"/tournament/prizes"}
-                            className={classNames({
-                                "bg-black text-white": pathname === "/tournament/prizes",
-                                "text-black": pathname !== "/tournament/prizes",
-                            })}
-                        >
-                            Giải thưởng
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-            <div className={"h-0.5 w-32 bg-black"} />
+            {/* <NavDivider />
+            <DesktopDropdown
+                title={"Tournament"}
+                items={tournamentItems}
+                pathname={pathname}
+                pathPrefix={"/tournament"}
+            /> */}
+            <NavDivider width={"w-32"} />
         </div>
     );
 }
