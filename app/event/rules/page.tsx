@@ -42,7 +42,7 @@ function RuleSection({
                     {title}
                 </h1>
                 <p
-                    className={`${side == "left" ? "text-right" : "text-left"} text-xs font-medium text-white md:text-xl`}
+                    className={`${side == "left" ? "text-right" : "text-left"} text-lg font-medium text-white md:text-xl`}
                 >
                     {description}
                 </p>
