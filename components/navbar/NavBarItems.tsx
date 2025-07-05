@@ -142,7 +142,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                                 pathname.includes("/event"),
                             "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
                                 !pathname.includes("/event"),
-                        }
+                        },
                     )}
                 >
                     Sự kiện
@@ -210,7 +210,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                                     pathname === link.href,
                                 "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
                                     pathname !== link.href,
-                            }
+                            },
                         )}
                     >
                         <Text type={"title-4"}>{link.name}</Text>
@@ -228,7 +228,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                                 pathname.includes("/tournament"),
                             "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
                                 !pathname.includes("/tournament"),
-                        }
+                        },
                     )}
                 >
                     Tournament
