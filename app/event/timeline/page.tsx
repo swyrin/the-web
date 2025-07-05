@@ -113,7 +113,7 @@ function Timeline({ events }: TimelineProps) {
     );
 }
 
-export default function SchedulePage() {
+export default function TimelinePage() {
     return (
         <>
             <div className={"h-visible vns-background flex flex-col"}>

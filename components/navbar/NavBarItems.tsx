@@ -55,6 +55,17 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                                     Địa điểm
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    href={"/event/rules"}
+                                    className={classNames({
+                                        "bg-black text-white": pathname === "/event/rules",
+                                        "text-black": pathname !== "/event/rules",
+                                    })}
+                                >
+                                    Nội quy
+                                </Link>
+                            </li>
                         </ul>
                     </details>
                 </li>
@@ -171,6 +182,17 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                             })}
                         >
                             Địa điểm
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            href={"/event/rules"}
+                            className={classNames({
+                                "bg-black text-white": pathname === "/event/rules",
+                                "text-black": pathname !== "/event/rules",
+                            })}
+                        >
+                            Nội quy
                         </Link>
                     </li>
                 </ul>

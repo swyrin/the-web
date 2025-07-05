@@ -29,6 +29,8 @@ export default function PrizePage() {
         };
     }, [emblaApi, onSelect]);
 
+    // "ê tao không ngờ Tus muốn leak luôn quà trước offline luôn."
+    //     Đụt, 2025
     return (
         <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
