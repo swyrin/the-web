@@ -1,6 +1,5 @@
 "use client";
 
-import Text from "@/components/Text/Text";
 import classNames from "classnames";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -71,10 +70,9 @@ function DesktopDropdown({
 }) {
     return (
         <div className={"dropdown dropdown-hover group"}>
-            <Text
-                type={"title-4"}
+            <div
                 className={classNames(
-                    "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
+                    "relative rounded-md py-2 text-lg font-bold transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
                     {
                         "font-bold text-black after:scale-x-100 after:bg-black":
                             pathname.includes(pathPrefix),
@@ -84,7 +82,7 @@ function DesktopDropdown({
                 )}
             >
                 {title}
-            </Text>
+            </div>
             <div
                 className={"invisible absolute top-full left-0 h-4 w-full group-hover:visible"}
             ></div>
@@ -116,7 +114,7 @@ function NavLink({
         <Link
             href={href}
             className={classNames(
-                "relative rounded-md px-3 py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
+                "relative rounded-md py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
                 {
                     "font-bold text-black after:scale-x-100 after:bg-black": pathname === href,
                     "text-black after:scale-x-0 after:bg-black hover:after:scale-x-100":
@@ -124,7 +122,7 @@ function NavLink({
                 },
             )}
         >
-            <Text type={"title-4"}>{children}</Text>
+            <div className={"text-lg font-bold"}>{children}</div>
         </Link>
     );
 }
@@ -138,6 +136,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
     const links = [
         { name: "Tổ chức", href: "/crew" },
         { name: "Kỷ niệm", href: "/retro" },
+        { name: "Tournament", href: "/keocontranhba" },
     ];
 
     const eventItems = [
@@ -202,13 +201,13 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                     </NavLink>
                 </Fragment>
             ))}
-            <NavDivider />
+            {/* <NavDivider />
             <DesktopDropdown
                 title={"Tournament"}
                 items={tournamentItems}
                 pathname={pathname}
                 pathPrefix={"/tournament"}
-            />
+            /> */}
             <NavDivider width={"w-32"} />
         </div>
     );
