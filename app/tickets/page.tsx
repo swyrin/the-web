@@ -1,7 +1,74 @@
 import PageTitle from "@/components/PageTitle";
-import Image from "next/image";
+import PurchaseTicketButton from "@/components/PurchaseTicketButton";
+import PrismaDolphin from "@/public/tickets/prisma_dolphin.jpg";
+import PrismaDRCH from "@/public/tickets/prisma_drch.jpg";
+import PrismaWhale from "@/public/tickets/prisma_whale.jpg";
+import ShirtPreview from "@/public/tickets/shirt_preview.png";
+import Image, { StaticImageData } from "next/image";
 
-export default function OverviewPage() {
+type TicketCardProps = {
+    tier: string;
+    price: string;
+    image: StaticImageData;
+    parentTier?: string;
+    description: string[];
+};
+
+function TicketCard(props: TicketCardProps) {
+    return (
+        <div
+            className={
+                "m-4 flex min-h-110 min-w-84 flex-col items-center justify-between rounded-3xl border-4 border-white/80 bg-black/70 lg:w-1/3"
+            }
+        >
+            <div className={"relative mt-4 w-full px-4"}>
+                <Image
+                    src={props.image}
+                    alt={"BG"}
+                    className={"h-[64px] w-full rounded-xl object-cover"}
+                />
+                <div
+                    className={
+                        "absolute top-0 left-0 flex h-[64px] w-full items-center justify-center text-center text-2xl font-bold md:text-3xl lg:text-4xl"
+                    }
+                    style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
+                >
+                    {props.tier.toUpperCase()} TIER
+                </div>
+            </div>
+            <div className={"flex flex-col text-center text-white"}>
+                {props.parentTier && (
+                    <div className={"my-2 text-lg font-light"}>
+                        Bao gồm quà từ {props.parentTier}, cộng thêm:
+                    </div>
+                )}
+                {props.description.map((line, index) => (
+                    <div
+                        key={index}
+                        className={"my-2 text-lg font-bold"}
+                        style={{ textShadow: "0 1px 2px #000" }}
+                    >
+                        ✓ {line}
+                    </div>
+                ))}
+                {props.tier === "Dreamchasers" && (
+                    <Image
+                        src={ShirtPreview}
+                        alt={"Áo thun Dreamchasers"}
+                        height={120}
+                        className={"my-2 self-center rounded-lg object-cover"}
+                    />
+                )}
+            </div>
+            <div className={"mb-4 text-center text-white"}>
+                <div className={"mb-0 text-4xl font-extrabold"}>{props.price}</div>
+                <div className={"text-lg font-bold tracking-widest"}>VNĐ</div>
+            </div>
+        </div>
+    );
+}
+
+export default function TicketOverviewPage() {
     return (
         <div className={"h-visible vns-background"}>
             <div className={"hero"}>
@@ -9,170 +76,38 @@ export default function OverviewPage() {
                     <PageTitle title={"Mua vé"} favorText={""} dark />
                 </div>
             </div>
-            {/* Whale & Dolphin tiers */}
-            <div
-                className={"my-8 flex flex-col items-stretch justify-center gap-8 lg:flex-row"}
-                data-theme={"dark"}
-            >
-                {/* Dolphin Tier */}
-                <div
-                    className={
-                        "relative mx-4 flex max-w-192 flex-1 flex-col items-center overflow-hidden rounded-3xl border-4 border-white/80 bg-black/70 p-4 shadow-lg"
-                    }
-                >
-                    <div className={"relative w-full"}>
-                        <Image
-                            src={"/tickets/prisma_dolphin.jpg"}
-                            alt={""}
-                            width={600}
-                            height={60}
-                            className={"h-[80px] w-full rounded-md object-cover"}
-                        />
-                        <div
-                            className={
-                                "absolute top-0 left-0 flex h-[80px] w-full items-center justify-center text-[2rem] font-bold tracking-wider text-[#222] lg:text-[2.5rem]"
-                            }
-                            style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
-                        >
-                            DOLPHIN TIER
-                        </div>
-                    </div>
-                    <div
-                        className={"flex flex-col items-center justify-center px-4 py-8 text-white"}
-                    >
-                        <div className={"mb-2 text-lg font-bold"}>
-                            Keychain Amiya - Chasing the Dream
-                        </div>
-                        <div className={"mb-2 text-lg font-bold"}>
-                            Sticker (ngẫu nhiên 1 trong 4)
-                        </div>
-                        <div className={"mb-2 text-lg font-bold"}>
-                            {"Badge nắp chai by "}
-                            <span className={"font-extrabold"}>Rei Não Cá</span>
-                        </div>
-                        <div className={"mb-6 text-lg font-bold"}>
-                            {"Card bo góc by "}
-                            <span className={"font-extrabold"}>Rei Não Cá</span>
-                        </div>
-                        <div className={"mb-0 text-4xl font-extrabold"}>119.000</div>
-                        <div className={"text-lg font-bold tracking-widest"}>VNĐ</div>
-                    </div>
-                </div>
-                {/* Whale Tier */}
-                <div
-                    className={
-                        "relative mx-4 flex max-w-192 flex-1 flex-col items-center overflow-hidden rounded-3xl border-4 border-white/80 bg-black/70 p-4 shadow-lg"
-                    }
-                >
-                    <div className={"relative w-full"}>
-                        <Image
-                            src={"/tickets/prisma_whale.jpg"}
-                            alt={""}
-                            width={600}
-                            height={60}
-                            className={"h-[80px] w-full rounded-md object-cover"}
-                        />
-                        <div
-                            className={
-                                "absolute top-0 left-0 flex h-[80px] w-full items-center justify-center text-[2rem] font-bold tracking-wider text-[#222] lg:text-[2.5rem]"
-                            }
-                            style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
-                        >
-                            WHALE TIER
-                        </div>
-                    </div>
-                    <div
-                        className={"flex flex-col items-center justify-center px-4 py-8 text-white"}
-                    >
-                        <div className={"mb-2 text-lg font-bold"}>Bao gồm quà từ Dolphin Tier</div>
-                        <div className={"mb-2 text-lg font-bold"}>
-                            Badge Amiya - Chasing the Dream
-                        </div>
-                        <div className={"mb-2 text-lg font-bold"}>
-                            {"Badge nắp chai by "}
-                            Lanyard Dreamchasers
-                        </div>
-                        <div className={"mb-6 text-lg font-bold"}>
-                            <span className={"font-extrabold"}> </span>
-                        </div>
-                        <div className={"mb-0 text-4xl font-extrabold"}>199.000</div>
-                        <div className={"text-lg font-bold tracking-widest"}>VNĐ</div>
-                    </div>
-                </div>
-            </div>
-            {/*Dreamchasers Tier*/}
-            <div
-                className={
-                    "relative mx-4 flex max-w-full flex-1 flex-col items-center overflow-hidden rounded-3xl border-4 border-white/80 bg-black/70 p-4 shadow-lg"
-                }
-            >
-                <div className={"relative w-full"}>
-                    <Image
-                        src={"/tickets/prisma_dreamchasers.jpg"}
-                        alt={""}
-                        width={600}
-                        height={90}
-                        className={"h-[80px] w-full rounded-md object-cover"}
+            <div className={"flex flex-col items-center justify-center pb-10"}>
+                <div className={"flex w-full flex-col items-center justify-center lg:flex-row"}>
+                    <TicketCard
+                        tier={"Dolphin"}
+                        image={PrismaDolphin}
+                        price={"119.000"}
+                        description={[
+                            "Keychain Amiya - Chasing The Dream",
+                            "Sticker (ngẫu nhiên 1 trong 4)",
+                            "Badge nắp chai by Rei Não Cá",
+                            "Card bo góc by Rei Não Cá",
+                        ]}
                     />
-                    <div
-                        className={
-                            "absolute top-0 left-0 flex h-[80px] w-full items-center justify-center text-[2rem] font-bold tracking-wider text-[#222] lg:text-[2.5rem]"
-                        }
-                        style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
-                    >
-                        DREAMCHASERS TIER
-                    </div>
+                    <TicketCard
+                        tier={"Whale"}
+                        parentTier={"Dolphin"}
+                        image={PrismaWhale}
+                        price={"199.000"}
+                        description={["Badge Amiya - Chasing The Dream", "Lanyard - Dreamchasers"]}
+                    />
+                    <TicketCard
+                        tier={"Dreamchasers"}
+                        parentTier={"Whale"}
+                        image={PrismaDRCH}
+                        price={"269.000"}
+                        description={[
+                            "Áo thun Dreamchasers (hình dưới)",
+                            "Badge Logos/Eyja của bibom10",
+                        ]}
+                    />
                 </div>
-                <div className={"flex flex-col items-center justify-center px-4 py-8 text-white"}>
-                    <div className={"mb-4 flex w-full flex-row items-center justify-center gap-4"}>
-                        {/* Left images */}
-                        <Image
-                            src={"/tickets/shirt4.png"}
-                            alt={"Dreamchasers Shirt 4"}
-                            width={400}
-                            height={400}
-                            className={"rounded-md bg-[#222] object-contain"}
-                        />
-                        <Image
-                            src={"/tickets/shirt3.png"}
-                            alt={"Dreamchasers Shirt 3"}
-                            width={200}
-                            height={200}
-                            className={"absolute mt-33 mr-125 rounded-md bg-[#222] object-contain"}
-                        />
-                        {/* Center content */}
-                        <div
-                            className={
-                                "mx-20 flex min-w-[180px] flex-col items-center justify-center"
-                            }
-                        >
-                            <div className={"mb-2 text-lg font-bold"}>
-                                Bao gồm quà từ Whale Tier
-                            </div>
-                            <div className={"mb-2 text-lg font-bold"}>Áo thun Dreamchasers</div>
-                            <div className={"mb-2 text-lg font-bold"}>
-                                Badge Logos/Eyja của bibom 10
-                            </div>
-                            <div className={"mb-0 text-4xl font-extrabold"}>269.000</div>
-                            <div className={"text-lg font-bold tracking-widest"}>VNĐ</div>
-                        </div>
-                        {/* Right images */}
-                        <Image
-                            src={"/tickets/shirt1.png"}
-                            alt={"Dreamchasers Shirt 1"}
-                            width={200}
-                            height={200}
-                            className={"absolute mt-33 ml-125 rounded-md bg-[#222] object-contain"}
-                        />
-                        <Image
-                            src={"/tickets/shirt2.png"}
-                            alt={"Dreamchasers Shirt 2"}
-                            width={400}
-                            height={400}
-                            className={"rounded-md bg-[#222] object-contain"}
-                        />
-                    </div>
-                </div>
+                <PurchaseTicketButton />
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import PurchaseTicketButton from "@/components/PurchaseTicketButton";
+import PurchaseTicketButton from "@/components/PreviewTicketButton";
 import NavBarItems from "@/components/navbar/NavBarItems";
 import BurgerMenu from "@/components/svg/BurgerMenu";
 import Sparkle from "@/components/svg/Sparkle";
