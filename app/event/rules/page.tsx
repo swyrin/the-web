@@ -1,18 +1,33 @@
+"use client";
+
 import PageTitle from "@/components/PageTitle";
 import Bag from "@/public/rules/bag.svg";
 import Broom from "@/public/rules/broom.svg";
 import Chat from "@/public/rules/chat.svg";
 import Children from "@/public/rules/children.svg";
 import Clothes from "@/public/rules/clothes.svg";
+import Face from "@/public/rules/face.svg";
 import Hammer from "@/public/rules/hammer.svg";
+import Military from "@/public/rules/military.svg";
+import MoreClothes from "@/public/rules/moreClothes.svg";
+import NoWeapon from "@/public/rules/noWeapon.svg";
 import People from "@/public/rules/people.svg";
 import Pet from "@/public/rules/pet.svg";
 import Scale from "@/public/rules/scale.svg";
 import Stop from "@/public/rules/stop.svg";
 import Syringe from "@/public/rules/syringe.svg";
+import Tick from "@/public/rules/tick.svg";
 import Weapon from "@/public/rules/weapon.svg";
+import useEmblaCarousel from "embla-carousel-react";
 import Image, { StaticImageData } from "next/image";
-import { Fragment } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
+
+type RuleType = {
+    title: string;
+    titleColor: "red" | "green" | "yellow";
+    description: string;
+    icon: StaticImageData;
+};
 
 function VerticalLine({ height }: { height: number }) {
     return <div className={"w-0 border-2 border-white"} style={{ height: `${height}px` }}></div>;
@@ -25,10 +40,16 @@ function RuleSection({
     side,
 }: {
     title: string;
-    titleColor: "red" | "green";
+    titleColor: "red" | "green" | "yellow";
     description: string;
     side: "left" | "right";
 }) {
+    const colorClass =
+        {
+            red: "text-[#FF4B4E]",
+            green: "text-[#75FF4B]",
+            yellow: "text-[#FFE44B]",
+        }[titleColor] || "text-default";
     return (
         <div
             className={`grid h-50 w-full content-center md:max-w-100 ${side === "left" ? "justify-items-end" : "justify-items-start"}`}
@@ -36,11 +57,7 @@ function RuleSection({
             <div
                 className={`flex flex-col gap-1 ${side == "left" ? "items-end text-right" : "items-start text-left"}`}
             >
-                <h1
-                    className={`${titleColor == "red" ? "text-[#FF4B4E]" : "text-[#75FF4B]"} text-2xl font-medium md:text-5xl`}
-                >
-                    {title}
-                </h1>
+                <h1 className={`${colorClass} text-2xl font-medium md:text-5xl`}>{title}</h1>
                 <p
                     className={`${side == "left" ? "text-right" : "text-left"} text-lg font-medium text-white md:text-xl`}
                 >
@@ -51,171 +68,344 @@ function RuleSection({
     );
 }
 
-export default function RulesPage() {
-    const rules: {
-        title: string;
-        titleColor: "red" | "green";
-        description: string;
-        icon: StaticImageData;
-    }[] = [
-        {
-            title: "CẤM",
-            titleColor: "red",
-            description:
-                "tất cả các hình thức quấy rối, xâm phạm đến tài sản và quyền riêng tư cá nhân.",
-            icon: Stop,
-        },
-        {
-            title: "CẤM",
-            titleColor: "red",
-            description:
-                "mang vũ khí quân sự (s.ú.n.g, d.a.o,...) và các vật dụng nguy hiểm vào trong khu vực sự kiện.",
-            icon: Weapon,
-        },
-        {
-            title: "CẤM",
-            titleColor: "red",
-            description:
-                "tất cả các loại chất kích thích, cấm các hành vi gây mất trật tự công cộng.",
-            icon: Syringe,
-        },
-        {
-            title: "CẤM",
-            titleColor: "red",
-            description: "bàn về chính trị, phân biệt vùng miền, gây mâu thuẫn, và bạo lực.",
-            icon: Scale,
-        },
-        {
-            title: "CẤM",
-            titleColor: "red",
-            description:
-                "Cấm các trang phục phản cảm, trang phục thuộc quân phục, cảnh phục... không phù hợp với thuần phong mỹ tục hay tính chất của sự kiện.",
-            icon: Clothes,
-        },
-        {
-            title: "CẤM",
-            titleColor: "red",
-            description: "Cấm mang vật nuôi, thú vật vào sự kiện.",
-            icon: Pet,
-        },
-        {
-            title: "CẤM",
-            titleColor: "red",
-            description:
-                "Những hành vi gây tổn hại đến cơ sở vật chất của khuôn viên sự kiện sẽ phải chịu trách nhiệm và đền bù.",
-            icon: Hammer,
-        },
-        {
-            title: "BẮT BUỘC",
-            titleColor: "red",
-            description: "Trẻ em dưới 13 tuổi cần có sự giám sát và quản lý của người lớn.",
-            icon: Children,
-        },
-        {
-            title: "HÃY",
-            titleColor: "green",
-            description: "Giữ gìn vệ sinh chung khuôn viên sự kiện",
-            icon: Broom,
-        },
-        {
-            title: "VUI LÒNG",
-            titleColor: "green",
-            description: "Tự quản tư trang cá nhân. Mọi mất mát BTC sẽ không chịu trách nhiệm. ",
-            icon: Bag,
-        },
-        {
-            title: "NẾU",
-            titleColor: "green",
-            description: "Nhặt được đồ thất lạc vui lòng liên hệ BTC để nhận hỗ trợ.",
-            icon: Chat,
-        },
-        {
-            title: "KHI",
-            titleColor: "green",
-            description:
-                "Xảy ra sự cố, xung đột hay tranh chấp... tại offline, quyết định của BTC là quyết định tiên quyết.",
-            icon: People,
-        },
-    ];
+function RulesList({ rules }: { rules: RuleType[] }) {
     return (
-        <>
-            <div className={"h-visible vns-background"}>
-                <div className={"hero"}>
-                    <div className={"hero-content text-center"}>
-                        <PageTitle
-                            title={"NỘI QUY"}
-                            favorText={"Một số điều cần lưu ý khi tham gia offline"}
-                            dark
-                        />
+        <div className={"flex w-full flex-col items-center justify-center"}>
+            <div
+                className={"mb-20 grid w-full md:mb-50 md:gap-5"}
+                style={{ gridTemplateColumns: "1fr 100px 1fr" }}
+            >
+                <div className={"flex flex-col items-end justify-start gap-50"}>
+                    {rules
+                        .filter((_, index) => index % 2 === 0)
+                        .map((rule, index) => {
+                            return (
+                                <RuleSection
+                                    key={index}
+                                    title={rule.title}
+                                    titleColor={rule.titleColor}
+                                    description={rule.description}
+                                    side={"left"}
+                                />
+                            );
+                        })}
+                </div>
+
+                <div className={"flex flex-1 flex-col items-center justify-start"}>
+                    <VerticalLine height={50} />
+                    {rules.map((rule, index) => (
+                        <Fragment key={index}>
+                            <div
+                                className={"flex h-25 w-25 items-center justify-center"}
+                                key={index}
+                            >
+                                <div className={"relative h-3/4 w-3/4"}>
+                                    <Image
+                                        src={rule.icon}
+                                        alt={"icon"}
+                                        fill
+                                        className={"object-contain"}
+                                        style={{
+                                            ...(rule.icon == Hammer
+                                                ? { paddingBottom: "16px" }
+                                                : {}),
+                                            ...(rule.icon == MoreClothes
+                                                ? { paddingBottom: "20px" }
+                                                : {}),
+                                            ...(rule.icon == Military
+                                                ? { marginLeft: "10px" }
+                                                : {}),
+                                            // unless someone can update the icons so they dont require this shit
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            {index != rules.length - 1 ? <VerticalLine height={100} /> : <></>}
+                        </Fragment>
+                    ))}
+                </div>
+
+                <div className={"mt-50 flex flex-col items-start justify-start gap-50"}>
+                    {rules
+                        .filter((_, index) => index % 2 === 1)
+                        .map((rule, index) => {
+                            return (
+                                <RuleSection
+                                    key={index}
+                                    title={rule.title}
+                                    titleColor={rule.titleColor}
+                                    description={rule.description}
+                                    side={"right"}
+                                />
+                            );
+                        })}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+const rules: RuleType[] = [
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description:
+            "tất cả các hình thức quấy rối, xâm phạm đến tài sản và quyền riêng tư cá nhân.",
+        icon: Stop,
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description:
+            "mang vũ khí quân sự (s.ú.n.g, d.a.o,...) và các vật dụng nguy hiểm vào trong khu vực sự kiện.",
+        icon: Weapon,
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description: "tất cả các loại chất kích thích, cấm các hành vi gây mất trật tự công cộng.",
+        icon: Syringe,
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description: "bàn về chính trị, phân biệt vùng miền, gây mâu thuẫn, và bạo lực.",
+        icon: Scale,
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description:
+            "Cấm các trang phục phản cảm, trang phục thuộc quân phục, cảnh phục... không phù hợp với thuần phong mỹ tục hay tính chất của sự kiện.",
+        icon: Clothes,
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description: "Cấm mang vật nuôi, thú vật vào sự kiện.",
+        icon: Pet,
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description:
+            "Những hành vi gây tổn hại đến cơ sở vật chất của khuôn viên sự kiện sẽ phải chịu trách nhiệm và đền bù.",
+        icon: Hammer,
+    },
+    {
+        title: "BẮT BUỘC",
+        titleColor: "red",
+        description: "Trẻ em dưới 13 tuổi cần có sự giám sát và quản lý của người lớn.",
+        icon: Children,
+    },
+    {
+        title: "HÃY",
+        titleColor: "green",
+        description: "Giữ gìn vệ sinh chung khuôn viên sự kiện",
+        icon: Broom,
+    },
+    {
+        title: "VUI LÒNG",
+        titleColor: "green",
+        description: "Tự quản tư trang cá nhân. Mọi mất mát BTC sẽ không chịu trách nhiệm. ",
+        icon: Bag,
+    },
+    {
+        title: "NẾU",
+        titleColor: "green",
+        description: "Nhặt được đồ thất lạc vui lòng liên hệ BTC để nhận hỗ trợ.",
+        icon: Chat,
+    },
+    {
+        title: "KHI",
+        titleColor: "green",
+        description:
+            "Xảy ra sự cố, xung đột hay tranh chấp... tại offline, quyết định của BTC là quyết định tiên quyết.",
+        icon: People,
+    },
+];
+
+const cosplayRules: RuleType[] = [
+    {
+        title: "YÊU CẦU",
+        titleColor: "yellow",
+        description: "Cosplay đủ phụ kiện, có makeup đầy đủ.",
+        icon: Face,
+    },
+    {
+        title: "HÃY",
+        titleColor: "green",
+        description:
+            "Cosplay trước khi trang điểm và mặc sẵn đồ. Vì bên trong quán chúng mình không có chỗ để sửa soạn",
+        icon: Clothes,
+    },
+    {
+        title: "NGHIÊM CẤM",
+        titleColor: "red",
+        description:
+            "hóa trang nhân vật có trang phục thuộc quân phục, cảnh phục, hoặc hở hang nhạy cảm.",
+        icon: Military,
+    },
+    {
+        title: "HÃY",
+        titleColor: "green",
+        description: "Cosplay đúng nhân vật của Arknights.",
+        icon: Tick,
+    },
+    {
+        title: "CẤM",
+        titleColor: "green",
+        description: "Không cosplay freestyle quá mức, làm không giống nhân vật Arknights.",
+        icon: MoreClothes,
+    },
+    {
+        title: "LƯU Ý",
+        titleColor: "yellow",
+        description: "BTC sẽ hỏi chủ quán về việc mang prop và vẫn chủ trương cấm vũ khí.",
+        icon: NoWeapon,
+    },
+    {
+        title: "LƯU Ý",
+        titleColor: "yellow",
+        description:
+            "Cosplayer phải cung cấp thông tin về nhân vật và version cosplay của ngày diễn ra sự kiện.",
+        icon: Chat,
+    },
+];
+
+export default function RulePage() {
+    const [ruleTab, setRuleTab] = useState<string>(() => {
+        // https://stackoverflow.com/a/76071002
+        if (typeof window === "undefined") {
+            return "general";
+        }
+
+        const stored = window.localStorage.getItem("rule-tab");
+        return stored && stored !== "" ? stored : "general";
+    });
+
+    const [emblaRef, emblaApi] = useEmblaCarousel({
+        startIndex: ruleTab === "general" ? 0 : 1,
+    });
+
+    useEffect(() => {
+        localStorage.setItem("rule-tab", ruleTab);
+    }, [ruleTab]);
+
+    const onSelect = useCallback(() => {
+        if (!emblaApi) return;
+        const selectedIndex = emblaApi.selectedScrollSnap();
+        setRuleTab(selectedIndex === 0 ? "general" : "cosplay");
+    }, [emblaApi]);
+
+    useEffect(() => {
+        if (!emblaApi) return;
+        emblaApi.on("select", onSelect);
+        onSelect();
+
+        return () => {
+            emblaApi.off("select", onSelect);
+        };
+    }, [emblaApi, onSelect]);
+
+    const scrollTo = useCallback(
+        (index: number) => {
+            if (emblaApi) emblaApi.scrollTo(index);
+        },
+        [emblaApi]
+    );
+
+    return (
+        <div className={"h-visible vns-background flex flex-col"}>
+            <div className={"hero"}>
+                <div className={"hero-content text-center"}>
+                    <PageTitle
+                        title={"NỘI QUY"}
+                        favorText={"Một số điều cần lưu ý khi tham gia offline"}
+                        dark
+                    />
+                </div>
+            </div>
+            {/* Desktop tabs - original design */}
+            <div
+                className={
+                    "tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"
+                }
+                data-theme={"dark"}
+            >
+                <input
+                    type={"radio"}
+                    name={"my_tabs_6"}
+                    className={"tab sm:text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
+                    aria-label={"Nội quy chung"}
+                    checked={ruleTab === "general"}
+                    onChange={() => setRuleTab("general")}
+                />
+                <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
+                    <div className={"h-full flex-1 px-5"}>
+                        <RulesList rules={rules} />
                     </div>
                 </div>
-                <div className={"h-full flex-1 px-5"}>
-                    <div className={"flex w-full flex-col items-center justify-center"}>
-                        <div
-                            className={"mb-10 grid w-full md:mb-50 md:gap-5"}
-                            style={{ gridTemplateColumns: "1fr 100px 1fr" }}
-                        >
-                            <div className={"mt-10 flex flex-col items-end justify-start gap-50"}>
-                                {rules
-                                    .filter((_, index) => index % 2 === 0)
-                                    .map((rule, index) => {
-                                        return (
-                                            <RuleSection
-                                                key={index}
-                                                title={rule.title}
-                                                titleColor={rule.titleColor}
-                                                description={rule.description}
-                                                side={"left"}
-                                            />
-                                        );
-                                    })}
-                            </div>
+                <input
+                    type={"radio"}
+                    name={"my_tabs_6"}
+                    className={"tab sm:text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
+                    aria-label={"Dành cho cosplayer"}
+                    checked={ruleTab === "cosplay"}
+                    onChange={() => setRuleTab("cosplay")}
+                />
+                <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
+                    <div className={"h-full flex-1 px-5"}>
+                        <RulesList rules={cosplayRules} />
+                    </div>
+                </div>
+            </div>
 
-                            <div className={"flex flex-col items-center justify-center"}>
-                                <VerticalLine height={50} />
-                                {rules.map((rule, index) => (
-                                    <Fragment key={index}>
-                                        <div
-                                            className={"flex h-25 w-25 items-center justify-center"}
-                                            key={index}
-                                        >
-                                            <div className={"relative h-3/4 w-3/4"}>
-                                                <Image
-                                                    src={rule.icon}
-                                                    alt={"icon"}
-                                                    fill
-                                                    className={`${rule.icon == Hammer ? "pb-4" : ""} object-contain`}
-                                                />
-                                            </div>
-                                        </div>
-                                        {index != rules.length - 1 ? (
-                                            <VerticalLine height={100} />
-                                        ) : (
-                                            <></>
-                                        )}
-                                    </Fragment>
-                                ))}
-                            </div>
+            {/* Mobile swipable tabs */}
+            <div
+                className={"swipe-tabs sticky top-[70px] z-0 h-[calc(100vh-70px)] md:hidden"}
+                data-theme={"dark"}
+            >
+                {/* Tab indicators */}
+                <div className={"flex w-full border-b border-gray-400"}>
+                    <button
+                        className={`text-base-content flex-1 py-3 text-center transition-colors ${
+                            ruleTab === "general"
+                                ? "border-b-2 border-white text-white"
+                                : "text-gray-400"
+                        }`}
+                        onClick={() => scrollTo(0)}
+                    >
+                        Nội quy chung
+                    </button>
+                    <button
+                        className={`text-base-content flex-1 py-3 text-center transition-colors ${
+                            ruleTab === "cosplay"
+                                ? "border-b-2 border-white text-white"
+                                : "text-gray-400"
+                        }`}
+                        onClick={() => scrollTo(1)}
+                    >
+                        Dành cho cosplayer
+                    </button>
+                </div>
 
-                            <div className={"mt-60 flex flex-col items-start justify-start gap-50"}>
-                                {rules
-                                    .filter((_, index) => index % 2 === 1)
-                                    .map((rule, index) => {
-                                        return (
-                                            <RuleSection
-                                                key={index}
-                                                title={rule.title}
-                                                titleColor={rule.titleColor}
-                                                description={rule.description}
-                                                side={"right"}
-                                            />
-                                        );
-                                    })}
+                {/* Swipable content */}
+                <div className={"embla h-[calc(100%-48px)] overflow-hidden"} ref={emblaRef}>
+                    <div className={"embla__container flex h-full"}>
+                        <div className={"embla__slide flex-[0_0_100%] overflow-y-auto py-10"}>
+                            <div className={"h-full flex-1 px-5"}>
+                                <RulesList rules={rules} />
+                            </div>
+                        </div>
+                        <div className={"embla__slide flex-[0_0_100%] overflow-y-auto py-10"}>
+                            <div className={"h-full flex-1 px-5"}>
+                                <RulesList rules={cosplayRules} />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
