@@ -20,7 +20,7 @@ export default function OverviewPage() {
                         "relative mx-4 flex max-w-192 flex-1 flex-col items-center overflow-hidden rounded-3xl border-4 border-white/80 bg-black/70 p-4 shadow-lg"
                     }
                 >
-                    <div className={"relative z-[1] w-full"}>
+                    <div className={"relative w-full"}>
                         <Image
                             src={"/tickets/prisma_dolphin.jpg"}
                             alt={""}
@@ -30,7 +30,7 @@ export default function OverviewPage() {
                         />
                         <div
                             className={
-                                "absolute top-0 left-0 z-[2] flex h-[80px] w-full items-center justify-center text-[2.5rem] font-bold tracking-wider text-[#222]"
+                                "absolute top-0 left-0 flex h-[80px] w-full items-center justify-center text-[2.5rem] font-bold tracking-wider text-[#222]"
                             }
                             style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
                         >
@@ -64,7 +64,7 @@ export default function OverviewPage() {
                         "relative mx-4 flex max-w-192 flex-1 flex-col items-center overflow-hidden rounded-3xl border-4 border-white/80 bg-black/70 p-4 shadow-lg"
                     }
                 >
-                    <div className={"relative z-[1] w-full"}>
+                    <div className={"relative w-full"}>
                         <Image
                             src={"/tickets/prisma_whale.jpg"}
                             alt={""}
@@ -74,7 +74,7 @@ export default function OverviewPage() {
                         />
                         <div
                             className={
-                                "absolute top-0 left-0 z-[2] flex h-[80px] w-full items-center justify-center text-[2.5rem] font-bold tracking-wider text-[#222]"
+                                "absolute top-0 left-0 flex h-[80px] w-full items-center justify-center text-[2.5rem] font-bold tracking-wider text-[#222]"
                             }
                             style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
                         >
