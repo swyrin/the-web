@@ -312,7 +312,7 @@ export default function RulePage() {
         (index: number) => {
             if (emblaApi) emblaApi.scrollTo(index);
         },
-        [emblaApi]
+        [emblaApi],
     );
 
     return (

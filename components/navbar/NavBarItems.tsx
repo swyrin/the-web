@@ -146,11 +146,11 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
         { href: "/event/rules", label: "Nội quy" },
     ];
 
-    const tournamentItems = [
-        { href: "/tournament/overview", label: "Giới thiệu" },
-        { href: "/tournament/rules", label: "Luật chơi" },
-        { href: "/tournament/prizes", label: "Giải thưởng" },
-    ];
+    // const tournamentItems = [
+    //     { href: "/tournament/overview", label: "Giới thiệu" },
+    //     { href: "/tournament/rules", label: "Luật chơi" },
+    //     { href: "/tournament/prizes", label: "Giải thưởng" },
+    // ];
 
     const pathname = usePathname();
 
