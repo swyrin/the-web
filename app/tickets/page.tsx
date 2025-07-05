@@ -11,7 +11,7 @@ export default function OverviewPage() {
             </div>
             {/* Whale & Dolphin tiers */}
             <div
-                className={"my-8 flex flex-row items-stretch justify-center gap-8"}
+                className={"my-8 flex flex-col items-stretch justify-center gap-8 lg:flex-row"}
                 data-theme={"dark"}
             >
                 {/* Dolphin Tier */}
