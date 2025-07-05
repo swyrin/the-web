@@ -19,7 +19,7 @@
 }
 
 @utility vns-background {
-    @apply bg-black/50;
+    @apply bg-black/40;
     @apply bg-[url(/BG_Black.png)];
     @apply bg-cover;
     @apply bg-fixed;

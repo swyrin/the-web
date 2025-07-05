@@ -141,7 +141,7 @@ export default function CrewPage() {
     const partners = crewList.partners;
 
     return (
-        <div className={"h-visible vns-background"}>
+        <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle

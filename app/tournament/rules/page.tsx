@@ -32,7 +32,7 @@ export default function RulePage() {
     }, [emblaApi, onSelect]);
 
     return (
-        <div className={"h-visible vns-background"}>
+        <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle title={"Tournament"} favorText={"Luật chơi"} dark />
