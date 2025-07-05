@@ -171,11 +171,11 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                         </Link>
                     </li>
                 ))}
-                <MobileDropdownSection
+                {/* <MobileDropdownSection
                     title={"Tournament"}
                     items={tournamentItems}
                     pathname={pathname}
-                />
+                /> */}
             </>
         );
     }
