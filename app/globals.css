@@ -4,6 +4,16 @@
     exclude: rootcolor;
 }
 
+/* https://stackoverflow.com/a/66436651 */
+@utility scrollbar-none {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 @utility h-visible {
     /* Credit: Cerberose @ PR#5 */
     /* 70px is the height of NavBar */

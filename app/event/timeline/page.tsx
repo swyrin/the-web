@@ -1,47 +1,53 @@
 "use client";
 
 import PageTitle from "@/components/PageTitle";
-import Arrow from "@/public/Arrow.png";
+import Arrow from "@/public/Arrow.svg";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import React from "react";
 
 type Event = {
-    id: number;
     date: string;
     title: string;
+    href: string;
 };
 
 const events: Event[] = [
     {
-        id: 1,
-        date: "2024-01-14",
-        title: "The show must go on!",
+        date: "14/01/2024",
+        title: "Offline #1: The show must go on!",
+        href: "https://www.facebook.com/groups/arknights.vietnam.station/posts/2035816776811242/",
     },
     {
-        id: 2,
-        date: "2024-01-14",
-        title: "The show must go on!",
+        date: "31/12/2024",
+        title: "Thông báo ra mắt Offline #2: Dreamchasers.",
+        href: "https://www.facebook.com/groups/arknights.vietnam.station/posts/2299747417084842/",
     },
     {
-        id: 3,
-        date: "2024-01-14",
-        title: "The show must go on!",
+        date: "12/01/2025",
+        title: "Khảo sát 'Dreamchasers' lần 1.",
+        href: "https://www.facebook.com/groups/arknights.vietnam.station/posts/2308946422831608/",
     },
     {
-        id: 4,
-        date: "2024-01-14",
-        title: "The show must go on!",
+        date: "04/05/2025",
+        title: "Khảo sát 'Dreamchasers' lần 2.",
+        href: "https://www.facebook.com/groups/arknights.vietnam.station/posts/2409448572781392/",
     },
     {
-        id: 5,
-        date: "2024-01-14",
-        title: "The show must go on!",
+        date: "06/07/2025",
+        title: "Mở bán vé Offline #2: Dreamchasers",
+        href: "",
     },
     {
-        id: 6,
-        date: "2024-01-14",
-        title: "The show must go on!",
+        date: "??/??/2025",
+        title: "???",
+        href: "",
+    },
+    {
+        date: "10/08/2025",
+        title: "Offline #2: Dreamchasers",
+        href: "",
     },
 ];
 type TimelineProps = {
@@ -57,15 +63,15 @@ function Timeline({ events }: TimelineProps) {
             const containerRect = container.getBoundingClientRect();
             const newScales: Record<number, number> = {};
             Array.from(container.children).forEach((child, index) => {
-                const rect = (child as HTMLElement).getBoundingClientRect(); // Get each item's position
-                const centerY = rect.top + rect.height / 2; // Y-coordinate of item's center
-                const containerCenterY = containerRect.top + containerRect.height / 2; // Center Y of container
+                const rect = (child as HTMLElement).getBoundingClientRect();
+                const centerY = rect.top + rect.height / 2;
+                const containerCenterY = containerRect.top + containerRect.height / 2;
 
-                // How far the item is from the center (smaller = closer to center)
+                // How far the item is from the center
                 const distance = Math.abs(containerCenterY - centerY);
 
-                // Calculate scale based on distance (1 when centered, down to 0.8 when far)
-                const scale = Math.max(0.2, 1 - distance / 300); // You can tweak 300
+                // Calculate scale based on distance
+                const scale = Math.max(0.2, 1 - distance / 300);
 
                 newScales[index] = scale;
             });
@@ -73,8 +79,8 @@ function Timeline({ events }: TimelineProps) {
         };
         const container = containerRef.current;
         if (container) {
-            container.addEventListener("scroll", handleScroll); // Attach scroll listener
-            handleScroll(); // Run once on mount to initialize scales
+            container.addEventListener("scroll", handleScroll);
+            handleScroll();
         }
 
         return () => container?.removeEventListener("scroll", handleScroll);
@@ -91,7 +97,7 @@ function Timeline({ events }: TimelineProps) {
                     <div
                         key={index}
                         className={
-                            "mx-1/5 my-5 snap-center border-2 border-white p-10 transition-all duration-500 ease-in-out"
+                            "mx-4 my-5 snap-center p-10 transition-all duration-500 ease-in-out"
                         }
                         style={{
                             transform: `scale(${scales[index] || 0.8})`,
@@ -103,8 +109,16 @@ function Timeline({ events }: TimelineProps) {
                                 "flex flex-col items-center justify-center text-center text-white"
                             }
                         >
-                            <h2 className={"pb-2 text-4xl leading-10"}>{ev.date}</h2>
-                            <p className={"text-4xl leading-10"}>{ev.title}</p>
+                            <div className={"pb-2 text-4xl font-extrabold"}>{ev.date}</div>
+                            <div className={"text-2xl font-light"}>{ev.title}</div>
+                            {ev.href !== "" && (
+                                <Link
+                                    className={"text-sm font-extralight italic hover:underline"}
+                                    href={ev.href}
+                                >
+                                    (Link bài viết)
+                                </Link>
+                            )}
                         </div>
                     </div>
                 );
@@ -115,29 +129,57 @@ function Timeline({ events }: TimelineProps) {
 
 export default function TimelinePage() {
     return (
-        <>
-            <div className={"h-visible vns-background flex flex-col"}>
-                <div className={"hero"}>
-                    <div className={"hero-content text-center"}>
-                        <PageTitle title={"TIMELINE"} favorText={""} dark />
-                    </div>
-                </div>
-                <div>
-                    <Timeline events={events} />
-                    <div className={"absolute top-[calc(25vh+46px)] left-1/5"}>
-                        <Image src={Arrow} width={23} height={23} alt={"arrow"} />
-                    </div>
-                    <div className={"absolute top-[calc(25vh+46px)] right-1/5"}>
-                        <Image src={Arrow} width={23} height={23} alt={"arrow"} />
-                    </div>
-                    <div className={"absolute bottom-1/4 left-1/5 rotate-180"}>
-                        <Image src={Arrow} width={23} height={23} alt={"arrow"} />
-                    </div>
-                    <div className={"absolute right-1/5 bottom-1/4 rotate-180"}>
-                        <Image src={Arrow} width={23} height={23} alt={"arrow"} />
-                    </div>
+        <div className={"h-visible vns-background flex flex-col"}>
+            <div className={"hero"}>
+                <div className={"hero-content text-center"}>
+                    <PageTitle title={"TIMELINE"} favorText={""} dark />
                 </div>
             </div>
-        </>
+            <div className={"flex flex-1/2 items-center justify-center overflow-y-hidden"}>
+                <Timeline events={events} />
+                {/* Frames */}
+                <div
+                    className={
+                        "absolute top-[calc(45svh)] left-[15vw] hidden sm:left-[20vw] md:left-[25vw] md:block lg:left-[30vw]"
+                    }
+                >
+                    <div className={"h-6 w-6 border-t-2 border-l-2 border-white"} />
+                </div>
+                <div
+                    className={
+                        "absolute top-[calc(45svh)] right-[15vw] hidden sm:right-[20vw] md:right-[25vw] md:block lg:right-[30vw]"
+                    }
+                >
+                    <div className={"h-6 w-6 border-t-2 border-r-2 border-white"} />
+                </div>
+                <div
+                    className={
+                        "absolute bottom-[calc(20svh)] left-[15vw] hidden sm:left-[20vw] md:left-[25vw] md:block lg:left-[30vw]"
+                    }
+                >
+                    <div className={"h-6 w-6 border-b-2 border-l-2 border-white"} />
+                </div>
+                <div
+                    className={
+                        "absolute right-[15vw] bottom-[calc(20svh)] hidden sm:right-[20vw] md:right-[25vw] md:block lg:right-[30vw]"
+                    }
+                >
+                    <div className={"h-6 w-6 border-r-2 border-b-2 border-white"} />
+                </div>
+                {/* Arrows */}
+                <div className={"absolute top-[calc(35svh)] left-1/5"}>
+                    <Image src={Arrow} width={23} height={23} alt={"arrow"} />
+                </div>
+                <div className={"absolute top-[calc(35svh)] right-1/5"}>
+                    <Image src={Arrow} width={23} height={23} alt={"arrow"} />
+                </div>
+                <div className={"absolute bottom-[calc(15svh)] left-1/5 rotate-180"}>
+                    <Image src={Arrow} width={23} height={23} alt={"arrow"} />
+                </div>
+                <div className={"absolute right-1/5 bottom-[calc(15svh)] rotate-180"}>
+                    <Image src={Arrow} width={23} height={23} alt={"arrow"} />
+                </div>
+            </div>
+        </div>
     );
 }
