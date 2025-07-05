@@ -124,11 +124,54 @@ export default function OverviewPage() {
                     </div>
                 </div>
                 <div className={"flex flex-col items-center justify-center px-4 py-8 text-white"}>
-                    <div className={"mb-2 text-lg font-bold"}>Bao gồm quà từ Whale Tier</div>
-                    <div className={"mb-2 text-lg font-bold"}>← Áo thun Dreamchasers →</div>
-                    <div className={"mb-2 text-lg font-bold"}>Badge Logos/Eyja của bibom 10</div>
-                    <div className={"mb-0 text-4xl font-extrabold"}>269.000</div>
-                    <div className={"text-lg font-bold tracking-widest"}>VNĐ</div>
+                    <div className={"mb-4 flex w-full flex-row items-center justify-center gap-4"}>
+                        {/* Left images */}
+                        <Image
+                            src={"/tickets/shirt4.png"}
+                            alt={"Dreamchasers Shirt 4"}
+                            width={400}
+                            height={400}
+                            className={"rounded-md bg-[#222] object-contain"}
+                        />
+                        <Image
+                            src={"/tickets/shirt3.png"}
+                            alt={"Dreamchasers Shirt 3"}
+                            width={200}
+                            height={200}
+                            className={"absolute mt-33 mr-125 rounded-md bg-[#222] object-contain"}
+                        />
+                        {/* Center content */}
+                        <div
+                            className={
+                                "mx-20 flex min-w-[180px] flex-col items-center justify-center"
+                            }
+                        >
+                            <div className={"mb-2 text-lg font-bold"}>
+                                Bao gồm quà từ Whale Tier
+                            </div>
+                            <div className={"mb-2 text-lg font-bold"}>Áo thun Dreamchasers</div>
+                            <div className={"mb-2 text-lg font-bold"}>
+                                Badge Logos/Eyja của bibom 10
+                            </div>
+                            <div className={"mb-0 text-4xl font-extrabold"}>269.000</div>
+                            <div className={"text-lg font-bold tracking-widest"}>VNĐ</div>
+                        </div>
+                        {/* Right images */}
+                        <Image
+                            src={"/tickets/shirt1.png"}
+                            alt={"Dreamchasers Shirt 1"}
+                            width={200}
+                            height={200}
+                            className={"absolute mt-33 ml-125 rounded-md bg-[#222] object-contain"}
+                        />
+                        <Image
+                            src={"/tickets/shirt2.png"}
+                            alt={"Dreamchasers Shirt 2"}
+                            width={400}
+                            height={400}
+                            className={"rounded-md bg-[#222] object-contain"}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
