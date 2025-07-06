@@ -4,6 +4,8 @@ export type CrewMember = {
     role: string[];
 };
 
+type OperatorClass = "vanguard" | "guard" | "specialist" | "sniper" | "caster" | "medic" | "supporter" | "defender";
+
 export type Operator = {
     // format the nao thi tuy ae, toi test thoi
     id: string;

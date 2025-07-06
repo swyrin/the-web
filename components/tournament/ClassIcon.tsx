@@ -1,3 +1,4 @@
+import type { OperatorClass } from "@/lib/vns";
 import Image from "next/image";
 
 function ClassIcon({
@@ -5,7 +6,7 @@ function ClassIcon({
     active,
     onClick,
 }: {
-    operatorClass: string;
+    operatorClass: OperatorClass;
     active: boolean;
     onClick?: () => void;
 }) {
