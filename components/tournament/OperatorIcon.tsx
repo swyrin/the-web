@@ -1,4 +1,4 @@
-import type { Operator } from "@/lib/vns_types";
+import type { Operator } from "@/lib/vns";
 import Image from "next/image";
 
 function getRarityColor(rarity: number) {
