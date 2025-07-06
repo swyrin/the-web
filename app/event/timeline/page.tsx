@@ -127,7 +127,7 @@ export default function TimelinePage() {
         <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <PageTitle title={"TIMELINE"} favorText={""} dark />
+                    <PageTitle title={"TIMELINE"} favorText={"(bạn có thể scroll để đọc)"} dark />
                 </div>
             </div>
             <div className={"flex flex-1/2 items-center justify-center overflow-y-hidden"}>

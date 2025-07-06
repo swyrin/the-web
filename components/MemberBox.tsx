@@ -5,7 +5,7 @@ export default function MemberBox(props: VNS_Member) {
     return (
         <div className={"mb-4 flex max-h-64 min-w-64 flex-col gap-y-2"}>
             <Image
-                className={"self-center ring-1 ring-white"}
+                className={"self-center ring-1 ring-white rounded-full"}
                 src={`/crew/${props.name}.png`}
                 width={100}
                 height={100}
