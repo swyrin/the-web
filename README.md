@@ -1,42 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [
-`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+    <img src="https://raw.githubusercontent.com/arknights-vns/the-web/refs/heads/main/app/opengraph-image.png" />
+    <br />
+    <i>For the Doctors, by the Doctors!</i>
+</div>
 
-## Getting Started
+# 🔥 Arknights VNS Offline 2025: Dreamchasers
 
-First, run the development server:
+- Đây là website được tạo ra để phục vụ mục đích quảng bá cho Offline VNS 2025, cũng như là đi kèm một chút thông tin bên lề từ tụi mình.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Bạn có thể xem website thông qua link này: [https://dreamchasers.akvns.org](https://dreamchasers.akvns.org)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> [!NOTE]  
+> Domain website còn khá mới nên là **sẽ bị một số nhà mạng/DNS block** để phòng tránh scam.
+>
+> Trong trường hợp này thì bạn có thể dùng [link dự phòng](https://arknights-vns.netlify.app/).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🤔 Web này dùng tech stack gì?
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically
-optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Web này tụi mình sử dụng:
+    - **Next.js + React + Tailwind** cho frontend.
+    - `[REDACTED]` cho backend.
+    - [daisyUI](https://daisyui.com/) và [Embla Carousel](https://www.embla-carousel.com/) cũng được sử dụng ở vài chỗ trong quá trình code.
 
-## Learn More
+- Trong mỗi iteration thì tụi mình dùng [Netlify](https://www.netlify.com/) để tạo preview web theo và gửi thông báo build về kênh Discord của team.
+    - Tại sao không dùng Vercel thì [*Vercel Pro charge khá chua cho project deploy từ organization*](https://vercel.com/pricing).
 
-To learn more about Next.js, take a look at the following resources:
+### 💀 Web có bug kìa...
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Ừ thì, bạn có thể tạo [issue](https://github.com/arknights-vns/the-web/issues) hoặc [pull request](https://github.com/arknights-vns/the-web/pulls) và tụi mình sẽ xem qua khi có thể.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions
-are welcome!
+> [!IMPORTANT]  
+> Nhớ dùng search nha, gửi trùng bị close ráng chịu.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use
-the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for
-more details.
