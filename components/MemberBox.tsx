@@ -1,7 +1,7 @@
-import type { VNS_Member } from "@/lib/vns_types";
+import type { CrewMember } from "@/lib/vns";
 import Image from "next/image";
 
-export default function MemberBox(props: VNS_Member) {
+export default function MemberBox(props: CrewMember) {
     return (
         <div className={"mb-4 flex max-h-64 min-w-64 flex-col gap-y-2"}>
             <Image

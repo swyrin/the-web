@@ -1,4 +1,4 @@
-export type VNS_Member = {
+export type CrewMember = {
     name: string;
     quote: string;
     role: string[];

@@ -1,6 +1,6 @@
 "use client";
 
-import type { VNS_Member } from "@/lib/vns_types";
+import type { CrewMember } from "@/lib/vns";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 import MemberBox from "@/components/MemberBox";
@@ -8,12 +8,12 @@ import PageTitle from "@/components/PageTitle";
 import crewList from "@/public/crew.json";
 
 type HRListProps = {
-    members: VNS_Member[];
+    members: CrewMember[];
 };
 
 function CrewList(props: HRListProps) {
-    const eliteMembers = props.members.slice(0, 4);
-    const remainingMembers = props.members.slice(4);
+    const eliteMembers = props.members.slice(0, 3);
+    const remainingMembers = props.members.slice(3);
 
     return (
         <>
