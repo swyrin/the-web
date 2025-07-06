@@ -1,11 +1,11 @@
 "use client";
 
-import MemberBox from "@/components/MemberBox";
-import PageTitle from "@/components/PageTitle";
-import { VNS_Member } from "@/lib/vns_types";
-import crewList from "@/public/crew.json";
+import type { VNS_Member } from "@/lib/vns_types";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
+import MemberBox from "@/components/MemberBox";
+import PageTitle from "@/components/PageTitle";
+import crewList from "@/public/crew.json";
 
 type HRListProps = {
     members: VNS_Member[];
@@ -21,9 +21,7 @@ function CrewList(props: HRListProps) {
             {/* But it looks utterly dogshit on mobile, so falling back to the default one on that. */}
             <div className={"hidden place-content-center-safe lg:block"}>
                 <div
-                    className={
-                        "mx-36 mb-4 flex flex-col flex-wrap place-content-evenly md:flex-row"
-                    }
+                    className={"mx-36 mb-4 flex flex-col flex-wrap place-content-evenly md:flex-row"}
                 >
                     {eliteMembers.map((member) => {
                         return (
@@ -37,9 +35,7 @@ function CrewList(props: HRListProps) {
                     })}
                 </div>
                 <div
-                    className={
-                        "grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
-                    }
+                    className={"grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"}
                 >
                     {remainingMembers.map((member) => {
                         return (
@@ -56,9 +52,7 @@ function CrewList(props: HRListProps) {
             </div>
             {/* The other-than-hell layout. */}
             <div
-                className={
-                    "grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:hidden lg:grid-cols-5"
-                }
+                className={"grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:hidden lg:grid-cols-5"}
             >
                 {props.members.map((member) => {
                     return (
@@ -76,9 +70,7 @@ function PartnerList(props: HRListProps) {
     return (
         <>
             <div
-                className={
-                    "grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
-                }
+                className={"grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"}
             >
                 {props.members.map((member) => {
                     return (
@@ -115,13 +107,15 @@ export default function CrewPage() {
     }, [crewTab]);
 
     const onSelect = useCallback(() => {
-        if (!emblaApi) return;
+        if (!emblaApi)
+            return;
         const selectedIndex = emblaApi.selectedScrollSnap();
         setCrewTab(selectedIndex === 0 ? "dreamchasers" : "partners");
     }, [emblaApi]);
 
     useEffect(() => {
-        if (!emblaApi) return;
+        if (!emblaApi)
+            return;
         emblaApi.on("select", onSelect);
         onSelect();
 
@@ -132,7 +126,8 @@ export default function CrewPage() {
 
     const scrollTo = useCallback(
         (index: number) => {
-            if (emblaApi) emblaApi.scrollTo(index);
+            if (emblaApi)
+                emblaApi.scrollTo(index);
         },
         [emblaApi],
     );
@@ -146,18 +141,14 @@ export default function CrewPage() {
                 <div className={"hero-content text-center"}>
                     <PageTitle
                         title={"Tổ chức"}
-                        favorText={
-                            "Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."
-                        }
+                        favorText={"Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."}
                         dark
                     />
                 </div>
             </div>
             {/* Desktop tabs - original design */}
             <div
-                className={
-                    "tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"
-                }
+                className={"tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"}
                 data-theme={"dark"}
             >
                 <input
@@ -192,6 +183,7 @@ export default function CrewPage() {
                 {/* Tab indicators */}
                 <div className={"flex w-full border-b border-gray-400"}>
                     <button
+                        type={"button"}
                         className={`text-base-content flex-1 py-3 text-center transition-colors ${
                             crewTab === "dreamchasers"
                                 ? "border-b-2 border-white text-white"
@@ -202,6 +194,7 @@ export default function CrewPage() {
                         Dreamchasers
                     </button>
                     <button
+                        type={"button"}
                         className={`text-base-content flex-1 py-3 text-center transition-colors ${
                             crewTab === "partners"
                                 ? "border-b-2 border-white text-white"

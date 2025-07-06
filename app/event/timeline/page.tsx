@@ -1,11 +1,11 @@
 "use client";
 
-import PageTitle from "@/components/PageTitle";
-import Arrow from "@/public/Arrow.svg";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+import PageTitle from "@/components/PageTitle";
+import Arrow from "@/public/Arrow.svg";
 
 type Event = {
     date: string;
@@ -59,7 +59,8 @@ function Timeline({ events }: TimelineProps) {
     useEffect(() => {
         const handleScroll = () => {
             const container = containerRef.current;
-            if (!container) return;
+            if (!container)
+                return;
             const containerRect = container.getBoundingClientRect();
             const newScales: Record<number, number> = {};
             Array.from(container.children).forEach((child, index) => {
@@ -88,26 +89,20 @@ function Timeline({ events }: TimelineProps) {
     return (
         <div
             ref={containerRef}
-            className={
-                "scrollbar-none relative flex h-[60vh] snap-y snap-mandatory flex-col items-center overflow-y-scroll py-[20vh]"
-            }
+            className={"scrollbar-none relative flex h-[60vh] snap-y snap-mandatory flex-col items-center overflow-y-scroll py-[20vh]"}
         >
             {events.map((ev, index) => {
                 return (
                     <div
-                        key={index}
-                        className={
-                            "mx-4 my-5 snap-center p-10 transition-all duration-500 ease-in-out"
-                        }
+                        key={ev.title}
+                        className={"mx-4 my-5 snap-center p-10 transition-all duration-500 ease-in-out"}
                         style={{
                             transform: `scale(${scales[index] || 0.8})`,
                             opacity: scales[index] ? scales[index] : 0.8,
                         }}
                     >
                         <div
-                            className={
-                                "flex flex-col items-center justify-center text-center text-white"
-                            }
+                            className={"flex flex-col items-center justify-center text-center text-white"}
                         >
                             <div className={"pb-2 text-4xl font-extrabold"}>{ev.date}</div>
                             <div className={"text-2xl font-light"}>{ev.title}</div>
@@ -139,30 +134,22 @@ export default function TimelinePage() {
                 <Timeline events={events} />
                 {/* Frames */}
                 <div
-                    className={
-                        "absolute top-[calc(45svh)] left-[15vw] hidden sm:left-[20vw] md:left-[25vw] md:block lg:left-[30vw]"
-                    }
+                    className={"absolute top-[calc(45svh)] left-[15vw] hidden sm:left-[20vw] md:left-[25vw] md:block lg:left-[30vw]"}
                 >
                     <div className={"h-6 w-6 border-t-2 border-l-2 border-white"} />
                 </div>
                 <div
-                    className={
-                        "absolute top-[calc(45svh)] right-[15vw] hidden sm:right-[20vw] md:right-[25vw] md:block lg:right-[30vw]"
-                    }
+                    className={"absolute top-[calc(45svh)] right-[15vw] hidden sm:right-[20vw] md:right-[25vw] md:block lg:right-[30vw]"}
                 >
                     <div className={"h-6 w-6 border-t-2 border-r-2 border-white"} />
                 </div>
                 <div
-                    className={
-                        "absolute bottom-[calc(20svh)] left-[15vw] hidden sm:left-[20vw] md:left-[25vw] md:block lg:left-[30vw]"
-                    }
+                    className={"absolute bottom-[calc(20svh)] left-[15vw] hidden sm:left-[20vw] md:left-[25vw] md:block lg:left-[30vw]"}
                 >
                     <div className={"h-6 w-6 border-b-2 border-l-2 border-white"} />
                 </div>
                 <div
-                    className={
-                        "absolute right-[15vw] bottom-[calc(20svh)] hidden sm:right-[20vw] md:right-[25vw] md:block lg:right-[30vw]"
-                    }
+                    className={"absolute right-[15vw] bottom-[calc(20svh)] hidden sm:right-[20vw] md:right-[25vw] md:block lg:right-[30vw]"}
                 >
                     <div className={"h-6 w-6 border-r-2 border-b-2 border-white"} />
                 </div>

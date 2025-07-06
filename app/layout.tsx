@@ -1,7 +1,7 @@
-import NavBar from "@/components/navbar/NavBar";
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 import { Quicksand as VNS_Font } from "next/font/google";
-import { ReactNode } from "react";
+import NavBar from "@/components/navbar/NavBar";
 
 import "./globals.css";
 

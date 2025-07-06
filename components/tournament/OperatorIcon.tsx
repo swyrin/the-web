@@ -1,7 +1,7 @@
-import { Operator } from "@/lib/vns_types";
+import type { Operator } from "@/lib/vns_types";
 import Image from "next/image";
 
-const getRarityColor = (rarity: number) => {
+function getRarityColor(rarity: number) {
     switch (rarity) {
         case 1:
             return "#A0A0A0";
@@ -18,14 +18,14 @@ const getRarityColor = (rarity: number) => {
         default:
             console.error("Invalid rarity:", rarity);
     }
-};
+}
 
 function OperatorIcon({ operator }: { operator: Operator }) {
     const rarityColor = getRarityColor(operator.rarity);
     return (
         <div className={"flex h-full w-full flex-col items-center justify-center"}>
             <div
-                className={`flex h-15 w-14 items-center justify-center`}
+                className={"flex h-15 w-14 items-center justify-center"}
                 style={{
                     background: `linear-gradient(
                         to top,

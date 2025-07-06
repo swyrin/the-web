@@ -1,10 +1,10 @@
-import PurchaseTicketButton from "@/components/PreviewTicketButton";
+import Image from "next/image";
+import Link from "next/link";
 import NavBarItems from "@/components/navbar/NavBarItems";
+import PurchaseTicketButton from "@/components/PreviewTicketButton";
 import BurgerMenu from "@/components/svg/BurgerMenu";
 import Sparkle from "@/components/svg/Sparkle";
 import DRCH_Logo from "@/public/DRCH_Logo.png";
-import Image from "next/image";
-import Link from "next/link";
 
 export default function NavBar() {
     return (
@@ -14,9 +14,7 @@ export default function NavBar() {
                     <BurgerMenu />
                     <ul
                         tabIndex={0}
-                        className={
-                            "menu dropdown-content sm:menu-sm md:menu-md lg:menu-lg rounded-box z-1 mt-8 w-52 bg-white p-2 shadow-lg"
-                        }
+                        className={"menu dropdown-content sm:menu-sm md:menu-md lg:menu-lg rounded-box z-1 mt-8 w-52 bg-white p-2 shadow-lg"}
                     >
                         <NavBarItems isMobile />
                     </ul>

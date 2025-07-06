@@ -25,16 +25,12 @@ export default function ImageGallery({
             className={`absolute left-1/2 w-[90vw] max-w-[90vw] -translate-x-1/2 ${className}`.trim()}
         >
             <div
-                className={
-                    "max-w-full [column-gap:1.12rem] [column-count:2] sm:[column-count:2] md:[column-count:3] lg:[column-count:4]"
-                }
+                className={"max-w-full [column-gap:1.12rem] [column-count:2] sm:[column-count:2] md:[column-count:3] lg:[column-count:4]"}
             >
-                {images.map((src) => (
+                {images.map(src => (
                     <div
                         key={src}
-                        className={
-                            "mb-[1.12rem] w-full break-inside-avoid overflow-hidden rounded-xl shadow-lg"
-                        }
+                        className={"mb-[1.12rem] w-full break-inside-avoid overflow-hidden rounded-xl shadow-lg"}
                     >
                         <Image
                             src={src}

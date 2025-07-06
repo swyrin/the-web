@@ -1,10 +1,11 @@
+import type { StaticImageData } from "next/image";
+import Image from "next/image";
 import PageTitle from "@/components/PageTitle";
 import PurchaseTicketButton from "@/components/PurchaseTicketButton";
 import PrismaDolphin from "@/public/tickets/prisma_dolphin.jpg";
 import PrismaDRCH from "@/public/tickets/prisma_drch.jpg";
 import PrismaWhale from "@/public/tickets/prisma_whale.jpg";
 import ShirtPreview from "@/public/tickets/shirt_preview.png";
-import Image, { StaticImageData } from "next/image";
 
 type TicketCardProps = {
     tier: string;
@@ -17,9 +18,7 @@ type TicketCardProps = {
 function TicketCard(props: TicketCardProps) {
     return (
         <div
-            className={
-                "m-4 flex min-h-110 min-w-84 flex-col items-center justify-between rounded-3xl border-4 border-white/80 bg-black/70 lg:w-1/3"
-            }
+            className={"m-4 flex min-h-110 min-w-84 flex-col items-center justify-between rounded-3xl border-4 border-white/80 bg-black/70 lg:w-1/3"}
         >
             <div className={"relative mt-4 w-full px-4"}>
                 <Image
@@ -28,27 +27,32 @@ function TicketCard(props: TicketCardProps) {
                     className={"h-[64px] w-full rounded-xl object-cover"}
                 />
                 <div
-                    className={
-                        "absolute top-0 left-0 flex h-[64px] w-full items-center justify-center text-center text-2xl font-bold md:text-3xl lg:text-4xl"
-                    }
+                    className={"absolute top-0 left-0 flex h-[64px] w-full items-center justify-center text-center text-2xl font-bold md:text-3xl lg:text-4xl"}
                     style={{ textShadow: "0 2px 8px #fff, 0 1px 0 #ffe066" }}
                 >
-                    {props.tier.toUpperCase()} TIER
+                    {props.tier.toUpperCase()}
+                    {" "}
+                    TIER
                 </div>
             </div>
             <div className={"flex flex-col text-center text-white"}>
                 {props.parentTier && (
                     <div className={"my-2 text-lg font-light"}>
-                        Bao gồm quà từ {props.parentTier}, cộng thêm:
+                        Bao gồm quà từ
+                        {" "}
+                        {props.parentTier}
+                        , cộng thêm:
                     </div>
                 )}
-                {props.description.map((line, index) => (
+                {props.description.map(line => (
                     <div
-                        key={index}
+                        key={line}
                         className={"my-2 text-lg font-bold"}
                         style={{ textShadow: "0 1px 2px #000" }}
                     >
-                        ✓ {line}
+                        ✓
+                        {" "}
+                        {line}
                     </div>
                 ))}
                 {props.tier === "Dreamchasers" && (

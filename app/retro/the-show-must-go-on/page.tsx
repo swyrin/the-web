@@ -1,6 +1,6 @@
+import Image from "next/image";
 import ImageGallery from "@/components/ImageGallery";
 import TheShowMustGoOnImg from "@/public/retro/the-show-must-go-on/the-show-must-go-on.jpg";
-import Image from "next/image";
 
 export default function TheShowMustGoOn() {
     return (

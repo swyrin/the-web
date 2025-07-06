@@ -1,6 +1,6 @@
+import Image from "next/image";
 import PageTitle from "@/components/PageTitle";
 import TournamentLogo from "@/public/tournament/tournament-logo.png";
-import Image from "next/image";
 
 export default function OverviewPage() {
     return (

@@ -1,30 +1,29 @@
+import type { CSSProperties, FC, JSX, ReactNode } from "react";
 import classNames from "classnames";
-import { CSSProperties, FC, ReactNode } from "react";
-import { JSX } from "react";
 
 import styles from "./Text.module.scss";
 
-export type TypographyType =
-    | "headline-1"
-    | "headline-2"
-    | "headline-3"
-    | "headline-4"
-    | "headline-5"
-    | "headline-6"
-    | "title-1"
-    | "title-2"
-    | "title-3"
-    | "title-4"
-    | "title-5"
-    | "body-1"
-    | "body-2"
-    | "body-3"
-    | "body-4"
-    | "label-1"
-    | "label-2"
-    | "label-3"
-    | "label-4"
-    | "label-5";
+export type TypographyType
+    = | "headline-1"
+        | "headline-2"
+        | "headline-3"
+        | "headline-4"
+        | "headline-5"
+        | "headline-6"
+        | "title-1"
+        | "title-2"
+        | "title-3"
+        | "title-4"
+        | "title-5"
+        | "body-1"
+        | "body-2"
+        | "body-3"
+        | "body-4"
+        | "label-1"
+        | "label-2"
+        | "label-3"
+        | "label-4"
+        | "label-5";
 
 export type TypographyProps = {
     id?: string;
@@ -59,7 +58,8 @@ const Typography: FC<TypographyProps> = ({
     const typeList: string[] = type?.split("-") || [];
 
     const renderTag = (): string => {
-        if (htmlTag) return htmlTag;
+        if (htmlTag)
+            return htmlTag;
 
         switch (typeList[0]) {
             case "headline":

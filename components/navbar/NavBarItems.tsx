@@ -45,7 +45,7 @@ function MobileDropdownSection({
             <details>
                 <summary>{title}</summary>
                 <ul>
-                    {items.map((item) => (
+                    {items.map(item => (
                         <DropdownItem key={item.href} href={item.href} pathname={pathname}>
                             {item.label}
                         </DropdownItem>
@@ -85,12 +85,13 @@ function DesktopDropdown({
             </div>
             <div
                 className={"invisible absolute top-full left-0 h-4 w-full group-hover:visible"}
-            ></div>
+            >
+            </div>
             <ul
                 tabIndex={0}
                 className={"dropdown-content menu rounded-box mt-4 w-52 bg-white p-2 shadow-sm"}
             >
-                {items.map((item) => (
+                {items.map(item => (
                     <DropdownItem key={item.href} href={item.href} pathname={pathname}>
                         {item.label}
                     </DropdownItem>
@@ -158,7 +159,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
         return (
             <>
                 <MobileDropdownSection title={"Sự kiện"} items={eventItems} pathname={pathname} />
-                {links.map((link) => (
+                {links.map(link => (
                     <li key={link.name}>
                         <Link
                             href={link.href}
@@ -182,9 +183,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
 
     return (
         <div
-            className={
-                "relative hidden cursor-pointer items-center gap-4 text-base font-semibold text-black lg:flex"
-            }
+            className={"relative hidden cursor-pointer items-center gap-4 text-base font-semibold text-black lg:flex"}
         >
             <DesktopDropdown
                 title={"Sự kiện"}

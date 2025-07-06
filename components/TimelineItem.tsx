@@ -1,5 +1,5 @@
-import TimelinePoint from "@/components/svg/TimelinePoint";
 import classNames from "classnames";
+import TimelinePoint from "@/components/svg/TimelinePoint";
 
 type TimelineItemProps = {
     date: string;

@@ -1,13 +1,13 @@
+import Image from "next/image";
 import PageTitle from "@/components/PageTitle";
 import TimelineItem from "@/components/TimelineItem";
 import Hourglass from "@/public/Hourglass.png";
-import Image from "next/image";
 
 export default function SchedulePage() {
     return (
         <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
-                <div className={"hero-content text-center"}>
+                <div className={"text-center hero-content"}>
                     <PageTitle title={"Lịch trình"} favorText={""} dark />
                 </div>
             </div>

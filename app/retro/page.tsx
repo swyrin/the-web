@@ -21,9 +21,7 @@ export default function RetroPage() {
             >
                 <RetroItem
                     title={"Arknights VNS Offline 2024: The Show Must Go On!"}
-                    description={
-                        "Offline đầu tiên của VNS, cũng như là tiền đề cho Dreamchasers và VNS Network."
-                    }
+                    description={"Offline đầu tiên của VNS, cũng như là tiền đề cho Dreamchasers và VNS Network."}
                     href={"/retro/the-show-must-go-on"}
                     imageSrc={TheShowMustGoOn}
                 />

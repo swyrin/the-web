@@ -9,7 +9,7 @@
     &::-webkit-scrollbar {
         display: none;
     }
-    
+
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -25,7 +25,7 @@
     @apply px-2;
     @apply py-1;
     @apply text-center;
-    @apply min-w-12; 
+    @apply min-w-12;
 }
 
 @utility vns-background {
@@ -52,10 +52,10 @@
 
 .Secretary {
     background-color: var(--color-red-300);
-    color: var(--color-amber-900)
+    color: var(--color-amber-900);
 }
 
-.Minigame{
+.Minigame {
     background-color: var(--color-yellow-100);
     color: var(--color-black);
 }
@@ -118,7 +118,6 @@
 }
 .embla {
     overflow: hidden;
-
 }
 .embla__container {
     display: flex;

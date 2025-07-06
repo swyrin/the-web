@@ -1,5 +1,5 @@
+import type { ReactNode } from "react";
 import classNames from "classnames";
-import { ReactNode } from "react";
 
 type ContainerProps = {
     className?: string;

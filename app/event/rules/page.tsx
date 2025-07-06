@@ -1,5 +1,9 @@
 "use client";
 
+import type { StaticImageData } from "next/image";
+import useEmblaCarousel from "embla-carousel-react";
+import Image from "next/image";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import PageTitle from "@/components/PageTitle";
 import Bag from "@/public/rules/bag.svg";
 import Broom from "@/public/rules/broom.svg";
@@ -10,17 +14,16 @@ import Face from "@/public/rules/face.svg";
 import Hammer from "@/public/rules/hammer.svg";
 import Military from "@/public/rules/military.svg";
 import MoreClothes from "@/public/rules/moreClothes.svg";
+import Nope from "@/public/rules/nope.svg";
 import NoWeapon from "@/public/rules/noWeapon.svg";
 import People from "@/public/rules/people.svg";
 import Pet from "@/public/rules/pet.svg";
 import Scale from "@/public/rules/scale.svg";
+import Shop from "@/public/rules/shop.svg";
 import Stop from "@/public/rules/stop.svg";
 import Syringe from "@/public/rules/syringe.svg";
 import Tick from "@/public/rules/tick.svg";
 import Weapon from "@/public/rules/weapon.svg";
-import useEmblaCarousel from "embla-carousel-react";
-import Image, { StaticImageData } from "next/image";
-import { Fragment, useCallback, useEffect, useState } from "react";
 
 type RuleType = {
     title: string;
@@ -44,8 +47,8 @@ function RuleSection({
     description: string;
     side: "left" | "right";
 }) {
-    const colorClass =
-        {
+    const colorClass
+        = {
             red: "text-[#FF4B4E]",
             green: "text-[#75FF4B]",
             yellow: "text-[#FFE44B]",
@@ -55,11 +58,11 @@ function RuleSection({
             className={`grid h-50 w-full content-center md:max-w-100 ${side === "left" ? "justify-items-end" : "justify-items-start"}`}
         >
             <div
-                className={`flex flex-col gap-1 ${side == "left" ? "items-end text-right" : "items-start text-left"}`}
+                className={`flex flex-col gap-1 ${side === "left" ? "items-end text-right" : "items-start text-left"}`}
             >
                 <h1 className={`${colorClass} text-2xl font-medium md:text-5xl`}>{title}</h1>
                 <p
-                    className={`${side == "left" ? "text-right" : "text-left"} text-lg font-medium text-white md:text-xl`}
+                    className={`${side === "left" ? "text-right" : "text-left"} text-lg font-medium text-white md:text-xl`}
                 >
                     {description}
                 </p>
@@ -78,10 +81,10 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                 <div className={"flex flex-col items-end justify-start gap-50"}>
                     {rules
                         .filter((_, index) => index % 2 === 0)
-                        .map((rule, index) => {
+                        .map((rule) => {
                             return (
                                 <RuleSection
-                                    key={index}
+                                    key={rule.description}
                                     title={rule.title}
                                     titleColor={rule.titleColor}
                                     description={rule.description}
@@ -94,10 +97,10 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                 <div className={"flex flex-1 flex-col items-center justify-start"}>
                     <VerticalLine height={50} />
                     {rules.map((rule, index) => (
-                        <Fragment key={index}>
+                        <Fragment key={rule.description}>
                             <div
                                 className={"flex h-25 w-25 items-center justify-center"}
-                                key={index}
+                                key={rule.title}
                             >
                                 <div className={"relative h-3/4 w-3/4"}>
                                     <Image
@@ -106,13 +109,13 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                                         fill
                                         className={"object-contain"}
                                         style={{
-                                            ...(rule.icon == Hammer
+                                            ...(rule.icon === Hammer
                                                 ? { paddingBottom: "16px" }
                                                 : {}),
-                                            ...(rule.icon == MoreClothes
+                                            ...(rule.icon === MoreClothes
                                                 ? { paddingBottom: "20px" }
                                                 : {}),
-                                            ...(rule.icon == Military
+                                            ...(rule.icon === Military
                                                 ? { marginLeft: "10px" }
                                                 : {}),
                                             // unless someone can update the icons so they dont require this shit
@@ -120,7 +123,7 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                                     />
                                 </div>
                             </div>
-                            {index != rules.length - 1 ? <VerticalLine height={100} /> : <></>}
+                            {index !== rules.length - 1 ? <VerticalLine height={100} /> : <></>}
                         </Fragment>
                     ))}
                 </div>
@@ -128,10 +131,10 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                 <div className={"mt-50 flex flex-col items-start justify-start gap-50"}>
                     {rules
                         .filter((_, index) => index % 2 === 1)
-                        .map((rule, index) => {
+                        .map((rule) => {
                             return (
                                 <RuleSection
-                                    key={index}
+                                    key={rule.description}
                                     title={rule.title}
                                     titleColor={rule.titleColor}
                                     description={rule.description}
@@ -150,26 +153,26 @@ const rules: RuleType[] = [
         title: "CẤM",
         titleColor: "red",
         description:
-            "tất cả các hình thức quấy rối, xâm phạm đến tài sản và quyền riêng tư cá nhân.",
+            "Tất cả các hình thức quấy rối, xâm phạm đến tài sản và quyền riêng tư cá nhân.",
         icon: Stop,
     },
     {
         title: "CẤM",
         titleColor: "red",
         description:
-            "mang vũ khí quân sự (s.ú.n.g, d.a.o,...) và các vật dụng nguy hiểm vào trong khu vực sự kiện.",
+            "Mang vũ khí quân sự (s.ú.n.g, d.a.o,...) và các vật dụng nguy hiểm vào trong khu vực sự kiện.",
         icon: Weapon,
     },
     {
         title: "CẤM",
         titleColor: "red",
-        description: "tất cả các loại chất kích thích, cấm các hành vi gây mất trật tự công cộng.",
+        description: "Tất cả các loại chất kích thích, cấm các hành vi gây mất trật tự công cộng.",
         icon: Syringe,
     },
     {
         title: "CẤM",
         titleColor: "red",
-        description: "bàn về chính trị, phân biệt vùng miền, gây mâu thuẫn, và bạo lực.",
+        description: "Bàn về chính trị, phân biệt vùng miền, gây mâu thuẫn, và bạo lực.",
         icon: Scale,
     },
     {
@@ -222,6 +225,20 @@ const rules: RuleType[] = [
         description:
             "Xảy ra sự cố, xung đột hay tranh chấp... tại offline, quyết định của BTC là quyết định tiên quyết.",
         icon: People,
+    },
+    {
+        title: "BTC",
+        titleColor: "yellow",
+        description:
+            "Miễn trách nhiệm đối với các giao dịch cá nhân, ngoại trừ tại khu vực booth của nhà tài trợ.",
+        icon: Shop,
+    },
+    {
+        title: "BTC",
+        titleColor: "red",
+        description:
+            "Không chịu trách nhiệm với những vấn đề giữa các khách hàng với nhau.",
+        icon: Nope,
     },
 ];
 
@@ -293,13 +310,15 @@ export default function RulePage() {
     }, [ruleTab]);
 
     const onSelect = useCallback(() => {
-        if (!emblaApi) return;
+        if (!emblaApi)
+            return;
         const selectedIndex = emblaApi.selectedScrollSnap();
         setRuleTab(selectedIndex === 0 ? "general" : "cosplay");
     }, [emblaApi]);
 
     useEffect(() => {
-        if (!emblaApi) return;
+        if (!emblaApi)
+            return;
         emblaApi.on("select", onSelect);
         onSelect();
 
@@ -310,7 +329,8 @@ export default function RulePage() {
 
     const scrollTo = useCallback(
         (index: number) => {
-            if (emblaApi) emblaApi.scrollTo(index);
+            if (emblaApi)
+                emblaApi.scrollTo(index);
         },
         [emblaApi],
     );
@@ -328,9 +348,7 @@ export default function RulePage() {
             </div>
             {/* Desktop tabs - original design */}
             <div
-                className={
-                    "tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"
-                }
+                className={"tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"}
                 data-theme={"dark"}
             >
                 <input
@@ -369,6 +387,7 @@ export default function RulePage() {
                 {/* Tab indicators */}
                 <div className={"flex w-full border-b border-gray-400"}>
                     <button
+                        type={"button"}
                         className={`text-base-content flex-1 py-3 text-center transition-colors ${
                             ruleTab === "general"
                                 ? "border-b-2 border-white text-white"
@@ -379,6 +398,7 @@ export default function RulePage() {
                         Nội quy chung
                     </button>
                     <button
+                        type={"button"}
                         className={`text-base-content flex-1 py-3 text-center transition-colors ${
                             ruleTab === "cosplay"
                                 ? "border-b-2 border-white text-white"

@@ -1,53 +1,48 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
+import antfu from "@antfu/eslint-config";
+import nextjs from "@next/eslint-plugin-next";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-    ...compat.extends("next/core-web-vitals", "next/typescript"),
-    eslintPluginPrettierRecommended,
+export default antfu(
     {
-        ignores: ["./lib/prisma/**/**"],
+        type: "app",
+        stylistic: {
+            indent: 4,
+            quotes: "double",
+            semi: true,
+            trailingComma: "true",
+            arrowParens: "always",
+        },
+        formatters: true,
+        typescript: true,
+        react: true,
+        imports: true,
     },
     {
+        plugins: {
+            "@next/next": nextjs,
+        },
         rules: {
-            "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-            "react/jsx-curly-brace-presence": [
-                "error",
+            ...nextjs.configs.recommended.rules,
+            ...nextjs.configs["core-web-vitals"].rules,
+        },
+    },
+    // Custom rules.
+    {
+        rules: {
+            "curly": "off",
+            "antfu/no-top-level-await": "off",
+            "style/brace-style": ["error", "1tbs"],
+            "ts/consistent-type-definitions": ["error", "type"],
+            "react/prefer-destructuring-assignment": "off",
+            "node/prefer-global/process": "off",
+            "react-hooks-extra/no-direct-set-state-in-use-effect": "off",
+            "@stylistic/jsx-curly-brace-presence": [
+                "warn",
                 {
                     props: "always",
                     children: "never",
                     propElementValues: "always",
                 },
             ],
-            "prettier/prettier": [
-                "error",
-                {
-                    plugins: [
-                        "@trivago/prettier-plugin-sort-imports",
-                        "prettier-plugin-tailwindcss",
-                    ],
-                    printWidth: 100,
-                    singleQuote: false,
-                    trailingComma: "all",
-                    endOfLine: "auto",
-                    tabWidth: 4,
-                    useTabs: false,
-                    semi: true,
-                    importOrder: ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
-                    importOrderSeparation: true,
-                    importOrderSortSpecifiers: true,
-                },
-            ],
         },
     },
-];
-
-export default eslintConfig;
+);
