@@ -113,21 +113,23 @@
     background-color: var(--color-yellow-200);
 }
 
-.Videographer {
+.Video_Editor {
     background-color: var(--color-red-300);
 }
+
 .embla {
     overflow: hidden;
 }
+
 .embla__container {
     display: flex;
 }
+
 .embla__slide {
     flex: 0 0 100%;
     min-width: 0;
 }
 
-/* Enhanced swipable tabs styles */
 .swipe-tabs {
     touch-action: pan-y pinch-zoom;
 }
@@ -141,7 +143,6 @@
     scroll-snap-align: start;
 }
 
-/* Smooth tab indicator transitions */
 .tab-indicator {
     transition: all 0.2s ease-in-out;
 }
