@@ -21,8 +21,14 @@ export default function DraftingPage() {
     const [selectedRarity, setSelectedRarity] = useState(1);
     const [selectedClass, setSelectedClass] = useState<OperatorClass>("caster");
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
+    const [bannedOperators, setBannedOperators] = useState<string[]>([
+        // TODO: delete this.
+        "char_002_amiya",
+        "char_003_kalts",
+        "char_188_helage",
+    ]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
-    const [isConnected, _setIsConnected] = useState(true);
+    const [isConnected, _setIsConnected] = useState(false);
     const [timeLeft, setTimeLeft] = useState(60000);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
 
@@ -101,6 +107,11 @@ export default function DraftingPage() {
     }
 
     function handleOperatorSelection(charId: string) {
+        // Prevent selection if operator is banned
+        if (bannedOperators.includes(charId)) {
+            return;
+        }
+
         setSelectedOperators((prev) => {
             if (prev.includes(charId)) {
                 // already selected
@@ -245,12 +256,13 @@ export default function DraftingPage() {
         })();
     }, []);
 
-    // region: user input backup
+    // region: data backup
     useEffect(() => {
         const savedSearch = localStorage.getItem("drafting-search");
         const savedRarity = localStorage.getItem("drafting-rarity");
         const savedClass = localStorage.getItem("drafting-class");
         const savedOperators = localStorage.getItem("drafting-selected-operators");
+        const savedBannedOperators = localStorage.getItem("drafting-banned-operators");
 
         if (savedSearch) {
             setOperatorNameSearch(savedSearch);
@@ -267,6 +279,14 @@ export default function DraftingPage() {
                 setSelectedOperators(parsed);
             } catch (error) {
                 console.warn("Failed to parse saved operators:", error);
+            }
+        }
+        if (savedBannedOperators) {
+            try {
+                const parsed = JSON.parse(savedBannedOperators) as string[];
+                setBannedOperators(parsed);
+            } catch (error) {
+                console.warn("Failed to parse saved banned operators:", error);
             }
         }
     }, []);
@@ -286,6 +306,10 @@ export default function DraftingPage() {
     useEffect(() => {
         localStorage.setItem("drafting-selected-operators", JSON.stringify(selectedOperators));
     }, [selectedOperators]);
+
+    useEffect(() => {
+        localStorage.setItem("drafting-banned-operators", JSON.stringify(bannedOperators));
+    }, [bannedOperators]);
     // endregion: user input backup
 
     function formatTime(milliseconds: number) {
@@ -345,7 +369,7 @@ export default function DraftingPage() {
                         <ClassIcon operatorClass={"defender"} active={selectedClass === "defender"} onClick={() => setSelectedClass("defender")} />
                         <ClassIcon operatorClass={"vanguard"} active={selectedClass === "vanguard"} onClick={() => setSelectedClass("vanguard")} />
                     </div>
-                    <div className={"grid grid-cols-5 gap-2 h-[25vh] overflow-y-auto mx-6 content-start"}>
+                    <div className={"grid grid-cols-5 gap-4 h-[25vh] overflow-y-auto px-4 content-start"}>
                         {filteredOperators.map(operator => (
                             <OperatorIcon
                                 key={operator.charId}
@@ -357,6 +381,7 @@ export default function DraftingPage() {
                                     subclass: operator.archetype,
                                 }}
                                 isSelected={selectedOperators.includes(operator.charId)}
+                                isBanned={bannedOperators.includes(operator.charId)}
                                 onClickFn={() => handleOperatorSelection(operator.charId)}
                             />
                         ))}
@@ -375,7 +400,7 @@ export default function DraftingPage() {
                                 return (
                                     <div
                                         key={index}
-                                        className={"h-20 flex items-center justify-center cursor-pointer"}
+                                        className={"h-20 flex items-start justify-center cursor-pointer"}
                                         onClick={() => selectedCharId && removeSelectedOperator(selectedCharId)}
                                     >
                                         {selectedOp
