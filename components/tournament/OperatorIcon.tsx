@@ -23,26 +23,31 @@ function getRarityColor(rarity: number) {
 type OperatorIconProps = {
     operator: Operator;
     isSelected: boolean;
+    isBanned?: boolean;
     onClickFn: () => void;
 };
 
 function OperatorIcon(props: OperatorIconProps) {
     const rarityColor = getRarityColor(props.operator.rarity);
+    // everchanging, the knowing feelings,
+    // could make you fall from the dreamy skies
+    const selectedColor = "#77DD77";
+
     return (
         <div
-            className={`flex min-w-12 flex-col items-center border-2 ${props.isSelected ? "border-blue-300" : "border-transparent"}`}
-            onClick={props.onClickFn}
+            className={`flex w-18 flex-col items-center ${props.isBanned ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}`}
+            onClick={props.isBanned ? undefined : props.onClickFn}
         >
             <div
-                className={"flex w-14 items-center justify-center"}
+                className={`flex w-14 items-center justify-center ${props.isBanned ? "grayscale" : ""}`}
                 style={{
                     background: `linear-gradient(
                         to top,
-                        ${rarityColor} 0%,
-                        ${rarityColor}70 50%,
-                        ${rarityColor}00 100%
+                        ${props.isSelected ? selectedColor : rarityColor} 0%,
+                        ${props.isSelected ? selectedColor : rarityColor}70 50%,
+                        ${props.isSelected ? selectedColor : rarityColor}00 100%
                     )`,
-                    borderBottom: `4px solid ${rarityColor}`,
+                    borderBottom: `4px solid ${props.isSelected ? selectedColor : rarityColor}`,
                 }}
             >
                 <Image
@@ -53,7 +58,7 @@ function OperatorIcon(props: OperatorIconProps) {
                     className={"object-contain"}
                 />
             </div>
-            <div className={"text-center text-xs"}>{props.operator.name}</div>
+            <div className={`text-center text-xs break-words ${props.isBanned ? "text-gray-500" : ""}`}>{props.operator.name}</div>
         </div>
     );
 }
