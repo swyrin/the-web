@@ -29,6 +29,7 @@ export default antfu(
     {
         rules: {
             "curly": "off",
+            "no-console": ["error", { allow: ["warn", "error", "info"] }],
             "antfu/no-top-level-await": "off",
             "style/brace-style": ["error", "1tbs"],
             "ts/consistent-type-definitions": ["error", "type"],

@@ -10,7 +10,7 @@
 
 - Bạn có thể xem website thông qua link này: [https://dreamchasers.akvns.org](https://dreamchasers.akvns.org)
 
-> [!NOTE]  
+> [!NOTE]
 > Domain website còn khá mới nên là **sẽ bị một số nhà mạng/DNS block** để phòng tránh scam.
 >
 > Trong trường hợp này thì bạn có thể dùng [link dự phòng](https://arknights-vns.netlify.app/).
@@ -18,17 +18,17 @@
 ## 🤔 Web này dùng tech stack gì?
 
 - Web này tụi mình sử dụng:
+
     - **Next.js + React + Tailwind** cho frontend.
     - `[REDACTED]` cho backend.
     - [daisyUI](https://daisyui.com/) và [Embla Carousel](https://www.embla-carousel.com/) cũng được sử dụng ở vài chỗ trong quá trình code.
 
 - Trong mỗi iteration thì tụi mình dùng [Netlify](https://www.netlify.com/) để tạo preview web theo và gửi thông báo build về kênh Discord của team.
-    - Tại sao không dùng Vercel thì [*Vercel Pro charge khá chua cho project deploy từ organization*](https://vercel.com/pricing).
+    - Tại sao không dùng Vercel thì [_Vercel Pro charge khá chua cho project deploy từ organization_](https://vercel.com/pricing).
 
 ### 💀 Web có bug kìa...
 
 - Ừ thì, bạn có thể tạo [issue](https://github.com/arknights-vns/the-web/issues) hoặc [pull request](https://github.com/arknights-vns/the-web/pulls) và tụi mình sẽ xem qua khi có thể.
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > Nhớ dùng search nha, gửi trùng bị close ráng chịu.
-

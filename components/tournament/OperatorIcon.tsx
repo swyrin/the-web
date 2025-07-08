@@ -20,12 +20,21 @@ function getRarityColor(rarity: number) {
     }
 }
 
-function OperatorIcon({ operator }: { operator: Operator }) {
-    const rarityColor = getRarityColor(operator.rarity);
+type OperatorIconProps = {
+    operator: Operator;
+    isSelected: boolean;
+    onClickFn: () => void;
+};
+
+function OperatorIcon(props: OperatorIconProps) {
+    const rarityColor = getRarityColor(props.operator.rarity);
     return (
-        <div className={"flex h-full w-full flex-col items-center justify-center"}>
+        <div
+            className={`flex min-w-12 flex-col items-center border-2 ${props.isSelected ? "border-blue-300" : "border-transparent"}`}
+            onClick={props.onClickFn}
+        >
             <div
-                className={"flex h-15 w-14 items-center justify-center"}
+                className={"flex w-14 items-center justify-center"}
                 style={{
                     background: `linear-gradient(
                         to top,
@@ -37,14 +46,14 @@ function OperatorIcon({ operator }: { operator: Operator }) {
                 }}
             >
                 <Image
-                    src={`/operators/char_${operator.id}.png`}
+                    src={`https://raw.githubusercontent.com/ArknightsAssets/ArknightsAssets2/refs/heads/cn/assets/dyn/arts/charavatars/${props.operator.id}.png`}
                     width={48}
                     height={48}
-                    alt={operator.name}
+                    alt={props.operator.name}
                     className={"object-contain"}
                 />
             </div>
-            <div className={"h-full w-full text-center text-xs break-words"}>{operator.name}</div>
+            <div className={"text-center text-xs"}>{props.operator.name}</div>
         </div>
     );
 }

@@ -13,7 +13,6 @@ export default function ImageGallery({
     albumPath,
     imageCount,
     extension = "jpg",
-    className = "",
 }: ImageGalleryProps) {
     const images = Array.from(
         { length: imageCount },
@@ -22,10 +21,10 @@ export default function ImageGallery({
 
     return (
         <div
-            className={`absolute left-1/2 w-[90vw] max-w-[90vw] -translate-x-1/2 ${className}`.trim()}
+            className={"max-w-screen"}
         >
             <div
-                className={"max-w-full [column-gap:1.12rem] [column-count:2] sm:[column-count:2] md:[column-count:3] lg:[column-count:4]"}
+                className={"max-w-full [column-gap:1.12rem] [column-count:2] md:[column-count:3] lg:[column-count:4]"}
             >
                 {images.map(src => (
                     <div
@@ -37,8 +36,8 @@ export default function ImageGallery({
                             alt={""}
                             width={900}
                             height={1200}
-                            className={"block h-auto w-full max-w-full min-w-[160px] object-cover"}
-                            loading={"eager"}
+                            className={"block object-cover"}
+                            priority={true}
                         />
                     </div>
                 ))}
