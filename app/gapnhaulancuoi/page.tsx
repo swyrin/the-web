@@ -1,17 +1,34 @@
 "use client";
 
-import type { createTRPCProxyClient, createWSClient } from "@trpc/client";
 import type { Terra } from "@/lib/supabase/terra";
 import type { OperatorClass } from "@/lib/vns";
 import Fuse from "fuse.js";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { z } from "zod";
 import PageTitle from "@/components/PageTitle";
 import ClassIcon from "@/components/tournament/ClassIcon";
 import OperatorIcon from "@/components/tournament/OperatorIcon";
 import { supabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
 import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
+
+const HeartbeatMessageSchema = z.object({
+    object: z.literal("heartbeat"),
+    cmd: z.enum(["acknowledge", "dnr"]),
+});
+
+const TimerMessageSchema = z.object({
+    object: z.literal("timer"),
+    cmd: z.enum(["start", "stop", "reset", "continue"]),
+});
+
+const WebSocketMessageSchema = z.union([
+    HeartbeatMessageSchema,
+    TimerMessageSchema,
+]);
+
+type WebSocketMessage = z.infer<typeof WebSocketMessageSchema>;
 
 type Operator = Terra["public"]["Tables"]["operator"]["Row"];
 type SelectedOperator = Pick<Operator, "name" | "rarity" | "archetype" | "profession" | "charId">;
@@ -23,39 +40,39 @@ export default function DraftingPage() {
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
-    const [isConnected, _setIsConnected] = useState(false);
+    const [isConnected, setIsConnected] = useState(false);
     const [timeLeft, setTimeLeft] = useState(60000);
     const [isTimerRunning, setIsTimerRunning] = useState(false);
 
-    const _wsClientRef = useRef<ReturnType<typeof createWSClient> | null>(null);
-    const _trpcClientRef = useRef<ReturnType<typeof createTRPCProxyClient> | null>(null);
+    const wsRef = useRef<WebSocket | null>(null);
     const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
+    const heartbeatIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
     // region: timer control functions
-    // function startTimer() {
-    //     setIsTimerRunning(true);
-    // }
-    //
-    // function stopTimer() {
-    //     setIsTimerRunning(false);
-    //     if (timerIntervalRef.current) {
-    //         clearInterval(timerIntervalRef.current);
-    //         timerIntervalRef.current = null;
-    //     }
-    // }
-    //
-    // function resetTimer() {
-    //     setIsTimerRunning(false);
-    //     setTimeLeft(60000);
-    //     if (timerIntervalRef.current) {
-    //         clearInterval(timerIntervalRef.current);
-    //         timerIntervalRef.current = null;
-    //     }
-    // }
-    //
-    // function continueTimer() {
-    //     setIsTimerRunning(true);
-    // }
+    function startTimer() {
+        setIsTimerRunning(true);
+    }
+
+    function stopTimer() {
+        setIsTimerRunning(false);
+        if (timerIntervalRef.current) {
+            clearInterval(timerIntervalRef.current);
+            timerIntervalRef.current = null;
+        }
+    }
+
+    function resetTimer() {
+        setIsTimerRunning(false);
+        setTimeLeft(60000);
+        if (timerIntervalRef.current) {
+            clearInterval(timerIntervalRef.current);
+            timerIntervalRef.current = null;
+        }
+    }
+
+    function continueTimer() {
+        setIsTimerRunning(true);
+    }
     // endregion: timer control functions
 
     // region: operator selection
@@ -136,94 +153,110 @@ export default function DraftingPage() {
     }
     // endregion: operator selection
 
-    // trpc connection.
-    // I strongly recommend you folding the code.
-    // useEffect(() => {
-    //     const rpcServer = process.env.RPC_SERVER!;
-    //
-    //     // Handle incoming WebSocket messages and controller commands
-    //     function handleMessage(event: MessageEvent) {
-    //         try {
-    //             const message = JSON.parse(event.data);
-    //
-    //             // Handle controller commands based on object type
-    //             switch (message.object) {
-    //                 case "timer":
-    //                     switch (message.cmd) {
-    //                         case "start":
-    //                             startTimer();
-    //                             break;
-    //                         case "stop":
-    //                             stopTimer();
-    //                             break;
-    //                         case "reset":
-    //                             resetTimer();
-    //                             break;
-    //                         case "continue":
-    //                             continueTimer();
-    //                             break;
-    //                         default:
-    //                             console.warn("Unknown timer command:", message.cmd);
-    //                     }
-    //                     break;
-    //                 default:
-    //                     console.warn("Unknown object type:", message.object);
-    //             }
-    //         } catch (error) {
-    //             console.error("Failed to parse WebSocket message:", error);
-    //         }
-    //     }
-    //
-    //     const wsClient = createWSClient({
-    //         url: rpcServer,
-    //     });
-    //
-    //     const trpcClient = createTRPCProxyClient({
-    //         links: [
-    //             wsLink({
-    //                 client: wsClient,
-    //             }),
-    //         ],
-    //     });
-    //
-    //     wsClientRef.current = wsClient;
-    //     trpcClientRef.current = trpcClient;
-    //
-    //     const handleOpen = () => {
-    //         setIsConnected(true);
-    //     };
-    //
-    //     const handleClose = () => {
-    //         setIsConnected(false);
-    //     };
-    //
-    //     const handleError = (error: Event) => {
-    //         console.error("WebSocket error:", error);
-    //         setIsConnected(false);
-    //     };
-    //
-    //     const connection = wsClient.connection;
-    //
-    //     if (connection) {
-    //         const ws = connection.ws;
-    //
-    //         ws.addEventListener("open", handleOpen);
-    //         ws.addEventListener("close", handleClose);
-    //         ws.addEventListener("error", handleError);
-    //         ws.addEventListener("message", handleMessage);
-    //     }
-    //
-    //     return () => {
-    //         if (connection) {
-    //             const ws = connection.ws;
-    //             ws.removeEventListener("open", handleOpen);
-    //             ws.removeEventListener("close", handleClose);
-    //             ws.removeEventListener("error", handleError);
-    //             ws.removeEventListener("message", handleMessage);
-    //         }
-    //         wsClient.close();
-    //     };
-    // }, []);
+    // WebSocket connection with RPC opcodes
+    useEffect(() => {
+        const rpcServer = process.env.RPC_SERVER!;
+
+        // Send heartbeat ping every 3 seconds
+        function sendHeartbeat() {
+            if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+                wsRef.current.send(JSON.stringify({
+                    object: "heartbeat",
+                    cmd: "diagnose",
+                }));
+            }
+        }
+
+        function handleMessage(event: MessageEvent) {
+            try {
+                const rawMessage = JSON.parse(event.data);
+
+                // Validate message against schema
+                const result = WebSocketMessageSchema.safeParse(rawMessage);
+                if (!result.success) {
+                    console.warn("Invalid WebSocket message:", result.error);
+                    return;
+                }
+
+                const message: WebSocketMessage = result.data;
+
+                // controller commands based on object type
+                switch (message.object) {
+                    case "heartbeat":
+                        if (message.cmd === "acknowledge") {
+                            setIsConnected(true);
+                        } else if (message.cmd === "dnr") {
+                            setIsConnected(false);
+                        }
+                        break;
+                    case "timer":
+                        switch (message.cmd) {
+                            case "start":
+                                startTimer();
+                                break;
+                            case "stop":
+                                stopTimer();
+                                break;
+                            case "reset":
+                                resetTimer();
+                                break;
+                            case "continue":
+                                continueTimer();
+                                break;
+                        }
+                        break;
+                }
+            } catch (error) {
+                console.error("Failed to parse WebSocket message:", error);
+            }
+        }
+
+        const ws = new WebSocket(rpcServer);
+        wsRef.current = ws;
+
+        const handleOpen = () => {
+            console.info("WebSocket disconnected");
+            setIsConnected(true);
+
+            heartbeatIntervalRef.current = setInterval(sendHeartbeat, 3000);
+            sendHeartbeat();
+        };
+
+        const handleClose = () => {
+            console.warn("WebSocket disconnected");
+            setIsConnected(false);
+
+            if (heartbeatIntervalRef.current) {
+                clearInterval(heartbeatIntervalRef.current);
+                heartbeatIntervalRef.current = null;
+            }
+        };
+
+        const handleError = (error: Event) => {
+            console.error("WebSocket error:", error);
+            setIsConnected(false);
+        };
+
+        ws.addEventListener("open", handleOpen);
+        ws.addEventListener("close", handleClose);
+        ws.addEventListener("error", handleError);
+        ws.addEventListener("message", handleMessage);
+
+        return () => {
+            ws.removeEventListener("open", handleOpen);
+            ws.removeEventListener("close", handleClose);
+            ws.removeEventListener("error", handleError);
+            ws.removeEventListener("message", handleMessage);
+
+            // Clear intervals
+            if (heartbeatIntervalRef.current) {
+                clearInterval(heartbeatIntervalRef.current);
+                heartbeatIntervalRef.current = null;
+            }
+
+            ws.close();
+        };
+    }, []);
 
     // get initial banned operators from Eye of Priestess.
     // more escape hatches I guess.
