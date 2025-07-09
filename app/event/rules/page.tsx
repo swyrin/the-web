@@ -244,49 +244,24 @@ const rules: RuleType[] = [
 
 const cosplayRules: RuleType[] = [
     {
-        title: "YÊU CẦU",
-        titleColor: "yellow",
-        description: "Cosplay đủ phụ kiện, có makeup đầy đủ.",
-        icon: Face,
-    },
-    {
         title: "HÃY",
         titleColor: "green",
         description:
-            "Cosplay trước khi trang điểm và mặc sẵn đồ. Vì bên trong quán chúng mình không có chỗ để sửa soạn",
+            "Mặc sẵn đồ cosplay và trang điểm trước. Vì bên trong quán chúng mình không có chỗ để sửa soạn",
         icon: Clothes,
     },
     {
         title: "NGHIÊM CẤM",
         titleColor: "red",
         description:
-            "hóa trang nhân vật có trang phục thuộc quân phục, cảnh phục, hoặc hở hang nhạy cảm.",
+            "Hóa trang nhân vật có trang phục thuộc quân phục, cảnh phục, hoặc không phù hợp thuần phong mỹ tục.",
         icon: Military,
     },
     {
-        title: "HÃY",
-        titleColor: "green",
-        description: "Cosplay đúng nhân vật của Arknights.",
-        icon: Tick,
-    },
-    {
-        title: "CẤM",
-        titleColor: "green",
-        description: "Không cosplay freestyle quá mức, làm không giống nhân vật Arknights.",
-        icon: MoreClothes,
-    },
-    {
         title: "LƯU Ý",
         titleColor: "yellow",
-        description: "BTC sẽ hỏi chủ quán về việc mang prop và vẫn chủ trương cấm vũ khí.",
+        description: "Props & Weaps, mô hình vũ khí nhân vật các bạn được phép mang theo. Tuy nhiên vũ khí thật vẫn bị cấm.",
         icon: NoWeapon,
-    },
-    {
-        title: "LƯU Ý",
-        titleColor: "yellow",
-        description:
-            "Cosplayer phải cung cấp thông tin về nhân vật và version cosplay của ngày diễn ra sự kiện.",
-        icon: Chat,
     },
 ];
 
