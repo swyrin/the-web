@@ -18,15 +18,10 @@ type SelectedOperator = Pick<Operator, "name" | "rarity" | "archetype" | "profes
 
 export default function DraftingPage() {
     const [operatorNameSearch, setOperatorNameSearch] = useState("");
-    const [selectedRarity, setSelectedRarity] = useState(1);
+    const [selectedRarity, setSelectedRarity] = useState(6);
     const [selectedClass, setSelectedClass] = useState<OperatorClass>("caster");
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
-    const [bannedOperators, setBannedOperators] = useState<string[]>([
-        // TODO: delete this.
-        "char_002_amiya",
-        "char_003_kalts",
-        "char_188_helage",
-    ]);
+    const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
     const [isConnected, _setIsConnected] = useState(false);
     const [timeLeft, setTimeLeft] = useState(60000);
@@ -99,10 +94,22 @@ export default function DraftingPage() {
         });
     }, [operators, operatorNameSearch, selectedRarity, selectedClass, fuse]);
 
-    function handleBanSubmission() {
-        // Submit all selected operators for banning
-        console.info("Banning operators:", selectedOperators);
+    async function handleBanSubmission() {
+        // I guess I watched too much Balatro University...
+        console.info("Shipping it:", selectedOperators);
 
+        const { error } = await supabase.from("member_vote").insert(
+            selectedOperators.map(charId => ({
+                id: charId,
+                since: new Date().toISOString(),
+            })),
+        );
+
+        if (error) {
+            console.error("Failed to submit ban:", error);
+        }
+
+        // just fail silently or else there will a chaos at the event.
         setSelectedOperators([]);
     }
 
@@ -218,6 +225,56 @@ export default function DraftingPage() {
     //     };
     // }, []);
 
+    // get initial banned operators from Eye of Priestess.
+    // more escape hatches I guess.
+    useEffect(() => {
+        (async function () {
+            const { data } = await supabase
+                .from("banned_operators")
+                .select("id");
+
+            if (data) {
+                const bannedIds = data.map(item => item.id);
+                setBannedOperators(bannedIds);
+            }
+        })();
+    }, []);
+
+    // handle ban updates from Eye of Priestess.
+    useEffect(() => {
+        const channel = supabase
+            .channel("ban-update")
+            .on("postgres_changes", {
+                event: "INSERT",
+                schema: "public",
+                table: "banned_operators",
+            }, (payload) => {
+                setBannedOperators(prev => [...prev, payload.new.id]);
+            })
+            .on("postgres_changes", {
+                event: "UPDATE",
+                schema: "public",
+                table: "banned_operators",
+            }, (payload) => {
+                setBannedOperators((prev) => {
+                    const filtered = prev.filter(id => id !== payload.old.id);
+                    return [...filtered, payload.new.id];
+                });
+            })
+            .on("postgres_changes", {
+                event: "DELETE",
+                schema: "public",
+                table: "banned_operators",
+            }, (payload) => {
+                setBannedOperators(prev => prev.filter(id => id !== payload.old.id));
+            })
+            .subscribe();
+
+        return () => {
+            supabase.removeChannel(channel).then();
+        };
+    }, []);
+
     // the "mind-controlled" timer
     // basically -10ms per "tick".
     useEffect(() => {
@@ -256,7 +313,7 @@ export default function DraftingPage() {
         })();
     }, []);
 
-    // region: data backup
+    // region: data backup, must be last hook because React effects are LIFO
     useEffect(() => {
         const savedSearch = localStorage.getItem("drafting-search");
         const savedRarity = localStorage.getItem("drafting-rarity");
@@ -310,7 +367,7 @@ export default function DraftingPage() {
     useEffect(() => {
         localStorage.setItem("drafting-banned-operators", JSON.stringify(bannedOperators));
     }, [bannedOperators]);
-    // endregion: user input backup
+    // endregion: data backup
 
     function formatTime(milliseconds: number) {
         const totalMs = Math.max(0, milliseconds);
@@ -428,7 +485,16 @@ export default function DraftingPage() {
                         </div>
                     </div>
                     <div className={"grid grid-cols-2 content-stretch w-screen"}>
-                        <button type={"button"} className={"btn bg-red-400 mx-6"} disabled={selectedOperators.length === 0} onClick={handleBanSubmission}>BAN</button>
+                        <button
+                            type={"button"}
+                            className={"btn bg-red-400 mx-6"}
+                            disabled={selectedOperators.length === 0}
+                            onClick={async () => {
+                                await handleBanSubmission();
+                            }}
+                        >
+                            BAN
+                        </button>
                         <button type={"button"} className={"btn bg-green-400 text-black mx-6"} onClick={() => setSelectedOperators([])}>CLEAR</button>
                     </div>
                 </div>
