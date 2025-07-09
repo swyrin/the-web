@@ -10,7 +10,6 @@ import Broom from "@/public/rules/broom.svg";
 import Chat from "@/public/rules/chat.svg";
 import Children from "@/public/rules/children.svg";
 import Clothes from "@/public/rules/clothes.svg";
-import Face from "@/public/rules/face.svg";
 import Hammer from "@/public/rules/hammer.svg";
 import Military from "@/public/rules/military.svg";
 import MoreClothes from "@/public/rules/moreClothes.svg";
@@ -22,7 +21,6 @@ import Scale from "@/public/rules/scale.svg";
 import Shop from "@/public/rules/shop.svg";
 import Stop from "@/public/rules/stop.svg";
 import Syringe from "@/public/rules/syringe.svg";
-import Tick from "@/public/rules/tick.svg";
 import Weapon from "@/public/rules/weapon.svg";
 
 type RuleType = {
