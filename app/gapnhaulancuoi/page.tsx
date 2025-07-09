@@ -275,6 +275,18 @@ export default function DraftingPage() {
         };
     }, []);
 
+    // evict votes on new ban addition.
+    useEffect(() => {
+        (async function () {
+            // backup
+            const { data } = await supabase.from("member_vote").select("*");
+            await supabase.from("old_member_vote").insert(data || []);
+
+            // delete
+            await supabase.from("member_vote").delete();
+        })();
+    }, [bannedOperators]);
+
     // the "mind-controlled" timer
     // basically -10ms per "tick".
     useEffect(() => {

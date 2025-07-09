@@ -1,12 +1,12 @@
 // @generated
 
 export type Json
-  = | string
-      | number
-      | boolean
-      | null
-      | { [key: string]: Json | undefined }
-      | Json[];
+    = | string
+        | number
+        | boolean
+        | null
+        | { [key: string]: Json | undefined }
+        | Json[];
 
 export type Terra = {
     // Allows to automatically instanciate createClient with right options
@@ -106,16 +106,16 @@ export type Terra = {
             };
             old_member_vote: {
                 Row: {
-                    count: number;
-                    id: number;
+                    id: string;
+                    since: string;
                 };
                 Insert: {
-                    count?: number;
-                    id: number;
+                    id: string;
+                    since?: string;
                 };
                 Update: {
-                    count?: number;
-                    id?: number;
+                    id?: string;
+                    since?: string;
                 };
                 Relationships: [];
             };
