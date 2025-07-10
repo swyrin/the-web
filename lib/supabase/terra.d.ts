@@ -87,37 +87,67 @@ export type Terra = {
                     id?: string;
                     since?: string;
                 };
-                Relationships: [];
+                Relationships: [
+                    {
+                        foreignKeyName: "banned_operators_id_fkey";
+                        columns: ["id"];
+                        isOneToOne: true;
+                        referencedRelation: "operator";
+                        referencedColumns: ["charId"];
+                    },
+                ];
             };
             member_vote: {
                 Row: {
-                    id: string;
+                    id: string | null;
                     since: string;
+                    vote_number: number;
                 };
                 Insert: {
-                    id: string;
+                    id?: string | null;
                     since?: string;
+                    vote_number?: number;
                 };
                 Update: {
-                    id?: string;
+                    id?: string | null;
                     since?: string;
+                    vote_number?: number;
                 };
-                Relationships: [];
+                Relationships: [
+                    {
+                        foreignKeyName: "member_vote_id_fkey";
+                        columns: ["id"];
+                        isOneToOne: false;
+                        referencedRelation: "operator";
+                        referencedColumns: ["charId"];
+                    },
+                ];
             };
             old_member_vote: {
                 Row: {
-                    id: string;
+                    id: string | null;
                     since: string;
+                    vote_number: number;
                 };
                 Insert: {
-                    id: string;
+                    id?: string | null;
                     since?: string;
+                    vote_number?: number;
                 };
                 Update: {
-                    id?: string;
+                    id?: string | null;
                     since?: string;
+                    vote_number?: number;
                 };
-                Relationships: [];
+                Relationships: [
+                    {
+                        foreignKeyName: "old_member_vote_id_fkey";
+                        columns: ["id"];
+                        isOneToOne: false;
+                        referencedRelation: "operator";
+                        referencedColumns: ["charId"];
+                    },
+                ];
             };
             operator: {
                 Row: {

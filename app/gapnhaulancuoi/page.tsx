@@ -282,6 +282,7 @@ export default function DraftingPage() {
                 schema: "public",
                 table: "banned_operators",
             }, (payload) => {
+                console.info("New ban added:", payload.new.id);
                 setBannedOperators(prev => [...prev, payload.new.id]);
             })
             .on("postgres_changes", {
@@ -290,6 +291,7 @@ export default function DraftingPage() {
                 table: "banned_operators",
             }, (payload) => {
                 setBannedOperators((prev) => {
+                    console.info(`New ban updated: ${payload.old.id} to ${payload.new.id}`);
                     const filtered = prev.filter(id => id !== payload.old.id);
                     return [...filtered, payload.new.id];
                 });
@@ -299,6 +301,7 @@ export default function DraftingPage() {
                 schema: "public",
                 table: "banned_operators",
             }, (payload) => {
+                console.info("New ban nuked:", payload.old.id);
                 setBannedOperators(prev => prev.filter(id => id !== payload.old.id));
             })
             .subscribe();
@@ -312,11 +315,12 @@ export default function DraftingPage() {
     useEffect(() => {
         (async function () {
             // backup
-            const { data } = await supabase.from("member_vote").select("*");
-            await supabase.from("old_member_vote").insert(data || []);
+            const { data } = await supabase.from("member_vote").select("id,since");
+            if (data != null)
+                await supabase.from("old_member_vote").insert(data);
 
             // delete
-            await supabase.from("member_vote").delete();
+            await supabase.from("member_vote").delete().neq("vote_number", 0);
         })();
     }, [bannedOperators]);
 
@@ -364,7 +368,6 @@ export default function DraftingPage() {
         const savedRarity = localStorage.getItem("drafting-rarity");
         const savedClass = localStorage.getItem("drafting-class");
         const savedOperators = localStorage.getItem("drafting-selected-operators");
-        const savedBannedOperators = localStorage.getItem("drafting-banned-operators");
 
         if (savedSearch) {
             setOperatorNameSearch(savedSearch);
@@ -381,14 +384,6 @@ export default function DraftingPage() {
                 setSelectedOperators(parsed);
             } catch (error) {
                 console.warn("Failed to parse saved operators:", error);
-            }
-        }
-        if (savedBannedOperators) {
-            try {
-                const parsed = JSON.parse(savedBannedOperators) as string[];
-                setBannedOperators(parsed);
-            } catch (error) {
-                console.warn("Failed to parse saved banned operators:", error);
             }
         }
     }, []);
@@ -408,10 +403,6 @@ export default function DraftingPage() {
     useEffect(() => {
         localStorage.setItem("drafting-selected-operators", JSON.stringify(selectedOperators));
     }, [selectedOperators]);
-
-    useEffect(() => {
-        localStorage.setItem("drafting-banned-operators", JSON.stringify(bannedOperators));
-    }, [bannedOperators]);
     // endregion: data backup
 
     function formatTime(milliseconds: number) {
