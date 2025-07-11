@@ -6,8 +6,7 @@
         "dev": "next dev --turbopack",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
-        "prepare": "husky"
+        "lint": "next lint"
     },
     "dependencies": {
         "@dev0ph3r/netlify-plugin-discord": "^1.0.2",
