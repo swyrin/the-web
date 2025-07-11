@@ -36,25 +36,25 @@ jobs:
         with:
           commit_message: "fix!: [ci skip] eslint format."
 
-      # - name: Configure Netlify CLI
-      #   run: |
-      #     npm install netlify-cli
-      #     npm install @netlify/plugin-nextjs
+      - name: Configure Netlify CLI
+        run: |
+          npm install netlify-cli
+          npm install @netlify/plugin-nextjs
 
-      # - name: Deploy to Netlify (production)
-      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      #   run:
-      #     netlify deploy --build --prod
-      #   env:
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      #   timeout-minutes: 10
+      - name: Deploy to Netlify (production)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run:
+          npx netlify deploy --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 10
 
-      # - name: Deploy to Netlify (draft)
-      #   if: github.event_name == 'pull_request'
-      #   run:
-      #     netlify deploy --build
-      #   env:
-      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-      #   timeout-minutes: 10
+      - name: Deploy to Netlify (draft)
+        if: github.event_name == 'pull_request'
+        run:
+          npx netlify deploy --build
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 10
