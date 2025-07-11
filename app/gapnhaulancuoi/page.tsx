@@ -28,6 +28,8 @@ const WebSocketMessageSchema = z.union([
     TimerMessageSchema,
 ]);
 
+const defaultCountdown = 60000;
+
 type WebSocketMessage = z.infer<typeof WebSocketMessageSchema>;
 
 type Operator = Terra["public"]["Tables"]["operators_v2"]["Row"];
@@ -40,21 +42,25 @@ export default function DraftingPage() {
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
-    const [isConnected, setIsConnected] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(60000);
-    const [isTimerRunning, setIsTimerRunning] = useState(false);
+    const [isWsConnected, setIsWsConnected] = useState(false);
+    const [isSbConnected, setIsSbConnected] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(() => {
+        return defaultCountdown;
+    });
+    const [isOperatorsLoaded, setIsOperatorsLoaded] = useState(false);
+    const [isTimerActivated, setIsTimerActivated] = useState(true);
 
     const wsRef = useRef<WebSocket | null>(null);
     const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const heartbeatIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    // region: timer control functions
+    // #region timer control functions
     function startTimer() {
-        setIsTimerRunning(true);
+        setIsTimerActivated(true);
     }
 
     function stopTimer() {
-        setIsTimerRunning(false);
+        setIsTimerActivated(false);
         if (timerIntervalRef.current) {
             clearInterval(timerIntervalRef.current);
             timerIntervalRef.current = null;
@@ -62,8 +68,8 @@ export default function DraftingPage() {
     }
 
     function resetTimer() {
-        setIsTimerRunning(false);
-        setTimeLeft(60000);
+        setIsTimerActivated(false);
+        setTimeLeft(defaultCountdown);
         if (timerIntervalRef.current) {
             clearInterval(timerIntervalRef.current);
             timerIntervalRef.current = null;
@@ -71,11 +77,11 @@ export default function DraftingPage() {
     }
 
     function continueTimer() {
-        setIsTimerRunning(true);
+        setIsTimerActivated(true);
     }
-    // endregion: timer control functions
+    // #endregion timer control functions
 
-    // region: operator selection
+    // #region operator selection
     const fuse = useMemo(() => {
         if (operators.length === 0)
             return null;
@@ -151,116 +157,33 @@ export default function DraftingPage() {
     function removeSelectedOperator(charId: string) {
         setSelectedOperators(prev => prev.filter(id => id !== charId));
     }
-    // endregion: operator selection
+    // #endregion operator selection
 
-    // WebSocket connection with RPC opcodes
+    // #region Eye of Priestess
+    // check if Eye of Priestess is connectable
     useEffect(() => {
-        const rpcServer = process.env.NEXT_PUBLIC_RPC_SERVER!;
+        (async function () {
+            const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+            const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-        // Send heartbeat ping every 3 seconds
-        function sendHeartbeat() {
-            if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-                wsRef.current.send(JSON.stringify({
-                    object: "heartbeat",
-                    cmd: "diagnose",
-                }));
-            }
-        }
+            const response = await fetch(`${supabaseUrl}/rest/v1/`, {
+                method: "HEAD",
+                headers: {
+                    apikey: supabaseKey,
+                    Authorization: `Bearer ${supabaseKey}`,
+                },
+            });
 
-        function handleMessage(event: MessageEvent) {
-            try {
-                const rawMessage = JSON.parse(event.data);
-
-                // Validate message against schema
-                const result = WebSocketMessageSchema.safeParse(rawMessage);
-                if (!result.success) {
-                    console.warn("Invalid WebSocket message:", result.error);
-                    return;
-                }
-
-                const message: WebSocketMessage = result.data;
-
-                // controller commands based on object type
-                switch (message.object) {
-                    case "heartbeat":
-                        if (message.cmd === "acknowledge") {
-                            setIsConnected(true);
-                        } else if (message.cmd === "dnr") {
-                            setIsConnected(false);
-                        }
-                        break;
-                    case "timer":
-                        switch (message.cmd) {
-                            case "start":
-                                startTimer();
-                                break;
-                            case "stop":
-                                stopTimer();
-                                break;
-                            case "reset":
-                                resetTimer();
-                                break;
-                            case "continue":
-                                continueTimer();
-                                break;
-                        }
-                        break;
-                }
-            } catch (error) {
-                console.error("Failed to parse WebSocket message:", error);
-            }
-        }
-
-        const ws = new WebSocket(rpcServer);
-        wsRef.current = ws;
-
-        const handleOpen = () => {
-            console.info("WebSocket disconnected");
-            setIsConnected(true);
-
-            heartbeatIntervalRef.current = setInterval(sendHeartbeat, 3000);
-            sendHeartbeat();
-        };
-
-        const handleClose = () => {
-            console.warn("WebSocket disconnected");
-            setIsConnected(false);
-
-            if (heartbeatIntervalRef.current) {
-                clearInterval(heartbeatIntervalRef.current);
-                heartbeatIntervalRef.current = null;
-            }
-        };
-
-        const handleError = (error: Event) => {
-            console.error("WebSocket error:", error);
-            setIsConnected(false);
-        };
-
-        ws.addEventListener("open", handleOpen);
-        ws.addEventListener("close", handleClose);
-        ws.addEventListener("error", handleError);
-        ws.addEventListener("message", handleMessage);
-
-        return () => {
-            ws.removeEventListener("open", handleOpen);
-            ws.removeEventListener("close", handleClose);
-            ws.removeEventListener("error", handleError);
-            ws.removeEventListener("message", handleMessage);
-
-            // Clear intervals
-            if (heartbeatIntervalRef.current) {
-                clearInterval(heartbeatIntervalRef.current);
-                heartbeatIntervalRef.current = null;
-            }
-
-            ws.close();
-        };
+            setIsSbConnected(response.ok);
+        })();
     }, []);
 
     // get initial banned operators from Eye of Priestess.
     // more escape hatches I guess.
     useEffect(() => {
+        if (!isSbConnected)
+            return;
+
         (async function () {
             const { data } = await supabase
                 .from("banned_operators")
@@ -271,10 +194,13 @@ export default function DraftingPage() {
                 setBannedOperators(bannedIds);
             }
         })();
-    }, []);
+    }, [isSbConnected]);
 
     // handle ban updates from Eye of Priestess.
     useEffect(() => {
+        if (!isSbConnected)
+            return;
+
         const channel = supabase
             .channel("ban-update")
             .on("postgres_changes", {
@@ -309,10 +235,13 @@ export default function DraftingPage() {
         return () => {
             supabase.removeChannel(channel).then();
         };
-    }, []);
+    }, [isSbConnected]);
 
     // evict votes on new ban addition.
     useEffect(() => {
+        if (bannedOperators.length === 0 || !isSbConnected)
+            return;
+
         (async function () {
             // backup
             const { data } = await supabase.from("member_vote").select("id,since");
@@ -322,21 +251,145 @@ export default function DraftingPage() {
             // delete
             await supabase.from("member_vote").delete().neq("vote_number", 0);
         })();
-    }, [bannedOperators]);
+    }, [bannedOperators, isSbConnected]);
+
+    // fetch the operators
+    // it's just ~350 operators, so I guess supabase can handle that.
+    useEffect(() => {
+        if (!isSbConnected)
+            return;
+
+        (async function () {
+            const { data: operators } = await supabase.from("operators_v2").select("name,charid,rarity,profession,archetype");
+            if (operators) {
+                setOperators(operators);
+                setIsOperatorsLoaded(true);
+            }
+        })();
+    }, [isSbConnected]);
+    // #endregion Eye of Priestess
+
+    // WebSocket connection with RPC opcodes
+    useEffect(() => {
+        const rpcServer = process.env.NEXT_PUBLIC_RPC_SERVER!;
+
+        // Send heartbeat ping every 3 seconds
+        function sendHeartbeat() {
+            if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+                wsRef.current.send(JSON.stringify({
+                    object: "heartbeat",
+                    cmd: "diagnose",
+                }));
+            }
+        }
+
+        function handleMessage(event: MessageEvent) {
+            try {
+                const rawMessage = JSON.parse(event.data);
+
+                // Validate message against schema
+                const result = WebSocketMessageSchema.safeParse(rawMessage);
+                if (!result.success) {
+                    console.warn("Invalid WebSocket message:", result.error);
+                    return;
+                }
+
+                const message: WebSocketMessage = result.data;
+
+                // controller commands based on object type
+                switch (message.object) {
+                    case "heartbeat":
+                        if (message.cmd === "acknowledge") {
+                            setIsWsConnected(true);
+                        } else if (message.cmd === "dnr") {
+                            setIsWsConnected(false);
+                        }
+                        break;
+                    case "timer":
+                        switch (message.cmd) {
+                            case "start":
+                                startTimer();
+                                break;
+                            case "stop":
+                                stopTimer();
+                                break;
+                            case "reset":
+                                resetTimer();
+                                break;
+                            case "continue":
+                                continueTimer();
+                                break;
+                        }
+                        break;
+                }
+            } catch (error) {
+                console.error("Failed to parse WebSocket message:", error);
+            }
+        }
+
+        const ws = new WebSocket(rpcServer);
+        wsRef.current = ws;
+
+        const handleOpen = () => {
+            console.info("WebSocket disconnected");
+            setIsWsConnected(true);
+
+            heartbeatIntervalRef.current = setInterval(sendHeartbeat, 3000);
+            sendHeartbeat();
+        };
+
+        const handleClose = () => {
+            console.warn("WebSocket disconnected");
+            setIsWsConnected(false);
+
+            if (heartbeatIntervalRef.current) {
+                clearInterval(heartbeatIntervalRef.current);
+                heartbeatIntervalRef.current = null;
+            }
+        };
+
+        const handleError = (error: Event) => {
+            console.error("WebSocket error:", error);
+            setIsWsConnected(false);
+        };
+
+        ws.addEventListener("open", handleOpen);
+        ws.addEventListener("close", handleClose);
+        ws.addEventListener("error", handleError);
+        ws.addEventListener("message", handleMessage);
+
+        return () => {
+            ws.removeEventListener("open", handleOpen);
+            ws.removeEventListener("close", handleClose);
+            ws.removeEventListener("error", handleError);
+            ws.removeEventListener("message", handleMessage);
+
+            // Clear intervals
+            if (heartbeatIntervalRef.current) {
+                clearInterval(heartbeatIntervalRef.current);
+                heartbeatIntervalRef.current = null;
+            }
+
+            ws.close();
+        };
+    }, []);
 
     // the "mind-controlled" timer
     // basically -10ms per "tick".
     useEffect(() => {
-        if (isTimerRunning) {
+        if (!isOperatorsLoaded)
+            return;
+
+        if (isTimerActivated) {
             timerIntervalRef.current = setInterval(() => {
                 setTimeLeft((prevTime) => {
                     if (prevTime <= 0) {
-                        setIsTimerRunning(false);
+                        setIsTimerActivated(false);
                         return 0;
                     }
-                    return prevTime - 10;
+                    return prevTime - 1000;
                 });
-            }, 10);
+            }, 1000);
         } else {
             if (timerIntervalRef.current) {
                 clearInterval(timerIntervalRef.current);
@@ -350,19 +403,9 @@ export default function DraftingPage() {
                 timerIntervalRef.current = null;
             }
         };
-    }, [isTimerRunning]);
+    }, [isOperatorsLoaded, isTimerActivated]);
 
-    // fetch the operators
-    // it's just ~350 operators, so I guess supabase can handle that.
-    useEffect(() => {
-        (async function () {
-            const { data: operators } = await supabase.from("operators_v2").select("name,charid,rarity,profession,archetype");
-            if (operators)
-                setOperators(operators);
-        })();
-    }, []);
-
-    // region: data backup, must be last hook because React effects are LIFO
+    // #region data backup, must be last hook because React effects are LIFO
     useEffect(() => {
         const savedSearch = localStorage.getItem("drafting-search");
         const savedRarity = localStorage.getItem("drafting-rarity");
@@ -403,15 +446,14 @@ export default function DraftingPage() {
     useEffect(() => {
         localStorage.setItem("drafting-selected-operators", JSON.stringify(selectedOperators));
     }, [selectedOperators]);
-    // endregion: data backup
+    // #endregion data backup
 
     function formatTime(milliseconds: number) {
         const totalMs = Math.max(0, milliseconds);
         const minutes = Math.floor(totalMs / 60000);
         const seconds = Math.floor((totalMs % 60000) / 1000);
-        const ms = Math.floor((totalMs % 1000) / 10);
 
-        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${ms.toString().padStart(2, "0")}`;
+        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
     }
 
     return (
@@ -425,10 +467,18 @@ export default function DraftingPage() {
                 className={"flex flex-col items-center justify-center gap-y-4 text-base-content mb-4"}
                 data-theme={"dark"}
             >
-                <div className={`text-sm font-bold ${isConnected ? "text-green-300" : "text-red-300"}`}>
-                    Kết nối đến Terra #1:
-                    {" "}
-                    {isConnected ? "Online" : "Offline"}
+                <div className={`flex text-sm font-bold`}>
+                    <div className={`${isSbConnected ? "text-green-300" : "text-red-300"}`}>
+                        Terra #0:
+                        {" "}
+                        {isSbConnected ? "Online" : "Offline"}
+                    </div>
+                    <div className={"mx-2"}>|</div>
+                    <div className={`${isWsConnected ? "text-green-300" : "text-red-300"}`}>
+                        Terra #1:
+                        {" "}
+                        {isWsConnected ? "Online" : "Offline"}
+                    </div>
                 </div>
                 <div className={"hidden lg:block text-base-content text-3xl font-bold"}>
                     Bạn cần sử dụng điện thoại cho phần này.
@@ -437,11 +487,20 @@ export default function DraftingPage() {
                 {/* the actual shit. */}
                 <div className={`lg:hidden flex flex-col items-center justify-center gap-y-4`}>
                     <div className={"text-base-content text-xl font-mono"}>
+                        Thời gian còn lại:
+                        {" "}
                         {formatTime(timeLeft)}
                     </div>
                     <div className={"flex items-center justify-center gap-x-2"}>
                         <input className={"border-1 border-white px-5"} value={operatorNameSearch} onChange={e => setOperatorNameSearch(e.target.value)} placeholder={"Ghi tên op ở đây..."} />
-                        <button className={"border-1 border-white mx-2 px-4 bg-[#2e76a9]"} type={"button"} onClick={() => setOperatorNameSearch("")}>Clear</button>
+                        <button
+                            className={"border-1 border-white mx-2 px-4 bg-[#2e76a9] disabled:bg-gray-600 disabled:opacity-50"}
+                            type={"button"}
+                            disabled={operatorNameSearch === ""}
+                            onClick={() => setOperatorNameSearch("")}
+                        >
+                            Clear
+                        </button>
                     </div>
                     <div className={"flex items-center justify-center gap-x-2"}>
                         <Image src={selectedRarity >= 1 ? StarSelected : StarUnSelected} alt={"Star 1"} height={32} onClick={() => setSelectedRarity(1)} />
@@ -480,7 +539,7 @@ export default function DraftingPage() {
                         ))}
                     </div>
                     <div className={"w-full px-6"}>
-                        <div className={"text-red-300 italic text-center mb-2"}>
+                        <div className={"text-red-300 italic text-center mb-2 font-extrabold"}>
                             Hãy chọn Operator bạn muốn cấm (
                             {selectedOperators.length}
                             /6)
@@ -524,7 +583,7 @@ export default function DraftingPage() {
                         <button
                             type={"button"}
                             className={"btn bg-red-400 mx-6"}
-                            disabled={selectedOperators.length === 0}
+                            disabled={!isSbConnected || selectedOperators.length === 0 || timeLeft <= 0}
                             onClick={async () => {
                                 await handleBanSubmission();
                             }}

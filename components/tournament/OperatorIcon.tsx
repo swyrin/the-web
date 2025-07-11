@@ -1,5 +1,6 @@
 import type { Operator } from "@/lib/vns";
 import Image from "next/image";
+import Arene from "@/public/tournament/drafting/Arene.png";
 
 function getRarityColor(rarity: number) {
     switch (rarity) {
@@ -51,14 +52,19 @@ function OperatorIcon(props: OperatorIconProps) {
                 }}
             >
                 <Image
-                    src={`https://raw.githubusercontent.com/ArknightsAssets/ArknightsAssets2/refs/heads/cn/assets/dyn/arts/charavatars/${props.operator.id}.png`}
+                    src={
+                        props.operator.name === "Arene"
+                            ? Arene
+                            : `https://raw.githubusercontent.com/ArknightsAssets/ArknightsAssets2/refs/heads/cn/assets/dyn/arts/charavatars/${props.operator.id}.png`
+                    }
                     width={48}
                     height={48}
                     alt={props.operator.name}
                     className={"object-contain"}
+                    priority={true}
                 />
             </div>
-            <div className={`text-center text-xs break-words ${props.isBanned ? "text-gray-500" : ""}`}>{props.operator.name}</div>
+            <div className={`text-center text-xs ${props.isBanned ? "text-gray-500" : ""}`}>{props.operator.name}</div>
         </div>
     );
 }

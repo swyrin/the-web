@@ -20,7 +20,8 @@ function ClassIcon({
                 alt={operatorClass}
                 width={28}
                 height={28}
-                className={`object-contain ${active ? "grayscale invert" : ""} `}
+                className={`object-contain w-auto ${active ? "grayscale invert" : ""} `}
+                priority={true}
             />
         </div>
     );
