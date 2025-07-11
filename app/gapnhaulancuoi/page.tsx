@@ -155,7 +155,7 @@ export default function DraftingPage() {
 
     // WebSocket connection with RPC opcodes
     useEffect(() => {
-        const rpcServer = process.env.RPC_SERVER!;
+        const rpcServer = process.env.NEXT_PUBLIC_RPC_SERVER!;
 
         // Send heartbeat ping every 3 seconds
         function sendHeartbeat() {
