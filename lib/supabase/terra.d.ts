@@ -1,12 +1,12 @@
 // @generated
 
 export type Json
-    = | string
-        | number
-        | boolean
-        | null
-        | { [key: string]: Json | undefined }
-        | Json[];
+  = | string
+      | number
+      | boolean
+      | null
+      | { [key: string]: Json | undefined }
+      | Json[];
 
 export type Terra = {
     // Allows to automatically instanciate createClient with right options
@@ -92,8 +92,8 @@ export type Terra = {
                         foreignKeyName: "banned_operators_id_fkey";
                         columns: ["id"];
                         isOneToOne: true;
-                        referencedRelation: "operator";
-                        referencedColumns: ["charId"];
+                        referencedRelation: "operators_v2";
+                        referencedColumns: ["charid"];
                     },
                 ];
             };
@@ -118,8 +118,8 @@ export type Terra = {
                         foreignKeyName: "member_vote_id_fkey";
                         columns: ["id"];
                         isOneToOne: false;
-                        referencedRelation: "operator";
-                        referencedColumns: ["charId"];
+                        referencedRelation: "operators_v2";
+                        referencedColumns: ["charid"];
                     },
                 ];
             };
@@ -144,8 +144,8 @@ export type Terra = {
                         foreignKeyName: "old_member_vote_id_fkey";
                         columns: ["id"];
                         isOneToOne: false;
-                        referencedRelation: "operator";
-                        referencedColumns: ["charId"];
+                        referencedRelation: "operators_v2";
+                        referencedColumns: ["charid"];
                     },
                 ];
             };
@@ -196,6 +196,51 @@ export type Terra = {
                     infected?: string;
                     name?: string;
                     nation?: string;
+                    position?: string;
+                    profession?: string;
+                    race?: string;
+                    rarity?: number;
+                };
+                Relationships: [];
+            };
+            operators_v2: {
+                Row: {
+                    archetype: string;
+                    charid: string;
+                    coste0: number;
+                    coste2: number;
+                    faction: string;
+                    gender: string;
+                    infected: string;
+                    name: string;
+                    position: string;
+                    profession: string;
+                    race: string;
+                    rarity: number;
+                };
+                Insert: {
+                    archetype: string;
+                    charid: string;
+                    coste0: number;
+                    coste2: number;
+                    faction: string;
+                    gender: string;
+                    infected: string;
+                    name: string;
+                    position: string;
+                    profession: string;
+                    race: string;
+                    rarity: number;
+                };
+                Update: {
+                    archetype?: string;
+                    charid?: string;
+                    coste0?: number;
+                    coste2?: number;
+                    faction?: string;
+                    gender?: string;
+                    infected?: string;
+                    name?: string;
                     position?: string;
                     profession?: string;
                     race?: string;

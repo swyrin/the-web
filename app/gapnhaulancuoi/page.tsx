@@ -30,8 +30,8 @@ const WebSocketMessageSchema = z.union([
 
 type WebSocketMessage = z.infer<typeof WebSocketMessageSchema>;
 
-type Operator = Terra["public"]["Tables"]["operator"]["Row"];
-type SelectedOperator = Pick<Operator, "name" | "rarity" | "archetype" | "profession" | "charId">;
+type Operator = Terra["public"]["Tables"]["operators_v2"]["Row"];
+type SelectedOperator = Pick<Operator, "name" | "rarity" | "archetype" | "profession" | "charid">;
 
 export default function DraftingPage() {
     const [operatorNameSearch, setOperatorNameSearch] = useState("");
@@ -356,7 +356,7 @@ export default function DraftingPage() {
     // it's just ~350 operators, so I guess supabase can handle that.
     useEffect(() => {
         (async function () {
-            const { data: operators } = await supabase.from("operator").select("name,id,rarity,archetype,profession,charId");
+            const { data: operators } = await supabase.from("operators_v2").select("name,charid,rarity,profession,archetype");
             if (operators)
                 setOperators(operators);
         })();
@@ -465,17 +465,17 @@ export default function DraftingPage() {
                     <div className={"grid grid-cols-5 gap-4 h-[25vh] overflow-y-auto px-4 content-start"}>
                         {filteredOperators.map(operator => (
                             <OperatorIcon
-                                key={operator.charId}
+                                key={operator.charid}
                                 operator={{
-                                    id: operator.charId,
+                                    id: operator.charid,
                                     name: operator.name,
                                     rarity: operator.rarity,
                                     class: operator.profession as OperatorClass,
                                     subclass: operator.archetype,
                                 }}
-                                isSelected={selectedOperators.includes(operator.charId)}
-                                isBanned={bannedOperators.includes(operator.charId)}
-                                onClickFn={() => handleOperatorSelection(operator.charId)}
+                                isSelected={selectedOperators.includes(operator.charid)}
+                                isBanned={bannedOperators.includes(operator.charid)}
+                                onClickFn={() => handleOperatorSelection(operator.charid)}
                             />
                         ))}
                     </div>
@@ -488,7 +488,7 @@ export default function DraftingPage() {
                         <div className={"grid grid-cols-6 gap-2 h-32 content-center"}>
                             {Array.from({ length: 6 }, (_, index) => {
                                 const selectedCharId = selectedOperators[index];
-                                const selectedOp = selectedCharId ? operators.find(op => op.charId === selectedCharId) : null;
+                                const selectedOp = selectedCharId ? operators.find(op => op.charid === selectedCharId) : null;
 
                                 return (
                                     <div
@@ -500,7 +500,7 @@ export default function DraftingPage() {
                                             ? (
                                                     <OperatorIcon
                                                         operator={{
-                                                            id: selectedOp.charId,
+                                                            id: selectedOp.charid,
                                                             name: selectedOp.name,
                                                             rarity: selectedOp.rarity,
                                                             class: selectedOp.profession as OperatorClass,
