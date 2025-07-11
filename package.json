@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@dev0ph3r/netlify-plugin-discord": "^1.0.2",
         "@supabase/ssr": "^0.6.1",
         "@supabase/supabase-js": "^2.50.3",
         "@tanstack/react-query": "^5.81.5",
