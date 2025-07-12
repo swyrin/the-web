@@ -5,7 +5,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState } from "react";
 import MemberBox from "@/components/MemberBox";
 import PageTitle from "@/components/PageTitle";
-import crewList from "@/public/crew.json";
+import CrewMembers from "@/public/crew/_crew.json";
 
 type HRListProps = {
     members: CrewMember[];
@@ -132,8 +132,8 @@ export default function CrewPage() {
         [emblaApi],
     );
 
-    const members = crewList.members;
-    const partners = crewList.partners;
+    const members = CrewMembers.members;
+    const partners = CrewMembers.partners;
 
     return (
         <div className={"h-visible vns-background flex flex-col"}>

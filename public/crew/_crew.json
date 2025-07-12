@@ -161,6 +161,21 @@
             "name": "Admin CED",
             "role": ["Donator"],
             "quote": ""
+        },
+        {
+            "name": "Ekkusu Hikari",
+            "role": ["VNS_Offline_2024"],
+            "quote": ""
+        },
+        {
+            "name": "Syalis",
+            "role": ["VNS_Offline_2024"],
+            "quote": ""
+        },
+        {
+            "name": "Akihito",
+            "role": ["VNS_Offline_2024"],
+            "quote": ""
         }
     ]
 }

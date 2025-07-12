@@ -63,6 +63,7 @@
 .ALL {
     background-color: var(--color-black);
     color: var(--color-white);
+    border: 1px solid var(--color-white);
 }
 .IT {
     background-color: var(--color-orange-400);
@@ -116,6 +117,12 @@
 .Video_Editor {
     background-color: var(--color-red-300);
 }
+
+.VNS_Offline_2024 {
+    background-color: var(--color-purple-300);
+}
+
+/* Stuffs */
 
 .embla {
     overflow: hidden;
