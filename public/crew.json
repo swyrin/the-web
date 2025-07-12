@@ -141,6 +141,26 @@
             "name": "Phoeni",
             "role": ["VCL"],
             "quote": ""
+        },
+        {
+            "name": "Satoh Nguyễn",
+            "role": ["Photographer"],
+            "quote": ""
+        },
+        {
+            "name": "Higato",
+            "role": ["Donator"],
+            "quote": ""
+        },
+        {
+            "name": "Kazaha Kamito",
+            "role": ["Donator"],
+            "quote": ""
+        },
+        {
+            "name": "Admin CED",
+            "role": ["Donator"],
+            "quote": ""
         }
     ]
 }
