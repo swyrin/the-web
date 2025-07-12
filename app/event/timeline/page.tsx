@@ -37,13 +37,29 @@ const events: Event[] = [
     {
         date: "06/07/2025",
         title: "Mở bán vé Offline #2: Dreamchasers",
-        href: "",
+        href: "https://www.facebook.com/share/p/19DVK1nNFb/",
     },
     {
-        date: "??/??/2025",
-        title: "???",
-        href: "",
+        date: "06/07/2025",
+        title: "Công bố design áo Offline",
+        href: "https://www.facebook.com/share/p/177CfFuZ5v/",
     },
+    {
+        date: "07/07/2025",
+        title: "Công bố đối tác: Vietnam Community League",
+        href: "https://www.facebook.com/share/p/1Zzx29JxMH/",
+    },
+    {
+        date: "07/07/2025",
+        title: "Công bố hình ảnh địa điểm offline",
+        href: "https://www.facebook.com/share/p/16ZN6cWbuG/",
+    },
+    {
+        date: "11/07/2025",
+        title: "Bán hết vé tier Dreamchasers",
+        href: "https://www.facebook.com/share/p/18xjxnkdxo/",
+    },
+
     {
         date: "10/08/2025",
         title: "Offline #2: Dreamchasers",
