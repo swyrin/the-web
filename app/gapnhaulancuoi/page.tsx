@@ -38,7 +38,7 @@ type SelectedOperator = Pick<Operator, "name" | "rarity" | "archetype" | "profes
 export default function DraftingPage() {
     const [operatorNameSearch, setOperatorNameSearch] = useState("");
     const [selectedRarity, setSelectedRarity] = useState(6);
-    const [selectedClass, setSelectedClass] = useState<OperatorClass>("caster");
+    const [selectedClass, setSelectedClass] = useState<OperatorClass>("ALL");
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
@@ -156,6 +156,15 @@ export default function DraftingPage() {
 
     function removeSelectedOperator(charId: string) {
         setSelectedOperators(prev => prev.filter(id => id !== charId));
+    }
+
+    function handleClassSelection(classType: OperatorClass) {
+        // basically toggle the class selection
+        if (selectedClass === classType) {
+            setSelectedClass("ALL");
+        } else {
+            setSelectedClass(classType);
+        }
     }
     // #endregion operator selection
 
@@ -512,14 +521,14 @@ export default function DraftingPage() {
                     </div>
                     <div className={"flex items-center justify-center px-2"}>
                         <div className={"mr-5"}>Class</div>
-                        <ClassIcon operatorClass={"caster"} active={selectedClass === "caster"} onClick={() => setSelectedClass("caster")} />
-                        <ClassIcon operatorClass={"medic"} active={selectedClass === "medic"} onClick={() => setSelectedClass("medic")} />
-                        <ClassIcon operatorClass={"guard"} active={selectedClass === "guard"} onClick={() => setSelectedClass("guard")} />
-                        <ClassIcon operatorClass={"sniper"} active={selectedClass === "sniper"} onClick={() => setSelectedClass("sniper")} />
-                        <ClassIcon operatorClass={"specialist"} active={selectedClass === "specialist"} onClick={() => setSelectedClass("specialist")} />
-                        <ClassIcon operatorClass={"supporter"} active={selectedClass === "supporter"} onClick={() => setSelectedClass("supporter")} />
-                        <ClassIcon operatorClass={"defender"} active={selectedClass === "defender"} onClick={() => setSelectedClass("defender")} />
-                        <ClassIcon operatorClass={"vanguard"} active={selectedClass === "vanguard"} onClick={() => setSelectedClass("vanguard")} />
+                        <ClassIcon operatorClass={"caster"} active={selectedClass === "caster"} onClick={() => handleClassSelection("caster")} />
+                        <ClassIcon operatorClass={"medic"} active={selectedClass === "medic"} onClick={() => handleClassSelection("medic")} />
+                        <ClassIcon operatorClass={"guard"} active={selectedClass === "guard"} onClick={() => handleClassSelection("guard")} />
+                        <ClassIcon operatorClass={"sniper"} active={selectedClass === "sniper"} onClick={() => handleClassSelection("sniper")} />
+                        <ClassIcon operatorClass={"specialist"} active={selectedClass === "specialist"} onClick={() => handleClassSelection("specialist")} />
+                        <ClassIcon operatorClass={"supporter"} active={selectedClass === "supporter"} onClick={() => handleClassSelection("supporter")} />
+                        <ClassIcon operatorClass={"defender"} active={selectedClass === "defender"} onClick={() => handleClassSelection("defender")} />
+                        <ClassIcon operatorClass={"vanguard"} active={selectedClass === "vanguard"} onClick={() => handleClassSelection("vanguard")} />
                     </div>
                     <div className={"grid grid-cols-5 gap-4 h-[25vh] overflow-y-auto px-4 content-start"}>
                         {filteredOperators.map(operator => (
