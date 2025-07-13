@@ -104,7 +104,7 @@ export default function DraftingPage() {
 
         filtered = filtered.filter((op) => {
             const matchesRarity = op.rarity <= selectedRarity;
-            const matchesClass = op.profession.toLowerCase() === selectedClass;
+            const matchesClass = selectedClass === "ALL" || op.profession.toLowerCase() === selectedClass;
             return matchesRarity && matchesClass;
         });
 
