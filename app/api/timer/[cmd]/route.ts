@@ -1,0 +1,212 @@
+import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase/client";
+
+const TIMER_ID = "main_timer";
+const DEFAULT_DURATION = 60;
+
+type TimerState = "stopped" | "running" | "paused";
+type TimerCommand = "start" | "stop" | "reset" | "continue";
+
+type TimerData = {
+    id: string;
+    state: TimerState;
+    remaining_time: number;
+    started_at: string | null;
+    paused_at: string | null;
+    updated_at: string;
+};
+
+function calculateRemainingTime(timer: TimerData): number {
+    if (timer.state !== "running" || !timer.started_at) {
+        return timer.remaining_time;
+    }
+
+    const startTime = new Date(timer.started_at).getTime();
+    const currentTime = Date.now();
+    const elapsed = Math.floor((currentTime - startTime) / 1000);
+    return Math.max(0, timer.remaining_time - elapsed);
+}
+
+export async function POST(
+    request: NextRequest,
+    { params }: { params: Promise<{ cmd: string }> },
+) {
+    const body = await request.json();
+
+    if (!body.token || body.token !== process.env.SECRET_CODE) {
+        return NextResponse.json(
+            { error: "You messed with the wrong place bozo." },
+            { status: 401 },
+        );
+    }
+
+    try {
+        const { cmd } = await params;
+
+        if (!["start", "stop", "reset", "continue"].includes(cmd)) {
+            return NextResponse.json(
+                { error: "Invalid command. Use: start, stop, reset, or continue." },
+                { status: 400 },
+            );
+        }
+
+        const command = cmd as TimerCommand;
+        const now = new Date().toISOString();
+
+        // Get current timer state
+        const { data: currentTimer, error: fetchError } = await supabase
+            .from("timer_state")
+            .select("*")
+            .eq("id", TIMER_ID)
+            .single();
+
+        if (fetchError && fetchError.code !== "PGRST116") {
+            throw fetchError;
+        }
+
+        let timerData: Omit<TimerData, "id"> & { id?: string };
+
+        switch (command) {
+            case "start":
+                timerData = {
+                    id: TIMER_ID,
+                    state: "running",
+                    remaining_time: DEFAULT_DURATION,
+                    started_at: now,
+                    paused_at: null,
+                    updated_at: now,
+                };
+                break;
+
+            case "stop": {
+                if (!currentTimer) {
+                    return NextResponse.json(
+                        { error: "No timer to stop" },
+                        { status: 400 },
+                    );
+                }
+                const currentRemaining = calculateRemainingTime(currentTimer as TimerData);
+                timerData = {
+                    state: "paused",
+                    remaining_time: currentRemaining,
+                    started_at: null,
+                    paused_at: now,
+                    updated_at: now,
+                };
+                break;
+            }
+
+            case "continue":
+                if (!currentTimer || (currentTimer as TimerData).state !== "paused") {
+                    return NextResponse.json(
+                        { error: "No paused timer to continue" },
+                        { status: 400 },
+                    );
+                }
+                timerData = {
+                    state: "running",
+                    remaining_time: (currentTimer as TimerData).remaining_time,
+                    started_at: now,
+                    paused_at: null,
+                    updated_at: now,
+                };
+                break;
+
+            case "reset":
+                timerData = {
+                    id: TIMER_ID,
+                    state: "stopped",
+                    remaining_time: DEFAULT_DURATION,
+                    started_at: null,
+                    paused_at: null,
+                    updated_at: now,
+                };
+                break;
+        }
+
+        // Upsert timer state
+        const { data, error } = await supabase
+            .from("timer_state")
+            .upsert(timerData)
+            .select()
+            .single();
+
+        if (error) {
+            throw error;
+        }
+
+        const timerResult = {
+            ...data,
+            calculated_remaining_time: calculateRemainingTime(data as TimerData),
+        };
+
+        return NextResponse.json({
+            success: true,
+            timer: timerResult,
+            message: `Timer ${command}ed successfully`,
+        });
+    } catch (error) {
+        console.error("Timer API error:", error);
+        return NextResponse.json(
+            { error: "Internal server error" },
+            { status: 500 },
+        );
+    }
+}
+
+export async function GET(
+    _request: NextRequest,
+    { params }: { params: Promise<{ cmd: string }> },
+) {
+    const { cmd } = await params;
+
+    if (cmd !== "status") {
+        return NextResponse.json(
+            { error: "Only 'status' GET requests are supported." },
+            { status: 400 },
+        );
+    }
+
+    try {
+        const { data: currentTimer, error } = await supabase
+            .from("timer_state")
+            .select("*")
+            .eq("id", TIMER_ID)
+            .single();
+
+        if (error && error.code !== "PGRST116") {
+            throw error;
+        }
+
+        if (!currentTimer) {
+            // Return default timer state for late joiners
+            return NextResponse.json({
+                timer: {
+                    id: TIMER_ID,
+                    state: "stopped",
+                    remaining_time: DEFAULT_DURATION,
+                    started_at: null,
+                    paused_at: null,
+                    updated_at: new Date().toISOString(),
+                },
+            });
+        }
+
+        // Calculate current remaining time for running timers
+        const calculatedRemainingTime = calculateRemainingTime(currentTimer as TimerData);
+
+        return NextResponse.json({
+            timer: {
+                ...currentTimer,
+                calculated_remaining_time: calculatedRemainingTime,
+            },
+        });
+    } catch (error) {
+        console.error("Timer status error:", error);
+        return NextResponse.json(
+            { error: "Internal server error" },
+            { status: 500 },
+        );
+    }
+}

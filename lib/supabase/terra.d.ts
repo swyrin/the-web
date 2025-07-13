@@ -248,6 +248,33 @@ export type Terra = {
                 };
                 Relationships: [];
             };
+            timer_state: {
+                Row: {
+                    id: string;
+                    paused_at: string | null;
+                    remaining_time: number;
+                    started_at: string | null;
+                    state: string;
+                    updated_at: string;
+                };
+                Insert: {
+                    id?: string;
+                    paused_at?: string | null;
+                    remaining_time?: number;
+                    started_at?: string | null;
+                    state: string;
+                    updated_at?: string;
+                };
+                Update: {
+                    id?: string;
+                    paused_at?: string | null;
+                    remaining_time?: number;
+                    started_at?: string | null;
+                    state?: string;
+                    updated_at?: string;
+                };
+                Relationships: [];
+            };
         };
         Views: {
             [_ in never]: never

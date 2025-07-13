@@ -1,0 +1,197 @@
+openapi: 3.1.0
+info:
+  title: Timer API
+  description: API for managing timer state with start, stop, reset, continue, and status operations
+  version: 1.0.0
+  contact:
+    name: Terra Station VN
+servers:
+  - url: /api/timer
+    description: Timer API endpoints
+
+paths:
+  /{cmd}:
+    post:
+      summary: Execute timer command
+      description: Execute various timer commands (start, stop, reset, continue) with token authentication
+      parameters:
+        - name: cmd
+          in: path
+          required: true
+          description: Timer command to execute
+          schema:
+            type: string
+            enum: [start, stop, reset, continue]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: Authentication token for API access
+              example:
+                token: "your-secret-token"
+      responses:
+        '200':
+          description: Command executed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  timer:
+                    $ref: '#/components/schemas/TimerResponse'
+                  message:
+                    type: string
+                    example: "Timer started successfully"
+        '400':
+          description: Bad request - Invalid command or missing timer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                invalid_command:
+                  summary: Invalid command
+                  value:
+                    error: "Invalid command. Use: start, stop, reset, or continue"
+                no_timer_to_stop:
+                  summary: No timer to stop
+                  value:
+                    error: "No timer to stop"
+                no_paused_timer:
+                  summary: No paused timer to continue
+                  value:
+                    error: "No paused timer to continue"
+                invalid_json:
+                  summary: Invalid JSON body
+                  value:
+                    error: "Invalid JSON body"
+        '401':
+          description: Unauthorized - Missing token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Missing token in request body"
+        '403':
+          description: Forbidden - Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Invalid token"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Internal server error"
+
+    get:
+      summary: Get timer status
+      description: Get current timer status (only supports 'status' command)
+      parameters:
+        - name: cmd
+          in: path
+          required: true
+          description: Must be 'status' for GET requests
+          schema:
+            type: string
+            enum: [status]
+      responses:
+        '200':
+          description: Timer status retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  timer:
+                    $ref: '#/components/schemas/TimerResponse'
+        '400':
+          description: Bad request - Only 'status' GET requests are supported
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Only 'status' GET requests are supported"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Internal server error"
+
+components:
+  schemas:
+    TimerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Timer identifier
+          example: "main_timer"
+        state:
+          type: string
+          enum: [stopped, running, paused]
+          description: Current timer state
+          example: "running"
+        remaining_time:
+          type: integer
+          description: Remaining time in seconds
+          example: 45
+        started_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when timer was started (ISO 8601)
+          example: "2025-07-13T10:30:00.000Z"
+        paused_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp when timer was paused (ISO 8601)
+          example: null
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when timer was last updated (ISO 8601)
+          example: "2025-07-13T10:30:00.000Z"
+        calculated_remaining_time:
+          type: integer
+          description: Real-time calculated remaining time for running timers
+          example: 42
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+          example: "Invalid command"
+
+  securitySchemes:
+    TokenAuth:
+      type: http
+      scheme: bearer
+      description: Secret token passed in request body for authentication
+
+tags:
+  - name: Timer
+    description: Timer management operations
