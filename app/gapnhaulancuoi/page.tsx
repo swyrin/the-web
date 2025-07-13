@@ -1,11 +1,11 @@
 "use client";
 
+import type { RealtimeChannel } from "@supabase/supabase-js";
 import type { Terra } from "@/lib/supabase/terra";
 import type { OperatorClass } from "@/lib/vns";
 import Fuse from "fuse.js";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { z } from "zod";
 import PageTitle from "@/components/PageTitle";
 import ClassIcon from "@/components/tournament/ClassIcon";
 import OperatorIcon from "@/components/tournament/OperatorIcon";
@@ -13,24 +13,16 @@ import { supabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
 import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
 
-const HeartbeatMessageSchema = z.object({
-    object: z.literal("heartbeat"),
-    cmd: z.enum(["acknowledge", "dnr"]),
-});
+type TimerState = "stopped" | "running" | "paused";
 
-const TimerMessageSchema = z.object({
-    object: z.literal("timer"),
-    cmd: z.enum(["start", "stop", "reset", "continue"]),
-});
-
-const WebSocketMessageSchema = z.union([
-    HeartbeatMessageSchema,
-    TimerMessageSchema,
-]);
-
-const defaultCountdown = 60000;
-
-type WebSocketMessage = z.infer<typeof WebSocketMessageSchema>;
+type TimerData = {
+    state: TimerState;
+    remaining_time: number;
+    started_at: number | null;
+    paused_at: number | null;
+    updated_at: number;
+    calculated_remaining_time?: number;
+};
 
 type Operator = Terra["public"]["Tables"]["operators_v2"]["Row"];
 type SelectedOperator = Pick<Operator, "name" | "rarity" | "archetype" | "profession" | "charid">;
@@ -42,44 +34,18 @@ export default function DraftingPage() {
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
-    const [isWsConnected, setIsWsConnected] = useState(false);
     const [isSbConnected, setIsSbConnected] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(() => {
-        return defaultCountdown;
+    const [timerData, setTimerData] = useState<TimerData>({
+        state: "stopped",
+        remaining_time: 60,
+        started_at: null,
+        paused_at: null,
+        updated_at: Date.now(),
     });
-    const [isOperatorsLoaded, setIsOperatorsLoaded] = useState(false);
-    const [isTimerActivated, setIsTimerActivated] = useState(true);
+    const [isRealtimeConnected, setIsRealtimeConnected] = useState(false);
+    const [isTimerLoaded, setIsTimerLoaded] = useState(false);
 
-    const wsRef = useRef<WebSocket | null>(null);
-    const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
-    const heartbeatIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-    // #region timer control functions
-    function startTimer() {
-        setIsTimerActivated(true);
-    }
-
-    function stopTimer() {
-        setIsTimerActivated(false);
-        if (timerIntervalRef.current) {
-            clearInterval(timerIntervalRef.current);
-            timerIntervalRef.current = null;
-        }
-    }
-
-    function resetTimer() {
-        setIsTimerActivated(false);
-        setTimeLeft(defaultCountdown);
-        if (timerIntervalRef.current) {
-            clearInterval(timerIntervalRef.current);
-            timerIntervalRef.current = null;
-        }
-    }
-
-    function continueTimer() {
-        setIsTimerActivated(true);
-    }
-    // #endregion timer control functions
+    const timerChannelRef = useRef<RealtimeChannel | null>(null);
 
     // #region operator selection
     const fuse = useMemo(() => {
@@ -272,147 +238,124 @@ export default function DraftingPage() {
             const { data: operators } = await supabase.from("operators_v2").select("name,charid,rarity,profession,archetype");
             if (operators) {
                 setOperators(operators);
-                setIsOperatorsLoaded(true);
             }
         })();
     }, [isSbConnected]);
     // #endregion Eye of Priestess
 
-    // WebSocket connection with RPC opcodes
+    // #region Truckload of hell synchronization issues
     useEffect(() => {
-        const rpcServer = process.env.NEXT_PUBLIC_RPC_SERVER!;
-
-        // Send heartbeat ping every 3 seconds
-        function sendHeartbeat() {
-            if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-                wsRef.current.send(JSON.stringify({
-                    object: "heartbeat",
-                    cmd: "diagnose",
-                }));
-            }
-        }
-
-        function handleMessage(event: MessageEvent) {
+        const initialFetch = async () => {
             try {
-                const rawMessage = JSON.parse(event.data);
+                const response = await fetch("/api/timer/status");
+                const result = await response.json();
 
-                // Validate message against schema
-                const result = WebSocketMessageSchema.safeParse(rawMessage);
-                if (!result.success) {
-                    console.warn("Invalid WebSocket message:", result.error);
-                    return;
-                }
+                if (response.ok && result.timer) {
+                    const timerFromAPI = {
+                        state: result.timer.state,
+                        remaining_time: result.timer.remaining_time,
+                        started_at: result.timer.started_at ? new Date(result.timer.started_at).getTime() : null,
+                        paused_at: result.timer.paused_at ? new Date(result.timer.paused_at).getTime() : null,
+                        updated_at: new Date(result.timer.updated_at).getTime(),
+                        calculated_remaining_time: result.timer.calculated_remaining_time,
+                    };
 
-                const message: WebSocketMessage = result.data;
-
-                // controller commands based on object type
-                switch (message.object) {
-                    case "heartbeat":
-                        if (message.cmd === "acknowledge") {
-                            setIsWsConnected(true);
-                        } else if (message.cmd === "dnr") {
-                            setIsWsConnected(false);
-                        }
-                        break;
-                    case "timer":
-                        switch (message.cmd) {
-                            case "start":
-                                startTimer();
-                                break;
-                            case "stop":
-                                stopTimer();
-                                break;
-                            case "reset":
-                                resetTimer();
-                                break;
-                            case "continue":
-                                continueTimer();
-                                break;
-                        }
-                        break;
+                    setTimerData(timerFromAPI);
+                    setIsTimerLoaded(true);
                 }
             } catch (error) {
-                console.error("Failed to parse WebSocket message:", error);
-            }
-        }
-
-        const ws = new WebSocket(rpcServer);
-        wsRef.current = ws;
-
-        const handleOpen = () => {
-            console.info("WebSocket disconnected");
-            setIsWsConnected(true);
-
-            heartbeatIntervalRef.current = setInterval(sendHeartbeat, 3000);
-            sendHeartbeat();
-        };
-
-        const handleClose = () => {
-            console.warn("WebSocket disconnected");
-            setIsWsConnected(false);
-
-            if (heartbeatIntervalRef.current) {
-                clearInterval(heartbeatIntervalRef.current);
-                heartbeatIntervalRef.current = null;
+                console.error("Failed to fetch initial timer status:", error);
             }
         };
 
-        const handleError = (error: Event) => {
-            console.error("WebSocket error:", error);
-            setIsWsConnected(false);
-        };
+        initialFetch();
 
-        ws.addEventListener("open", handleOpen);
-        ws.addEventListener("close", handleClose);
-        ws.addEventListener("error", handleError);
-        ws.addEventListener("message", handleMessage);
+        const channel = supabase.channel("timer-state-changes-drafting")
+            .on("postgres_changes", {
+                event: "*",
+                schema: "public",
+                table: "timer_state",
+                filter: "id=eq.main_timer",
+            }, (payload) => {
+                console.info("Drafting page received timer state change:", payload);
+                if (payload.new && typeof payload.new === "object") {
+                    const newTimer = payload.new as any;
+
+                    const remainingTime = Number(newTimer.remaining_time);
+                    if (!Number.isFinite(remainingTime) || remainingTime < 0) {
+                        console.warn("Invalid remaining_time received:", newTimer.remaining_time);
+                        return;
+                    }
+
+                    let calculatedRemainingTime = remainingTime;
+                    if (newTimer.state === "running" && newTimer.started_at) {
+                        const startTime = new Date(newTimer.started_at).getTime();
+                        if (Number.isFinite(startTime)) {
+                            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                            calculatedRemainingTime = Math.max(0, remainingTime - elapsed);
+                        }
+                    }
+
+                    if (!Number.isFinite(calculatedRemainingTime)) {
+                        console.warn("Invalid calculated remaining time:", calculatedRemainingTime);
+                        calculatedRemainingTime = remainingTime;
+                    }
+
+                    const updatedTimerData = {
+                        state: newTimer.state || "stopped",
+                        remaining_time: remainingTime,
+                        started_at: newTimer.started_at ? new Date(newTimer.started_at).getTime() : null,
+                        paused_at: newTimer.paused_at ? new Date(newTimer.paused_at).getTime() : null,
+                        updated_at: new Date(newTimer.updated_at).getTime(),
+                        calculated_remaining_time: calculatedRemainingTime,
+                    };
+
+                    setTimerData(updatedTimerData);
+                    setIsTimerLoaded(true);
+                }
+            })
+            .subscribe((status) => {
+                setIsRealtimeConnected(status === "SUBSCRIBED");
+            });
+
+        timerChannelRef.current = channel;
 
         return () => {
-            ws.removeEventListener("open", handleOpen);
-            ws.removeEventListener("close", handleClose);
-            ws.removeEventListener("error", handleError);
-            ws.removeEventListener("message", handleMessage);
-
-            // Clear intervals
-            if (heartbeatIntervalRef.current) {
-                clearInterval(heartbeatIntervalRef.current);
-                heartbeatIntervalRef.current = null;
-            }
-
-            ws.close();
+            supabase.removeChannel(channel);
+            setIsRealtimeConnected(false);
         };
-    }, []);
+    }, [isSbConnected]);
 
-    // the "mind-controlled" timer
-    // basically -10ms per "tick".
+    // timer update loop.
     useEffect(() => {
-        if (!isOperatorsLoaded)
+        if (timerData.state !== "running")
             return;
 
-        if (isTimerActivated) {
-            timerIntervalRef.current = setInterval(() => {
-                setTimeLeft((prevTime) => {
-                    if (prevTime <= 0) {
-                        setIsTimerActivated(false);
-                        return 0;
-                    }
-                    return prevTime - 1000;
-                });
-            }, 1000);
-        } else {
-            if (timerIntervalRef.current) {
-                clearInterval(timerIntervalRef.current);
-                timerIntervalRef.current = null;
-            }
-        }
+        const interval = setInterval(() => {
+            setTimerData((prev) => {
+                if (prev.state !== "running" || !prev.started_at)
+                    return prev;
 
-        return () => {
-            if (timerIntervalRef.current) {
-                clearInterval(timerIntervalRef.current);
-                timerIntervalRef.current = null;
-            }
-        };
-    }, [isOperatorsLoaded, isTimerActivated]);
+                const elapsed = Math.floor((Date.now() - prev.started_at) / 1000);
+                const newRemainingTime = Math.max(0, prev.remaining_time - elapsed);
+
+                // don't know why NaN:NaN occurs, but
+                // this is insane fr fr no cap
+                if (!Number.isFinite(newRemainingTime)) {
+                    console.warn("Invalid remaining time calculated:", newRemainingTime);
+                    return prev;
+                }
+
+                return {
+                    ...prev,
+                    calculated_remaining_time: newRemainingTime,
+                };
+            });
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [timerData.state, timerData.started_at, timerData.remaining_time]);
+    // #endregion Real-time timer synchronization
 
     // #region data backup, must be last hook because React effects are LIFO
     useEffect(() => {
@@ -457,12 +400,21 @@ export default function DraftingPage() {
     }, [selectedOperators]);
     // #endregion data backup
 
-    function formatTime(milliseconds: number) {
-        const totalMs = Math.max(0, milliseconds);
-        const minutes = Math.floor(totalMs / 60000);
-        const seconds = Math.floor((totalMs % 60000) / 1000);
+    function formatTime(seconds: number) {
+        const totalSec = Math.max(0, Math.floor(seconds));
+        const minutes = Math.floor(totalSec / 60);
+        const remainingSeconds = totalSec % 60;
 
-        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+    }
+
+    function getDisplayTime(): number {
+        // Always prioritize calculated_remaining_time when available
+        if (timerData.calculated_remaining_time !== undefined && Number.isFinite(timerData.calculated_remaining_time)) {
+            return timerData.calculated_remaining_time;
+        }
+        // Fallback to the base remaining_time from timerData
+        return timerData.remaining_time;
     }
 
     return (
@@ -483,10 +435,10 @@ export default function DraftingPage() {
                         {isSbConnected ? "Online" : "Offline"}
                     </div>
                     <div className={"mx-2"}>|</div>
-                    <div className={`${isWsConnected ? "text-green-300" : "text-red-300"}`}>
+                    <div className={`${isRealtimeConnected ? "text-green-300" : "text-red-300"}`}>
                         Terra #1:
                         {" "}
-                        {isWsConnected ? "Online" : "Offline"}
+                        {isRealtimeConnected ? "Online" : "Offline"}
                     </div>
                 </div>
                 <div className={"hidden lg:block text-base-content text-3xl font-bold"}>
@@ -495,10 +447,21 @@ export default function DraftingPage() {
 
                 {/* the actual shit. */}
                 <div className={`lg:hidden flex flex-col items-center justify-center gap-y-4`}>
-                    <div className={"text-base-content text-xl font-mono"}>
+                    <div className={"text-xl text-white"}>
                         Thời gian còn lại:
                         {" "}
-                        {formatTime(timeLeft)}
+                        <span className={`font-extrabold ${
+                            !isTimerLoaded
+                                ? "text-red-400"
+                                : timerData.state === "running"
+                                    ? "text-green-400"
+                                    : timerData.state === "paused"
+                                        ? "text-yellow-400"
+                                        : "text-red-400"
+                        }`}
+                        >
+                            {!isTimerLoaded ? "--:--" : formatTime(getDisplayTime())}
+                        </span>
                     </div>
                     <div className={"flex items-center justify-center gap-x-2"}>
                         <input className={"border-1 border-white px-5"} value={operatorNameSearch} onChange={e => setOperatorNameSearch(e.target.value)} placeholder={"Ghi tên op ở đây..."} />
@@ -592,7 +555,7 @@ export default function DraftingPage() {
                         <button
                             type={"button"}
                             className={"btn bg-red-400 mx-6"}
-                            disabled={!isSbConnected || selectedOperators.length === 0 || timeLeft <= 0}
+                            disabled={!isSbConnected || selectedOperators.length === 0 || getDisplayTime() <= 0}
                             onClick={async () => {
                                 await handleBanSubmission();
                             }}
