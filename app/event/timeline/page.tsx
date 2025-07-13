@@ -50,7 +50,7 @@ const events: Event[] = [
         href: "https://www.facebook.com/share/p/1Zzx29JxMH/",
     },
     {
-        date: "07/07/2025",
+        date: "08/07/2025",
         title: "Công bố hình ảnh địa điểm offline",
         href: "https://www.facebook.com/share/p/16ZN6cWbuG/",
     },
@@ -59,7 +59,11 @@ const events: Event[] = [
         title: "Bán hết vé tier Dreamchasers",
         href: "https://www.facebook.com/share/p/18xjxnkdxo/",
     },
-
+    {
+        date: "??/??/2025",
+        title: "???",
+        href: "",
+    },
     {
         date: "10/08/2025",
         title: "Offline #2: Dreamchasers",

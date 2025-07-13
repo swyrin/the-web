@@ -21,7 +21,7 @@ function ClassIcon({
                 width={28}
                 height={28}
                 className={`object-contain w-auto ${active ? "grayscale invert" : ""} `}
-                priority={true}
+                priority
             />
         </div>
     );

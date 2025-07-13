@@ -24,7 +24,7 @@ export default function SchedulePage() {
                     <TimelineItem
                         date={"15:00"}
                         data={"Special Program\n&\nKết thúc event"}
-                        tail={true}
+                        tail
                     />
                 </ul>
                 <Image src={Hourglass} alt={"time"} className={"self-center"} />

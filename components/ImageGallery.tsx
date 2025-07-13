@@ -37,7 +37,7 @@ export default function ImageGallery({
                             width={900}
                             height={1200}
                             className={"block object-cover"}
-                            priority={true}
+                            priority
                         />
                     </div>
                 ))}

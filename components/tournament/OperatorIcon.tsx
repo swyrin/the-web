@@ -61,7 +61,6 @@ function OperatorIcon(props: OperatorIconProps) {
                     height={48}
                     alt={props.operator.name}
                     className={"object-contain"}
-                    priority={true}
                 />
             </div>
             <div className={`text-center text-xs ${props.isBanned ? "text-gray-500" : ""}`}>{props.operator.name}</div>

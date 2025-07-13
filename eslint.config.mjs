@@ -36,6 +36,8 @@ export default antfu(
             "react/prefer-destructuring-assignment": "off",
             "node/prefer-global/process": "off",
             "react-hooks-extra/no-direct-set-state-in-use-effect": "off",
+            "@eslint-react/prefer-shorthand-fragment": "error",
+            "@eslint-react/prefer-shorthand-boolean": "error",
             "@stylistic/jsx-curly-brace-presence": [
                 "warn",
                 {
