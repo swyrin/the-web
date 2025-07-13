@@ -55,7 +55,7 @@ function OperatorIcon(props: OperatorIconProps) {
                     src={
                         props.operator.name === "Arene"
                             ? Arene
-                            : `https://raw.githubusercontent.com/ArknightsAssets/ArknightsAssets2/refs/heads/cn/assets/dyn/arts/charavatars/${props.operator.id}.png`
+                            : `/operator/icons/${props.operator.id}.png`
                     }
                     width={48}
                     height={48}

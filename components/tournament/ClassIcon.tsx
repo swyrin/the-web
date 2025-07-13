@@ -16,7 +16,7 @@ function ClassIcon({
             onClick={onClick}
         >
             <Image
-                src={`/operator_classes/${operatorClass}.png`}
+                src={`/operator/classes/${operatorClass}.png`}
                 alt={operatorClass}
                 width={28}
                 height={28}
