@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase/client";
+import { elevatedSupabase } from "@/app/api/lib/elevated-supabase";
 
 const TIMER_ID = "main_timer";
 const DEFAULT_DURATION = 60;
@@ -36,7 +36,7 @@ export async function POST(
 
     if (!body.token || body.token !== process.env.SECRET_CODE) {
         return NextResponse.json(
-            { error: "You messed with the wrong place bozo." },
+            { error: "Unauthorized" },
             { status: 401 },
         );
     }
@@ -55,7 +55,7 @@ export async function POST(
         const now = new Date().toISOString();
 
         // Get current timer state
-        const { data: currentTimer, error: fetchError } = await supabase
+        const { data: currentTimer, error: fetchError } = await elevatedSupabase
             .from("timer_state")
             .select("*")
             .eq("id", TIMER_ID)
@@ -69,6 +69,12 @@ export async function POST(
 
         switch (command) {
             case "start":
+                if (currentTimer && (currentTimer as TimerData).state === "running") {
+                    return NextResponse.json(
+                        { error: "Timer is already running" },
+                        { status: 412 },
+                    );
+                }
                 timerData = {
                     id: TIMER_ID,
                     state: "running",
@@ -83,7 +89,13 @@ export async function POST(
                 if (!currentTimer) {
                     return NextResponse.json(
                         { error: "No timer to stop" },
-                        { status: 400 },
+                        { status: 404 },
+                    );
+                }
+                if ((currentTimer as TimerData).state !== "running") {
+                    return NextResponse.json(
+                        { error: "Timer is not running" },
+                        { status: 412 },
                     );
                 }
                 const currentRemaining = calculateRemainingTime(currentTimer as TimerData);
@@ -101,7 +113,7 @@ export async function POST(
                 if (!currentTimer || (currentTimer as TimerData).state !== "paused") {
                     return NextResponse.json(
                         { error: "No paused timer to continue" },
-                        { status: 400 },
+                        { status: 412 },
                     );
                 }
                 timerData = {
@@ -126,7 +138,7 @@ export async function POST(
         }
 
         // Upsert timer state
-        const { data, error } = await supabase
+        const { data, error } = await elevatedSupabase
             .from("timer_state")
             .upsert(timerData)
             .select()
@@ -141,11 +153,7 @@ export async function POST(
             calculated_remaining_time: calculateRemainingTime(data as TimerData),
         };
 
-        return NextResponse.json({
-            success: true,
-            timer: timerResult,
-            message: `Timer ${command}ed successfully`,
-        });
+        return NextResponse.json(timerResult, { status: 200 });
     } catch (error) {
         console.error("Timer API error:", error);
         return NextResponse.json(
@@ -163,13 +171,13 @@ export async function GET(
 
     if (cmd !== "status") {
         return NextResponse.json(
-            { error: "Only 'status' GET requests are supported." },
-            { status: 400 },
+            { error: "Method not allowed" },
+            { status: 405 },
         );
     }
 
     try {
-        const { data: currentTimer, error } = await supabase
+        const { data: currentTimer, error } = await elevatedSupabase
             .from("timer_state")
             .select("*")
             .eq("id", TIMER_ID)
@@ -181,27 +189,27 @@ export async function GET(
 
         if (!currentTimer) {
             // Return default timer state for late joiners
-            return NextResponse.json({
-                timer: {
-                    id: TIMER_ID,
-                    state: "stopped",
-                    remaining_time: DEFAULT_DURATION,
-                    started_at: null,
-                    paused_at: null,
-                    updated_at: new Date().toISOString(),
-                },
-            });
+            const defaultTimer = {
+                id: TIMER_ID,
+                state: "stopped",
+                remaining_time: DEFAULT_DURATION,
+                started_at: null,
+                paused_at: null,
+                updated_at: new Date().toISOString(),
+                calculated_remaining_time: DEFAULT_DURATION,
+            };
+            return NextResponse.json(defaultTimer, { status: 200 });
         }
 
         // Calculate current remaining time for running timers
         const calculatedRemainingTime = calculateRemainingTime(currentTimer as TimerData);
 
-        return NextResponse.json({
-            timer: {
-                ...currentTimer,
-                calculated_remaining_time: calculatedRemainingTime,
-            },
-        });
+        const timerWithCalculatedTime = {
+            ...currentTimer,
+            calculated_remaining_time: calculatedRemainingTime,
+        };
+
+        return NextResponse.json(timerWithCalculatedTime, { status: 200 });
     } catch (error) {
         console.error("Timer status error:", error);
         return NextResponse.json(
