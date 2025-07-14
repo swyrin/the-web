@@ -38,90 +38,81 @@
     @apply bg-blend-multiply;
 }
 
-.Event_Director,
-.Co-Director,
+.Event_Director {
+    @apply bg-red-500;
+    @apply text-white;
+}
 .MC {
-    background-color: var(--color-red-500);
-    color: var(--color-white);
+    @apply bg-emerald-300;
 }
-
 .Consultant {
-    background-color: var(--color-red-500);
-    color: var(--color-white);
+    @apply bg-red-500;
+    @apply text-white;
 }
-
 .Secretary {
-    background-color: var(--color-red-300);
-    color: var(--color-amber-900);
+    @apply bg-red-300;
+    @apply text-amber-900;
 }
-
 .Minigame {
-    background-color: var(--color-yellow-100);
-    color: var(--color-black);
+    @apply bg-yellow-100;
+    @apply text-black;
 }
-
 .ALL {
-    background-color: var(--color-black);
-    color: var(--color-white);
-    border: 1px solid var(--color-white);
+    @apply bg-black;
+    @apply text-white;
+    @apply border;
+    @apply border-white;
 }
 .IT {
-    background-color: var(--color-orange-400);
+    @apply bg-orange-400;
 }
-
 .Logistics {
-    background-color: var(--color-sky-300);
+    @apply bg-sky-300;
 }
-
 .Kahoot {
-    background-color: var(--color-purple-300);
+    @apply bg-purple-300;
 }
-
 .Multimedia {
-    background-color: var(--color-cyan-400);
+    @apply bg-cyan-400;
 }
 
 /* Partner roles */
 .VCL {
-    background-color: var(--color-rose-500);
-    color: var(--color-white);
+    @apply bg-rose-500;
+    @apply text-white;
 }
-
 .Illustration_Artist {
-    background-color: var(--color-purple-700);
-    color: var(--color-white);
+    @apply bg-purple-700;
+    @apply text-white;
 }
-
 .Sponsor {
-    background-color: var(--color-emerald-800);
-    color: var(--color-white);
+    @apply bg-emerald-800;
+    @apply text-white;
 }
-
 .Donator {
-    background-color: var(--color-emerald-200);
+    @apply bg-emerald-200;
 }
-
 .Concept_Artist {
-    background-color: var(--color-blue-200);
-    color: var(--color-blue-600);
+    @apply bg-blue-200;
+    @apply text-blue-600;
 }
-
 .Graphic_Designer {
-    background-color: var(--color-blue-200);
+    @apply bg-blue-200;
 }
-
 .Photographer {
-    background-color: var(--color-yellow-200);
+    @apply bg-yellow-200;
 }
-
 .Video_Editor {
-    background-color: var(--color-red-300);
+    @apply bg-red-300;
 }
-
-.VNS_Offline_2024 {
-    background-color: var(--color-purple-300);
+.Offline_2024_Leader {
+    @apply bg-purple-500;
+    @apply text-purple-100;
 }
-
+.Offline_2024_Staff {
+    @apply bg-purple-300;
+    @apply text-purple-900;
+}
 /* Stuffs */
 
 .embla {

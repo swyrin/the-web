@@ -88,23 +88,27 @@ function PartnerList(props: HRListProps) {
 }
 
 export default function CrewPage() {
-    const [crewTab, setCrewTab] = useState<string>(() => {
-        // https://stackoverflow.com/a/76071002
-        if (typeof window === "undefined") {
-            return "dreamchasers";
-        }
+    const [crewTab, setCrewTab] = useState<string>("dreamchasers");
 
-        const stored = window.localStorage.getItem("crew-tab");
-        return stored && stored !== "" ? stored : "dreamchasers";
-    });
+    useEffect(() => {
+        const stored = localStorage.getItem("crew-tab");
+        if (stored && stored !== "") {
+            setCrewTab(stored);
+        }
+    }, []);
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
-        startIndex: crewTab === "dreamchasers" ? 0 : 1,
+        startIndex: 0,
     });
 
     useEffect(() => {
         localStorage.setItem("crew-tab", crewTab);
-    }, [crewTab]);
+
+        if (emblaApi) {
+            const targetIndex = crewTab === "dreamchasers" ? 0 : 1;
+            emblaApi.scrollTo(targetIndex);
+        }
+    }, [crewTab, emblaApi]);
 
     const onSelect = useCallback(() => {
         if (!emblaApi)

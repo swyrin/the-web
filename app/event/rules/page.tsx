@@ -264,23 +264,27 @@ const cosplayRules: RuleType[] = [
 ];
 
 export default function RulePage() {
-    const [ruleTab, setRuleTab] = useState<string>(() => {
-        // https://stackoverflow.com/a/76071002
-        if (typeof window === "undefined") {
-            return "general";
-        }
+    const [ruleTab, setRuleTab] = useState<string>("general");
 
-        const stored = window.localStorage.getItem("rule-tab");
-        return stored && stored !== "" ? stored : "general";
-    });
+    useEffect(() => {
+        const stored = localStorage.getItem("rule-tab");
+        if (stored && stored !== "") {
+            setRuleTab(stored);
+        }
+    }, []);
 
     const [emblaRef, emblaApi] = useEmblaCarousel({
-        startIndex: ruleTab === "general" ? 0 : 1,
+        startIndex: 0,
     });
 
     useEffect(() => {
         localStorage.setItem("rule-tab", ruleTab);
-    }, [ruleTab]);
+
+        if (emblaApi) {
+            const targetIndex = ruleTab === "general" ? 0 : 1;
+            emblaApi.scrollTo(targetIndex);
+        }
+    }, [ruleTab, emblaApi]);
 
     const onSelect = useCallback(() => {
         if (!emblaApi)

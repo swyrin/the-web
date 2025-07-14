@@ -108,6 +108,21 @@
             "quote": "NOT EXIST"
         },
         {
+            "name": "Higato",
+            "role": ["Donator"],
+            "quote": ""
+        },
+        {
+            "name": "Kazaha Kamito",
+            "role": ["Donator"],
+            "quote": ""
+        },
+        {
+            "name": "Admin CED",
+            "role": ["Donator"],
+            "quote": ""
+        },
+        {
             "name": "Cerberose",
             "role": ["IT"],
             "quote": "I don't even play Arknights"
@@ -116,6 +131,11 @@
             "name": "Ｈｙｐｅｒ－Ｖ△",
             "role": ["Photographer"],
             "quote": "Làm tí 1 shoot nhom nhom bạn eyyyy"
+        },
+        {
+            "name": "Satoh Nguyễn",
+            "role": ["Photographer"],
+            "quote": ""
         },
         {
             "name": "Moorce",
@@ -143,38 +163,18 @@
             "quote": ""
         },
         {
-            "name": "Satoh Nguyễn",
-            "role": ["Photographer"],
-            "quote": ""
-        },
-        {
-            "name": "Higato",
-            "role": ["Donator"],
-            "quote": ""
-        },
-        {
-            "name": "Kazaha Kamito",
-            "role": ["Donator"],
-            "quote": ""
-        },
-        {
-            "name": "Admin CED",
-            "role": ["Donator"],
-            "quote": ""
-        },
-        {
-            "name": "Ekkusu Hikari",
-            "role": ["VNS_Offline_2024"],
-            "quote": ""
-        },
-        {
             "name": "Syalis",
-            "role": ["VNS_Offline_2024"],
+            "role": ["Offline_2024_Leader"],
             "quote": ""
         },
         {
             "name": "Akihito",
-            "role": ["VNS_Offline_2024"],
+            "role": ["Offline_2024_Staff"],
+            "quote": ""
+        },
+        {
+            "name": "Ekkusu Hikari",
+            "role": ["Offline_2024_Staff"],
             "quote": ""
         }
     ]

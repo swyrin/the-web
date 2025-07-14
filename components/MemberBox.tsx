@@ -23,6 +23,7 @@ export default function MemberBox(props: CrewMember) {
                         <span
                             key={role}
                             className={`
+                                font-extrabold
                                 crew-role-container
                                 ${role}
                                 px-3 py-1
