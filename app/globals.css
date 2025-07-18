@@ -69,7 +69,7 @@
 /* Partner roles */
 .Vietnam-Community-League {
     @apply bg-gradient-to-r;
-    @apply from-red-400 from-75%; 
+    @apply from-red-400 from-75%;
     @apply to-orange-300 to-100%;
 }
 .Illustration-Artist {
