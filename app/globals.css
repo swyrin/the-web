@@ -68,7 +68,9 @@
 
 /* Partner roles */
 .Vietnam-Community-League {
-    @apply bg-gradient-to-r from-red-400 to-orange-300;
+    @apply bg-gradient-to-r;
+    @apply from-red-400 from-75%; 
+    @apply to-orange-300 to-100%;
 }
 .Illustration-Artist {
     @apply bg-purple-700;
@@ -94,21 +96,27 @@
 .Video-Editor {
     @apply bg-red-300;
 }
-.Offline-2024-Leader {
-    @apply bg-purple-500;
-    @apply text-purple-100;
+.Offline-2024\:-Leader {
+    @apply bg-gradient-to-r;
+    @apply from-purple-400;
+    @apply to-pink-400;
 }
-.Offline-2024-Staff {
-    @apply bg-purple-300;
-    @apply text-purple-900;
+.Offline-2024\:-Staff {
+    @apply bg-gradient-to-r;
+    @apply from-purple-500;
+    @apply to-gray-200;
 }
-
 .Artist {
     @apply bg-blue-300;
     @apply text-black;
 }
-/* Stuffs */
+.IT-Technical {
+    @apply bg-gradient-to-r;
+    @apply from-white;
+    @apply to-red-400;
+}
 
+/* Stuffs */
 .embla {
     overflow: hidden;
 }

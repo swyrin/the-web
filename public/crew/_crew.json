@@ -114,7 +114,7 @@
         },
         {
             "name": "Kazaha Kamito",
-            "roles": ["Donator"],
+            "roles": ["Donator", "IT-Technical"],
             "quote": ""
         },
         {
@@ -129,12 +129,12 @@
         },
         {
             "name": "Acsyncct",
-            "role": ["Artist"],
+            "roles": ["Artist"],
             "quote": ""
         },
         {
             "name": "Smol Lappcheto",
-            "role": ["Artist"],
+            "roles": ["Artist"],
             "quote": ""
         },
         {
@@ -174,17 +174,17 @@
         },
         {
             "name": "Syalis",
-            "roles": ["Offline-2024-Leader"],
+            "roles": ["Offline-2024:-Leader"],
             "quote": ""
         },
         {
             "name": "Akihito",
-            "roles": ["Offline-2024-Staff"],
+            "roles": ["Offline-2024:-Staff"],
             "quote": ""
         },
         {
             "name": "Ekkusu Hikari",
-            "roles": ["Offline-2024-Staff"],
+            "roles": ["Offline-2024:-Staff"],
             "quote": ""
         }
     ]

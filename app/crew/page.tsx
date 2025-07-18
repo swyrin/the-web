@@ -21,7 +21,7 @@ function CrewList(props: HRListProps) {
             {/* But it looks utterly dogshit on mobile, so falling back to the default one on that. */}
             <div className={"hidden place-content-center-safe lg:block"}>
                 <div
-                    className={"mx-36 mb-4 flex flex-col flex-wrap place-content-evenly md:flex-row"}
+                    className={"mx-12 mb-4 flex flex-col flex-wrap place-content-evenly md:flex-row"}
                 >
                     {eliteMembers.map((member) => {
                         return (
@@ -52,7 +52,7 @@ function CrewList(props: HRListProps) {
             </div>
             {/* The other-than-hell layout. */}
             <div
-                className={"grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:hidden lg:grid-cols-5"}
+                className={"grid place-content-center-safe grid-cols-1 md:grid-cols-3 lg:hidden lg:grid-cols-5"}
             >
                 {props.members.map((member) => {
                     return (
@@ -70,7 +70,7 @@ function PartnerList(props: HRListProps) {
     return (
         <>
             <div
-                className={"grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"}
+                className={"grid place-content-center-safe grid-cols-1 md:grid-cols-3 lg:grid-cols-5"}
             >
                 {props.members.map((member) => {
                     return (
@@ -152,13 +152,13 @@ export default function CrewPage() {
             </div>
             {/* Desktop tabs - original design */}
             <div
-                className={"tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"}
+                className={"tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none lg:flex"}
                 data-theme={"dark"}
             >
                 <input
                     type={"radio"}
                     name={"my_tabs_6"}
-                    className={"tab sm:text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
+                    className={"tab text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
                     aria-label={"Dreamchasers"}
                     checked={crewTab === "dreamchasers"}
                     onChange={() => setCrewTab("dreamchasers")}
@@ -169,7 +169,7 @@ export default function CrewPage() {
                 <input
                     type={"radio"}
                     name={"my_tabs_6"}
-                    className={"tab sm:text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
+                    className={"tab text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
                     aria-label={"Hợp tác phát triển"}
                     checked={crewTab === "partners"}
                     onChange={() => setCrewTab("partners")}
@@ -181,7 +181,7 @@ export default function CrewPage() {
 
             {/* Mobile swipable tabs */}
             <div
-                className={"swipe-tabs sticky top-[70px] z-0 h-[calc(100vh-70px)] md:hidden"}
+                className={"swipe-tabs sticky top-[70px] z-0 h-[calc(100vh-70px)] lg:hidden"}
                 data-theme={"dark"}
             >
                 {/* Tab indicators */}
