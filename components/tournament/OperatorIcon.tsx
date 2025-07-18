@@ -1,6 +1,8 @@
 import type { Operator } from "@/lib/vns";
 import Image from "next/image";
 import Arene from "@/public/tournament/drafting/Arene.png";
+import StarSelected from "@/public/tournament/drafting/star-selected.svg";
+import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
 
 function getRarityColor(rarity: number) {
     switch (rarity) {
@@ -41,20 +43,20 @@ function OperatorIcon(props: OperatorIconProps) {
                 ? Arene
                 : `/operator/icons/${props.operator.id}.png`);
 
-    const width = props.isPortrait ? "" : "w-16";
+    const width = props.isPortrait ? "" : "w-18";
 
     return (
         <div
-            className={`flex ${width} flex-col items-center ${props.isBanned ? "opacity-40 cursor-not-allowed" : "cursor-pointer"}`}
+            className={`flex ${width} flex-col items-center`}
             onClick={props.isBanned ? undefined : props.onClickFn}
         >
             <div
-                className={`flex p-1 items-center justify-center ${props.isBanned ? "grayscale" : ""}`}
+                className={`flex px-1 items-center justify-center ${props.isBanned ? "grayscale opacity-35" : ""}`}
                 style={{
                     background: `linear-gradient(
                         to top,
                         ${props.isSelected ? selectedColor : rarityColor} 0%,
-                        ${props.isSelected ? selectedColor : rarityColor}70 50%,
+                        ${props.isSelected ? selectedColor : rarityColor}70 25%,
                         ${props.isSelected ? selectedColor : rarityColor}00 100%
                     )`,
                     borderBottom: `4px solid ${props.isSelected ? selectedColor : rarityColor}`,
@@ -64,23 +66,36 @@ function OperatorIcon(props: OperatorIconProps) {
                     src={
                         imageSource
                     }
-                    width={128}
+                    width={props.isPortrait ? 128 : 48}
                     height={props.isPortrait ? 256 : 48}
                     alt={props.operator.name}
                     className={"object-cover"}
                 />
             </div>
-            <div className={"flex flex-col space-x-0 mt-4 justify-center items-center"}>
+            <div className={"flex w-12 flex-col justify-center items-center space-y-1 mt-2"}>
                 {props.isPortrait && (
                     <Image
                         src={`/operator/classes/${props.operator.class.toLowerCase()}.png`}
-                        width={48}
-                        height={48}
+                        width={32}
+                        height={32}
                         alt={"class"}
-                        className={"object-none"}
+                        className={"object-none border-1 border-white/50 bg-black"}
                     />
                 )}
-                <div className={`text-center ${props.isPortrait ? "text-xl font-extrabold" : "text-xs font-light"} ${props.isBanned ? "text-gray-500" : "text-base-content"}`}>{props.operator.name}</div>
+                {props.isPortrait && (
+                    <div className={"flex space-x-1 items-center justify-center"}>
+                        {
+                            [1, 2, 3, 4, 5, 6].map((x) => {
+                                return (
+                                    x <= props.operator.rarity
+                                        ? <Image key={x} src={StarSelected} alt={"star"} width={16} height={16} />
+                                        : <Image key={x} src={StarUnSelected} alt={"star"} width={16} height={16} />
+                                );
+                            })
+                        }
+                    </div>
+                )}
+                <div className={`text-center ${props.isPortrait ? "text-xl font-extrabold" : "text-xs font-light"} text-base-content`}>{props.operator.name}</div>
             </div>
         </div>
     );

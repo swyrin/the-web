@@ -95,13 +95,28 @@ export default function TournamentSlidePage() {
                 </div>
             </div>
             <div
-                className={"flex flex-1/2 flex-col justify-center items-center w-full pt-10 px-[10%]"}
+                className={"flex flex-1/2 flex-col justify-evenly items-center w-full px-[10%]"}
                 data-theme={"dark"}
             >
+                <div className={"flex top-0"}>
+                    <div className={"text-xl text-white"}>
+                        <span className={`font-extrabold text-6xl ${
+                            !isTimerLoaded
+                                ? "text-red-400"
+                                : timerData.state === "running"
+                                    ? "text-green-400"
+                                    : timerData.state === "paused"
+                                        ? "text-yellow-400"
+                                        : "text-red-400"
+                        }`}
+                        >
+                            {!isTimerLoaded ? "--:--" : formatTime(getDisplayTime())}
+                        </span>
+                    </div>
+                </div>
                 <div className={"grid grid-cols-6 gap-20 w-full"}>
                     {operators
                         .filter(op => bannedOperators.includes(op.charid))
-
                         .map(operator => (
                             <OperatorIcon
                                 key={operator.charid}
@@ -118,24 +133,6 @@ export default function TournamentSlidePage() {
                         // eslint-disable-next-line react/no-array-index-key
                         <EmptySlot key={v} />
                     ))}
-                </div>
-                <div className={"flex self-center mt-15"}>
-                    <div className={"text-xl text-white"}>
-                        Thời gian còn lại:
-                        {" "}
-                        <span className={`font-extrabold ${
-                            !isTimerLoaded
-                                ? "text-red-400"
-                                : timerData.state === "running"
-                                    ? "text-green-400"
-                                    : timerData.state === "paused"
-                                        ? "text-yellow-400"
-                                        : "text-red-400"
-                        }`}
-                        >
-                            {!isTimerLoaded ? "--:--" : formatTime(getDisplayTime())}
-                        </span>
-                    </div>
                 </div>
                 <div className={"text-base-content font-extrabold"}>
                     Terra #1:
