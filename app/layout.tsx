@@ -12,6 +12,7 @@ const mainFont = VNS_Font({
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://dreamchasers.akvns.org"),
+    title: "Dreamchasers @ 2025",
     authors: [
         {
             name: "Trạm dừng chân chốn Terra",
