@@ -28,7 +28,7 @@ function CrewList(props: HRListProps) {
                             <MemberBox
                                 key={member.name}
                                 name={member.name}
-                                role={member.role}
+                                roles={member.roles}
                                 quote={member.quote}
                             />
                         );
@@ -42,7 +42,7 @@ function CrewList(props: HRListProps) {
                             <div key={member.name} className={"w-full md:w-auto"}>
                                 <MemberBox
                                     name={member.name}
-                                    role={member.role}
+                                    roles={member.roles}
                                     quote={member.quote}
                                 />
                             </div>
@@ -57,7 +57,7 @@ function CrewList(props: HRListProps) {
                 {props.members.map((member) => {
                     return (
                         <div key={member.name} className={"w-full md:w-auto"}>
-                            <MemberBox name={member.name} role={member.role} quote={member.quote} />
+                            <MemberBox name={member.name} roles={member.roles} quote={member.quote} />
                         </div>
                     );
                 })}
@@ -77,7 +77,7 @@ function PartnerList(props: HRListProps) {
                         <MemberBox
                             key={member.name}
                             name={member.name}
-                            role={member.role}
+                            roles={member.roles}
                             quote={member.quote}
                         />
                     );

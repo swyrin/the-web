@@ -18,8 +18,8 @@ export default function MemberBox(props: CrewMember) {
             {/*    </div> */}
             {/* )} */}
             <div className={"space-x-2"}>
-                {Array.isArray(props.role)
-                    && props.role.map((role: string) => (
+                {Array.isArray(props.roles)
+                    && props.roles.map((role: string) => (
                         <span
                             key={role}
                             className={`font-extrabold crew-role-container ${role}`}

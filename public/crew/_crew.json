@@ -2,179 +2,179 @@
     "members": [
         {
             "name": "shou.",
-            "role": ["Event-Director", "ALL"],
+            "roles": ["Event-Director", "ALL"],
             "quote": "tao đa thê kệ tao"
         },
         {
             "name": "Shihotori",
-            "role": ["Consultant", "Minigame"],
+            "roles": ["Consultant", "Minigame"],
             "quote": "Been composing music since 2018"
         },
         {
             "name": "Kamaeri",
-            "role": ["Consultant", "MC"],
+            "roles": ["Consultant", "MC"],
             "quote": "I'm not a robot, I'm just… dumb"
         },
         {
             "name": "AkaneOSK",
-            "role": ["Secretary"],
+            "roles": ["Secretary"],
             "quote": "Akane Ousaka is my love omg she's so cute!!"
         },
         {
             "name": "Meruko",
-            "role": ["Secretary", "Minigame", "Logistics"],
+            "roles": ["Secretary", "Minigame", "Logistics"],
             "quote": "In relationsheep with Eyja"
         },
         {
             "name": "WhaTa SixX",
-            "role": ["Multimedia"],
+            "roles": ["Multimedia"],
             "quote": "Book shoot đi, làm ơn, đói lắm rồi"
         },
         {
             "name": "Succhusa",
-            "role": ["Multimedia"],
+            "roles": ["Multimedia"],
             "quote": "Pay us Wiz"
         },
         {
             "name": "Red",
-            "role": ["Kahoot"],
+            "roles": ["Kahoot"],
             "quote": "Yeah, Science! - Jesse Pinkman"
         },
         {
             "name": "SADUS",
-            "role": ["Logistics"],
+            "roles": ["Logistics"],
             "quote": "Why does life slumber?"
         },
         {
             "name": "TuanAnh",
-            "role": ["IT", "Minigame", "Kahoot"],
+            "roles": ["IT", "Minigame", "Kahoot"],
             "quote": "Limbussy"
         },
         {
             "name": "セイタ・エルマー",
-            "role": ["IT", "Minigame"],
+            "roles": ["IT", "Minigame"],
             "quote": "Information alone is not enough..."
         },
         {
             "name": "シイナ•コチヤ",
-            "role": ["IT", "Minigame", "Multimedia"],
+            "roles": ["IT", "Minigame", "Multimedia"],
             "quote": "Someday, our dreams will come true"
         },
         {
             "name": "スイリン•です",
-            "role": ["IT", "Minigame"],
+            "roles": ["IT", "Minigame"],
             "quote": "I play Balatro 48 hours a day."
         }
     ],
     "partners": [
         {
             "name": "Tkieen",
-            "role": ["Graphic-Designer"],
+            "roles": ["Graphic-Designer"],
             "quote": "Cợt nhả có lông"
         },
         {
             "name": "DuyBong",
-            "role": ["Graphic-Designer"],
+            "roles": ["Graphic-Designer"],
             "quote": ""
         },
         {
             "name": "Zopu",
-            "role": ["Graphic-Designer"],
+            "roles": ["Graphic-Designer"],
             "quote": ""
         },
         {
             "name": "Monoka",
-            "role": ["Illustration-Artist"],
+            "roles": ["Illustration-Artist"],
             "quote": ""
         },
         {
             "name": "Rei",
-            "role": ["Sponsor"],
+            "roles": ["Sponsor"],
             "quote": "Keep Moving Forward"
         },
         {
             "name": "bibom10",
-            "role": ["Sponsor"],
+            "roles": ["Sponsor"],
             "quote": "For the Doctors, by the Doctors!"
         },
         {
             "name": "Phổ Lang",
-            "role": ["Sponsor"],
+            "roles": ["Sponsor"],
             "quote": "New merch is coming!!\nSeize firmly your wallet"
         },
         {
             "name": "Staug",
-            "role": ["Donator"],
+            "roles": ["Donator"],
             "quote": "NOT EXIST"
         },
         {
             "name": "Higato",
-            "role": ["Donator"],
+            "roles": ["Donator"],
             "quote": ""
         },
         {
             "name": "Kazaha Kamito",
-            "role": ["Donator"],
+            "roles": ["Donator"],
             "quote": ""
         },
         {
             "name": "Admin CED",
-            "role": ["Donator"],
+            "roles": ["Donator"],
             "quote": ""
         },
         {
             "name": "Cerberose",
-            "role": ["IT"],
+            "roles": ["IT"],
             "quote": "I don't even play Arknights"
         },
         {
             "name": "Ｈｙｐｅｒ－Ｖ△",
-            "role": ["Photographer"],
+            "roles": ["Photographer"],
             "quote": "Làm tí 1 shoot nhom nhom bạn eyyyy"
         },
         {
             "name": "Satoh Nguyễn",
-            "role": ["Photographer"],
+            "roles": ["Photographer"],
             "quote": ""
         },
         {
             "name": "Moorce",
-            "role": ["Video-Editor"],
+            "roles": ["Video-Editor"],
             "quote": ""
         },
         {
             "name": "Hoaq",
-            "role": ["Vietnam-Community-League"],
+            "roles": ["Vietnam-Community-League"],
             "quote": ""
         },
         {
             "name": "Orei",
-            "role": ["Vietnam-Community-League"],
+            "roles": ["Vietnam-Community-League"],
             "quote": ""
         },
         {
             "name": "HieuTrungMc",
-            "role": ["Vietnam-Community-League"],
+            "roles": ["Vietnam-Community-League"],
             "quote": ""
         },
         {
             "name": "Phoeni",
-            "role": ["Vietnam-Community-League"],
+            "roles": ["Vietnam-Community-League"],
             "quote": ""
         },
         {
             "name": "Syalis",
-            "role": ["Offline-2024-Leader"],
+            "roles": ["Offline-2024-Leader"],
             "quote": ""
         },
         {
             "name": "Akihito",
-            "role": ["Offline-2024-Staff"],
+            "roles": ["Offline-2024-Staff"],
             "quote": ""
         },
         {
             "name": "Ekkusu Hikari",
-            "role": ["Offline-2024-Staff"],
+            "roles": ["Offline-2024-Staff"],
             "quote": ""
         }
     ]

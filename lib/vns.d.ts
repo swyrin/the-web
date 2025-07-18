@@ -1,7 +1,7 @@
 export type CrewMember = {
     name: string;
     quote: string;
-    role: string[];
+    roles: string[];
 };
 
 export type OperatorClass = "vanguard" | "guard" | "specialist" | "sniper" | "caster" | "medic" | "supporter" | "defender";
