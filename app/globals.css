@@ -102,6 +102,11 @@
     @apply bg-purple-300;
     @apply text-purple-900;
 }
+
+.Artist {
+    @apply bg-blue-300;
+    @apply text-black;
+}
 /* Stuffs */
 
 .embla {
