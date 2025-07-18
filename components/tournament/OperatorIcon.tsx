@@ -73,7 +73,7 @@ function OperatorIcon(props: OperatorIconProps) {
             <div className={"flex flex-col space-x-0 mt-4 justify-center items-center"}>
                 {props.isPortrait && (
                     <Image
-                        src={`/operator/classes/${props.operator.class}.png`}
+                        src={`/operator/classes/${props.operator.class.toLowerCase()}.png`}
                         width={48}
                         height={48}
                         alt={"class"}
