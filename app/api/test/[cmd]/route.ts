@@ -34,7 +34,7 @@ export async function POST(
                 return NextResponse.json(
                     { pingStatus: "ok" },
                     { status: 200 },
-                )
+                );
         }
     } catch (error) {
         return NextResponse.json({ error });
