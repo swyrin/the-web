@@ -13,6 +13,7 @@ const mainFont = VNS_Font({
 export const metadata: Metadata = {
     metadataBase: new URL("https://dreamchasers.akvns.org"),
     title: "Dreamchasers @ 2025",
+    description: "For the Doctors, by the Doctors.",
     authors: [
         {
             name: "Trạm dừng chân chốn Terra",

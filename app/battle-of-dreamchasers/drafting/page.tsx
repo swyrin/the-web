@@ -1,51 +1,31 @@
 "use client";
 
-import type { RealtimeChannel } from "@supabase/supabase-js";
 import type { Terra } from "@/lib/supabase/terra";
-import type { OperatorClass } from "@/lib/vns";
+import type { OperatorClass, OperatorRarity } from "@/lib/vns";
 import Fuse from "fuse.js";
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PageTitle from "@/components/PageTitle";
 import ClassIcon from "@/components/tournament/ClassIcon";
 import OperatorIcon from "@/components/tournament/OperatorIcon";
+import { useTimer } from "@/lib/hooks/useTimer";
 import { supabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
 import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
 
-type TimerState = "stopped" | "running" | "paused";
-
-type TimerData = {
-    state: TimerState;
-    remaining_time: number;
-    started_at: number | null;
-    paused_at: number | null;
-    updated_at: number;
-    calculated_remaining_time?: number;
-};
-
 type Operator = Terra["public"]["Tables"]["operators_v2"]["Row"];
-type SelectedOperator = Pick<Operator, "name" | "rarity" | "archetype" | "profession" | "charid">;
+type SelectedOperator = Pick<Operator, "name" | "rarity" | "profession" | "charid">;
+type OperatorClassSelection = "ALL" | OperatorClass;
 
 export default function DraftingPage() {
     const [operatorNameSearch, setOperatorNameSearch] = useState("");
     const [selectedRarity, setSelectedRarity] = useState(6);
-    const [selectedClass, setSelectedClass] = useState<OperatorClass>("ALL");
+    const [selectedClass, setSelectedClass] = useState<OperatorClassSelection>("ALL");
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
     const [isSbConnected, setIsSbConnected] = useState(false);
-    const [timerData, setTimerData] = useState<TimerData>({
-        state: "stopped",
-        remaining_time: 60,
-        started_at: null,
-        paused_at: null,
-        updated_at: Date.now(),
-    });
-    const [isRealtimeConnected, setIsRealtimeConnected] = useState(false);
-    const [isTimerLoaded, setIsTimerLoaded] = useState(false);
-
-    const timerChannelRef = useRef<RealtimeChannel | null>(null);
+    const { isRealtimeConnected, isTimerLoaded, timerData, getDisplayTime, formatTime } = useTimer();
 
     // #region operator selection
     const fuse = useMemo(() => {
@@ -137,7 +117,7 @@ export default function DraftingPage() {
     // #region Eye of Priestess
     // check if Eye of Priestess is connectable
     useEffect(() => {
-        (async function () {
+        (async () => {
             const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
             const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
@@ -159,7 +139,7 @@ export default function DraftingPage() {
         if (!isSbConnected)
             return;
 
-        (async function () {
+        (async () => {
             const { data } = await supabase
                 .from("banned_operators")
                 .select("id");
@@ -217,7 +197,7 @@ export default function DraftingPage() {
         if (bannedOperators.length === 0 || !isSbConnected)
             return;
 
-        (async function () {
+        (async () => {
             // backup
             const { data } = await supabase.from("member_vote").select("id,since");
             if (data != null)
@@ -234,7 +214,7 @@ export default function DraftingPage() {
         if (!isSbConnected)
             return;
 
-        (async function () {
+        (async () => {
             const { data: operators } = await supabase.from("operators_v2").select("name,charid,rarity,profession,archetype");
             if (operators) {
                 setOperators(operators);
@@ -242,120 +222,6 @@ export default function DraftingPage() {
         })();
     }, [isSbConnected]);
     // #endregion Eye of Priestess
-
-    // #region Truckload of hell synchronization issues
-    useEffect(() => {
-        const initialFetch = async () => {
-            try {
-                const response = await fetch("/api/timer/status");
-                const result = await response.json();
-
-                if (response.ok && result.timer) {
-                    const timerFromAPI = {
-                        state: result.timer.state,
-                        remaining_time: result.timer.remaining_time,
-                        started_at: result.timer.started_at ? new Date(result.timer.started_at).getTime() : null,
-                        paused_at: result.timer.paused_at ? new Date(result.timer.paused_at).getTime() : null,
-                        updated_at: new Date(result.timer.updated_at).getTime(),
-                        calculated_remaining_time: result.timer.calculated_remaining_time,
-                    };
-
-                    setTimerData(timerFromAPI);
-                    setIsTimerLoaded(true);
-                }
-            } catch (error) {
-                console.error("Failed to fetch initial timer status:", error);
-            }
-        };
-
-        initialFetch();
-
-        const channel = supabase.channel("timer-state-changes-drafting")
-            .on("postgres_changes", {
-                event: "*",
-                schema: "public",
-                table: "timer_state",
-                filter: "id=eq.main_timer",
-            }, (payload) => {
-                console.info("Drafting page received timer state change:", payload);
-                if (payload.new && typeof payload.new === "object") {
-                    const newTimer = payload.new as any;
-
-                    const remainingTime = Number(newTimer.remaining_time);
-                    if (!Number.isFinite(remainingTime) || remainingTime < 0) {
-                        console.warn("Invalid remaining_time received:", newTimer.remaining_time);
-                        return;
-                    }
-
-                    let calculatedRemainingTime = remainingTime;
-                    if (newTimer.state === "running" && newTimer.started_at) {
-                        const startTime = new Date(newTimer.started_at).getTime();
-                        if (Number.isFinite(startTime)) {
-                            const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                            calculatedRemainingTime = Math.max(0, remainingTime - elapsed);
-                        }
-                    }
-
-                    if (!Number.isFinite(calculatedRemainingTime)) {
-                        console.warn("Invalid calculated remaining time:", calculatedRemainingTime);
-                        calculatedRemainingTime = remainingTime;
-                    }
-
-                    const updatedTimerData = {
-                        state: newTimer.state || "stopped",
-                        remaining_time: remainingTime,
-                        started_at: newTimer.started_at ? new Date(newTimer.started_at).getTime() : null,
-                        paused_at: newTimer.paused_at ? new Date(newTimer.paused_at).getTime() : null,
-                        updated_at: new Date(newTimer.updated_at).getTime(),
-                        calculated_remaining_time: calculatedRemainingTime,
-                    };
-
-                    setTimerData(updatedTimerData);
-                    setIsTimerLoaded(true);
-                }
-            })
-            .subscribe((status) => {
-                setIsRealtimeConnected(status === "SUBSCRIBED");
-            });
-
-        timerChannelRef.current = channel;
-
-        return () => {
-            supabase.removeChannel(channel);
-            setIsRealtimeConnected(false);
-        };
-    }, [isSbConnected]);
-
-    // timer update loop.
-    useEffect(() => {
-        if (timerData.state !== "running")
-            return;
-
-        const interval = setInterval(() => {
-            setTimerData((prev) => {
-                if (prev.state !== "running" || !prev.started_at)
-                    return prev;
-
-                const elapsed = Math.floor((Date.now() - prev.started_at) / 1000);
-                const newRemainingTime = Math.max(0, prev.remaining_time - elapsed);
-
-                // don't know why NaN:NaN occurs, but
-                // this is insane fr fr no cap
-                if (!Number.isFinite(newRemainingTime)) {
-                    console.warn("Invalid remaining time calculated:", newRemainingTime);
-                    return prev;
-                }
-
-                return {
-                    ...prev,
-                    calculated_remaining_time: newRemainingTime,
-                };
-            });
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, [timerData.state, timerData.started_at, timerData.remaining_time]);
-    // #endregion Real-time timer synchronization
 
     // #region data backup, must be last hook because React effects are LIFO
     useEffect(() => {
@@ -400,25 +266,8 @@ export default function DraftingPage() {
     }, [selectedOperators]);
     // #endregion data backup
 
-    function formatTime(seconds: number) {
-        const totalSec = Math.max(0, Math.floor(seconds));
-        const minutes = Math.floor(totalSec / 60);
-        const remainingSeconds = totalSec % 60;
-
-        return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
-    }
-
-    function getDisplayTime(): number {
-        // Always prioritize calculated_remaining_time when available
-        if (timerData.calculated_remaining_time !== undefined && Number.isFinite(timerData.calculated_remaining_time)) {
-            return timerData.calculated_remaining_time;
-        }
-        // Fallback to the base remaining_time from timerData
-        return timerData.remaining_time;
-    }
-
     return (
-        <div className={"h-visible vns-background flex flex-col relative"}>
+        <div className={"h-[calc(100vh)] vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle title={"Ban pick"} favorText={""} dark />
@@ -428,17 +277,21 @@ export default function DraftingPage() {
                 className={"flex flex-col items-center justify-center gap-y-4 text-base-content mb-4"}
                 data-theme={"dark"}
             >
-                <div className={`flex text-sm font-bold`}>
-                    <div className={`${isSbConnected ? "text-green-300" : "text-red-300"}`}>
+                <div className={`lg:hidden flex text-sm font-bold`}>
+                    <div>
                         Terra #0:
                         {" "}
-                        {isSbConnected ? "Online" : "Offline"}
+                        <span className={`${isSbConnected ? "text-green-300" : "text-red-300"}`}>
+                            {isSbConnected ? "Online" : "Offline"}
+                        </span>
                     </div>
                     <div className={"mx-2"}>|</div>
-                    <div className={`${isRealtimeConnected ? "text-green-300" : "text-red-300"}`}>
+                    <div>
                         Terra #1:
                         {" "}
-                        {isRealtimeConnected ? "Online" : "Offline"}
+                        <span className={`${isRealtimeConnected ? "text-green-300" : "text-red-300"}`}>
+                            {isRealtimeConnected ? "Online" : "Offline"}
+                        </span>
                     </div>
                 </div>
                 <div className={"hidden lg:block text-base-content text-3xl font-bold"}>
@@ -493,16 +346,15 @@ export default function DraftingPage() {
                         <ClassIcon operatorClass={"defender"} active={selectedClass === "defender"} onClick={() => handleClassSelection("defender")} />
                         <ClassIcon operatorClass={"vanguard"} active={selectedClass === "vanguard"} onClick={() => handleClassSelection("vanguard")} />
                     </div>
-                    <div className={"grid grid-cols-5 gap-4 h-[25vh] overflow-y-auto px-4 content-start"}>
+                    <div className={"grid grid-cols-5 space-x-2 space-y-4 h-[25vh] overflow-y-auto content-start"}>
                         {filteredOperators.map(operator => (
                             <OperatorIcon
                                 key={operator.charid}
                                 operator={{
                                     id: operator.charid,
                                     name: operator.name,
-                                    rarity: operator.rarity,
+                                    rarity: operator.rarity as OperatorRarity,
                                     class: operator.profession as OperatorClass,
-                                    subclass: operator.archetype,
                                 }}
                                 isSelected={selectedOperators.includes(operator.charid)}
                                 isBanned={bannedOperators.includes(operator.charid)}
@@ -533,9 +385,8 @@ export default function DraftingPage() {
                                                         operator={{
                                                             id: selectedOp.charid,
                                                             name: selectedOp.name,
-                                                            rarity: selectedOp.rarity,
+                                                            rarity: selectedOp.rarity as OperatorRarity,
                                                             class: selectedOp.profession as OperatorClass,
-                                                            subclass: selectedOp.archetype,
                                                         }}
                                                         isSelected={false}
                                                         onClickFn={() => removeSelectedOperator(selectedCharId)}
