@@ -1,13 +1,20 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { ApiElevatedBody } from "@/lib/vns";
 
-type testCommand = "auth" | "ping";
+type TestCommand = "auth" | "ping";
 
+/**
+ * Send a test signal.
+ *
+ * @param request The request with the token.
+ * @returns The signal response.
+ */
 export async function POST(
     request: NextRequest,
     { params }: { params: Promise<{ cmd: string }> },
 ) {
-    const body = await request.json() || null;
+    const body = ApiElevatedBody.parse(await request.json());
     if (!body.token || body.token !== process.env.SECRET_CODE) {
         return NextResponse.json(
             { error: "Unauthorized" },
@@ -22,7 +29,7 @@ export async function POST(
                 { status: 400 },
             );
         }
-        const command = cmd as testCommand;
+        const command = cmd as TestCommand;
         switch (command) {
             case "auth":
                 return NextResponse.json(

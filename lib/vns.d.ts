@@ -1,3 +1,5 @@
+import z from "zod";
+
 export type CrewMember = {
     name: string;
     quote: string;
@@ -13,3 +15,7 @@ export type Operator = {
     rarity: OperatorRarity;
     class: OperatorClass;
 };
+
+export const ApiElevatedBody = z.object({
+    token: z.string().nonempty(),
+});

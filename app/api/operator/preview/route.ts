@@ -1,8 +1,12 @@
-import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { getHighestVotedOperator } from "@/app/api/lib/operator-utils";
+import { getHighestVotedOperator } from "@/app/api/operator/utils/operator-utils";
 
-export async function GET(_request: NextRequest) {
+/**
+ * Get the (current) highest voted operator.
+ *
+ * @returns The highest voted operator, at the time of request.
+ */
+export async function GET() {
     try {
         const highestVoted = await getHighestVotedOperator();
 

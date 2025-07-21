@@ -1,4 +1,4 @@
-import { elevatedSupabase } from "@/app/api/lib/elevated-supabase";
+import { elevatedSupabase } from "@/lib/supabase/elevated-client";
 
 export type VoteCount = {
     charid: string;

@@ -1,7 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { elevatedSupabase } from "@/app/api/lib/elevated-supabase";
+import { elevatedSupabase } from "@/lib/supabase/elevated-client";
+import { ApiElevatedBody } from "@/lib/vns";
 
 const TIMER_ID = "main_timer";
 const DEFAULT_DURATION = 60;
@@ -18,9 +19,8 @@ type TimerData = {
     updated_at: string;
 };
 
-const TimerRequest = z.object({
-    token: z.string(),
-    time: z.number().optional(),
+const TimerRequest = ApiElevatedBody.extend({
+    time: z.number().nonnegative().optional(),
 });
 
 function calculateRemainingTime(timer: TimerData): number {

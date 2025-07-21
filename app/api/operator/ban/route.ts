@@ -1,8 +1,14 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { elevatedSupabase } from "@/app/api/lib/elevated-supabase";
-import { getHighestVotedOperator } from "@/app/api/lib/operator-utils";
+import { getHighestVotedOperator } from "@/app/api/operator/utils/operator-utils";
+import { elevatedSupabase } from "@/lib/supabase/elevated-client";
 
+/**
+ * Delete operator with highest votes.
+ *
+ * @param request The request body.
+ * @returns The deleted operator.
+ */
 export async function DELETE(request: NextRequest) {
     try {
         const body = await request.json();
