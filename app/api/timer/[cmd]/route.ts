@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 import { elevatedSupabase } from "@/app/api/lib/elevated-supabase";
 
 const TIMER_ID = "main_timer";
@@ -17,6 +18,11 @@ type TimerData = {
     updated_at: string;
 };
 
+const TimerRequest = z.object({
+    token: z.string(),
+    time: z.number().optional(),
+});
+
 function calculateRemainingTime(timer: TimerData): number {
     if (timer.state !== "running" || !timer.started_at) {
         return timer.remaining_time;
@@ -32,7 +38,7 @@ export async function POST(
     request: NextRequest,
     { params }: { params: Promise<{ cmd: string }> },
 ) {
-    const body = await request.json();
+    const body = TimerRequest.parse(await request.json());
 
     if (!body.token || body.token !== process.env.SECRET_CODE) {
         return NextResponse.json(
@@ -52,6 +58,7 @@ export async function POST(
         }
 
         const command = cmd as TimerCommand;
+        const customTime = body.time ?? DEFAULT_DURATION;
         const now = new Date().toISOString();
 
         // Get current timer state
@@ -78,7 +85,7 @@ export async function POST(
                 timerData = {
                     id: TIMER_ID,
                     state: "running",
-                    remaining_time: DEFAULT_DURATION,
+                    remaining_time: customTime,
                     started_at: now,
                     paused_at: null,
                     updated_at: now,
@@ -129,7 +136,7 @@ export async function POST(
                 timerData = {
                     id: TIMER_ID,
                     state: "stopped",
-                    remaining_time: DEFAULT_DURATION,
+                    remaining_time: customTime,
                     started_at: null,
                     paused_at: null,
                     updated_at: now,
