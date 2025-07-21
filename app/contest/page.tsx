@@ -25,9 +25,9 @@ export default function OverviewPage() {
                     buổi chương trình!
                 </div>
                 <div className={"grid grid-cols-1 md:grid-cols-3 space-y-4 md:space-x-8 justify-center"}>
-                    <Link href={"/battle-of-dreamchasers/rules"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Tổng quan</Link>
-                    <Link href={"/battle-of-dreamchasers/scoring"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Tính điểm</Link>
-                    <Link href={"/battle-of-dreamchasers/prizes"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Giải thưởng</Link>
+                    <Link href={"/contest/rules"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Tổng quan</Link>
+                    <Link href={"/contest/scoring"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Tính điểm</Link>
+                    <Link href={"/contest/prizes"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Giải thưởng</Link>
                 </div>
                 <Image src={TournamentLogo} alt={"Tournament Logo"} className={"relative"} />
             </div>
