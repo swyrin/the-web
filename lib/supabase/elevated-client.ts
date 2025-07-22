@@ -5,7 +5,7 @@ import { createClient } from "@supabase/supabase-js";
  *
  * Use this when you are dying inside from RLS
  * and you are ***explicitly*** instructed by Đụt.
- * 
+ *
  * Otherwise, prepare to get roasted hard.
  */
 export const elevatedSupabase = createClient<Terra>(
