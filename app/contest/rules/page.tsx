@@ -64,7 +64,7 @@ export default function RulePage() {
                                 className={"embla__slide flex flex-col items-center justify-center gap-4 px-4"}
                             >
                                 <Image
-                                    src={"/tournament/regulations/tournament-rule-1.png"}
+                                    src={"/tournament/regulations/tournament-rule-1.jpg"}
                                     alt={"Rule 1"}
                                     width={1600}
                                     height={1000}
@@ -84,7 +84,7 @@ export default function RulePage() {
                             >
                                 <div className={"flex max-w-[420px] flex-row flex-wrap"}>
                                     <Image
-                                        src={"/tournament/regulations/amiya-char.png"}
+                                        src={"/tournament/regulations/amiya-char.jpg"}
                                         alt={"Amiya Medic"}
                                         width={320}
                                         height={640}
@@ -220,7 +220,7 @@ export default function RulePage() {
                                         className={"flex h-full w-full max-w-[120px] flex-col justify-between gap-2 sm:w-1/3"}
                                     >
                                         <Image
-                                            src={"/tournament/regulations/tournament-rule-3-1.png"}
+                                            src={"/tournament/regulations/tournament-rule-3-1.jpg"}
                                             alt={"Leak địch"}
                                             width={320}
                                             height={640}
@@ -234,7 +234,7 @@ export default function RulePage() {
                                         className={"flex h-full w-full max-w-[120px] flex-col justify-between gap-2 sm:w-1/3"}
                                     >
                                         <Image
-                                            src={"/tournament/regulations/tournament-rule-3-2.png"}
+                                            src={"/tournament/regulations/tournament-rule-3-2.jpg"}
                                             alt={"Pause / Pause trick"}
                                             width={320}
                                             height={640}
@@ -248,7 +248,7 @@ export default function RulePage() {
                                         className={"flex h-full w-full max-w-[120px] flex-col justify-between gap-2 sm:w-1/3"}
                                     >
                                         <Image
-                                            src={"/tournament/regulations/tournament-rule-3-3.png"}
+                                            src={"/tournament/regulations/tournament-rule-3-3.jpg"}
                                             alt={"Điều chỉnh tốc độ"}
                                             width={320}
                                             height={640}

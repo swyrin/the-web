@@ -1,6 +1,6 @@
 import PageTitle from "@/components/PageTitle";
 import RetroItem from "@/components/RetroItem";
-import Dreamchasers from "@/public/retro/dreamchasers/Dreamchasers.png";
+import Dreamchasers from "@/public/retro/dreamchasers/dreamchasers.jpg";
 import TheShowMustGoOn from "@/public/retro/the-show-must-go-on/the-show-must-go-on.jpg";
 
 export default function RetroPage() {

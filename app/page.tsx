@@ -6,12 +6,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import OrganizerImage from "@/components/OrganizerImage";
 import DRCH_Banner from "@/public/DRCH_Banner_Group.png";
-import BG_1 from "@/public/landing-bg/BG_1.png";
-import BG_2 from "@/public/landing-bg/BG_2.png";
-import BG_3 from "@/public/landing-bg/BG_3.png";
-import BG_4 from "@/public/landing-bg/BG_4.png";
-import BG_5 from "@/public/landing-bg/BG_5.png";
-import BG_6 from "@/public/landing-bg/BG_6.png";
 import Jiangles_Banner from "@/public/organizers/jiangles_banner.png";
 import ModSquad_Banner from "@/public/organizers/mod_squad_banner.png";
 import VNS_Banner from "@/public/organizers/vns_banner.png";
@@ -24,7 +18,6 @@ type TimeLeft = {
 };
 
 export default function Home() {
-    const images = [BG_1, BG_2, BG_3, BG_4, BG_5, BG_6];
     const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
     const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -58,14 +51,14 @@ export default function Home() {
             {/* Embla Carousel Autoplay Section */}
             <div className={"embla absolute inset-0 z-0 h-full w-full"} ref={emblaRef}>
                 <div className={"embla__container h-full w-full"}>
-                    {images.map((img, idx) => (
-                        <div className={"embla__slide relative h-full w-full"} key={img.src}>
+                    {[1, 2, 3, 4, 5, 6].map((img) => (
+                        <div className={"embla__slide relative h-full w-full"} key={img}>
                             <Image
-                                src={img}
-                                alt={`Banner ${idx + 1}`}
+                                src={`/landing-bg/BG_${img}.jpg`}
+                                alt={`Banner ${img + 1}`}
                                 fill
                                 style={{ objectFit: "cover" }}
-                                priority={idx === 0}
+                                priority={img === 0}
                             />
                         </div>
                     ))}

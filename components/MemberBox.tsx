@@ -6,7 +6,7 @@ export default function MemberBox(props: CrewMember) {
         <div className={"mb-4 flex max-h-64 min-w-64 flex-col gap-y-2 items-center"}>
             <Image
                 className={"ring-1 ring-white/50 rounded-full"}
-                src={`/crew/${props.name}.png`}
+                src={`/crew/${props.name}.jpg`}
                 width={100}
                 height={100}
                 alt={"VNS_Crew"}
