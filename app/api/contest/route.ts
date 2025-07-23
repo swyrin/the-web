@@ -1,4 +1,4 @@
-import type { NextRequest } from "next/server";
+import { google } from "googleapis";
 import { NextResponse } from "next/server";
 
 /**
@@ -7,21 +7,41 @@ import { NextResponse } from "next/server";
  * @returns Contestant scores, sorted descending.
  */
 export async function GET() {
-    return NextResponse.json(
-        { message: "" },
-        { status: 200 },
-    );
-}
+    const auth = new google.auth.GoogleAuth({
+        credentials: {
+            private_key: process.env.GOOGLE_PRIVATE_KEY!.replace(/\\n/g, "\n"),
+            client_email: process.env.GOOGLE_CLIENT_EMAIL,
+        },
+        scopes: [
+            "https://www.googleapis.com/auth/spreadsheets",
+        ],
+    });
 
-/**
- * Add a contestant score.
- *
- * @param _request The request with the body.
- * @returns Nothing, really.
- */
-export async function POST(_request: NextRequest) {
+    const sheets = google.sheets({
+        auth,
+        version: "v4",
+    });
+
+    const response = await sheets.spreadsheets.values.get({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: process.env.GOOGLE_SHEET_RANGE,
+    });
+
+    let data: { id: number; score: number; rank: number }[] = [];
+
+    response.data.values!.forEach((x) => {
+        data.push({
+            id: Number.parseInt(x[1]),
+            score: Number.parseFloat(x[15]),
+            rank: Number.parseInt(x[16]),
+        });
+    });
+
+    data = data.filter(x => !Number.isNaN(x.id));
+    data = data.sort((a, b) => b.score - a.score);
+
     return NextResponse.json(
-        { message: "" },
+        { message: data },
         { status: 200 },
     );
 }
