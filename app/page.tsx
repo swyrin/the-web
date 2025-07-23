@@ -51,7 +51,7 @@ export default function Home() {
             {/* Embla Carousel Autoplay Section */}
             <div className={"embla absolute inset-0 z-0 h-full w-full"} ref={emblaRef}>
                 <div className={"embla__container h-full w-full"}>
-                    {[1, 2, 3, 4, 5, 6].map((img) => (
+                    {[1, 2, 3, 4, 5, 6].map(img => (
                         <div className={"embla__slide relative h-full w-full"} key={img}>
                             <Image
                                 src={`/landing-bg/BG_${img}.jpg`}

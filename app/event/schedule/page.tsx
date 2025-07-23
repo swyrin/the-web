@@ -7,7 +7,7 @@ export default function SchedulePage() {
         <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"text-center hero-content"}>
-                    <PageTitle title={"Lịch trình"} favorText={""} dark />
+                    <PageTitle title={"Timeline sự kiện"} favorText={"Các sự kiện sẽ diễn ra trong offline"} dark />
                 </div>
             </div>
             <div className={"flex flex-1/2 flex-col justify-center items-center"} data-theme={"dark"}>

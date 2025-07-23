@@ -141,8 +141,8 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
     ];
 
     const eventItems = [
-        { href: "/event/timeline", label: "Timeline" },
-        { href: "/event/schedule", label: "Lịch trình" },
+        { href: "/event/roadmap", label: "Lịch trình" },
+        { href: "/event/schedule", label: "Timeline sự kiện" },
         { href: "/event/location", label: "Địa điểm" },
         { href: "/event/rules", label: "Nội quy" },
     ];
