@@ -12,7 +12,7 @@ type ImageGalleryProps = {
 export default function ImageGallery({
     albumPath,
     imageCount,
-    extension = "jpg",
+    extension = "png",
 }: ImageGalleryProps) {
     const images = Array.from(
         { length: imageCount },
@@ -34,8 +34,8 @@ export default function ImageGallery({
                         <Image
                             src={src}
                             alt={""}
-                            width={900}
-                            height={1200}
+                            width={854}
+                            height={480}
                             className={"block object-cover"}
                             priority
                         />

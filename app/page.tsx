@@ -7,11 +7,11 @@ import { useEffect, useState } from "react";
 import OrganizerImage from "@/components/OrganizerImage";
 import DRCH_Banner from "@/public/DRCH_Banner_Group.png";
 import BG_1 from "@/public/landing-bg/BG_1.png";
-import BG_2 from "@/public/landing-bg/BG_2.jpg";
-import BG_3 from "@/public/landing-bg/BG_3.jpg";
-import BG_4 from "@/public/landing-bg/BG_4.jpg";
-import BG_5 from "@/public/landing-bg/BG_5.jpg";
-import BG_6 from "@/public/landing-bg/BG_6.jpg";
+import BG_2 from "@/public/landing-bg/BG_2.png";
+import BG_3 from "@/public/landing-bg/BG_3.png";
+import BG_4 from "@/public/landing-bg/BG_4.png";
+import BG_5 from "@/public/landing-bg/BG_5.png";
+import BG_6 from "@/public/landing-bg/BG_6.png";
 import Jiangles_Banner from "@/public/organizers/jiangles_banner.png";
 import ModSquad_Banner from "@/public/organizers/mod_squad_banner.png";
 import VNS_Banner from "@/public/organizers/vns_banner.png";
@@ -73,7 +73,7 @@ export default function Home() {
             </div>
             <div className={"hero-overlay z-0"}></div>
             <div className={"hero-content flex flex-col place-content-center-safe"}>
-                <Image src={DRCH_Banner} alt={"DRCH"} height={185} />
+                <Image src={DRCH_Banner} alt={"DRCH"} width={708} height={185} />
 
                 <div className={"text-center px-4"}>
                     <div className={"text-white mb-2 text-xl font-extrabold"}>Sự kiện sẽ bắt đầu trong</div>

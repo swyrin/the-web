@@ -40,8 +40,8 @@ export default function NavBar() {
                     <Image
                         src={DRCH_Logo}
                         alt={"DRCH_logo"}
-                        width={49}
-                        height={49}
+                        width={50}
+                        height={50}
                         loading={"eager"}
                         priority
                     />

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PageTitle from "@/components/PageTitle";
-import Mcafe from "@/public/MCafe_Entry.jpg";
+import Mcafe from "@/public/MCafe_Entry.png";
 
 export default function LocationPage() {
     return (
