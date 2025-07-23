@@ -12,7 +12,7 @@ type ImageGalleryProps = {
 export default function ImageGallery({
     albumPath,
     imageCount,
-    extension = "png",
+    extension = "jpg",
 }: ImageGalleryProps) {
     const images = Array.from(
         { length: imageCount },
