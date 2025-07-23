@@ -35,7 +35,7 @@ function CrewList(props: HRListProps) {
                     })}
                 </div>
                 <div
-                    className={"grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"}
+                    className={"grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4"}
                 >
                     {remainingMembers.map((member) => {
                         return (
@@ -52,7 +52,7 @@ function CrewList(props: HRListProps) {
             </div>
             {/* The other-than-hell layout. */}
             <div
-                className={"grid place-content-center-safe grid-cols-1 md:grid-cols-3 lg:hidden lg:grid-cols-5"}
+                className={"grid place-content-center-safe grid-cols-1 md:grid-cols-3 lg:hidden lg:grid-cols-4"}
             >
                 {props.members.map((member) => {
                     return (
@@ -70,7 +70,7 @@ function PartnerList(props: HRListProps) {
     return (
         <>
             <div
-                className={"grid place-content-center-safe grid-cols-1 md:grid-cols-3 lg:grid-cols-5"}
+                className={"grid place-content-center-safe grid-cols-1 md:grid-cols-3 lg:grid-cols-4"}
             >
                 {props.members.map((member) => {
                     return (
