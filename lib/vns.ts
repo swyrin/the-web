@@ -1,5 +1,3 @@
-import z from "zod";
-
 export type CrewMember = {
     name: string;
     quote: string;
@@ -16,6 +14,13 @@ export type Operator = {
     class: OperatorClass;
 };
 
-export const ApiElevatedBody = z.object({
-    token: z.string().nonempty(),
-});
+export type ApiElevatedBody = {
+    token: string;
+};
+
+export type ContestantInfo = {
+    number: number;
+    name: string;
+    score: number;
+    rank: number;
+};

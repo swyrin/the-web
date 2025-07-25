@@ -1,3 +1,4 @@
+import type { ContestantInfo } from "@/lib/vns";
 import { google } from "googleapis";
 import { NextResponse } from "next/server";
 
@@ -27,17 +28,18 @@ export async function GET() {
         range: process.env.GOOGLE_SHEET_RANGE,
     });
 
-    let data: { id: number; score: number; rank: number }[] = [];
+    let data: ContestantInfo[] = [];
 
     response.data.values!.forEach((x) => {
         data.push({
-            id: Number.parseInt(x[1]),
+            number: Number.parseInt(x[0]),
+            name: x[1],
             score: Number.parseFloat(x[15]),
             rank: Number.parseInt(x[16]),
         });
     });
 
-    data = data.filter(x => !Number.isNaN(x.id));
+    data = data.filter(x => !Number.isNaN(x.number));
     data = data.sort((a, b) => b.score - a.score);
 
     return NextResponse.json(
