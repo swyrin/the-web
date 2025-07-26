@@ -150,7 +150,23 @@
 .tab-indicator:active {
     background-color: rgba(255, 255, 255, 0.1);
 }
-
+.ranking1{
+    background-color: #ac8700;
+}
+.ranking2{
+    background-color: #4c5057;
+}
+.ranking3{
+    background-color: #805d00;
+}
+.ranking4, .ranking5{
+}
+.ranking6, .ranking7, .ranking8{
+    opacity: 75%;
+}
+.ranking9, .ranking10{
+    opacity: 50%;
+}
 /* Add visual feedback for touch */
 @media (hover: none) and (pointer: coarse) {
     .tab-indicator:active {
