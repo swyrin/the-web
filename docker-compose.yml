@@ -15,8 +15,11 @@ services:
     container_name: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./.nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/nginx/ssl/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
+      - /etc/nginx/ssl/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
     depends_on:
       - dreamchasers
     restart: unless-stopped
