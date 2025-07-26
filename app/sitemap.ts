@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-
-const BASE_URL = "https://dreamchasers.akvns.org";
+import { BASE_URL } from "@/app/web-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     return [

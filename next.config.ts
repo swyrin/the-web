@@ -1,19 +1,19 @@
 import type { NextConfig } from "next";
+import { BASE_URL } from "@/app/web-config";
 
 const nextConfig: NextConfig = {
     reactStrictMode: true,
     output: "standalone",
-    eslint: {
-        ignoreDuringBuilds: true,
+    images: {
+        unoptimized: true,
     },
     async headers() {
         return [
             {
                 source: "/api/:path*",
                 headers: [
-                    /* I don't need your cookie, for now. */
                     { key: "Access-Control-Allow-Credentials", value: "false" },
-                    { key: "Access-Control-Allow-Origin", value: "*" },
+                    { key: "Access-Control-Allow-Origin", value: BASE_URL },
                     { key: "Access-Control-Allow-Methods", value: "*" },
                     { key: "Access-Control-Allow-Headers", value: "*" },
                 ],

@@ -1,8 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Quicksand as VNS_Font } from "next/font/google";
-import NavBar from "@/components/navbar/NavBar";
+import { BASE_URL } from "@/app/web-config";
 
+import NavBar from "@/components/navbar/NavBar";
 import "./globals.css";
 
 const mainFont = VNS_Font({
@@ -11,7 +12,7 @@ const mainFont = VNS_Font({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL("https://dreamchasers.akvns.org"),
+    metadataBase: new URL(BASE_URL),
     title: "Dreamchasers @ 2025",
     description: "For the Doctors, by the Doctors.",
     authors: [
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
         },
     ],
     openGraph: {
-        url: "https://dreamchasers.akvns.org",
+        url: BASE_URL,
         title: "Dreamchasers @ 2025",
         siteName: "Arknights VNS - Dreamchasers",
         description: "For the Doctors, by the Doctors.",
