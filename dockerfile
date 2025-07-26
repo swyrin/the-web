@@ -1,20 +1,22 @@
 # syntax=docker/dockerfile:1
 
 # install dependencies
-FROM node:22-alpine AS deps
+FROM oven/bun:1.2.19-slim AS base
+
+FROM base AS deps
 WORKDIR /app
-COPY package.json package-lock.json* ./
-RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
+COPY package.json bun.lock ./
+RUN if [ -f bun.lock ]; then bun install --frozen-lockfile; else bun install; fi
 
 # build
-FROM node:22-alpine AS builder
+FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN bun run build
 
 # setup
-FROM node:22-alpine AS runner
+FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 RUN addgroup --system --gid 1001 nodejs
@@ -27,7 +29,4 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 # deploy
 USER nextjs
-EXPOSE 3000
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD ["bun", "server.js"]
