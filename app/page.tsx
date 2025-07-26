@@ -22,10 +22,9 @@ export default function Home() {
     const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
     useEffect(() => {
-        const targetDate = new Date("2025-08-10T09:15:00+07:00");
-
-        const updateCountdown = () => {
+        const interval = setInterval(() => {
             const now = new Date();
+            const targetDate = new Date("2025-08-10T09:15:00+07:00");
             const difference = targetDate.getTime() - now.getTime();
 
             if (difference > 0) {
@@ -38,10 +37,7 @@ export default function Home() {
             } else {
                 setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
             }
-        };
-
-        updateCountdown();
-        const interval = setInterval(updateCountdown, 1000);
+        }, 1000);
 
         return () => clearInterval(interval);
     }, []);

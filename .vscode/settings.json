@@ -20,9 +20,11 @@
     "[typescriptreact]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
+
     "files.exclude": {
         ".next": true,
         "package-lock.json": true,
+        "bun.lock": true,
         "node_modules": true
     },
 
@@ -30,6 +32,7 @@
     "files.associations": {
         "globals.css": "tailwindcss"
     },
+
     "editor.quickSuggestions": {
         "strings": "on"
     }

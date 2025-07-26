@@ -9,7 +9,6 @@ export default function robots(): MetadataRoute.Robots {
                 "/crew",
                 "/event/*",
                 "/retro/*",
-                "/tickets",
                 "/favicon.ico",
                 "/opengraph-image.jpg",
                 "/sitemap.xml",
@@ -17,6 +16,7 @@ export default function robots(): MetadataRoute.Robots {
             ],
             disallow: [
                 "/api/*",
+                "/tickets",
                 "/admin",
             ],
         },
