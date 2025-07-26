@@ -43,7 +43,7 @@ function OperatorIcon(props: OperatorIconProps) {
                 ? Arene
                 : `/operator/icons/${props.operator.id}.png`);
 
-    const width = props.isPortrait ? "" : "w-18";
+    const width = props.isPortrait ? "" : "w-20";
 
     return (
         <div

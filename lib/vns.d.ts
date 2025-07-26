@@ -4,7 +4,7 @@ export type CrewMember = {
     roles: string[];
 };
 
-export type OperatorClass = "vanguard" | "guard" | "specialist" | "sniper" | "caster" | "medic" | "supporter" | "defender";
+export type OperatorClass = "Vanguard" | "Guard" | "Specialist" | "Sniper" | "Caster" | "Medic" | "Supporter" | "Defender";
 export type OperatorRarity = 1 | 2 | 3 | 4 | 5 | 6;
 
 export type Operator = {

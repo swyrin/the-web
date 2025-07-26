@@ -1,26 +1,24 @@
 import type { OperatorClass } from "@/lib/vns";
 import Image from "next/image";
 
-function ClassIcon({
-    operatorClass,
-    active,
-    onClick,
-}: {
+type ClassIconProps = {
     operatorClass: OperatorClass;
     active: boolean;
     onClick?: () => void;
-}) {
+};
+
+function ClassIcon(props: ClassIconProps) {
     return (
         <div
-            className={`flex h-9 w-9 items-center justify-center ${active ? "border-2 bg-[#22BBFF]" : "bg-black"} `}
-            onClick={onClick}
+            className={`flex h-9 w-9 items-center justify-center border border-white/50 ${props.active ? "bg-blue-400" : "bg-black"} `}
+            onClick={props.onClick}
         >
             <Image
-                src={`/operator/classes/${operatorClass}.png`}
-                alt={operatorClass}
+                src={`/operator/classes/${props.operatorClass}.png`}
+                alt={props.operatorClass}
                 width={28}
                 height={28}
-                className={`object-contain w-auto ${active ? "grayscale invert" : ""} `}
+                className={`object-contain w-auto ${props.active ? "grayscale invert" : ""} `}
                 priority
             />
         </div>
