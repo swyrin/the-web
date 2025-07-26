@@ -13,8 +13,9 @@ export default function NavBar() {
     const pathname = usePathname();
 
     const doNotShow = [
-        "/battle-of-dreamchasers/banned-operators",
-        "/battle-of-dreamchasers/drafting",
+        "/contest/banned",
+        "/contest/democracy",
+        "/contest/standing",
         "/admin",
     ];
 

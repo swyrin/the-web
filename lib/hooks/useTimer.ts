@@ -42,8 +42,8 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
             try {
                 const response = await fetch("/api/timer/status");
                 const result = await response.json();
-                console.info(result);
-                console.info(result.timer);
+                // console.info(result);
+                // console.info(result.timer);
 
                 if (response.ok && result) {
                     const timerFromAPI = {
