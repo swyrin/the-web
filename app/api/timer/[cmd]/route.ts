@@ -1,8 +1,7 @@
 import type { NextRequest } from "next/server";
+import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { elevatedSupabase } from "@/lib/supabase/elevated-client";
-import { ApiElevatedBody } from "@/lib/vns";
 
 const TIMER_ID = "main_timer";
 const DEFAULT_DURATION = 60;
@@ -19,9 +18,9 @@ type TimerData = {
     updated_at: string;
 };
 
-const TimerRequest = ApiElevatedBody.extend({
-    time: z.number().nonnegative().optional(),
-});
+type TimerRequest = ApiElevatedBody & {
+    time: number;
+};
 
 function calculateRemainingTime(timer: TimerData): number {
     if (timer.state !== "running" || !timer.started_at) {
@@ -38,7 +37,7 @@ export async function POST(
     request: NextRequest,
     { params }: { params: Promise<{ cmd: string }> },
 ) {
-    const body = TimerRequest.parse(await request.json());
+    const body = await request.json() as TimerRequest;
 
     if (!body.token || body.token !== process.env.SECRET_CODE) {
         return NextResponse.json(

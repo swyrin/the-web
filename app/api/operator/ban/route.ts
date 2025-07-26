@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
 import { getHighestVotedOperator } from "@/app/api/operator/utils/operator-utils";
 import { elevatedSupabase } from "@/lib/supabase/elevated-client";
@@ -11,7 +12,7 @@ import { elevatedSupabase } from "@/lib/supabase/elevated-client";
  */
 export async function DELETE(request: NextRequest) {
     try {
-        const body = await request.json();
+        const body = await request.json() as ApiElevatedBody;
 
         if (!body.token || body.token !== process.env.SECRET_CODE) {
             return NextResponse.json(

@@ -1,3 +1,5 @@
+import type { NextRequest } from "next/server";
+import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
 import { getAggregatedVotes } from "@/app/api/operator/utils/operator-utils";
 import { elevatedSupabase } from "@/lib/supabase/elevated-client";
@@ -36,8 +38,17 @@ export async function GET() {
  *
  * You have been warned.
  */
-export async function DELETE() {
+export async function DELETE(request: NextRequest) {
     try {
+        const body = await request.json() as ApiElevatedBody;
+
+        if (!body.token || body.token !== process.env.SECRET_CODE) {
+            return NextResponse.json(
+                { error: "Unauthorized" },
+                { status: 401 },
+            );
+        }
+
         await elevatedSupabase.from("member_vote").delete().neq("vote_number", 0);
 
         return NextResponse.json({ message: "All votes wiped." }, { status: 200 });
