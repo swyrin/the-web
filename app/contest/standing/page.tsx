@@ -41,10 +41,10 @@ export default function OverviewPage() {
                     >
                         <thead>
                             <tr>
-                                <th className={"w-[100px] border p-8 text-4xl"}>Hạng</th>
-                                <th className={"w-[300px] border px-2 py-1 text-4xl"}>Tên</th>
-                                <th className={"w-[200px] border px-2 py-1 text-4xl"}>Mã số vé</th>
-                                <th className={"w-[300px] border px-2 py-1 text-4xl"}>Điểm</th>
+                                <th className={"w-[300px] border p-8 text-6xl"}>Hạng</th>
+                                <th className={"w-[300px] border p-8 text-6xl"}>Tên</th>
+                                <th className={"w-[300px] border p-8 text-6xl"}>Mã vé</th>
+                                <th className={"w-[300px] border p-8 text-6xl"}>Điểm</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,22 +53,16 @@ export default function OverviewPage() {
 
                                 switch (row.rank) {
                                     case 1:
-                                        style = "bg-amber-300 text-black";
+                                        style = "bg-teal-300/80 text-black";
                                         break;
                                     case 2:
-                                        style = "bg-gray-300 text-black";
+                                        style = "bg-amber-300/90 text-black";
                                         break;
                                     case 3:
-                                        style = "bg-orange-800";
+                                        style = "bg-gray-300/80 text-black";
                                         break;
-                                    case 6:
-                                    case 7:
-                                    case 8:
-                                        style = "opacity-75";
-                                        break;
-                                    case 9:
-                                    case 10:
-                                        style = "opacity-50";
+                                    default:
+                                        style = "bg-amber-700/80";
                                         break;
                                 }
 
@@ -77,10 +71,10 @@ export default function OverviewPage() {
                                         key={row.number}
                                         className={`${style}`}
                                     >
-                                        <td className={"border border-white px-2 py-1 text-2xl font-bold"}>{row.rank}</td>
-                                        <td className={"border border-white px-2 py-1 text-2xl"}>{row.name}</td>
-                                        <td className={"border border-white px-2 py-1 text-2xl"}>{row.number}</td>
-                                        <td className={"border border-white px-2 py-1 text-2xl"}>{row.score}</td>
+                                        <td className={"border border-white p-1 text-5xl font-bold"}>{row.rank}</td>
+                                        <td className={"border border-white p-1 text-5xl"}>{row.name}</td>
+                                        <td className={"border border-white p-1 text-5xl"}>{row.number}</td>
+                                        <td className={"border border-white p-1 text-5xl font-bold"}>{row.score}</td>
                                     </tr>
                                 );
                             })}
