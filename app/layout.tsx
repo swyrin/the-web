@@ -46,7 +46,7 @@ export default function RootLayout({
     children: ReactNode;
 }>) {
     return (
-        <html lang={"en"} data-theme={"light"}>
+        <html data-theme={"light"} lang={"en"}>
             <body className={`${mainFont.variable} font-[family-name:var(--font-vns)] antialiased`}>
                 <NavBar />
                 <div>{children}</div>

@@ -28,8 +28,8 @@ function CrewList(props: HRListProps) {
                             <MemberBox
                                 key={member.name}
                                 name={member.name}
-                                roles={member.roles}
                                 quote={member.quote}
+                                roles={member.roles}
                             />
                         );
                     })}
@@ -42,8 +42,8 @@ function CrewList(props: HRListProps) {
                             <div key={member.name} className={"w-full md:w-auto"}>
                                 <MemberBox
                                     name={member.name}
-                                    roles={member.roles}
                                     quote={member.quote}
+                                    roles={member.roles}
                                 />
                             </div>
                         );
@@ -52,12 +52,12 @@ function CrewList(props: HRListProps) {
             </div>
             {/* The other-than-hell layout. */}
             <div
-                className={"grid place-content-center-safe grid-cols-1 md:grid-cols-3 lg:hidden"}
+                className={"grid grid-cols-1 place-content-center-safe md:grid-cols-3 lg:hidden"}
             >
                 {props.members.map((member) => {
                     return (
                         <div key={member.name} className={"w-full md:w-auto"}>
-                            <MemberBox name={member.name} roles={member.roles} quote={member.quote} />
+                            <MemberBox name={member.name} quote={member.quote} roles={member.roles} />
                         </div>
                     );
                 })}
@@ -70,15 +70,15 @@ function PartnerList(props: HRListProps) {
     return (
         <>
             <div
-                className={"grid place-content-center-safe grid-cols-1 md:grid-cols-3 lg:grid-cols-4"}
+                className={"grid grid-cols-1 place-content-center-safe md:grid-cols-3 lg:grid-cols-4"}
             >
                 {props.members.map((member) => {
                     return (
                         <MemberBox
                             key={member.name}
                             name={member.name}
-                            roles={member.roles}
                             quote={member.quote}
+                            roles={member.roles}
                         />
                     );
                 })}
@@ -144,34 +144,34 @@ export default function CrewPage() {
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle
-                        title={"Tổ chức"}
-                        favorText={"Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."}
                         dark
+                        favorText={"Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."}
+                        title={"Tổ chức"}
                     />
                 </div>
             </div>
             {/* Desktop tabs - original design */}
             <div
-                className={"tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none lg:flex"}
+                className={"tabs-border sticky top-[70px] z-0 tabs hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none lg:flex"}
                 data-theme={"dark"}
             >
                 <input
-                    type={"radio"}
-                    name={"my_tabs_6"}
-                    className={"tab text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
                     aria-label={"Dreamchasers"}
                     checked={crewTab === "dreamchasers"}
+                    className={"text-md tab w-1/2 text-base-content md:text-lg lg:text-2xl"}
+                    name={"my_tabs_6"}
+                    type={"radio"}
                     onChange={() => setCrewTab("dreamchasers")}
                 />
                 <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
                     <CrewList members={members} />
                 </div>
                 <input
-                    type={"radio"}
-                    name={"my_tabs_6"}
-                    className={"tab text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
                     aria-label={"Hợp tác phát triển"}
                     checked={crewTab === "partners"}
+                    className={"text-md tab w-1/2 text-base-content md:text-lg lg:text-2xl"}
+                    name={"my_tabs_6"}
+                    type={"radio"}
                     onChange={() => setCrewTab("partners")}
                 />
                 <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
@@ -187,23 +187,23 @@ export default function CrewPage() {
                 {/* Tab indicators */}
                 <div className={"flex w-full border-b border-gray-400"}>
                     <button
-                        type={"button"}
-                        className={`text-base-content flex-1 py-3 text-center transition-colors ${
+                        className={`flex-1 py-3 text-center text-base-content transition-colors ${
                             crewTab === "dreamchasers"
                                 ? "border-b-2 border-white text-white"
                                 : "text-gray-400"
                         }`}
+                        type={"button"}
                         onClick={() => scrollTo(0)}
                     >
                         Dreamchasers
                     </button>
                     <button
-                        type={"button"}
-                        className={`text-base-content flex-1 py-3 text-center transition-colors ${
+                        className={`flex-1 py-3 text-center text-base-content transition-colors ${
                             crewTab === "partners"
                                 ? "border-b-2 border-white text-white"
                                 : "text-gray-400"
                         }`}
+                        type={"button"}
                         onClick={() => scrollTo(1)}
                     >
                         Hợp tác phát triển
@@ -211,7 +211,7 @@ export default function CrewPage() {
                 </div>
 
                 {/* Swipable content */}
-                <div className={"embla h-[calc(100%-48px)] overflow-hidden"} ref={emblaRef}>
+                <div ref={emblaRef} className={"embla h-[calc(100%-48px)] overflow-hidden"}>
                     <div className={"embla__container flex h-full"}>
                         <div className={"embla__slide flex-[0_0_100%] overflow-y-auto py-10"}>
                             <CrewList members={members} />

@@ -76,8 +76,6 @@ const Typography: FC<TypographyProps> = ({
 
     return (
         <CustomTag
-            suppressHydrationWarning={suppressHydrationWarning}
-            id={id}
             className={classNames(
                 styles.typography,
                 styles[`${type.replaceAll("-", "_")}`],
@@ -88,7 +86,9 @@ const Typography: FC<TypographyProps> = ({
                     "cursor-pointer": !!onClick,
                 },
             )}
+            id={id}
             style={{ color, fontWeight: !weight ? undefined : weight, ...style }}
+            suppressHydrationWarning={suppressHydrationWarning}
             onClick={onClick}
             {...rest}
         >

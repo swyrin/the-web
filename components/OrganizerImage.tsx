@@ -7,5 +7,5 @@ type OrganizerImageProps = {
 };
 
 export default function OrganizerImage(props: OrganizerImageProps) {
-    return <Image src={props.src} alt={props.alt} className={"h-[40px] w-auto object-contain"} />;
+    return <Image alt={props.alt} className={"h-[40px] w-auto object-contain"} src={props.src} />;
 }

@@ -43,30 +43,30 @@ export default function Home() {
     }, []);
 
     return (
-        <div className={"hero h-visible"}>
+        <div className={"h-visible hero"}>
             {/* Embla Carousel Autoplay Section */}
-            <div className={"embla absolute inset-0 z-0 h-full w-full"} ref={emblaRef}>
-                <div className={"embla__container h-full w-full"}>
+            <div ref={emblaRef} className={"embla absolute inset-0 z-0 size-full"}>
+                <div className={"embla__container size-full"}>
                     {[1, 2, 3, 4, 5, 6].map(img => (
-                        <div className={"embla__slide relative h-full w-full"} key={img}>
+                        <div key={img} className={"embla__slide relative size-full"}>
                             <Image
-                                src={`/landing-bg/BG_${img}.jpg`}
                                 alt={`Banner ${img + 1}`}
                                 fill
-                                style={{ objectFit: "cover" }}
                                 priority={img === 0}
+                                src={`/landing-bg/BG_${img}.jpg`}
+                                style={{ objectFit: "cover" }}
                             />
                         </div>
                     ))}
                 </div>
             </div>
-            <div className={"hero-overlay z-0"}></div>
+            <div className={"z-0 hero-overlay"}></div>
             <div className={"hero-content flex flex-col place-content-center-safe"}>
-                <Image src={DRCH_Banner} alt={"DRCH"} width={708} height={185} />
+                <Image alt={"DRCH"} height={185} src={DRCH_Banner} width={708} />
 
-                <div className={"text-center px-4"}>
-                    <div className={"text-white mb-2 text-xl font-extrabold"}>Sự kiện sẽ bắt đầu trong</div>
-                    <div className={"flex gap-2 md:gap-4 text-white max-w-md md:max-w-none mx-auto"}>
+                <div className={"px-4 text-center"}>
+                    <div className={"mb-2 text-xl font-extrabold text-white"}>Sự kiện sẽ bắt đầu trong</div>
+                    <div className={"mx-auto flex max-w-md gap-2 text-white md:max-w-none md:gap-4"}>
                         {[
                             { value: timeLeft.days, label: "Ngày" },
                             { value: timeLeft.hours, label: "Giờ" },
@@ -74,10 +74,10 @@ export default function Home() {
                             { value: timeLeft.seconds, label: "Giây" },
                         ].map(item => (
                             <div key={item.label} className={"flex flex-col items-center"}>
-                                <div className={"text-xl md:text-3xl font-bold bg-black/75 py-1 md:py-2 rounded border-2 border-white w-[3rem] md:w-[4rem] flex items-center justify-center"}>
+                                <div className={"flex w-[3rem] items-center justify-center rounded-sm border-2 border-white bg-black/75 py-1 text-xl font-bold md:w-[4rem] md:py-2 md:text-3xl"}>
                                     {item.value.toString().padStart(2, "0")}
                                 </div>
-                                <div className={"text-xs md:text-sm font-bold mt-1"}>{item.label}</div>
+                                <div className={"mt-1 text-xs font-bold md:text-sm"}>{item.label}</div>
                             </div>
                         ))}
                     </div>
@@ -86,11 +86,11 @@ export default function Home() {
                 <div className={"absolute bottom-5 flex flex-col gap-y-2 text-center"}>
                     <span className={"text-lg text-white"}>Được mang đến cho bạn bởi</span>
                     <div className={"flex items-center gap-x-8 gap-y-4 text-white"}>
-                        <OrganizerImage src={VNS_Banner} alt={"VNS"} />
+                        <OrganizerImage alt={"VNS"} src={VNS_Banner} />
                         <div className={"hidden text-xl text-white lg:block"}>•</div>
-                        <OrganizerImage src={ModSquad_Banner} alt={"Mod_Squad"} />
+                        <OrganizerImage alt={"Mod_Squad"} src={ModSquad_Banner} />
                         <div className={"hidden text-xl text-white lg:block"}>•</div>
-                        <OrganizerImage src={Jiangles_Banner} alt={"Jiangles"} />
+                        <OrganizerImage alt={"Jiangles"} src={Jiangles_Banner} />
                     </div>
                 </div>
             </div>

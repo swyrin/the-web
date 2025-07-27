@@ -14,7 +14,7 @@ type SelectedOperator = Pick<Operator, "name" | "rarity" | "profession" | "chari
 function EmptySlot() {
     return (
         <div
-            className={"relative aspect-[1/2] flex-1 flex flex-col justify-start"}
+            className={"relative flex aspect-[1/2] flex-1 flex-col justify-start"}
             style={{ background: "radial-gradient(circle, rgba(204,204,204,0) 60%, rgba(204,204,204,0.2) 100%)" }}
         >
         </div>
@@ -85,22 +85,22 @@ export default function TournamentSlidePage() {
     const unusedCount = 6 - bannedCount;
 
     return (
-        <div className={"h-[calc(100vh)] vns-background flex flex-col"}>
+        <div className={"vns-background flex h-[calc(100vh)] flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle
-                        title={"Banned Operators"}
                         dark
+                        title={"Banned Operators"}
                     />
                 </div>
             </div>
             <div
-                className={"flex flex-1/2 flex-col justify-evenly items-center w-full px-[10%]"}
+                className={"flex w-full flex-1/2 flex-col items-center justify-evenly px-[10%]"}
                 data-theme={"dark"}
             >
-                <div className={"flex top-0"}>
+                <div className={"top-0 flex"}>
                     <div className={"text-xl text-white"}>
-                        <span className={`font-extrabold text-6xl ${
+                        <span className={`text-6xl font-extrabold ${
                             !isTimerLoaded
                                 ? "text-red-400"
                                 : timerData.state === "running"
@@ -114,19 +114,19 @@ export default function TournamentSlidePage() {
                         </span>
                     </div>
                 </div>
-                <div className={"grid grid-cols-6 gap-20 w-full"}>
+                <div className={"grid w-full grid-cols-6 gap-20"}>
                     {operators
                         .filter(op => bannedOperators.includes(op.charid))
                         .map(operator => (
                             <OperatorIcon
                                 key={operator.charid}
+                                isPortrait
                                 operator={{
                                     class: operator.profession as OperatorClass,
                                     id: operator.charid,
                                     rarity: operator.rarity as OperatorRarity,
                                     name: operator.name,
                                 }}
-                                isPortrait
                             />
                         ))}
                     {Array.from<number>({ length: unusedCount }).map((_, v) => (
@@ -134,7 +134,7 @@ export default function TournamentSlidePage() {
                         <EmptySlot key={v} />
                     ))}
                 </div>
-                <div className={"text-base-content font-extrabold"}>
+                <div className={"font-extrabold text-base-content"}>
                     Terra #1:
                     {" "}
                     <span className={`${isRealtimeConnected ? "text-green-300" : "text-red-300"}`}>

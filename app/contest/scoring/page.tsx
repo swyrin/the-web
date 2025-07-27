@@ -10,15 +10,15 @@ export default function NotFoundPage() {
                 </div>
             </div>
             <div
-                className={"flex flex-col items-center justify-center mx-5 my-5"}
+                className={"m-5 flex flex-col items-center justify-center"}
                 data-theme={"dark"}
             >
                 {/* Participation Factors */}
-                <section className={"mb-8 mx-5"}>
-                    <h2 className={"text-4xl font-semibold text-base-content mb-4 text-center"}>
+                <section className={"mx-5 mb-8"}>
+                    <h2 className={"mb-4 text-center text-4xl font-semibold text-base-content"}>
                         Yếu tố tính điểm
                     </h2>
-                    <ul className={"space-y-2 text-base-content list-disc text-lg"}>
+                    <ul className={"list-disc space-y-2 text-lg text-base-content"}>
                         <li>Thời gian bạn chọn operator.</li>
                         <li>Thời gian 1 màn chạy.</li>
                         <li>Số địch đánh được - không bao gồm leak.</li>
@@ -30,16 +30,16 @@ export default function NotFoundPage() {
 
                 {/* Overview */}
                 <section className={"mb-8"}>
-                    <h2 className={"text-4xl font-semibold text-base-content mb-4 text-center"}>
+                    <h2 className={"mb-4 text-center text-4xl font-semibold text-base-content"}>
                         Tổng quan
                     </h2>
                     <div className={"space-y-6"}>
                         {/* Draft Score */}
-                        <div className={"p-4 rounded-lg bg-black border-1 border-white/50"}>
-                            <p className={"text-white mb-2 font-bold text-lg"}>
+                        <div className={"rounded-lg border-1 border-white/50 bg-black p-4"}>
+                            <p className={"mb-2 text-lg font-bold text-white"}>
                                 Thời gian chọn Operator:
                                 {" "}
-                                <span className={"bg-gray-300/15 px-2 py-1 rounded text-white"}>
+                                <span className={"rounded-sm bg-gray-300/15 px-2 py-1 text-white"}>
                                     S
                                     <sub>draft</sub>
                                     {" "}
@@ -53,11 +53,11 @@ export default function NotFoundPage() {
                         </div>
 
                         {/* Run Score */}
-                        <div className={"p-4 rounded-lg bg-black border-1 border-white/50"}>
-                            <p className={"text-white mb-2 font-bold text-lg"}>
+                        <div className={"rounded-lg border-1 border-white/50 bg-black p-4"}>
+                            <p className={"mb-2 text-lg font-bold text-white"}>
                                 Thời gian 1 màn chạy:
                                 {" "}
-                                <span className={"bg-gray-300/15 px-2 py-1 rounded text-white"}>
+                                <span className={"rounded-sm bg-gray-300/15 px-2 py-1 text-white"}>
                                     S
                                     <sub>run</sub>
                                     {" "}
@@ -69,7 +69,7 @@ export default function NotFoundPage() {
                                     )
                                 </span>
                             </p>
-                            <div className={"text-sm text-white pl-4 space-y-1"}>
+                            <div className={"space-y-1 pl-4 text-sm text-white"}>
                                 <ul className={"list-disc"}>
                                     <li>
                                         t
@@ -85,11 +85,11 @@ export default function NotFoundPage() {
                         </div>
 
                         {/* Enemy Score */}
-                        <div className={"p-4 rounded-lg bg-black border-1 border-white/50"}>
-                            <p className={"text-white mb-2 font-bold text-lg"}>
+                        <div className={"rounded-lg border-1 border-white/50 bg-black p-4"}>
+                            <p className={"mb-2 text-lg font-bold text-white"}>
                                 Số địch đánh được:
                                 {" "}
-                                <span className={"bg-gray-300/15 px-2 py-1 rounded text-white"}>
+                                <span className={"rounded-sm bg-gray-300/15 px-2 py-1 text-white"}>
                                     S
                                     <sub>enemy</sub>
                                     {" "}
@@ -98,7 +98,7 @@ export default function NotFoundPage() {
                                     <strong>enemy</strong>
                                 </span>
                             </p>
-                            <div className={"text-sm text-white pl-4 space-y-1"}>
+                            <div className={"space-y-1 pl-4 text-sm text-white"}>
                                 <ul className={"list-disc"}>
                                     <li>Không tính leak nha, dĩ nhiên rồi.</li>
                                     <li>Số địch tối đa tụi mình sẽ tính điểm là 25.</li>
@@ -107,85 +107,85 @@ export default function NotFoundPage() {
                         </div>
 
                         {/* Theresa Score */}
-                        <div className={"p-4 rounded-lg bg-black border-1 border-white/50"}>
-                            <p className={"text-white mb-2 font-bold text-lg"}>
+                        <div className={"rounded-lg border-1 border-white/50 bg-black p-4"}>
+                            <p className={"mb-2 text-lg font-bold text-white"}>
                                 Bạn đánh Theresa tới đâu (
-                                <span className={"bg-gray-300/15 px-2 py-1 rounded text-white"}>
+                                <span className={"rounded-sm bg-gray-300/15 px-2 py-1 text-white"}>
                                     S
                                     <sub>queen</sub>
                                 </span>
                                 ):
                             </p>
-                            <ul className={"text-sm text-white pl-4 space-y-1 list-disc"}>
+                            <ul className={"list-disc space-y-1 pl-4 text-sm text-white"}>
                                 <li>
                                     Có tham gia tournament:
                                     {" "}
-                                    <span className={"text-green-300 font-semibold"}>+5</span>
+                                    <span className={"font-semibold text-green-300"}>+5</span>
                                 </li>
                                 <li>
                                     Vượt qua phase 1:
                                     {" "}
-                                    <span className={"text-green-300 font-semibold"}>+25</span>
+                                    <span className={"font-semibold text-green-300"}>+25</span>
                                 </li>
                                 <li>
                                     Vượt qua phase 2:
                                     {" "}
-                                    <span className={"text-green-300 font-semibold"}>+50</span>
+                                    <span className={"font-semibold text-green-300"}>+50</span>
                                 </li>
-                                <li className={"text-red-300 font-bold"}>
+                                <li className={"font-bold text-red-300"}>
                                     Để tránh hiểu sai thì xong 2 phase =
                                     {" "}
-                                    <span className={"text-green-300 font-semibold"}>+80</span>
+                                    <span className={"font-semibold text-green-300"}>+80</span>
                                 </li>
                             </ul>
                         </div>
 
                         {/* Squad Composition */}
-                        <div className={"p-4 rounded-lg bg-black border-1 border-white/50"}>
-                            <p className={"text-white mb-2 font-bold text-lg"}>
+                        <div className={"rounded-lg border-1 border-white/50 bg-black p-4"}>
+                            <p className={"mb-2 text-lg font-bold text-white"}>
                                 Squad bạn sử dụng (
-                                <span className={"bg-gray-300/15 px-2 py-1 rounded text-white"}>
+                                <span className={"rounded-sm bg-gray-300/15 px-2 py-1 text-white"}>
                                     S
                                     <sub>comp</sub>
                                 </span>
                                 ):
                             </p>
-                            <ul className={"text-sm text-white pl-4 space-y-1 list-disc"}>
+                            <ul className={"list-disc space-y-1 pl-4 text-sm text-white"}>
                                 <li>
-                                    <span className={"text-green-300 font-semibold"}>+20</span>
+                                    <span className={"font-semibold text-green-300"}>+20</span>
                                     {" "}
                                     cho mỗi slot op để trống.
                                 </li>
                                 <li>
-                                    <span className={"text-green-300 font-semibold"}>+2</span>
+                                    <span className={"font-semibold text-green-300"}>+2</span>
                                     {" "}
                                     cho mỗi operator không phải 6* (
                                     <strong>không tính Amiya Medic</strong>
                                     ).
                                 </li>
                                 <li>
-                                    <span className={"text-green-300 font-semibold"}>+3</span>
+                                    <span className={"font-semibold text-green-300"}>+3</span>
                                     {" "}
                                     cho mỗi operator trong list dưới đây:
                                 </li>
                             </ul>
-                            <ul className={"text-sm text-white pl-8 mt-2 space-y-1 list-disc"}>
+                            <ul className={"mt-2 list-disc space-y-1 pl-8 text-sm text-white"}>
                                 <li className={"font-bold"}>
                                     Civilight Eterna
                                 </li>
-                                <li className={"text-red-400 font-bold"}>
+                                <li className={"font-bold text-red-400"}>
                                     Exusiai
                                 </li>
-                                <li className={"text-cyan-400 font-bold"}>
+                                <li className={"font-bold text-cyan-400"}>
                                     Rosmontis
                                 </li>
-                                <li className={"text-amber-600 font-bold"}>
+                                <li className={"font-bold text-amber-600"}>
                                     Angelina
                                 </li>
-                                <li className={"text-pink-300 font-bold"}>
+                                <li className={"font-bold text-pink-300"}>
                                     Lin
                                 </li>
-                                <li className={"text-green-300 font-bold"}>
+                                <li className={"font-bold text-green-300"}>
                                     Muelsyse
                                 </li>
                                 {/* <li className={"flex items-start"}>
@@ -196,12 +196,12 @@ export default function NotFoundPage() {
                         </div>
 
                         {/* Total Score Formula */}
-                        <div className={"p-4 rounded-lg bg-black border-1 border-white/50"}>
-                            <p className={"text-white mb-2 text-center font-bold text-lg"}>
+                        <div className={"rounded-lg border-1 border-white/50 bg-black p-4"}>
+                            <p className={"mb-2 text-center text-lg font-bold text-white"}>
                                 Điểm của 1 màn chạy = tổng các điểm thành phần
                             </p>
-                            <div className={"text-center my-4"}>
-                                <span className={"font-mono bg-gray-300/15 px-4 py-2 rounded text-lg text-white"}>
+                            <div className={"my-4 text-center"}>
+                                <span className={"rounded-sm bg-gray-300/15 px-4 py-2 font-mono text-lg text-white"}>
                                     S
                                     <sub>member</sub>
                                     {" "}
@@ -245,18 +245,18 @@ export default function NotFoundPage() {
 
                 {/* Example */}
                 <section className={"mb-8"}>
-                    <h2 className={"text-4xl font-semibold text-base-content mb-4 text-center"}>
+                    <h2 className={"mb-4 text-center text-4xl font-semibold text-base-content"}>
                         Ví dụ
                     </h2>
 
                     <div className={"space-y-6"}>
                         {/* Meruko Example */}
-                        <div className={"p-4 rounded-lg bg-black border-1 border-white/50"}>
-                            <h3 className={"font-semibold text-white mb-4 text-lg"}>
+                        <div className={"rounded-lg border-1 border-white/50 bg-black p-4"}>
+                            <h3 className={"mb-4 text-lg font-semibold text-white"}>
                                 Lấy ví dụ run của Meruko - 1 tester của team:
                             </h3>
 
-                            <ul className={"pl-4 space-y-2 text-white mb-4 list-disc"}>
+                            <ul className={"mb-4 list-disc space-y-2 pl-4 text-white"}>
                                 <li>
                                     Meruko draft trong 50
                                     <strong>s</strong>
@@ -283,14 +283,14 @@ export default function NotFoundPage() {
                                 <li>
                                     Meruko mang theo squad này:
                                     {" "}
-                                    <Image src={Meruko} alt={""}></Image>
+                                    <Image alt={""} src={Meruko}></Image>
                                 </li>
                             </ul>
 
                             <div className={"mt-6"}>
-                                <h4 className={"font-semibold text-white mb-3 text-lg"}>Điểm thành phần:</h4>
-                                <div className={"grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-white"}>
-                                    <ul className={"pl-4 space-y-1 list-disc"}>
+                                <h4 className={"mb-3 text-lg font-semibold text-white"}>Điểm thành phần:</h4>
+                                <div className={"grid grid-cols-1 gap-4 text-sm text-white md:grid-cols-2"}>
+                                    <ul className={"list-disc space-y-1 pl-4"}>
                                         <li>
                                             Chọn Operator:
                                             {" "}
@@ -312,14 +312,14 @@ export default function NotFoundPage() {
                                             <span className={"font-bold"}>80</span>
                                         </li>
                                     </ul>
-                                    <ul className={"pl-4 space-y-1 list-disc"}>
+                                    <ul className={"list-disc space-y-1 pl-4"}>
                                         <li>
                                             Các Operator không phải 6*:
                                             {" "}
                                             <span className={"font-bold"}>0</span>
                                         </li>
                                         <li>Squad mang theo:</li>
-                                        <ul className={"pl-4 space-y-1 list-disc"}>
+                                        <ul className={"list-disc space-y-1 pl-4"}>
                                             <li>
                                                 8/8 slot:
                                                 {" "}
@@ -340,12 +340,12 @@ export default function NotFoundPage() {
                                 </div>
                             </div>
 
-                            <div className={"mt-4 p-4 bg-gray-300/15 rounded border-1 border-white/50"}>
+                            <div className={"mt-4 rounded-sm border-1 border-white/50 bg-gray-300/15 p-4"}>
                                 <p className={"text-center font-semibold text-white"}>
                                     Tổng điểm
                                 </p>
-                                <div className={"text-center mt-2"}>
-                                    <span className={"font-mono text-white bg-gray-300/30 px-4 py-2 rounded"}>
+                                <div className={"mt-2 text-center"}>
+                                    <span className={"rounded-sm bg-gray-300/30 px-4 py-2 font-mono text-white"}>
                                         S
                                         <sub>Meruko</sub>
                                         {" "}

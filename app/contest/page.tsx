@@ -8,7 +8,7 @@ export default function OverviewPage() {
         <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <PageTitle title={"\"Battle of Dreamchasers\""} favorText={""} dark />
+                    <PageTitle dark favorText={""} title={"\"Battle of Dreamchasers\""} />
                 </div>
             </div>
             <div
@@ -24,12 +24,12 @@ export default function OverviewPage() {
                     thú vị để thưởng cho các Doctor mang đến kết quả đáng kinh ngạc nhất vào cuối
                     buổi chương trình!
                 </div>
-                <div className={"grid grid-cols-1 md:grid-cols-3 space-y-4 md:space-x-8 justify-center"}>
-                    <Link href={"/contest/rules"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Tổng quan</Link>
-                    <Link href={"/contest/scoring"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Tính điểm</Link>
-                    <Link href={"/contest/prizes"} type={"button"} className={"btn btn-sm md:btn-md lg:btn-lg min-w-[256px] bg-white text-black rounded-2xl hover:bg-black hover:text-white hover:border-1 border-white/50"}>Giải thưởng</Link>
+                <div className={"grid grid-cols-1 justify-center space-y-4 md:grid-cols-3 md:space-x-8"}>
+                    <Link className={"btn min-w-[256px] rounded-2xl border-white/50 bg-white text-black btn-sm hover:border-1 hover:bg-black hover:text-white md:btn-md lg:btn-lg"} href={"/contest/rules"} type={"button"}>Tổng quan</Link>
+                    <Link className={"btn min-w-[256px] rounded-2xl border-white/50 bg-white text-black btn-sm hover:border-1 hover:bg-black hover:text-white md:btn-md lg:btn-lg"} href={"/contest/scoring"} type={"button"}>Tính điểm</Link>
+                    <Link className={"btn min-w-[256px] rounded-2xl border-white/50 bg-white text-black btn-sm hover:border-1 hover:bg-black hover:text-white md:btn-md lg:btn-lg"} href={"/contest/prizes"} type={"button"}>Giải thưởng</Link>
                 </div>
-                <Image src={TournamentLogo} alt={"Tournament Logo"} className={"relative"} />
+                <Image alt={"Tournament Logo"} className={"relative"} src={TournamentLogo} />
             </div>
         </div>
     );

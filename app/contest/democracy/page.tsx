@@ -232,14 +232,14 @@ export default function DraftingPage() {
     // #endregion data backup
 
     return (
-        <div className={"h-[100svh] vns-background flex flex-col"}>
+        <div className={"vns-background flex h-[100svh] flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <PageTitle title={"Ban pick"} favorText={""} dark />
+                    <PageTitle dark favorText={""} title={"Ban pick"} />
                 </div>
             </div>
             <div
-                className={"flex flex-col items-center justify-center gap-y-4 text-base-content mb-8"}
+                className={"mb-8 flex flex-col items-center justify-center gap-y-4 text-base-content"}
                 data-theme={"dark"}
             >
                 <div className={"flex text-sm font-bold"}>
@@ -270,58 +270,58 @@ export default function DraftingPage() {
                         </span>
                     </div>
                     <div className={"space-x-5"}>
-                        <input className={"border-1 border-white px-5"} value={operatorNameSearch} onChange={e => setOperatorNameSearch(e.target.value)} placeholder={"Ghi tên op ở đây..."} />
+                        <input className={"border-1 border-white px-5"} placeholder={"Ghi tên op ở đây..."} value={operatorNameSearch} onChange={e => setOperatorNameSearch(e.target.value)} />
                         <button
-                            className={"border-1 border-white mx-2 px-4 bg-[#2e76a9] disabled:bg-gray-600 disabled:opacity-50"}
-                            type={"button"}
+                            className={"mx-2 border-1 border-white bg-[#2e76a9] px-4 disabled:bg-gray-600 disabled:opacity-50"}
                             disabled={operatorNameSearch === ""}
+                            type={"button"}
                             onClick={() => setOperatorNameSearch("")}
                         >
                             Clear
                         </button>
                     </div>
                     <div className={"flex items-center justify-center space-x-1"}>
-                        <Image src={maxRarity >= 1 ? StarSelected : StarUnSelected} alt={"Star 1"} height={32} onClick={() => setMaxRarity(1)} />
-                        <Image src={maxRarity >= 2 ? StarSelected : StarUnSelected} alt={"Star 2"} height={32} onClick={() => setMaxRarity(2)} />
-                        <Image src={maxRarity >= 3 ? StarSelected : StarUnSelected} alt={"Star 3"} height={32} onClick={() => setMaxRarity(3)} />
-                        <Image src={maxRarity >= 4 ? StarSelected : StarUnSelected} alt={"Star 4"} height={32} onClick={() => setMaxRarity(4)} />
-                        <Image src={maxRarity >= 5 ? StarSelected : StarUnSelected} alt={"Star 5"} height={32} onClick={() => setMaxRarity(5)} />
-                        <Image src={maxRarity >= 6 ? StarSelected : StarUnSelected} alt={"Star 6"} height={32} onClick={() => setMaxRarity(6)} />
+                        <Image alt={"Star 1"} height={32} src={maxRarity >= 1 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(1)} />
+                        <Image alt={"Star 2"} height={32} src={maxRarity >= 2 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(2)} />
+                        <Image alt={"Star 3"} height={32} src={maxRarity >= 3 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(3)} />
+                        <Image alt={"Star 4"} height={32} src={maxRarity >= 4 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(4)} />
+                        <Image alt={"Star 5"} height={32} src={maxRarity >= 5 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(5)} />
+                        <Image alt={"Star 6"} height={32} src={maxRarity >= 6 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(6)} />
                     </div>
                     <div className={"flex items-center justify-center space-x-1"}>
                         <div className={"pr-4"}>Class</div>
-                        <ClassIcon operatorClass={"Caster"} active={selectedClass === "Caster"} onClick={() => handleClassSelection("Caster")} />
-                        <ClassIcon operatorClass={"Medic"} active={selectedClass === "Medic"} onClick={() => handleClassSelection("Medic")} />
-                        <ClassIcon operatorClass={"Guard"} active={selectedClass === "Guard"} onClick={() => handleClassSelection("Guard")} />
-                        <ClassIcon operatorClass={"Sniper"} active={selectedClass === "Sniper"} onClick={() => handleClassSelection("Sniper")} />
-                        <ClassIcon operatorClass={"Specialist"} active={selectedClass === "Specialist"} onClick={() => handleClassSelection("Specialist")} />
-                        <ClassIcon operatorClass={"Supporter"} active={selectedClass === "Supporter"} onClick={() => handleClassSelection("Supporter")} />
-                        <ClassIcon operatorClass={"Defender"} active={selectedClass === "Defender"} onClick={() => handleClassSelection("Defender")} />
-                        <ClassIcon operatorClass={"Vanguard"} active={selectedClass === "Vanguard"} onClick={() => handleClassSelection("Vanguard")} />
+                        <ClassIcon active={selectedClass === "Caster"} operatorClass={"Caster"} onClick={() => handleClassSelection("Caster")} />
+                        <ClassIcon active={selectedClass === "Medic"} operatorClass={"Medic"} onClick={() => handleClassSelection("Medic")} />
+                        <ClassIcon active={selectedClass === "Guard"} operatorClass={"Guard"} onClick={() => handleClassSelection("Guard")} />
+                        <ClassIcon active={selectedClass === "Sniper"} operatorClass={"Sniper"} onClick={() => handleClassSelection("Sniper")} />
+                        <ClassIcon active={selectedClass === "Specialist"} operatorClass={"Specialist"} onClick={() => handleClassSelection("Specialist")} />
+                        <ClassIcon active={selectedClass === "Supporter"} operatorClass={"Supporter"} onClick={() => handleClassSelection("Supporter")} />
+                        <ClassIcon active={selectedClass === "Defender"} operatorClass={"Defender"} onClick={() => handleClassSelection("Defender")} />
+                        <ClassIcon active={selectedClass === "Vanguard"} operatorClass={"Vanguard"} onClick={() => handleClassSelection("Vanguard")} />
                     </div>
-                    <div className={"grid grid-cols-5 lg:grid-cols-9 space-x-2 space-y-4 h-[25vh] overflow-y-auto overflow-x-hidden content-start"}>
+                    <div className={"grid h-[25vh] grid-cols-5 content-start space-y-4 space-x-2 overflow-x-hidden overflow-y-auto lg:grid-cols-9"}>
                         {filteredOperators.map(operator => (
                             <OperatorIcon
                                 key={operator.charid}
+                                isBanned={(operator.profession as OperatorClass) === "Specialist" || bannedOperators.includes(operator.charid)}
+                                isSelected={selectedOperators.includes(operator.charid)}
                                 operator={{
                                     id: operator.charid,
                                     name: operator.name,
                                     rarity: operator.rarity as OperatorRarity,
                                     class: operator.profession as OperatorClass,
                                 }}
-                                isSelected={selectedOperators.includes(operator.charid)}
-                                isBanned={(operator.profession as OperatorClass) === "Specialist" || bannedOperators.includes(operator.charid)}
                                 onClickFn={() => handleOperatorSelection(operator.charid)}
                             />
                         ))}
                     </div>
                     <div className={"w-[92vw]"}>
-                        <div className={"text-red-300 italic text-center mb-2 font-extrabold"}>
+                        <div className={"mb-2 text-center font-extrabold text-red-300 italic"}>
                             Hãy chọn Operator bạn muốn cấm (
                             {selectedOperators.length}
                             /6)
                         </div>
-                        <div className={"grid grid-cols-6 gap-2 content-center"}>
+                        <div className={"grid grid-cols-6 content-center gap-2"}>
                             {Array.from({ length: 6 }, (_, index) => {
                                 const selectedCharId = selectedOperators[index];
                                 const selectedOp = selectedCharId ? operators.find(op => op.charid === selectedCharId) : null;
@@ -329,24 +329,24 @@ export default function DraftingPage() {
                                 return (
                                     <div
                                         key={index}
-                                        className={"w-20 h-32 flex items-start justify-center"}
+                                        className={"flex h-32 w-20 items-start justify-center"}
                                         onClick={() => selectedCharId && removeSelectedOperator(selectedCharId)}
                                     >
                                         {selectedOp
                                             ? (
                                                     <OperatorIcon
+                                                        isSelected={false}
                                                         operator={{
                                                             id: selectedOp.charid,
                                                             name: selectedOp.name,
                                                             rarity: selectedOp.rarity as OperatorRarity,
                                                             class: selectedOp.profession as OperatorClass,
                                                         }}
-                                                        isSelected={false}
                                                         onClickFn={() => removeSelectedOperator(selectedCharId)}
                                                     />
                                                 )
                                             : (
-                                                    <div className={"text-gray-500 text-xs text-center"}>
+                                                    <div className={"text-center text-xs text-gray-500"}>
                                                         Empty
                                                     </div>
                                                 )}
@@ -355,18 +355,18 @@ export default function DraftingPage() {
                             })}
                         </div>
                     </div>
-                    <div className={"px-12 space-x-4 grid grid-cols-2 grid-rows-1 w-[95vw]"}>
+                    <div className={"grid w-[95vw] grid-cols-2 grid-rows-1 space-x-4 px-12"}>
                         <button
-                            type={"button"}
                             className={"btn bg-red-400"}
                             disabled={selectedOperators.length === 0 || !isVotingAllowed || getDisplayTime() <= 0}
+                            type={"button"}
                             onClick={async () => {
                                 await handleBanSubmission();
                             }}
                         >
                             BAN
                         </button>
-                        <button type={"button"} className={"btn bg-green-400 text-black"} onClick={() => setSelectedOperators([])}>CLEAR</button>
+                        <button className={"btn bg-green-400 text-black"} type={"button"} onClick={() => setSelectedOperators([])}>CLEAR</button>
                     </div>
                 </div>
             </div>

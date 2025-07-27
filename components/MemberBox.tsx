@@ -3,13 +3,13 @@ import Image from "next/image";
 
 export default function MemberBox(props: CrewMember) {
     return (
-        <div className={"mb-4 flex max-h-64 min-w-64 flex-col gap-y-2 items-center"}>
+        <div className={"mb-4 flex max-h-64 min-w-64 flex-col items-center gap-y-2"}>
             <Image
-                className={"ring-1 ring-white/50 rounded-full"}
+                alt={"VNS_Crew"}
+                className={"rounded-full ring-1 ring-white/50"}
+                height={100}
                 src={`/crew/${props.name}.jpg`}
                 width={100}
-                height={100}
-                alt={"VNS_Crew"}
             />
             <div className={"text-xl font-extrabold text-base-content"}>{props.name}</div>
             {/* {props.quote !=P= "" && ( */}
@@ -22,7 +22,7 @@ export default function MemberBox(props: CrewMember) {
                     && props.roles.map((role: string) => (
                         <span
                             key={role}
-                            className={`font-extrabold crew-role-container ${role}`}
+                            className={`crew-role-container font-extrabold ${role}`}
                         >
                             {role.replaceAll("-", " ")}
                         </span>

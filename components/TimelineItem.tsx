@@ -33,17 +33,17 @@ export default function TimelineItem(props: TimelineItemProps) {
             {!props.head ? <hr className={"bg-white"} /> : <></>}
             <div
                 className={
-                    `${timelinePosition} text-base-content flex flex-col px-4 py-2 text-center text-lg lg:text-xl`
+                    `${timelinePosition} flex flex-col px-4 py-2 text-center text-lg text-base-content lg:text-xl`
                 }
             >
-                <div className={"block md:hidden mb-1 font-bold"}>{props.date}</div>
+                <div className={"mb-1 block font-bold md:hidden"}>{props.date}</div>
                 <div className={"leading-relaxed font-light whitespace-pre-line"}>{props.data}</div>
             </div>
             <div className={"timeline-middle"}>
                 <AiFillClockCircle fill={"white"} size={24} />
             </div>
             <div className={"timeline-end"}>
-                <div className={"hidden md:block mb-1 font-bold"}>{props.date}</div>
+                <div className={"mb-1 hidden font-bold md:block"}>{props.date}</div>
             </div>
             {!props.tail ? <hr className={"bg-white"} /> : <></>}
         </li>

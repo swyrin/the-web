@@ -23,10 +23,10 @@ export default function OverviewPage() {
     }, []);
 
     return (
-        <div className={"h-[100vh] vns-background flex flex-col"}>
+        <div className={"vns-background flex h-[100vh] flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <PageTitle title={"STANDING"} favorText={""} dark />
+                    <PageTitle dark favorText={""} title={"STANDING"} />
                 </div>
             </div>
             <div
@@ -37,14 +37,14 @@ export default function OverviewPage() {
                 {!loading && error && <div>{error}</div>}
                 {!loading && !error && (
                     <table
-                        className={"table-auto border text-center text-white bg-black"}
+                        className={"table-auto border bg-black text-center text-white"}
                     >
                         <thead>
                             <tr>
-                                <th className={"border text-4xl px-8 py-8 w-[100px]"}>Hạng</th>
-                                <th className={"border text-4xl px-2 py-1 w-[300px]"}>Tên</th>
-                                <th className={"border text-4xl px-2 py-1 w-[200px]"}>Mã số vé</th>
-                                <th className={"border text-4xl px-2 py-1 w-[300px]"}>Điểm</th>
+                                <th className={"w-[100px] border p-8 text-4xl"}>Hạng</th>
+                                <th className={"w-[300px] border px-2 py-1 text-4xl"}>Tên</th>
+                                <th className={"w-[200px] border px-2 py-1 text-4xl"}>Mã số vé</th>
+                                <th className={"w-[300px] border px-2 py-1 text-4xl"}>Điểm</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,10 +77,10 @@ export default function OverviewPage() {
                                         key={row.number}
                                         className={`${style}`}
                                     >
-                                        <td className={"border border-white text-2xl px-2 py-1 font-bold"}>{row.rank}</td>
-                                        <td className={"border border-white text-2xl px-2 py-1"}>{row.name}</td>
-                                        <td className={"border border-white text-2xl px-2 py-1"}>{row.number}</td>
-                                        <td className={"border border-white text-2xl px-2 py-1"}>{row.score}</td>
+                                        <td className={"border border-white px-2 py-1 text-2xl font-bold"}>{row.rank}</td>
+                                        <td className={"border border-white px-2 py-1 text-2xl"}>{row.name}</td>
+                                        <td className={"border border-white px-2 py-1 text-2xl"}>{row.number}</td>
+                                        <td className={"border border-white px-2 py-1 text-2xl"}>{row.score}</td>
                                     </tr>
                                 );
                             })}

@@ -10,16 +10,16 @@ type ClassIconProps = {
 function ClassIcon(props: ClassIconProps) {
     return (
         <div
-            className={`flex h-9 w-9 items-center justify-center border border-white/50 ${props.active ? "bg-blue-400" : "bg-black"} `}
+            className={`flex size-9 items-center justify-center border border-white/50 ${props.active ? "bg-blue-400" : "bg-black"}`}
             onClick={props.onClick}
         >
             <Image
-                src={`/operator/classes/${props.operatorClass}.png`}
                 alt={props.operatorClass}
-                width={28}
+                className={`w-auto object-contain ${props.active ? "grayscale invert" : ""}`}
                 height={28}
-                className={`object-contain w-auto ${props.active ? "grayscale invert" : ""} `}
                 priority
+                src={`/operator/classes/${props.operatorClass}.png`}
+                width={28}
             />
         </div>
     );

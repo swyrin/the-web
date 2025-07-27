@@ -9,9 +9,9 @@ export default function RetroPage() {
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle
-                        title={"Kỷ niệm"}
-                        favorText={"Nơi lưu giữ album của những buổi Offline."}
                         dark
+                        favorText={"Nơi lưu giữ album của những buổi Offline."}
+                        title={"Kỷ niệm"}
                     />
                 </div>
             </div>
@@ -20,17 +20,17 @@ export default function RetroPage() {
                 data-theme={"dark"}
             >
                 <RetroItem
-                    title={"Arknights VNS Offline 2024: The Show Must Go On!"}
                     description={"Offline đầu tiên của VNS, cũng như là tiền đề cho Dreamchasers và VNS Network."}
                     href={"/retro/the-show-must-go-on"}
                     imageSrc={TheShowMustGoOn}
+                    title={"Arknights VNS Offline 2024: The Show Must Go On!"}
                 />
 
                 <RetroItem
-                    title={"Arknights VNS Offline 2025: Dreamchasers"}
                     description={"COMING SOON!"}
                     href={"#"}
                     imageSrc={Dreamchasers}
+                    title={"Arknights VNS Offline 2025: Dreamchasers"}
                 />
             </div>
         </div>

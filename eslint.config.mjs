@@ -1,5 +1,7 @@
 import antfu from "@antfu/eslint-config";
 import nextjs from "@next/eslint-plugin-next";
+import eslintParserTypeScript from "@typescript-eslint/parser";
+import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
 
 export default antfu(
     {
@@ -16,6 +18,7 @@ export default antfu(
         react: true,
         imports: true,
     },
+    // Next.js
     {
         plugins: {
             "@next/next": nextjs,
@@ -25,25 +28,62 @@ export default antfu(
             ...nextjs.configs["core-web-vitals"].rules,
         },
     },
-    // Custom rules.
+    // TailwindCSS
+    {
+        files: ["**/*.{ts,tsx,cts,mts}"],
+        languageOptions: {
+            parser: eslintParserTypeScript,
+            parserOptions: {
+                project: true,
+            },
+        },
+    },
+    {
+        files: ["**/*.{jsx,tsx}"],
+        languageOptions: {
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true,
+                },
+            },
+        },
+        plugins: {
+            "better-tailwindcss": eslintPluginBetterTailwindcss,
+        },
+        rules: {
+            "better-tailwindcss/enforce-consistent-class-order": ["error", { order: "improved" }],
+            "better-tailwindcss/enforce-consistent-important-position": ["error", { position: "recommended" }],
+            "better-tailwindcss/enforce-consistent-variable-syntax": "error",
+            "better-tailwindcss/enforce-shorthand-classes": "error",
+            "better-tailwindcss/no-deprecated-classes": "error",
+            "better-tailwindcss/no-duplicate-classes": "error",
+            "better-tailwindcss/no-unnecessary-whitespace": ["error", { allowMultiline: true }],
+        },
+        settings: {
+            "better-tailwindcss": {
+                entryPoint: "./app/globals.css",
+            },
+        },
+    },
+    // Custom rules for antfu.
     {
         rules: {
-            "no-console": ["error", { allow: ["warn", "error", "info"] }],
-            "style/brace-style": ["error", "1tbs"],
+            "no-console": ["warn", { allow: ["warn", "error", "info"] }],
             "ts/consistent-type-definitions": ["error", "type"],
             "node/prefer-global/process": ["error", "always"],
             "react-hooks-extra/no-direct-set-state-in-use-effect": "off",
             "@eslint-react/prefer-shorthand-fragment": "error",
             "@eslint-react/prefer-shorthand-boolean": "error",
-            // "@stylistic/max-len": ["error", { code: 100 }],
-            "@stylistic/jsx-curly-brace-presence": [
-                "warn",
-                {
-                    props: "always",
-                    children: "never",
-                    propElementValues: "always",
-                },
-            ],
+            "style/brace-style": ["error", "1tbs"],
+            "style/jsx-sort-props": ["warn", {
+                callbacksLast: true,
+                reservedFirst: true,
+            }],
+            "style/jsx-curly-brace-presence": ["warn", {
+                props: "always",
+                children: "never",
+                propElementValues: "always",
+            }],
         },
     },
 );

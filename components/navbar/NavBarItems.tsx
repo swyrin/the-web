@@ -18,11 +18,11 @@ function DropdownItem({
     return (
         <li>
             <Link
-                href={href}
                 className={classNames({
                     "bg-black text-white": pathname === href,
                     "text-black": pathname !== href,
                 })}
+                href={href}
             >
                 {children}
             </Link>
@@ -69,7 +69,7 @@ function DesktopDropdown({
     pathPrefix: string;
 }) {
     return (
-        <div className={"dropdown dropdown-hover group"}>
+        <div className={"dropdown-hover group dropdown"}>
             <div
                 className={classNames(
                     "relative rounded-md py-2 text-lg font-bold transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
@@ -88,8 +88,8 @@ function DesktopDropdown({
             >
             </div>
             <ul
+                className={"dropdown-content menu mt-4 w-52 rounded-box bg-white p-2 shadow-sm"}
                 tabIndex={0}
-                className={"dropdown-content menu rounded-box mt-4 w-52 bg-white p-2 shadow-sm"}
             >
                 {items.map(item => (
                     <DropdownItem key={item.href} href={item.href} pathname={pathname}>
@@ -113,7 +113,6 @@ function NavLink({
 }) {
     return (
         <Link
-            href={href}
             className={classNames(
                 "relative rounded-md py-2 transition-all duration-200 ease-in-out after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:transform after:transition-transform after:duration-200 after:ease-in-out after:content-['']",
                 {
@@ -122,6 +121,7 @@ function NavLink({
                         pathname !== href,
                 },
             )}
+            href={href}
         >
             <div className={"text-lg font-bold"}>{children}</div>
         </Link>
@@ -152,15 +152,15 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
     if (isMobile) {
         return (
             <>
-                <MobileDropdownSection title={"Sự kiện"} items={eventItems} pathname={pathname} />
+                <MobileDropdownSection items={eventItems} pathname={pathname} title={"Sự kiện"} />
                 {links.map(link => (
                     <li key={link.name}>
                         <Link
-                            href={link.href}
                             className={classNames({
                                 "bg-black text-white": pathname === link.href,
                                 "text-black": pathname !== link.href,
                             })}
+                            href={link.href}
                         >
                             {link.name}
                         </Link>
@@ -175,10 +175,10 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
             className={"relative hidden cursor-pointer items-center gap-4 text-base font-semibold text-black lg:flex"}
         >
             <DesktopDropdown
-                title={"Sự kiện"}
                 items={eventItems}
-                pathname={pathname}
                 pathPrefix={"/event"}
+                pathname={pathname}
+                title={"Sự kiện"}
             />
             <NavDivider />
             {links.map((link, index) => (

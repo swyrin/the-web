@@ -34,9 +34,9 @@ export default function TheShowMustGoOn() {
             <Image
                 alt={"VNS_The_Show_Must_Go_On"}
                 className={"place-content-center-safe"}
+                height={1000}
                 src={TheShowMustGoOnImg}
                 width={3000}
-                height={1000}
             />
             <br />
             <div className={"items-center text-center font-bold italic"}>

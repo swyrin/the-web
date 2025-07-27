@@ -51,7 +51,7 @@ function OperatorIcon(props: OperatorIconProps) {
             onClick={props.isBanned ? undefined : props.onClickFn}
         >
             <div
-                className={`flex px-1 items-center justify-center ${props.isBanned ? "grayscale opacity-35" : ""}`}
+                className={`flex items-center justify-center px-1 ${props.isBanned ? "opacity-35 grayscale" : ""}`}
                 style={{
                     background: `linear-gradient(
                         to top,
@@ -63,33 +63,33 @@ function OperatorIcon(props: OperatorIconProps) {
                 }}
             >
                 <Image
+                    alt={props.operator.name}
+                    className={"object-cover"}
+                    height={props.isPortrait ? 256 : 48}
                     src={
                         imageSource
                     }
                     width={props.isPortrait ? 128 : 48}
-                    height={props.isPortrait ? 256 : 48}
-                    alt={props.operator.name}
-                    className={"object-cover"}
                 />
             </div>
-            <div className={"flex w-12 flex-col justify-center items-center space-y-1 mt-2"}>
+            <div className={"mt-2 flex w-12 flex-col items-center justify-center space-y-1"}>
                 {props.isPortrait && (
                     <Image
+                        alt={"class"}
+                        className={"border-1 border-white/50 bg-black object-none"}
+                        height={32}
                         src={`/operator/classes/${props.operator.class.toLowerCase()}.png`}
                         width={32}
-                        height={32}
-                        alt={"class"}
-                        className={"object-none border-1 border-white/50 bg-black"}
                     />
                 )}
                 {props.isPortrait && (
-                    <div className={"flex space-x-1 items-center justify-center"}>
+                    <div className={"flex items-center justify-center space-x-1"}>
                         {
                             [1, 2, 3, 4, 5, 6].map((x) => {
                                 return (
                                     x <= props.operator.rarity
-                                        ? <Image key={x} src={StarSelected} alt={"star"} width={16} height={16} />
-                                        : <Image key={x} src={StarUnSelected} alt={"star"} width={16} height={16} />
+                                        ? <Image key={x} alt={"star"} height={16} src={StarSelected} width={16} />
+                                        : <Image key={x} alt={"star"} height={16} src={StarUnSelected} width={16} />
                                 );
                             })
                         }

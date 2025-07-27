@@ -28,9 +28,9 @@ function TicketCard(props: TicketCardProps) {
             >
                 <div className={"relative mt-4 w-full px-4"}>
                     <Image
-                        src={props.image}
                         alt={"BG"}
                         className={"h-[64px] w-full rounded-xl object-cover"}
+                        src={props.image}
                     />
                     <div
                         className={"absolute top-0 left-0 flex h-[64px] w-full items-center justify-center text-center text-2xl font-bold md:text-3xl lg:text-4xl"}
@@ -63,10 +63,10 @@ function TicketCard(props: TicketCardProps) {
                     ))}
                     {props.tier === "Dreamchasers" && (
                         <Image
-                            src={ShirtPreview}
                             alt={"Áo thun Dreamchasers"}
+                            className={"my-2 cursor-pointer self-center rounded-lg object-cover transition-opacity hover:opacity-80"}
                             height={120}
-                            className={"my-2 self-center rounded-lg object-cover cursor-pointer hover:opacity-80 transition-opacity"}
+                            src={ShirtPreview}
                             onClick={() => setImageOverlayOpen(true)}
                         />
                     )}
@@ -80,13 +80,13 @@ function TicketCard(props: TicketCardProps) {
             {/* Image Overlay */}
             {isImageOverlayOpen && (
                 <div
-                    className={"fixed inset-0 bg-black/90 flex items-center justify-center z-50 cursor-pointer"}
+                    className={"fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black/90"}
                     onClick={() => setImageOverlayOpen(false)}
                 >
                     <Image
-                        src={ShirtPreview}
                         alt={"Áo thun Dreamchasers - Full Size"}
-                        className={"max-w-[95vw] max-h-[65vh] object-contain"}
+                        className={"max-h-[65vh] max-w-[95vw] object-contain"}
+                        src={ShirtPreview}
                     />
                 </div>
             )}
@@ -99,38 +99,38 @@ export default function TicketOverviewPage() {
         <div className={"h-visible vns-background"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <PageTitle title={"Mua vé"} favorText={""} dark />
+                    <PageTitle dark favorText={""} title={"Mua vé"} />
                 </div>
             </div>
             <div className={"flex flex-col items-center justify-center pb-10 lg:pb-0"}>
                 <div className={"flex w-full flex-col items-center justify-center lg:flex-row"}>
                     <TicketCard
-                        tier={"Dolphin"}
-                        image={PrismaDolphin}
-                        price={"119.000"}
                         description={[
                             "Keychain Amiya - Chasing The Dream",
                             "Sticker (ngẫu nhiên 1 trong 4)",
                             "Badge nắp chai by Rei Não Cá",
                             "Card bo góc by Rei Não Cá",
                         ]}
+                        image={PrismaDolphin}
+                        price={"119.000"}
+                        tier={"Dolphin"}
                     />
                     <TicketCard
-                        tier={"Whale"}
-                        parentTier={"Dolphin"}
-                        image={PrismaWhale}
-                        price={"199.000"}
                         description={["Badge Amiya - Chasing The Dream", "Lanyard - Dreamchasers"]}
+                        image={PrismaWhale}
+                        parentTier={"Dolphin"}
+                        price={"199.000"}
+                        tier={"Whale"}
                     />
                     <TicketCard
-                        tier={"Dreamchasers"}
-                        parentTier={"Whale"}
-                        image={PrismaDRCH}
-                        price={"269.000"}
                         description={[
                             "Áo thun Dreamchasers (hình dưới)",
                             "Badge Logos/Eyja của bibom10",
                         ]}
+                        image={PrismaDRCH}
+                        parentTier={"Whale"}
+                        price={"269.000"}
+                        tier={"Dreamchasers"}
                     />
                 </div>
                 <PurchaseTicketButton />

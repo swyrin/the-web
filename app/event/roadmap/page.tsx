@@ -146,7 +146,7 @@ export default function TimelinePage() {
         <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <PageTitle title={"Roadmap"} favorText={"(bạn có thể scroll để đọc)"} dark />
+                    <PageTitle dark favorText={"(bạn có thể scroll để đọc)"} title={"Roadmap"} />
                 </div>
             </div>
             <div className={"flex flex-1/2 items-center justify-center overflow-y-hidden"}>
@@ -155,22 +155,22 @@ export default function TimelinePage() {
                 <div
                     className={"absolute top-[calc(45svh)] left-[15vw] hidden sm:left-[20vw] md:left-[25vw] md:block lg:left-[30vw]"}
                 >
-                    <div className={"h-6 w-6 border-t-2 border-l-2 border-white"} />
+                    <div className={"size-6 border-t-2 border-l-2 border-white"} />
                 </div>
                 <div
                     className={"absolute top-[calc(45svh)] right-[15vw] hidden sm:right-[20vw] md:right-[25vw] md:block lg:right-[30vw]"}
                 >
-                    <div className={"h-6 w-6 border-t-2 border-r-2 border-white"} />
+                    <div className={"size-6 border-t-2 border-r-2 border-white"} />
                 </div>
                 <div
                     className={"absolute bottom-[calc(20svh)] left-[15vw] hidden sm:left-[20vw] md:left-[25vw] md:block lg:left-[30vw]"}
                 >
-                    <div className={"h-6 w-6 border-b-2 border-l-2 border-white"} />
+                    <div className={"size-6 border-b-2 border-l-2 border-white"} />
                 </div>
                 <div
                     className={"absolute right-[15vw] bottom-[calc(20svh)] hidden sm:right-[20vw] md:right-[25vw] md:block lg:right-[30vw]"}
                 >
-                    <div className={"h-6 w-6 border-r-2 border-b-2 border-white"} />
+                    <div className={"size-6 border-r-2 border-b-2 border-white"} />
                 </div>
                 {/* Arrows */}
                 <div className={"absolute top-[calc(35svh)] left-1/5"}>

@@ -37,7 +37,7 @@ export default function PrizePage() {
         <div className={"h-visible vns-background flex flex-col"}>
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
-                    <PageTitle title={"Giải thưởng"} favorText={""} dark />
+                    <PageTitle dark favorText={""} title={"Giải thưởng"} />
                 </div>
             </div>
             <div
@@ -51,10 +51,10 @@ export default function PrizePage() {
                             return (
                                 <div
                                     key={page}
-                                    onClick={() => emblaApi?.scrollTo(index)}
                                     className={`h-1 w-full cursor-pointer bg-white transition-all duration-300 ${
                                         index === currentSlide ? "opacity-100" : "opacity-50"
                                     }`}
+                                    onClick={() => emblaApi?.scrollTo(index)}
                                 />
                             );
                         })}
@@ -72,29 +72,29 @@ export default function PrizePage() {
                                 </div>
                                 <div className={"flex flex-col gap-6 sm:flex-row"}>
                                     <div
-                                        className={"flex h-full w-full flex-col justify-between gap-2"}
+                                        className={"flex size-full flex-col justify-between gap-2"}
                                     >
                                         <Image
-                                            src={Artbook}
                                             alt={"Artbook"}
                                             className={"my-auto self-center object-contain"}
+                                            src={Artbook}
                                         />
                                         <div
-                                            className={"text-base-content text-center text-lg font-light"}
+                                            className={"text-center text-lg font-light text-base-content"}
                                         >
                                             Arknights Artbook VOL 1, 4, 5
                                         </div>
                                     </div>
                                     <div
-                                        className={"flex h-full w-full flex-col justify-between gap-2"}
+                                        className={"flex size-full flex-col justify-between gap-2"}
                                     >
                                         <div
-                                            className={"text-base-content flex flex-1 items-center justify-center italic"}
+                                            className={"flex flex-1 items-center justify-center text-base-content italic"}
                                         >
                                             [tới Offline là thấy á]
                                         </div>
                                         <div
-                                            className={"text-base-content text-center text-lg font-light"}
+                                            className={"text-center text-lg font-light text-base-content"}
                                         >
                                             Giấy khen từ BTC
                                         </div>
@@ -110,29 +110,29 @@ export default function PrizePage() {
                                 </div>
                                 <div className={"flex flex-col gap-6 sm:flex-row"}>
                                     <div
-                                        className={"flex h-full w-full flex-col justify-between gap-2"}
+                                        className={"flex size-full flex-col justify-between gap-2"}
                                     >
                                         <Image
-                                            src={AmiyiRazer}
                                             alt={"AmiyiRazer"}
                                             className={"my-auto self-center object-contain"}
+                                            src={AmiyiRazer}
                                         />
                                         <div
-                                            className={"text-base-content text-center text-lg font-light"}
+                                            className={"text-center text-lg font-light text-base-content"}
                                         >
                                             Razer X Arknights - Chuột không dây - Amiya theme
                                         </div>
                                     </div>
                                     <div
-                                        className={"flex h-full w-full flex-col justify-between gap-2"}
+                                        className={"flex size-full flex-col justify-between gap-2"}
                                     >
                                         <div
-                                            className={"text-base-content flex flex-1 items-center justify-center italic"}
+                                            className={"flex flex-1 items-center justify-center text-base-content italic"}
                                         >
                                             [tới Offline là thấy á]
                                         </div>
                                         <div
-                                            className={"text-base-content text-center text-lg font-light"}
+                                            className={"text-center text-lg font-light text-base-content"}
                                         >
                                             Giấy khen từ BTC
                                         </div>
@@ -148,29 +148,29 @@ export default function PrizePage() {
                                 </div>
                                 <div className={"flex flex-col gap-6 sm:flex-row"}>
                                     <div
-                                        className={"flex h-full w-full flex-col justify-between gap-2"}
+                                        className={"flex size-full flex-col justify-between gap-2"}
                                     >
                                         <Image
-                                            src={Ines}
                                             alt={"Ines"}
                                             className={"my-auto self-center object-contain"}
+                                            src={Ines}
                                         />
                                         <div
-                                            className={"text-base-content text-center text-lg font-light"}
+                                            className={"text-center text-lg font-light text-base-content"}
                                         >
                                             Figure Ines - 1/7 scale
                                         </div>
                                     </div>
                                     <div
-                                        className={"flex h-full w-full flex-col justify-between gap-2"}
+                                        className={"flex size-full flex-col justify-between gap-2"}
                                     >
                                         <div
-                                            className={"text-base-content flex flex-1 items-center justify-center italic"}
+                                            className={"flex flex-1 items-center justify-center text-base-content italic"}
                                         >
                                             [tới Offline là thấy á]
                                         </div>
                                         <div
-                                            className={"text-base-content text-center text-lg font-light"}
+                                            className={"text-center text-lg font-light text-base-content"}
                                         >
                                             Giấy khen từ BTC
                                         </div>
@@ -180,8 +180,8 @@ export default function PrizePage() {
                         </div>
                     </div>
                     <div
-                        onClick={() => emblaApi?.scrollNext()}
                         className={"absolute top-1/2 -right-[2.5%] hidden md:block lg:-right-24"}
+                        onClick={() => emblaApi?.scrollNext()}
                     >
                         <IoIosArrowDropright
                             className={"h-12 w-12 cursor-pointer lg:h-20 lg:w-20"}
@@ -189,8 +189,8 @@ export default function PrizePage() {
                         />
                     </div>
                     <div
-                        onClick={() => emblaApi?.scrollPrev()}
                         className={"absolute top-1/2 -left-[2.5%] hidden md:block lg:-left-24"}
+                        onClick={() => emblaApi?.scrollPrev()}
                     >
                         <IoIosArrowDropleft
                             className={"h-12 w-12 cursor-pointer lg:h-20 lg:w-20"}

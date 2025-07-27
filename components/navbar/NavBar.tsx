@@ -29,22 +29,22 @@ export default function NavBar() {
         <header className={`sticky top-0 z-727 ${visualStyle} h-[70px] items-center bg-white`}>
             <div className={"ml-4 flex items-center justify-center"}>
                 <div className={"dropdown"}>
-                    <GiHamburgerMenu tabIndex={0} className={"block lg:hidden"} size={24} />
+                    <GiHamburgerMenu className={"block lg:hidden"} size={24} tabIndex={0} />
                     <ul
+                        className={"dropdown-content menu z-1 mt-8 w-52 menu-md rounded-box bg-white p-2 shadow-lg md:menu-lg"}
                         tabIndex={0}
-                        className={"menu dropdown-content menu-md md:menu-lg rounded-box z-1 mt-8 w-52 bg-white p-2 shadow-lg"}
                     >
                         <NavBarItems isMobile />
                     </ul>
                 </div>
                 <Link className={"ml-6"} href={"/"}>
                     <Image
-                        src={DRCH_Logo}
                         alt={"DRCH_logo"}
-                        width={50}
                         height={50}
                         loading={"eager"}
                         priority
+                        src={DRCH_Logo}
+                        width={50}
                     />
                 </Link>
             </div>

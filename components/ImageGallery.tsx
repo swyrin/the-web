@@ -32,12 +32,12 @@ export default function ImageGallery({
                         className={"mb-[1.12rem] w-full break-inside-avoid overflow-hidden rounded-xl shadow-lg"}
                     >
                         <Image
-                            src={src}
                             alt={""}
-                            width={854}
-                            height={480}
                             className={"block object-cover"}
+                            height={480}
                             priority
+                            src={src}
+                            width={854}
                         />
                     </div>
                 ))}

@@ -82,10 +82,10 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                             return (
                                 <RuleSection
                                     key={rule.description}
-                                    title={rule.title}
-                                    titleColor={rule.titleColor}
                                     description={rule.description}
                                     side={"left"}
+                                    title={rule.title}
+                                    titleColor={rule.titleColor}
                                 />
                             );
                         })}
@@ -96,11 +96,11 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                     {rules.map((rule, index) => (
                         <Fragment key={rule.description}>
                             <div
-                                className={"flex h-25 w-25 items-center justify-center"}
                                 key={rule.title}
+                                className={"flex size-25 items-center justify-center"}
                             >
-                                <div className={"relative h-3/4 w-3/4"}>
-                                    <rule.icon className={"h-full w-full text-white"} />
+                                <div className={"relative size-3/4"}>
+                                    <rule.icon className={"size-full text-white"} />
                                 </div>
                             </div>
                             {index !== rules.length - 1 ? <VerticalLine height={100} /> : <></>}
@@ -115,10 +115,10 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                             return (
                                 <RuleSection
                                     key={rule.description}
-                                    title={rule.title}
-                                    titleColor={rule.titleColor}
                                     description={rule.description}
                                     side={"right"}
+                                    title={rule.title}
+                                    titleColor={rule.titleColor}
                                 />
                             );
                         })}
@@ -299,23 +299,23 @@ export default function RulePage() {
             <div className={"hero"}>
                 <div className={"hero-content text-center"}>
                     <PageTitle
-                        title={"NỘI QUY"}
-                        favorText={"Một số điều cần lưu ý khi tham gia offline"}
                         dark
+                        favorText={"Một số điều cần lưu ý khi tham gia offline"}
+                        title={"NỘI QUY"}
                     />
                 </div>
             </div>
             {/* Desktop tabs - original design */}
             <div
-                className={"tabs tabs-border sticky top-[70px] z-0 hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"}
+                className={"tabs-border sticky top-[70px] z-0 tabs hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"}
                 data-theme={"dark"}
             >
                 <input
-                    type={"radio"}
-                    name={"my_tabs_6"}
-                    className={"tab sm:text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
                     aria-label={"Nội quy chung"}
                     checked={ruleTab === "general"}
+                    className={"sm:text-md tab w-1/2 text-base-content md:text-lg lg:text-2xl"}
+                    name={"my_tabs_6"}
+                    type={"radio"}
                     onChange={() => setRuleTab("general")}
                 />
                 <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
@@ -324,11 +324,11 @@ export default function RulePage() {
                     </div>
                 </div>
                 <input
-                    type={"radio"}
-                    name={"my_tabs_6"}
-                    className={"tab sm:text-md text-base-content w-1/2 md:text-lg lg:text-2xl"}
                     aria-label={"Dành cho cosplayer"}
                     checked={ruleTab === "cosplay"}
+                    className={"sm:text-md tab w-1/2 text-base-content md:text-lg lg:text-2xl"}
+                    name={"my_tabs_6"}
+                    type={"radio"}
                     onChange={() => setRuleTab("cosplay")}
                 />
                 <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
@@ -346,23 +346,23 @@ export default function RulePage() {
                 {/* Tab indicators */}
                 <div className={"flex w-full border-b border-gray-400"}>
                     <button
-                        type={"button"}
-                        className={`text-base-content flex-1 py-3 text-center transition-colors ${
+                        className={`flex-1 py-3 text-center text-base-content transition-colors ${
                             ruleTab === "general"
                                 ? "border-b-2 border-white text-white"
                                 : "text-gray-400"
                         }`}
+                        type={"button"}
                         onClick={() => scrollTo(0)}
                     >
                         Nội quy chung
                     </button>
                     <button
-                        type={"button"}
-                        className={`text-base-content flex-1 py-3 text-center transition-colors ${
+                        className={`flex-1 py-3 text-center text-base-content transition-colors ${
                             ruleTab === "cosplay"
                                 ? "border-b-2 border-white text-white"
                                 : "text-gray-400"
                         }`}
+                        type={"button"}
                         onClick={() => scrollTo(1)}
                     >
                         Dành cho cosplayer
@@ -370,7 +370,7 @@ export default function RulePage() {
                 </div>
 
                 {/* Swipable content */}
-                <div className={"embla h-[calc(100%-48px)] overflow-hidden"} ref={emblaRef}>
+                <div ref={emblaRef} className={"embla h-[calc(100%-48px)] overflow-hidden"}>
                     <div className={"embla__container flex h-full"}>
                         <div className={"embla__slide flex-[0_0_100%] overflow-y-auto py-10"}>
                             <div className={"h-full flex-1 px-5"}>
