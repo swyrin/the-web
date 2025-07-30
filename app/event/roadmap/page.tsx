@@ -118,9 +118,17 @@ export default function TimelinePage() {
             <PageTitle favorText={"Những hoạt động tụi mình đã tổ chức trong quá trình thực hiện Offline"} title={"Công tác chuẩn bị"} />
 
             <div className={`
+                block self-center font-extrabold
+                lg:hidden
+            `}
+            >
+                Bạn có thể scroll dọc để xem các nội dung.
+            </div>
+            <div className={`
                 mx-4 mt-8 flex flex-col items-center justify-center
             `}
             >
+                {/* The vertical one. */}
                 <Carousel
                     className={`
                         flex w-full max-w-lg
@@ -128,7 +136,8 @@ export default function TimelinePage() {
                     `}
                     opts={{
                         align: "start",
-                        skipSnaps: true
+                        skipSnaps: true,
+                        dragFree: true
                     }}
                     orientation={"vertical"}
                     plugins={[
@@ -136,9 +145,10 @@ export default function TimelinePage() {
                     ]}
                 >
                     <TimelineContent events={events} />
-                    <CarouselPrevious />
-                    <CarouselNext />
+                    {/* <CarouselPrevious />
+                    <CarouselNext /> */}
                 </Carousel>
+                {/* The horizontal one. */}
                 <Carousel
                     className={`
                         hidden w-full max-w-2xl
@@ -146,11 +156,12 @@ export default function TimelinePage() {
                     `}
                     opts={{
                         align: "center",
-                        skipSnaps: true
+                        skipSnaps: true,
+                        dragFree: true
                     }}
                     orientation={"horizontal"}
                     plugins={[
-                        WheelGesturesPlugin()
+                        WheelGesturesPlugin({ forceWheelAxis: "y" })
                     ]}
                 >
                     <TimelineContent events={events} />

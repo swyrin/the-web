@@ -1,7 +1,7 @@
 "use client";
 
-import Autoplay from "embla-carousel-autoplay";
-import useEmblaCarousel from "embla-carousel-react";
+// import Autoplay from "embla-carousel-autoplay";
+// import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import OrganizerImage from "@/components/OrganizerImage";
@@ -18,7 +18,7 @@ type TimeLeft = {
 };
 
 export default function Home() {
-    const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
+    // const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
     const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: -1, hours: -1, minutes: -1, seconds: -1 });
 
     useEffect(() => {
@@ -43,29 +43,7 @@ export default function Home() {
     }, []);
 
     return (
-        <div className={"flex h-visible bg-background/70"}>
-            {/* Image carousel. */}
-            <div
-                ref={emblaRef}
-                className={`absolute inset-0 -z-1 size-full embla`}
-            >
-                <div className={"embla__container size-full"}>
-                    {[1, 2, 3, 4, 5, 6].map(img => (
-                        <div
-                            key={img}
-                            className={`relative size-full embla__slide`}
-                        >
-                            <Image
-                                alt={`Banner ${img + 1}`}
-                                className={"object-cover"}
-                                fill
-                                priority
-                                src={`/landing-bg/BG_${img}.jpg`}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
+        <div className={"flex h-visible bg-vns"}>
             {/* The real shit. */}
             <div className={`
                 flex flex-1/2 flex-col items-center justify-center space-y-4
@@ -104,23 +82,16 @@ export default function Home() {
                 >
                     Được mang đến cho bạn bởi
                     <div className={`
-                        flex items-center gap-x-8 gap-y-4 text-white
+                        flex w-[70vw] items-center justify-between text-primary
+                        md:w-[50vw]
                     `}
                     >
                         <OrganizerImage alt={"VNS"} src={VNS_Banner} />
-                        <div className={`
-                            hidden text-xl text-primary
-                            lg:block
-                        `}
-                        >
+                        <div className={`text-xl`}>
                             •
                         </div>
                         <OrganizerImage alt={"Mod_Squad"} src={ModSquad_Banner} />
-                        <div className={`
-                            hidden text-xl text-primary
-                            lg:block
-                        `}
-                        >
+                        <div className={`text-xl`}>
                             •
                         </div>
                         <OrganizerImage alt={"Jiangles"} src={Jiangles_Banner} />

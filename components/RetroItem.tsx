@@ -13,8 +13,7 @@ type RetroItemProps = {
 export default function RetroItem(props: RetroItemProps) {
     return (
         <div className={`
-            flex max-w-[80vw] flex-col border-2 border-primary/25 shadow-lg/25
-            shadow-primary
+            flex max-w-[80vw] flex-col border-2 border-primary/25
             lg:flex-row
         `}
         >
@@ -23,10 +22,10 @@ export default function RetroItem(props: RetroItemProps) {
                 lg:w-1/2
             `}
             >
-                <Image alt={"retro_image"} className={"self-center"} src={props.imageSrc} />
+                <Image alt={"retro_image"} className={"self-center border-2"} src={props.imageSrc} />
             </figure>
             <div className={`
-                flex w-full flex-col items-center justify-center
+                flex w-full flex-col items-center justify-center bg-background
                 lg:w-1/2
             `}
             >

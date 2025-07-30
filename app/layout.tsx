@@ -56,8 +56,7 @@ export default function RootLayout({
             >
                 <TerraTheme
                     attribute={"class"}
-                    defaultTheme={"light"}
-                    disableTransitionOnChange
+                    defaultTheme={"dark"}
                     enableSystem
                 >
                     <NavBar />

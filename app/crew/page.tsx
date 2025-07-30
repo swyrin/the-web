@@ -5,7 +5,6 @@ import { clsx } from "clsx";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import PageTitle from "@/components/PageTitle";
-import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CrewMembers from "@/public/crew/_crew.json";
 
@@ -27,7 +26,7 @@ function MemberBox(props: CrewMember) {
                 width={100}
             />
             <div className={"text-xl font-extrabold"}>{props.name}</div>
-            {/* {props.quote !=P= "" && ( */}
+            {/* {props.quote !== "" && ( */}
             {/*    <div className={"text-md  text-center font-extralight italic"}> */}
             {/*        &#34;{props.quote}&#34; */}
             {/*    </div> */}
@@ -213,9 +212,9 @@ export default function CrewPage() {
                 onTouchMove={handleTouchMove}
                 onTouchStart={handleTouchStart}
             >
-                <Tabs className={"size-full"} value={tab} onValueChange={setTab}>
+                <Tabs className={"size-full gap-y-0"} value={tab} onValueChange={setTab}>
                     <TabsList className={`
-                        h-12 w-full rounded-none border-b bg-background p-1
+                        h-12 w-full rounded-none border-b bg-background
                     `}
                     >
                         <TabsTrigger
@@ -232,7 +231,6 @@ export default function CrewPage() {
                         >
                             "Dreamchasers"
                         </TabsTrigger>
-                        <Separator className={"bg-secondary"} orientation={"vertical"} />
                         <TabsTrigger
                             className={
                                 `
@@ -250,14 +248,18 @@ export default function CrewPage() {
                     </TabsList>
 
                     <TabsContent
-                        className={`scrollbar-none overflow-y-auto pt-10`}
+                        className={`
+                            scrollbar-none overflow-y-auto bg-background pt-10
+                        `}
                         value={"dreamchasers"}
                     >
                         <CrewList members={members} />
                     </TabsContent>
 
                     <TabsContent
-                        className={`scrollbar-none overflow-y-auto pt-10`}
+                        className={`
+                            scrollbar-none overflow-y-auto bg-background pt-10
+                        `}
                         value={"partners"}
                     >
                         <PartnerList members={partners} />

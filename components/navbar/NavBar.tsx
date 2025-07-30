@@ -11,8 +11,8 @@ import DRCH_Logo from "@/public/DRCH_Logo.png";
 export default function NavBar() {
     return (
         <header className={`
-            sticky top-0 z-50 flex h-20 w-full bg-background shadow-xs/50
-            shadow-primary
+            sticky top-0 z-50 flex h-20 w-full bg-background/60 shadow-xs/50
+            shadow-primary backdrop-blur-xs
         `}
         >
             <Sheet>

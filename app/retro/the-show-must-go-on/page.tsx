@@ -8,10 +8,10 @@ export default function TheShowMustGoOn() {
         <div className={"flex h-visible flex-col bg-vns"}>
             <PageTitle title={"The show must go on!"} />
             <div className={`
-                mx-auto flex w-150 flex-col items-center justify-center
-                space-y-4
-                md:w-200
-                lg:w-250
+                mx-auto flex w-[90vw] flex-col items-center justify-center
+                space-y-4 text-justify
+                md:w-[85vw]
+                lg:w-[80vw]
             `}
             >
                 <div className={"font-normal"}>

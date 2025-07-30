@@ -4,7 +4,6 @@ import { clsx } from "clsx";
 import { Angry, ArrowRightLeft, Baby, BrushCleaning, Dog, Flame, Gavel, Hand, MapPinCheckInside, Scale, Shirt, ShoppingBag, Sword, Syringe, UserRoundX } from "lucide-react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import PageTitle from "@/components/PageTitle";
-import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type IconType = React.ComponentType<{ className?: string }>;
@@ -316,7 +315,7 @@ export default function RulePage() {
                 onTouchMove={handleTouchMove}
                 onTouchStart={handleTouchStart}
             >
-                <Tabs className={"size-full"} value={tab} onValueChange={setTab}>
+                <Tabs className={"size-full gap-y-0"} value={tab} onValueChange={setTab}>
                     <TabsList className={`
                         h-12 w-full rounded-none bg-background
                     `}
@@ -335,7 +334,6 @@ export default function RulePage() {
                         >
                             Nội quy chung
                         </TabsTrigger>
-                        <Separator orientation={"vertical"} />
                         <TabsTrigger
                             className={
                                 `

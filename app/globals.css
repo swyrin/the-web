@@ -20,7 +20,7 @@
 
 @utility bg-vns {
     /* @apply bg-background; */
-    /* @apply dark:bg-[url(/BG_Black.jpg)]; */
+    @apply dark:bg-[url(/BG_Black.jpg)] dark:bg-gray-600;
     @apply bg-cover;
     @apply bg-fixed;
     @apply bg-center;
@@ -50,10 +50,15 @@
     @apply text-black;
 }
 .ALL {
-    @apply bg-black;
-    @apply text-white;
-    @apply border;
-    @apply border-white;
+    @apply bg-primary;
+    @apply text-secondary;
+    @apply border border-primary;
+}
+.Đa-Thê {
+    @apply bg-gradient-to-r;
+    @apply from-amber-300;
+    @apply to-red-600;
+    @apply text-black;
 }
 .IT {
     @apply bg-orange-400;

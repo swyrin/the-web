@@ -19,7 +19,7 @@ export function ThemeSwitcher() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button className={"mr-4"} size={"icon"}>
+                <Button className={"mr-4"} size={"icon"} variant={"outline"}>
                     <Sun className={`
                         size-[1.2rem] scale-100 rotate-0 transition-all
                         dark:scale-0 dark:-rotate-90
@@ -36,9 +36,9 @@ export function ThemeSwitcher() {
                 {/* <DropdownMenuLabel className="text-center">Theme website</DropdownMenuLabel>
                 <DropdownMenuSeparator /> */}
                 <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                    <DropdownMenuRadioItem value={"light"}>Sáng</DropdownMenuRadioItem>
                     <DropdownMenuRadioItem value={"dark"}>Tối</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value={"system"}>Thiết bị</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value={"light"}>Sáng (BETA)</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value={"system"}>Theo thiết bị</DropdownMenuRadioItem>
                 </DropdownMenuRadioGroup>
             </DropdownMenuContent>
         </DropdownMenu>
