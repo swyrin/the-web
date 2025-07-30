@@ -1,4 +1,5 @@
 import type { OperatorClass } from "@/lib/vns";
+import { clsx } from "clsx";
 import Image from "next/image";
 
 type ClassIconProps = {
@@ -10,16 +11,20 @@ type ClassIconProps = {
 function ClassIcon(props: ClassIconProps) {
     return (
         <div
-            className={`flex size-9 items-center justify-center border border-white/50 ${props.active ? "bg-blue-400" : "bg-black"}`}
+            className={clsx(`
+                flex size-9 items-center justify-center border border-white/50
+            `, props.active
+                ? "bg-blue-400"
+                : "bg-black")}
             onClick={props.onClick}
         >
             <Image
                 alt={props.operatorClass}
-                className={`w-auto object-contain ${props.active ? "grayscale invert" : ""}`}
-                height={28}
+                className={`object-contain`}
+                height={32}
                 priority
                 src={`/operator/classes/${props.operatorClass}.png`}
-                width={28}
+                width={32}
             />
         </div>
     );

@@ -1,24 +1,11 @@
 "use client";
 
-import useEmblaCarousel from "embla-carousel-react";
-import { Fragment, useCallback, useEffect, useState } from "react";
-import { FaGun, FaPersonMilitaryRifle } from "react-icons/fa6";
-import { GiSwordsPower } from "react-icons/gi";
-import { IoBag } from "react-icons/io5";
-import {
-    LiaBalanceScaleSolid,
-    LiaBroomSolid,
-    LiaChildSolid,
-    LiaCommentDotsSolid,
-    LiaDogSolid,
-    LiaHammerSolid,
-    LiaStoreAltSolid,
-    LiaSyringeSolid,
-    LiaTshirtSolid,
-    LiaUserFriendsSolid,
-} from "react-icons/lia";
-import { MdDoNotTouch } from "react-icons/md";
+import { clsx } from "clsx";
+import { Angry, ArrowRightLeft, Baby, BrushCleaning, Dog, Flame, Gavel, Hand, MapPinCheckInside, Scale, Shirt, ShoppingBag, Sword, Syringe, UserRoundX } from "lucide-react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import PageTitle from "@/components/PageTitle";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 type IconType = React.ComponentType<{ className?: string }>;
 
@@ -29,15 +16,109 @@ type RuleType = {
     icon: IconType;
 };
 
+const rules: RuleType[] = [
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description:
+            "Tất cả các hình thức quấy rối, xâm phạm đến tài sản và quyền riêng tư cá nhân.",
+        icon: Hand
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description:
+            "Mang vũ khí quân sự (s.ú.n.g, d.a.o,...) và các vật dụng nguy hiểm vào trong khu vực sự kiện.",
+        icon: Sword
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description: "Tất cả các loại chất kích thích, cấm các hành vi gây mất trật tự công cộng.",
+        icon: Syringe
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description: "Bàn về chính trị, phân biệt vùng miền, gây mâu thuẫn, và bạo lực.",
+        icon: Scale
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description:
+            "Cấm các trang phục phản cảm, trang phục thuộc quân phục, cảnh phục... không phù hợp với thuần phong mỹ tục hay tính chất của sự kiện.",
+        icon: Shirt
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description: "Cấm mang vật nuôi, thú vật vào sự kiện.",
+        icon: Dog
+    },
+    {
+        title: "CẤM",
+        titleColor: "red",
+        description:
+            "Những hành vi gây tổn hại đến cơ sở vật chất của khuôn viên sự kiện sẽ phải chịu trách nhiệm và đền bù.",
+        icon: Gavel
+    },
+    {
+        title: "BẮT BUỘC",
+        titleColor: "red",
+        description: "Trẻ em dưới 13 tuổi cần có sự giám sát và quản lý của người lớn.",
+        icon: Baby
+    },
+    {
+        title: "HÃY",
+        titleColor: "green",
+        description: "Giữ gìn vệ sinh chung khuôn viên sự kiện",
+        icon: BrushCleaning
+    },
+    {
+        title: "VUI LÒNG",
+        titleColor: "green",
+        description: "Tự quản tư trang cá nhân. Mọi mất mát BTC sẽ không chịu trách nhiệm. ",
+        icon: ShoppingBag
+    },
+    {
+        title: "NẾU",
+        titleColor: "green",
+        description: "Nhặt được đồ thất lạc vui lòng liên hệ BTC để nhận hỗ trợ.",
+        icon: MapPinCheckInside
+    },
+    {
+        title: "KHI",
+        titleColor: "green",
+        description:
+            "Xảy ra sự cố, xung đột hay tranh chấp... tại offline, quyết định của BTC là quyết định tiên quyết.",
+        icon: Angry
+    },
+    {
+        title: "BTC",
+        titleColor: "yellow",
+        description:
+            "Miễn trách nhiệm đối với các giao dịch cá nhân, ngoại trừ tại khu vực booth của nhà tài trợ.",
+        icon: ArrowRightLeft
+    },
+    {
+        title: "BTC",
+        titleColor: "red",
+        description:
+            "Không chịu trách nhiệm với những vấn đề giữa các khách hàng với nhau.",
+        icon: Flame
+    }
+];
+
 function VerticalLine({ height }: { height: number }) {
-    return <div className={"w-0 border-2 border-white"} style={{ height: `${height}px` }}></div>;
+    return <div className={"w-0 border-2 border-primary"} style={{ height: `${height}px` }}></div>;
 }
 
 function RuleSection({
     title,
     titleColor,
     description,
-    side,
+    side
 }: {
     title: string;
     titleColor: "red" | "green" | "yellow";
@@ -48,18 +129,36 @@ function RuleSection({
         = {
             red: "text-[#FF4B4E]",
             green: "text-[#75FF4B]",
-            yellow: "text-[#FFE44B]",
+            yellow: "text-[#FFE44B]"
         }[titleColor] || "text-default";
     return (
         <div
-            className={`grid h-50 w-full content-center md:max-w-100 ${side === "left" ? "justify-items-end" : "justify-items-start"}`}
+            className={clsx(`
+                grid h-50 w-full content-center
+                md:max-w-100
+            `, side === "left"
+                ? `justify-items-end`
+                : `justify-items-start`)}
         >
             <div
-                className={`flex flex-col gap-1 ${side === "left" ? "items-end text-right" : "items-start text-left"}`}
+                className={clsx("flex flex-col gap-1", side === "left"
+                    ? `items-end text-right`
+                    : `items-start text-left`)}
             >
-                <h1 className={`${colorClass} text-2xl font-medium md:text-5xl`}>{title}</h1>
+                <h1 className={clsx(colorClass, `
+                    text-2xl font-medium
+                    md:text-5xl
+                `)}
+                >
+                    {title}
+                </h1>
                 <p
-                    className={`${side === "left" ? "text-right" : "text-left"} text-lg font-medium text-white md:text-xl`}
+                    className={clsx(`
+                        text-lg font-medium
+                        md:text-xl
+                    `, side === "left"
+                        ? `text-right`
+                        : `text-left`)}
                 >
                     {description}
                 </p>
@@ -72,7 +171,10 @@ function RulesList({ rules }: { rules: RuleType[] }) {
     return (
         <div className={"flex w-full flex-col items-center justify-center"}>
             <div
-                className={"mb-20 grid w-full md:mb-50 md:gap-5"}
+                className={`
+                    mb-20 grid w-full
+                    md:mb-50 md:gap-5
+                `}
                 style={{ gridTemplateColumns: "1fr 100px 1fr" }}
             >
                 <div className={"flex flex-col items-end justify-start gap-50"}>
@@ -91,16 +193,21 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                         })}
                 </div>
 
-                <div className={"flex flex-1 flex-col items-center justify-start"}>
+                <div className={`
+                    flex flex-1 flex-col items-center justify-start
+                `}
+                >
                     <VerticalLine height={50} />
                     {rules.map((rule, index) => (
                         <Fragment key={rule.description}>
                             <div
                                 key={rule.title}
-                                className={"flex size-25 items-center justify-center"}
+                                className={`
+                                    flex size-25 items-center justify-center
+                                `}
                             >
                                 <div className={"relative size-3/4"}>
-                                    <rule.icon className={"size-full text-white"} />
+                                    <rule.icon className={"size-full"} />
                                 </div>
                             </div>
                             {index !== rules.length - 1 ? <VerticalLine height={100} /> : <></>}
@@ -108,7 +215,10 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                     ))}
                 </div>
 
-                <div className={"mt-50 flex flex-col items-start justify-start gap-50"}>
+                <div className={`
+                    mt-50 flex flex-col items-start justify-start gap-50
+                `}
+                >
                     {rules
                         .filter((_, index) => index % 2 === 1)
                         .map((rule) => {
@@ -128,262 +238,134 @@ function RulesList({ rules }: { rules: RuleType[] }) {
     );
 }
 
-const rules: RuleType[] = [
-    {
-        title: "CẤM",
-        titleColor: "red",
-        description:
-            "Tất cả các hình thức quấy rối, xâm phạm đến tài sản và quyền riêng tư cá nhân.",
-        icon: MdDoNotTouch,
-    },
-    {
-        title: "CẤM",
-        titleColor: "red",
-        description:
-            "Mang vũ khí quân sự (s.ú.n.g, d.a.o,...) và các vật dụng nguy hiểm vào trong khu vực sự kiện.",
-        icon: GiSwordsPower,
-    },
-    {
-        title: "CẤM",
-        titleColor: "red",
-        description: "Tất cả các loại chất kích thích, cấm các hành vi gây mất trật tự công cộng.",
-        icon: LiaSyringeSolid,
-    },
-    {
-        title: "CẤM",
-        titleColor: "red",
-        description: "Bàn về chính trị, phân biệt vùng miền, gây mâu thuẫn, và bạo lực.",
-        icon: LiaBalanceScaleSolid,
-    },
-    {
-        title: "CẤM",
-        titleColor: "red",
-        description:
-            "Cấm các trang phục phản cảm, trang phục thuộc quân phục, cảnh phục... không phù hợp với thuần phong mỹ tục hay tính chất của sự kiện.",
-        icon: LiaTshirtSolid,
-    },
-    {
-        title: "CẤM",
-        titleColor: "red",
-        description: "Cấm mang vật nuôi, thú vật vào sự kiện.",
-        icon: LiaDogSolid,
-    },
-    {
-        title: "CẤM",
-        titleColor: "red",
-        description:
-            "Những hành vi gây tổn hại đến cơ sở vật chất của khuôn viên sự kiện sẽ phải chịu trách nhiệm và đền bù.",
-        icon: LiaHammerSolid,
-    },
-    {
-        title: "BẮT BUỘC",
-        titleColor: "red",
-        description: "Trẻ em dưới 13 tuổi cần có sự giám sát và quản lý của người lớn.",
-        icon: LiaChildSolid,
-    },
-    {
-        title: "HÃY",
-        titleColor: "green",
-        description: "Giữ gìn vệ sinh chung khuôn viên sự kiện",
-        icon: LiaBroomSolid,
-    },
-    {
-        title: "VUI LÒNG",
-        titleColor: "green",
-        description: "Tự quản tư trang cá nhân. Mọi mất mát BTC sẽ không chịu trách nhiệm. ",
-        icon: IoBag,
-    },
-    {
-        title: "NẾU",
-        titleColor: "green",
-        description: "Nhặt được đồ thất lạc vui lòng liên hệ BTC để nhận hỗ trợ.",
-        icon: LiaCommentDotsSolid,
-    },
-    {
-        title: "KHI",
-        titleColor: "green",
-        description:
-            "Xảy ra sự cố, xung đột hay tranh chấp... tại offline, quyết định của BTC là quyết định tiên quyết.",
-        icon: LiaUserFriendsSolid,
-    },
-    {
-        title: "BTC",
-        titleColor: "yellow",
-        description:
-            "Miễn trách nhiệm đối với các giao dịch cá nhân, ngoại trừ tại khu vực booth của nhà tài trợ.",
-        icon: LiaStoreAltSolid,
-    },
-    {
-        title: "BTC",
-        titleColor: "red",
-        description:
-            "Không chịu trách nhiệm với những vấn đề giữa các khách hàng với nhau.",
-        icon: MdDoNotTouch,
-    },
-];
-
 const cosplayRules: RuleType[] = [
     {
         title: "HÃY",
         titleColor: "green",
         description:
             "Mặc sẵn đồ cosplay và trang điểm trước. Vì bên trong quán chúng mình không có chỗ để sửa soạn",
-        icon: LiaTshirtSolid,
+        icon: Shirt
     },
     {
         title: "NGHIÊM CẤM",
         titleColor: "red",
         description:
             "Hóa trang nhân vật có trang phục thuộc quân phục, cảnh phục, hoặc không phù hợp thuần phong mỹ tục.",
-        icon: FaGun,
+        icon: UserRoundX
     },
     {
         title: "LƯU Ý",
         titleColor: "yellow",
         description: "Props & Weaps, mô hình vũ khí nhân vật các bạn được phép mang theo. Tuy nhiên vũ khí thật vẫn bị cấm.",
-        icon: FaPersonMilitaryRifle,
-    },
+        icon: Sword
+    }
 ];
 
 export default function RulePage() {
-    const [ruleTab, setRuleTab] = useState<string>("general");
+    const [tab, setTab] = useState<string>("general");
+    const touchStartX = useRef<number | null>(null);
+    const touchEndX = useRef<number | null>(null);
 
     useEffect(() => {
         const stored = localStorage.getItem("rule-tab");
         if (stored && stored !== "") {
-            setRuleTab(stored);
+            setTab(stored);
         }
     }, []);
 
-    const [emblaRef, emblaApi] = useEmblaCarousel({
-        startIndex: 0,
-    });
-
     useEffect(() => {
-        localStorage.setItem("rule-tab", ruleTab);
+        localStorage.setItem("rule-tab", tab);
+    }, [tab]);
 
-        if (emblaApi) {
-            const targetIndex = ruleTab === "general" ? 0 : 1;
-            emblaApi.scrollTo(targetIndex);
+    function handleTouchStart(e: React.TouchEvent) {
+        touchStartX.current = e.touches[0].clientX;
+    };
+
+    function handleTouchMove(e: React.TouchEvent) {
+        touchEndX.current = e.touches[0].clientX;
+    };
+
+    function handleTouchEnd() {
+        if (touchStartX.current === null || touchEndX.current === null) {
+            return;
         }
-    }, [ruleTab, emblaApi]);
-
-    const onSelect = useCallback(() => {
-        if (!emblaApi)
-            return;
-        const selectedIndex = emblaApi.selectedScrollSnap();
-        setRuleTab(selectedIndex === 0 ? "general" : "cosplay");
-    }, [emblaApi]);
-
-    useEffect(() => {
-        if (!emblaApi)
-            return;
-        emblaApi.on("select", onSelect);
-        onSelect();
-
-        return () => {
-            emblaApi.off("select", onSelect);
-        };
-    }, [emblaApi, onSelect]);
-
-    const scrollTo = useCallback(
-        (index: number) => {
-            if (emblaApi)
-                emblaApi.scrollTo(index);
-        },
-        [emblaApi],
-    );
+        const deltaX = touchEndX.current - touchStartX.current;
+        if (Math.abs(deltaX) > 50) {
+            if (deltaX < 0 && tab === "general") {
+                setTab("cosplay");
+            } else if (deltaX > 0 && tab === "cosplay") {
+                setTab("general");
+            }
+        }
+        touchStartX.current = null;
+        touchEndX.current = null;
+    };
 
     return (
-        <div className={"h-visible vns-background flex flex-col"}>
-            <div className={"hero"}>
-                <div className={"hero-content text-center"}>
-                    <PageTitle
-                        dark
-                        favorText={"Một số điều cần lưu ý khi tham gia offline"}
-                        title={"NỘI QUY"}
-                    />
-                </div>
-            </div>
-            {/* Desktop tabs - original design */}
+        <div className={"flex h-visible flex-col bg-vns"}>
+            <PageTitle
+                favorText={"Một số điều cần lưu ý khi tham gia offline"}
+                title={"NỘI QUY"}
+            />
             <div
-                className={"tabs-border sticky top-[70px] z-0 tabs hidden h-[calc(100vh-70px)] place-content-center-safe overflow-hidden rounded-none md:flex"}
-                data-theme={"dark"}
+                className={`
+                    sticky top-[80px] h-[calc(100vh-80px)]
+                    place-content-center-safe
+                `}
+                onTouchEnd={handleTouchEnd}
+                onTouchMove={handleTouchMove}
+                onTouchStart={handleTouchStart}
             >
-                <input
-                    aria-label={"Nội quy chung"}
-                    checked={ruleTab === "general"}
-                    className={"sm:text-md tab w-1/2 text-base-content md:text-lg lg:text-2xl"}
-                    name={"my_tabs_6"}
-                    type={"radio"}
-                    onChange={() => setRuleTab("general")}
-                />
-                <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
-                    <div className={"h-full flex-1 px-5"}>
+                <Tabs className={"size-full"} value={tab} onValueChange={setTab}>
+                    <TabsList className={`
+                        h-12 w-full rounded-none bg-background
+                    `}
+                    >
+                        <TabsTrigger
+                            className={
+                                `
+                                    w-1/2 rounded-none py-3 text-lg
+                                    font-semibold transition-colors
+                                    data-[state=active]:bg-neutral-800
+                                    data-[state=active]:text-white
+                                    data-[state=inactive]:hover:bg-neutral-800/60
+                                `
+                            }
+                            value={"general"}
+                        >
+                            Nội quy chung
+                        </TabsTrigger>
+                        <Separator orientation={"vertical"} />
+                        <TabsTrigger
+                            className={
+                                `
+                                    w-1/2 rounded-none py-3 text-lg
+                                    font-semibold transition-colors
+                                    data-[state=active]:bg-neutral-800
+                                    data-[state=active]:text-white
+                                    data-[state=inactive]:hover:bg-neutral-800/60
+                                `
+                            }
+                            value={"cosplay"}
+                        >
+                            Dành cho Cosplayer
+                        </TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent
+                        className={`scrollbar-none overflow-y-auto pt-10`}
+                        value={"general"}
+                    >
                         <RulesList rules={rules} />
-                    </div>
-                </div>
-                <input
-                    aria-label={"Dành cho cosplayer"}
-                    checked={ruleTab === "cosplay"}
-                    className={"sm:text-md tab w-1/2 text-base-content md:text-lg lg:text-2xl"}
-                    name={"my_tabs_6"}
-                    type={"radio"}
-                    onChange={() => setRuleTab("cosplay")}
-                />
-                <div className={"tab-content overflow-y-auto border-t-gray-400 py-10"}>
-                    <div className={"h-full flex-1 px-5"}>
+                    </TabsContent>
+
+                    <TabsContent
+                        className={`scrollbar-none overflow-y-auto pt-10`}
+                        value={"cosplay"}
+                    >
                         <RulesList rules={cosplayRules} />
-                    </div>
-                </div>
-            </div>
-
-            {/* Mobile swipable tabs */}
-            <div
-                className={"swipe-tabs sticky top-[70px] z-0 h-[calc(100vh-70px)] md:hidden"}
-                data-theme={"dark"}
-            >
-                {/* Tab indicators */}
-                <div className={"flex w-full border-b border-gray-400"}>
-                    <button
-                        className={`flex-1 py-3 text-center text-base-content transition-colors ${
-                            ruleTab === "general"
-                                ? "border-b-2 border-white text-white"
-                                : "text-gray-400"
-                        }`}
-                        type={"button"}
-                        onClick={() => scrollTo(0)}
-                    >
-                        Nội quy chung
-                    </button>
-                    <button
-                        className={`flex-1 py-3 text-center text-base-content transition-colors ${
-                            ruleTab === "cosplay"
-                                ? "border-b-2 border-white text-white"
-                                : "text-gray-400"
-                        }`}
-                        type={"button"}
-                        onClick={() => scrollTo(1)}
-                    >
-                        Dành cho cosplayer
-                    </button>
-                </div>
-
-                {/* Swipable content */}
-                <div ref={emblaRef} className={"embla h-[calc(100%-48px)] overflow-hidden"}>
-                    <div className={"embla__container flex h-full"}>
-                        <div className={"embla__slide flex-[0_0_100%] overflow-y-auto py-10"}>
-                            <div className={"h-full flex-1 px-5"}>
-                                <RulesList rules={rules} />
-                            </div>
-                        </div>
-                        <div className={"embla__slide flex-[0_0_100%] overflow-y-auto py-10"}>
-                            <div className={"h-full flex-1 px-5"}>
-                                <RulesList rules={cosplayRules} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </TabsContent>
+                </Tabs>
             </div>
         </div>
     );

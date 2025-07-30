@@ -2,12 +2,15 @@
 
 import type { Terra } from "@/lib/supabase/terra";
 import type { OperatorClass, OperatorRarity } from "@/lib/vns";
+import { clsx } from "clsx";
 import Fuse from "fuse.js";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import PageTitle from "@/components/PageTitle";
+import { toast } from "sonner";
 import ClassIcon from "@/components/tournament/ClassIcon";
 import OperatorIcon from "@/components/tournament/OperatorIcon";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useTimer } from "@/lib/hooks/useTimer";
 import { supabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
@@ -24,19 +27,20 @@ export default function DraftingPage() {
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
-    const [isVotingAllowed, setIsVotingAllowed] = useState(false);
+    const [isVotingAllowed, setIsVotingAllowed] = useState(true);
     const { isRealtimeConnected, isTimerLoaded, timerData, getDisplayTime, formatTime } = useTimer();
 
     // #region operator selection
     const fuse = useMemo(() => {
-        if (operators.length === 0)
+        if (operators.length === 0) {
             return null;
+        }
 
         return new Fuse(operators, {
             keys: ["name"],
             threshold: 0.5,
             includeScore: true,
-            minMatchCharLength: 1,
+            minMatchCharLength: 1
         });
     }, [operators]);
 
@@ -70,18 +74,19 @@ export default function DraftingPage() {
         const { error } = await supabase.from("member_vote").insert(
             selectedOperators.map(charId => ({
                 id: charId,
-                since: new Date().toISOString(),
-            })),
+                since: new Date().toISOString()
+            }))
         );
 
         if (error) {
             console.error("Failed to submit ban:", error);
+            toast.error("Đã có lỗi trong việc gửi vote :<");
+        } else {
+            toast.success("Đã gửi vote :D");
         }
 
         // just fail silently or else there will a chaos at the event.
         setSelectedOperators([]);
-
-        // ...and yes
         setIsVotingAllowed(false);
     }
 
@@ -117,6 +122,8 @@ export default function DraftingPage() {
     }
     // #endregion operator selection
 
+    useEffect(() => setIsVotingAllowed(true), []);
+
     useEffect(() => {
         // get initial banned operators from Eye of Priestess.
         // more escape hatches I guess.
@@ -145,7 +152,7 @@ export default function DraftingPage() {
             .on("postgres_changes", {
                 event: "INSERT",
                 schema: "public",
-                table: "banned_operators",
+                table: "banned_operators"
             }, (payload) => {
                 console.info("New ban added:", payload.new.id);
                 setBannedOperators(prev => [...prev, payload.new.id]);
@@ -153,7 +160,7 @@ export default function DraftingPage() {
             .on("postgres_changes", {
                 event: "UPDATE",
                 schema: "public",
-                table: "banned_operators",
+                table: "banned_operators"
             }, (payload) => {
                 setBannedOperators((prev) => {
                     console.info(`New ban updated: ${payload.old.id} to ${payload.new.id}`);
@@ -164,7 +171,7 @@ export default function DraftingPage() {
             .on("postgres_changes", {
                 event: "DELETE",
                 schema: "public",
-                table: "banned_operators",
+                table: "banned_operators"
             }, (payload) => {
                 console.info("New ban nuked:", payload.old.id);
                 setBannedOperators(prev => prev.filter(id => id !== payload.old.id));
@@ -232,107 +239,108 @@ export default function DraftingPage() {
     // #endregion data backup
 
     return (
-        <div className={"vns-background flex h-[100svh] flex-col"}>
-            <div className={"hero"}>
-                <div className={"hero-content text-center"}>
-                    <PageTitle dark favorText={""} title={"Ban pick"} />
-                </div>
-            </div>
-            <div
-                className={"mb-8 flex flex-col items-center justify-center gap-y-4 text-base-content"}
-                data-theme={"dark"}
+        <div className={"mx-2 scrollbar-none flex h-visible flex-col bg-vns"}>
+            <div className={`
+                flex h-[calc(100vh_-_80px)] flex-col items-center justify-evenly
+                space-y-2 py-4
+            `}
             >
-                <div className={"flex text-sm font-bold"}>
-                    <div>
-                        PRTS:
-                        {" "}
-                        <span className={`${isRealtimeConnected ? "text-green-300" : "text-red-300"}`}>
-                            {isRealtimeConnected ? "Online" : "Offline"}
-                        </span>
-                    </div>
+                {/* Server status */}
+                <div className={"font-bold"}>
+                    PRTS:
+                    {" "}
+                    <span className={clsx({
+                        "text-green-500": isRealtimeConnected,
+                        "text-red-400": !isRealtimeConnected
+                    })}
+                    >
+                        {isRealtimeConnected ? "Online" : "Offline"}
+                    </span>
                 </div>
-
-                <div className={"flex flex-col items-center justify-center gap-y-4"}>
-                    <div className={"text-xl text-white"}>
-                        Thời gian còn lại:
-                        {" "}
-                        <span className={`font-extrabold ${
-                            !isTimerLoaded
-                                ? "text-red-400"
-                                : timerData.state === "running"
-                                    ? "text-green-400"
-                                    : timerData.state === "paused"
-                                        ? "text-yellow-400"
-                                        : "text-red-400"
-                        }`}
-                        >
-                            {!isTimerLoaded ? "--:--" : formatTime(getDisplayTime())}
-                        </span>
+                {/* Time */}
+                <div className={"font-bold"}>
+                    Thời gian còn lại:
+                    {" "}
+                    <span className={clsx(
+                        "font-extrabold text-muted-foreground",
+                        isTimerLoaded && {
+                            "text-green-400": timerData.state === "running",
+                            "text-yellow-400": timerData.state === "paused",
+                            "text-red-400": timerData.state === "stopped"
+                        }
+                    )}
+                    >
+                        {!isTimerLoaded ? "--:--" : formatTime(getDisplayTime())}
+                    </span>
+                </div>
+                {/* Input */}
+                <div className={"flex w-[80vw] justify-evenly"}>
+                    <Input className={"w-2/3"} placeholder={"Ghi tên op ở đây..."} value={operatorNameSearch} onChange={e => setOperatorNameSearch(e.target.value)} />
+                    <Button
+                        className={"ml-2 w-1/3"}
+                        onClick={() => setOperatorNameSearch("")}
+                    >
+                        Clear
+                    </Button>
+                </div>
+                {/* Star rating */}
+                <div className={"flex items-center justify-center space-x-1"}>
+                    <Image alt={"Star 1"} height={32} src={maxRarity >= 1 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(1)} />
+                    <Image alt={"Star 2"} height={32} src={maxRarity >= 2 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(2)} />
+                    <Image alt={"Star 3"} height={32} src={maxRarity >= 3 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(3)} />
+                    <Image alt={"Star 4"} height={32} src={maxRarity >= 4 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(4)} />
+                    <Image alt={"Star 5"} height={32} src={maxRarity >= 5 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(5)} />
+                    <Image alt={"Star 6"} height={32} src={maxRarity >= 6 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(6)} />
+                </div>
+                {/* Class */}
+                <div className={"mx-auto flex items-center justify-center"}>
+                    <div className={"pr-4 font-bold"}>Class</div>
+                    <ClassIcon active={selectedClass === "Caster"} operatorClass={"Caster"} onClick={() => handleClassSelection("Caster")} />
+                    <ClassIcon active={selectedClass === "Medic"} operatorClass={"Medic"} onClick={() => handleClassSelection("Medic")} />
+                    <ClassIcon active={selectedClass === "Guard"} operatorClass={"Guard"} onClick={() => handleClassSelection("Guard")} />
+                    <ClassIcon active={selectedClass === "Sniper"} operatorClass={"Sniper"} onClick={() => handleClassSelection("Sniper")} />
+                    <ClassIcon active={selectedClass === "Specialist"} operatorClass={"Specialist"} onClick={() => handleClassSelection("Specialist")} />
+                    <ClassIcon active={selectedClass === "Supporter"} operatorClass={"Supporter"} onClick={() => handleClassSelection("Supporter")} />
+                    <ClassIcon active={selectedClass === "Defender"} operatorClass={"Defender"} onClick={() => handleClassSelection("Defender")} />
+                    <ClassIcon active={selectedClass === "Vanguard"} operatorClass={"Vanguard"} onClick={() => handleClassSelection("Vanguard")} />
+                </div>
+                {/* List */}
+                <div className={`
+                    scrollbar-none grid h-[727px] grid-cols-5 gap-6
+                    overflow-y-auto rounded-lg border p-4
+                    md:grid-cols-9
+                `}
+                >
+                    {filteredOperators.map(operator => (
+                        <OperatorIcon
+                            key={operator.charid}
+                            isBanned={(operator.profession as OperatorClass) === "Specialist" || bannedOperators.includes(operator.charid)}
+                            isSelected={selectedOperators.includes(operator.charid)}
+                            operator={{
+                                id: operator.charid,
+                                name: operator.name,
+                                rarity: operator.rarity as OperatorRarity,
+                                class: operator.profession as OperatorClass
+                            }}
+                            onClickFn={() => handleOperatorSelection(operator.charid)}
+                        />
+                    ))}
+                </div>
+                {/* Selection */}
+                <div className={"w-full"}>
+                    <div className={"mb-2 text-center font-extrabold"}>
+                        Hãy chọn Operator bạn muốn cấm (
+                        {selectedOperators.length}
+                        /6)
                     </div>
-                    <div className={"space-x-5"}>
-                        <input className={"border-1 border-white px-5"} placeholder={"Ghi tên op ở đây..."} value={operatorNameSearch} onChange={e => setOperatorNameSearch(e.target.value)} />
-                        <button
-                            className={"mx-2 border-1 border-white bg-[#2e76a9] px-4 disabled:bg-gray-600 disabled:opacity-50"}
-                            disabled={operatorNameSearch === ""}
-                            type={"button"}
-                            onClick={() => setOperatorNameSearch("")}
-                        >
-                            Clear
-                        </button>
-                    </div>
-                    <div className={"flex items-center justify-center space-x-1"}>
-                        <Image alt={"Star 1"} height={32} src={maxRarity >= 1 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(1)} />
-                        <Image alt={"Star 2"} height={32} src={maxRarity >= 2 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(2)} />
-                        <Image alt={"Star 3"} height={32} src={maxRarity >= 3 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(3)} />
-                        <Image alt={"Star 4"} height={32} src={maxRarity >= 4 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(4)} />
-                        <Image alt={"Star 5"} height={32} src={maxRarity >= 5 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(5)} />
-                        <Image alt={"Star 6"} height={32} src={maxRarity >= 6 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(6)} />
-                    </div>
-                    <div className={"flex items-center justify-center space-x-1"}>
-                        <div className={"pr-4"}>Class</div>
-                        <ClassIcon active={selectedClass === "Caster"} operatorClass={"Caster"} onClick={() => handleClassSelection("Caster")} />
-                        <ClassIcon active={selectedClass === "Medic"} operatorClass={"Medic"} onClick={() => handleClassSelection("Medic")} />
-                        <ClassIcon active={selectedClass === "Guard"} operatorClass={"Guard"} onClick={() => handleClassSelection("Guard")} />
-                        <ClassIcon active={selectedClass === "Sniper"} operatorClass={"Sniper"} onClick={() => handleClassSelection("Sniper")} />
-                        <ClassIcon active={selectedClass === "Specialist"} operatorClass={"Specialist"} onClick={() => handleClassSelection("Specialist")} />
-                        <ClassIcon active={selectedClass === "Supporter"} operatorClass={"Supporter"} onClick={() => handleClassSelection("Supporter")} />
-                        <ClassIcon active={selectedClass === "Defender"} operatorClass={"Defender"} onClick={() => handleClassSelection("Defender")} />
-                        <ClassIcon active={selectedClass === "Vanguard"} operatorClass={"Vanguard"} onClick={() => handleClassSelection("Vanguard")} />
-                    </div>
-                    <div className={"grid h-[25vh] grid-cols-5 content-start space-y-4 space-x-2 overflow-x-hidden overflow-y-auto lg:grid-cols-9"}>
-                        {filteredOperators.map(operator => (
-                            <OperatorIcon
-                                key={operator.charid}
-                                isBanned={(operator.profession as OperatorClass) === "Specialist" || bannedOperators.includes(operator.charid)}
-                                isSelected={selectedOperators.includes(operator.charid)}
-                                operator={{
-                                    id: operator.charid,
-                                    name: operator.name,
-                                    rarity: operator.rarity as OperatorRarity,
-                                    class: operator.profession as OperatorClass,
-                                }}
-                                onClickFn={() => handleOperatorSelection(operator.charid)}
-                            />
-                        ))}
-                    </div>
-                    <div className={"w-[92vw]"}>
-                        <div className={"mb-2 text-center font-extrabold text-red-300 italic"}>
-                            Hãy chọn Operator bạn muốn cấm (
-                            {selectedOperators.length}
-                            /6)
-                        </div>
-                        <div className={"grid grid-cols-6 content-center gap-2"}>
-                            {Array.from({ length: 6 }, (_, index) => {
-                                const selectedCharId = selectedOperators[index];
-                                const selectedOp = selectedCharId ? operators.find(op => op.charid === selectedCharId) : null;
-
-                                return (
-                                    <div
-                                        key={index}
-                                        className={"flex h-32 w-20 items-start justify-center"}
-                                        onClick={() => selectedCharId && removeSelectedOperator(selectedCharId)}
-                                    >
-                                        {selectedOp
+                    <div className={"grid grid-cols-6 gap-7"}>
+                        {Array.from({ length: 6 }, (_, index) => {
+                            const selectedCharId = selectedOperators[index];
+                            const selectedOp = selectedCharId ? operators.find(op => op.charid === selectedCharId) : null;
+                            return (
+                                <div key={index} className={"h-28"}>
+                                    {
+                                        selectedOp
                                             ? (
                                                     <OperatorIcon
                                                         isSelected={false}
@@ -340,34 +348,44 @@ export default function DraftingPage() {
                                                             id: selectedOp.charid,
                                                             name: selectedOp.name,
                                                             rarity: selectedOp.rarity as OperatorRarity,
-                                                            class: selectedOp.profession as OperatorClass,
+                                                            class: selectedOp.profession as OperatorClass
                                                         }}
                                                         onClickFn={() => removeSelectedOperator(selectedCharId)}
                                                     />
                                                 )
                                             : (
-                                                    <div className={"text-center text-xs text-gray-500"}>
+                                                    <div className={`
+                                                        mt-6 text-center text-xs
+                                                        text-muted-foreground
+                                                    `}
+                                                    >
                                                         Empty
                                                     </div>
-                                                )}
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                                )
+                                    }
+                                </div>
+                            );
+                        })}
                     </div>
-                    <div className={"grid w-[95vw] grid-cols-2 grid-rows-1 space-x-4 px-12"}>
-                        <button
-                            className={"btn bg-red-400"}
-                            disabled={selectedOperators.length === 0 || !isVotingAllowed || getDisplayTime() <= 0}
-                            type={"button"}
-                            onClick={async () => {
-                                await handleBanSubmission();
-                            }}
-                        >
-                            BAN
-                        </button>
-                        <button className={"btn bg-green-400 text-black"} type={"button"} onClick={() => setSelectedOperators([])}>CLEAR</button>
-                    </div>
+                </div>
+                {/* CTA */}
+                <div className={"flex w-[90vw] justify-evenly"}>
+                    <Button
+                        className={"w-1/3 bg-green-600 text-white"}
+                        disabled={selectedOperators.length === 0}
+                        onClick={() => setSelectedOperators([])}
+                    >
+                        CLEAR
+                    </Button>
+                    <Button
+                        className={"w-1/3 bg-red-600 text-white"}
+                        disabled={selectedOperators.length === 0 || !isVotingAllowed}
+                        onClick={async () => {
+                            await handleBanSubmission();
+                        }}
+                    >
+                        BAN
+                    </Button>
                 </div>
             </div>
         </div>

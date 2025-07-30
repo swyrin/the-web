@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,23 +7,39 @@ type RetroItemProps = {
     title: string;
     description: string;
     imageSrc: StaticImageData | string;
-    href: string;
+    href: Route;
 };
 
 export default function RetroItem(props: RetroItemProps) {
     return (
-        <div className={"m-4 flex flex-col shadow-2xl/25 shadow-white lg:flex-row"}>
-            <figure className={"flex max-h-48 max-w-full min-w-1/2 overflow-hidden"}>
+        <div className={`
+            flex max-w-[80vw] flex-col border-2 border-primary/25 shadow-lg/25
+            shadow-primary
+            lg:flex-row
+        `}
+        >
+            <figure className={`
+                flex max-h-48 w-full overflow-hidden
+                lg:w-1/2
+            `}
+            >
                 <Image alt={"retro_image"} className={"self-center"} src={props.imageSrc} />
             </figure>
-            <div className={"flex min-w-1/2 flex-col items-center justify-center bg-white"}>
+            <div className={`
+                flex w-full flex-col items-center justify-center
+                lg:w-1/2
+            `}
+            >
                 <Link
-                    className={"font-lg m-2 card-title text-center font-extrabold hover:underline"}
+                    className={`
+                        m-2 text-center text-xl font-extrabold
+                        hover:underline
+                    `}
                     href={props.href}
                 >
                     {props.title}
                 </Link>
-                <p className={"mx-auto my-3 text-center"}>{props.description}</p>
+                <p className={"m-3 text-center"}>{props.description}</p>
             </div>
         </div>
     );

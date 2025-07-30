@@ -5,48 +5,63 @@ import Mcafe from "@/public/MCafe_Entry.jpg";
 
 export default function LocationPage() {
     return (
-        <div className={"h-visible vns-background flex flex-col"}>
-            <div className={"hero"}>
-                <div className={"hero-content text-center"}>
-                    <PageTitle
-                        dark
-                        favorText={"Một số thông tin hỗ trợ bạn trong quá trình di chuyển đến địa điểm offline."}
-                        title={"Địa điểm"}
-                    />
-                </div>
-            </div>
-            <div
-                className={"mx-4 mb-8 grid grid-cols-1 grid-rows-2 gap-8 lg:grid-cols-2 lg:grid-rows-1"}
+        <div className={"flex h-visible flex-col bg-vns"}>
+            <PageTitle
+                favorText={"Một số thông tin hỗ trợ bạn trong quá trình di chuyển đến địa điểm offline."}
+                title={"Địa điểm"}
+            />
+            <div className={`
+                mx-4 flex flex-col gap-4
+                lg:flex-row
+            `}
             >
-                <div className={"flex flex-col justify-between space-y-4"}>
-                    <div className={"text-center text-2xl font-extrabold text-white"}>
-                        Cửa chính sẽ nhìn giống thế này
+                <div className={`
+                    flex flex-col justify-center space-y-4
+                    lg:w-1/2
+                `}
+                >
+                    <div className={`
+                        text-center text-2xl font-extrabold text-primary
+                    `}
+                    >
+                        Cửa chính sẽ giống thế này
                     </div>
-                    <div className={"flex flex-1 items-center justify-center"}>
+                    <div className={"flex flex-1 items-start justify-center"}>
                         <Image
                             alt={"MCAFE"}
-                            className={"mx-8 h-64 w-full object-cover lg:h-80"}
+                            className={`
+                                mx-8 h-64 w-full object-cover
+                                lg:h-80
+                            `}
                             height={600}
                             src={Mcafe}
                             width={800}
                         />
                     </div>
-                    <div className={"min-h-[48px] text-center font-light text-white"}>
+                    <div className={"min-h-[48px] text-center text-primary"}>
                         Đ/c: 40 Nguyễn Văn Hưởng, Thảo Điền, Thủ Đức, Thành phố Hồ Chí Minh.
                         <br />
                         (Đi bằng Metro, xuống ga Thảo Điền, đi bộ khoảng 10 phút là tới)
                     </div>
                 </div>
-                <div
-                    className={"flex flex-col justify-between space-y-4"}
+                <div className={`
+                    flex flex-col justify-center space-y-4
+                    lg:w-1/2
+                `}
                 >
-                    <div className={"text-center text-2xl font-extrabold text-white"}>
+                    <div className={`
+                        text-center text-2xl font-extrabold text-primary
+                    `}
+                    >
                         Google Map
                     </div>
-                    <div className={"flex flex-1 items-center justify-center"}>
+                    <div className={"flex flex-1 items-start justify-center"}>
                         <iframe
                             allowFullScreen
-                            className={"mx-8 h-64 w-full lg:h-80"}
+                            className={`
+                                mx-8 h-64 w-full object-cover
+                                lg:h-80
+                            `}
                             loading={"lazy"}
                             referrerPolicy={"no-referrer-when-downgrade"}
                             sandbox={"allow-scripts allow-popups allow-top-navigation allow-forms"}
@@ -56,7 +71,9 @@ export default function LocationPage() {
                         </iframe>
                     </div>
                     <Link
-                        className={"min-h-[48px] text-center font-light text-white underline"}
+                        className={`
+                            min-h-[48px] text-center text-primary underline
+                        `}
                         href={"https://www.google.com/maps/place/Mcaf%C3%A9/@10.8048165,106.7250162,18z/data=!3m1!4b1!4m6!3m5!1s0x3175273e10990f3b:0xc0521b630c53b06!8m2!3d10.8048165!4d106.7263037!16s%2Fg%2F11t4xyhpl0?hl=en&entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D"}
                     >
                         (Link dẫn đến Google Maps)

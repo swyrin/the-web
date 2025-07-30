@@ -1,38 +1,63 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger
+} from "@/components/ui/dialog";
 
 export default function PreviewTicketButton() {
     return (
-        // yes, we don't have a CMS for now...
-        // <Link
-        //     href={"/tickets"}
-        //     className={"btn btn-md lg:btn-lg hover:btn-outline rounded-2xl bg-black text-white hover:bg-white hover:text-black"}
-        // >
-        //     <div className={"font-bold"}>Mua vé</div>
-        // </Link>
-        <>
-            <button
-                className={"btn rounded-xl bg-black font-bold text-white btn-md lg:btn-lg"}
-                type={"button"}
-                onClick={() => (document.getElementById("sold-out-modal") as HTMLDialogElement)!.showModal()}
-            >
-                Mua vé
-            </button>
-            <dialog className={"modal"} id={"sold-out-modal"}>
-                <div className={"modal-box space-y-1"}>
-                    <div className={"text-center text-xl font-bold"}>Xin lỗi bạn nha, tụi mình soldout rồi...</div>
-                    <p>
-                        Bạn nhớ theo dõi thông tin mới nhất tại page
-                        {" "}
-                        <Link className={"font-extrabold underline"} href={"https://www.facebook.com/terrastationvn"}>Trạm dừng chân chốn Terra nhé.</Link>
-                    </p>
-                    <p>Tụi mình mong được gặp bạn tại Offline!</p>
-                    <p className={"py-4 text-center italic"}>(bấm ra bên ngoài để đóng)</p>
-                </div>
-                <form className={"modal-backdrop"} method={"dialog"}>
-                    {/* eslint-disable-next-line react-dom/no-missing-button-type */}
-                    <button>close</button>
-                </form>
-            </dialog>
-        </>
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button className={"rounded-xl text-xl font-bold"} size={"lg"}>
+                    Mua vé
+                </Button>
+            </DialogTrigger>
+            <DialogContent className={"space-y-3"}>
+                <DialogHeader>
+                    <DialogTitle className={"text-center text-xl font-bold"}>
+                        Xin lỗi bạn nha, tụi mình bán hết rồi...
+                    </DialogTitle>
+                </DialogHeader>
+                <DialogDescription asChild>
+                    <div className={"space-y-2"}>
+                        <p>
+                            Bạn nhớ theo dõi thông tin mới nhất tại page
+                            {" "}
+                            <Link
+                                className={"font-extrabold underline"}
+                                href={"https://www.facebook.com/terrastationvn"}
+                                rel={"noopener noreferrer"}
+                                target={"_blank"}
+                            >
+                                Trạm dừng chân chốn Terra
+                            </Link>
+                            {" "}
+                            nhé.
+                            Tụi mình rất mong được gặp bạn tại Offline!
+                        </p>
+                        <p className={"text-center italic"}>
+                            Nếu bạn vẫn muốn xem lại các hạng vé, hãy click vô
+                            {" "}
+                            <DialogClose asChild>
+                                <Link
+                                    className={`font-bold italic underline`}
+                                    href={"/tickets"}
+                                >
+                                    đây
+                                </Link>
+                            </DialogClose>
+                            !
+                        </p>
+                        <p className={"text-center italic"}>(bấm ra bên ngoài hoặc dấu 'x' để đóng)</p>
+                    </div>
+                </DialogDescription>
+            </DialogContent>
+        </Dialog>
     );
 }
