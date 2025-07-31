@@ -98,13 +98,14 @@ export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
         const ids: string[] = body.ids;
+
         if (!Array.isArray(ids) || ids.length === 0) {
             return NextResponse.json({ error: "No operator IDs provided" }, { status: 400 });
         }
 
         // Insert all provided IDs into banned_operators
         const { error } = await elevatedSupabase
-            .from("banned_operators")
+            .from("member_vote")
             .insert(ids.map(id => ({ id })));
 
         if (error) {

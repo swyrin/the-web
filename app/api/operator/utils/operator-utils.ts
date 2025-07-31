@@ -24,6 +24,7 @@ export async function getAggregatedVotes(): Promise<VoteCount[]> {
     }
 
     const voteCount: Record<string, number> = {};
+
     votes.forEach((vote) => {
         if (vote.id) {
             voteCount[vote.id] = (voteCount[vote.id] || 0) + 1;
@@ -37,6 +38,5 @@ export async function getAggregatedVotes(): Promise<VoteCount[]> {
 
 export async function getHighestVotedOperator(): Promise<HighestVoteResult> {
     const aggregatedVotes = await getAggregatedVotes();
-
     return aggregatedVotes[0];
 }

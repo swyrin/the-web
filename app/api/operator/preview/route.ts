@@ -12,8 +12,6 @@ export async function GET() {
 
         return NextResponse.json(highestVoted, { status: 200 });
     } catch (error) {
-        console.error("Operator preview API error:", error);
-
         if (error instanceof Error && error.message === "No votes found") {
             return NextResponse.json(
                 { error: "No votes found" },
