@@ -11,6 +11,7 @@ import ClassIcon from "@/components/tournament/ClassIcon";
 import OperatorIcon from "@/components/tournament/OperatorIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useTimer } from "@/lib/hooks/useTimer";
 import { supabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
@@ -27,7 +28,7 @@ export default function DraftingPage() {
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
-    const [isVotingAllowed, setIsVotingAllowed] = useState(true);
+    const [isVotingAllowed, setIsVotingAllowed] = useState(false);
     const { isRealtimeConnected, isTimerLoaded, timerData, getDisplayTime, formatTime } = useTimer();
 
     // #region operator selection
@@ -121,8 +122,6 @@ export default function DraftingPage() {
         }
     }
     // #endregion operator selection
-
-    useEffect(() => setIsVotingAllowed(true), []);
 
     useEffect(() => {
         // get initial banned operators from Eye of Priestess.
@@ -305,27 +304,40 @@ export default function DraftingPage() {
                     <ClassIcon active={selectedClass === "Vanguard"} operatorClass={"Vanguard"} onClick={() => handleClassSelection("Vanguard")} />
                 </div>
                 {/* List */}
-                <div className={`
-                    scrollbar-none grid h-[727px] grid-cols-5 gap-6
-                    overflow-y-auto rounded-lg border p-4
-                    md:grid-cols-9
-                `}
-                >
-                    {filteredOperators.map(operator => (
-                        <OperatorIcon
-                            key={operator.charid}
-                            isBanned={(operator.profession as OperatorClass) === "Specialist" || bannedOperators.includes(operator.charid)}
-                            isSelected={selectedOperators.includes(operator.charid)}
-                            operator={{
-                                id: operator.charid,
-                                name: operator.name,
-                                rarity: operator.rarity as OperatorRarity,
-                                class: operator.profession as OperatorClass
-                            }}
-                            onClickFn={() => handleOperatorSelection(operator.charid)}
-                        />
-                    ))}
-                </div>
+                {
+                    operators.length > 0
+                        ? (
+                                <div className={`
+                                    scrollbar-none grid h-[727px] w-[90vw]
+                                    grid-cols-5 gap-6 overflow-y-auto rounded-lg
+                                    border bg-background p-6
+                                    md:grid-cols-9
+                                `}
+                                >
+                                    {filteredOperators.map(operator => (
+                                        <OperatorIcon
+                                            key={operator.charid}
+                                            isBanned={(operator.profession as OperatorClass) === "Specialist" || bannedOperators.includes(operator.charid)}
+                                            isSelected={selectedOperators.includes(operator.charid)}
+                                            operator={{
+                                                id: operator.charid,
+                                                name: operator.name,
+                                                rarity: operator.rarity as OperatorRarity,
+                                                class: operator.profession as OperatorClass
+                                            }}
+                                            onClickFn={() => handleOperatorSelection(operator.charid)}
+                                        />
+                                    ))}
+                                </div>
+                            )
+                        : (
+                                <Skeleton className={`
+                                    h-full w-[80vw] rounded-lg border
+                                `}
+                                />
+                            )
+                }
+
                 {/* Selection */}
                 <div className={"w-full"}>
                     <div className={"mb-2 text-center font-extrabold"}>

@@ -44,8 +44,8 @@ export default function Home() {
 
     return (
         <div className={`
-            flex h-visible bg-neutral-400/60
-            dark:bg-neutral-700/60
+            flex h-visible bg-neutral-400/50
+            dark:bg-neutral-700/50
         `}
         >
             {/* Image carousel. */}
@@ -89,7 +89,11 @@ export default function Home() {
                     flex w-full max-w-lg items-center justify-center px-8
                 `}
                 >
-                    <div className={"text-4xl font-bold"}>
+                    <div className={`
+                        text-2xl font-bold
+                        md:text-4xl
+                    `}
+                    >
                         {
                             [
                                 { value: timeLeft.days, label: "Ngày" },
@@ -106,7 +110,7 @@ export default function Home() {
                     absolute bottom-5 flex flex-col gap-y-2 text-center
                 `}
                 >
-                    Được mang đến cho bạn bởi
+                    <span className={"font-extrabold"}>Được mang đến cho bạn bởi</span>
                     <div className={`
                         flex w-[96vw] items-center justify-between text-primary
                         md:w-[60vw]

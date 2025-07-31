@@ -1,9 +1,9 @@
 "use client";
 
-import type {
-    CarouselApi
-} from "@/components/ui/carousel";
+import type { CarouselApi } from "@/components/ui/carousel";
 import { clsx } from "clsx";
+import Autoplay from "embla-carousel-autoplay";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { Ban, Clock, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,7 +74,21 @@ export default function RulePage() {
                     lg:max-w-4xl
                 `}
                 >
-                    <Carousel className={"h-auto w-full"} setApi={setApi}>
+                    <Carousel
+                        className={"h-auto w-full"}
+                        opts={{
+                            align: "center",
+                            skipSnaps: true,
+                            dragFree: true
+                        }}
+                        plugins={[
+                            Autoplay({
+                                delay: 5000
+                            }),
+                            WheelGesturesPlugin({ forceWheelAxis: "y" })
+                        ]}
+                        setApi={setApi}
+                    >
                         <CarouselContent className={"text-white"}>
                             {/* 1. Stage */}
                             <CarouselItem className={"h-128"}>

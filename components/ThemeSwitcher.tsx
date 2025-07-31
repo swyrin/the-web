@@ -19,7 +19,7 @@ export function ThemeSwitcher() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button className={"mr-4"} size={"icon"} variant={"outline"}>
+                <Button className={"mr-4"} size={"icon"}>
                     <Sun className={`
                         size-[1.2rem] scale-100 rotate-0 transition-all
                         dark:scale-0 dark:-rotate-90
