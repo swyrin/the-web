@@ -36,7 +36,11 @@ export default function PodiumPage() {
                 {!loading && !error && (
                     <Table className={"w-full"}>
                         <TableHeader>
-                            <TableRow className={"bg-muted"}>
+                            <TableRow className={`
+                                bg-muted
+                                data-[state=selected]:bg-muted
+                            `}
+                            >
                                 <TableHead className={`
                                     w-[40px] border border-primary py-4
                                     text-center text-4xl font-extrabold
@@ -88,7 +92,10 @@ export default function PodiumPage() {
                                 return (
                                     <TableRow
                                         key={row.number}
-                                        className={clsx(style)}
+                                        className={clsx(`
+                                            hover:bg-background
+                                            hover:text-primary
+                                        `, style)}
                                     >
                                         <TableCell className={`
                                             border border-primary p-1

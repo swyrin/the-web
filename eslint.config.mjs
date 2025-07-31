@@ -24,6 +24,7 @@ export default antfu(
             "public",
             // let shadcn cook on his own.
             "components/ui/**/*.tsx",
+            "components/shadcn/**/*.tsx",
             // generated
             "lib/supabase/terra.d.ts"
         ]
