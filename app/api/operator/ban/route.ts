@@ -2,7 +2,30 @@ import type { NextRequest } from "next/server";
 import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
 import { getHighestVotedOperator } from "@/app/api/operator/utils/operator-utils";
+import { supabase } from "@/lib/supabase/client";
 import { elevatedSupabase } from "@/lib/supabase/elevated-client";
+
+/**
+ * Get all current banned operators ID, at request time.
+ *
+ * SORTED BY ascending time of addition.
+ */
+export async function GET() {
+    try {
+        const { data, error } = await supabase
+            .from("banned_operators")
+            .select("id")
+            .order("since");
+
+        if (error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+
+        return NextResponse.json(data ?? []);
+    } catch {
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    }
+}
 
 /**
  * Delete operator with highest votes.
@@ -63,5 +86,33 @@ export async function DELETE(request: NextRequest) {
             { error: "Internal server error" },
             { status: 500 }
         );
+    }
+}
+
+/**
+ * Ban operators by IDs.
+ *
+ * @param request A list of operator IDs (char_[number]_[callsign]).
+ */
+export async function POST(request: NextRequest) {
+    try {
+        const body = await request.json();
+        const ids: string[] = body.ids;
+        if (!Array.isArray(ids) || ids.length === 0) {
+            return NextResponse.json({ error: "No operator IDs provided" }, { status: 400 });
+        }
+
+        // Insert all provided IDs into banned_operators
+        const { error } = await elevatedSupabase
+            .from("banned_operators")
+            .insert(ids.map(id => ({ id })));
+
+        if (error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ success: true, banned: ids }, { status: 201 });
+    } catch {
+        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
     }
 }

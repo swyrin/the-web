@@ -10,7 +10,7 @@ import {
     CardFooter,
     CardHeader
 } from "@/components/ui/card";
-import { useTimer } from "@/lib/hooks/useTimer";
+import { useTimer } from "@/lib/hooks/use-timer";
 import { supabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
 import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
@@ -26,17 +26,27 @@ export default function TournamentSlidePage() {
     // prefetch everything
     useEffect(() => {
         (async () => {
-            const { data: operators } = await supabase.from("operators_v2").select("name,charid,rarity,profession");
-            if (operators) {
-                setOperators(operators);
+            try {
+                const res = await fetch("/api/operator");
+                if (res.ok) {
+                    const operators = await res.json();
+                    setOperators(operators);
+                }
+            } catch (e) {
+                console.error("Failed to fetch operators", e);
             }
         })();
 
         (async () => {
-            const { data: banned_operators } = await supabase.from("banned_operators").select("id").order("since");
-            if (banned_operators) {
-                console.info(banned_operators);
-                setBannedOperators(banned_operators.map(x => x.id).slice(5));
+            try {
+                const res = await fetch("/api/operator/ban");
+                if (res.ok) {
+                    const banned_operators = await res.json();
+                    console.info(banned_operators);
+                    setBannedOperators(banned_operators.map((x: any) => x.id).slice(5));
+                }
+            } catch (e) {
+                console.error("Failed to fetch banned operators", e);
             }
         })();
     }, []);

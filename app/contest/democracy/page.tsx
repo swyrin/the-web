@@ -12,7 +12,7 @@ import OperatorIcon from "@/components/tournament/OperatorIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useTimer } from "@/lib/hooks/useTimer";
+import { useTimer } from "@/lib/hooks/use-timer";
 import { supabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
 import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
@@ -72,21 +72,18 @@ export default function DraftingPage() {
         // I guess I watched too much Balatro University...
         console.info("Shipping it:", selectedOperators);
 
-        const { error } = await supabase.from("member_vote").insert(
-            selectedOperators.map(charId => ({
-                id: charId,
-                since: new Date().toISOString()
-            }))
-        );
+        const response = await fetch("/api/operator/ban", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ids: selectedOperators })
+        });
 
-        if (error) {
-            console.error("Failed to submit ban:", error);
-            toast.error("Đã có lỗi trong việc gửi vote :<");
+        if (!response.ok) {
+            toast.error("Đã có lỗi trong việc gửi BAN :<");
         } else {
-            toast.success("Đã gửi vote :D");
+            toast.success("Gửi BAN thành công :D");
         }
 
-        // just fail silently or else there will a chaos at the event.
         setSelectedOperators([]);
         setIsVotingAllowed(false);
     }
@@ -124,25 +121,34 @@ export default function DraftingPage() {
     // #endregion operator selection
 
     useEffect(() => {
-        // get initial banned operators from Eye of Priestess.
-        // more escape hatches I guess.
+        // get initial banned operators
         (async () => {
-            const { data } = await supabase
-                .from("banned_operators")
-                .select("id");
+            try {
+                const response = await fetch("/api/operator/ban");
 
-            if (data) {
-                const bannedIds = data.map(item => item.id);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch banned operators");
+                }
+
+                const data = await response.json();
+                const bannedIds = data.map((item: { id: string }) => item.id);
                 setBannedOperators(bannedIds);
+            } catch (error) {
+                toast.error(`Error fetching banned operators: ${error instanceof Error ? error.message : String(error)}`);
             }
         })();
 
         // fetch the operators
-        // it's just ~350 operators, so I guess supabase can handle that.
         (async () => {
-            const { data: operators } = await supabase.from("operators_v2").select("name,charid,rarity,profession,archetype");
-            if (operators) {
+            try {
+                const response = await fetch("/api/operator");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch operators");
+                }
+                const operators = await response.json();
                 setOperators(operators);
+            } catch (error) {
+                toast.error(`Error fetching operators: ${error instanceof Error ? error.message : String(error)}`);
             }
         })();
 
