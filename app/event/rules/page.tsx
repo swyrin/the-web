@@ -351,14 +351,18 @@ export default function RulePage() {
                     </TabsList>
 
                     <TabsContent
-                        className={`scrollbar-none overflow-y-auto pt-10`}
+                        className={`
+                            scrollbar-none overflow-y-auto bg-background pt-10
+                        `}
                         value={"general"}
                     >
                         <RulesList rules={rules} />
                     </TabsContent>
 
                     <TabsContent
-                        className={`scrollbar-none overflow-y-auto pt-10`}
+                        className={`
+                            scrollbar-none overflow-y-auto bg-background pt-10
+                        `}
                         value={"cosplay"}
                     >
                         <RulesList rules={cosplayRules} />
