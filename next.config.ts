@@ -7,8 +7,7 @@ const nextConfig: NextConfig = {
         unoptimized: true
     },
     experimental: {
-        typedRoutes: true,
-        useCache: true
+        typedRoutes: true
     },
 
     async headers() {
@@ -20,6 +19,12 @@ const nextConfig: NextConfig = {
                     { key: "Access-Control-Allow-Origin", value: "*" },
                     { key: "Access-Control-Allow-Methods", value: "*" },
                     { key: "Access-Control-Allow-Headers", value: "*" }
+                ]
+            },
+            {
+                source: "/:path*\\.(jpg|png)",
+                headers: [
+                    { key: "Cache-Control", value: "public, max-age=31536000, immutable" }
                 ]
             }
         ];

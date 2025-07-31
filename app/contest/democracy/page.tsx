@@ -311,7 +311,7 @@ export default function DraftingPage() {
                 </div>
                 {/* List */}
                 {
-                    operators.length > 0
+                    filteredOperators.length > 0
                         ? (
                                 <div className={`
                                     scrollbar-none grid h-[727px] w-[90vw]
@@ -343,7 +343,6 @@ export default function DraftingPage() {
                                 />
                             )
                 }
-
                 {/* Selection */}
                 <div className={"w-full"}>
                     <div className={"mb-2 text-center font-extrabold"}>

@@ -10,6 +10,7 @@ import {
     CardFooter,
     CardHeader
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useTimer } from "@/lib/hooks/use-timer";
 import { supabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
@@ -41,9 +42,8 @@ export default function TournamentSlidePage() {
             try {
                 const res = await fetch("/api/operator/ban");
                 if (res.ok) {
-                    const banned_operators = await res.json();
-                    console.info(banned_operators);
-                    setBannedOperators(banned_operators.map((x: any) => x.id).slice(5));
+                    const banned_operators: string[] = (await res.json()).map((x: { id: string }) => x.id);
+                    setBannedOperators(banned_operators.slice(5));
                 }
             } catch (e) {
                 console.error("Failed to fetch banned operators", e);
@@ -91,7 +91,6 @@ export default function TournamentSlidePage() {
 
     return (
         <div className={"flex h-visible flex-col bg-vns"}>
-            {/* <PageTitle title={"Banned Operators"} /> */}
             <div
                 className={`flex flex-1/2 flex-col items-center justify-evenly`}
             >
@@ -111,9 +110,10 @@ export default function TournamentSlidePage() {
                 <div className={"flex w-full justify-evenly"}>
                     {
                         [0, 1, 2, 3, 4, 5].map((i) => {
-                            const charcode = bannedOperators.at(i) ?? "Max Verstappen";
+                            const entryExist = bannedOperators.at(i) !== undefined;
+                            const charcode = bannedOperators.at(i) ?? "[redacted]";
                             const operator = operators.find(x => x.charid === charcode);
-                            const name = operator?.name ?? "???";
+                            const name = operator?.name ?? "[REDACTED]";
                             const rarity = operator?.rarity ?? 0;
                             const suffix = rarity <= 3 ? 1 : 2;
 
@@ -121,15 +121,18 @@ export default function TournamentSlidePage() {
                                 <Card
                                     key={i}
                                     className={clsx(`
-                                        h-115 w-57 rounded-none border-none
-                                        to-background to-95%
+                                        h-115 w-57 border-neutral-500
+                                        bg-gradient-to-t transition-all
                                     `, {
-                                        "bg-gradient-to-t from-orange-400/75": rarity === 6,
-                                        "bg-gradient-to-t from-amber-400/75": rarity === 5,
-                                        "bg-gradient-to-t from-purple-500/75": rarity === 4,
-                                        "bg-gradient-to-t from-cyan-500/75": rarity === 3,
-                                        "bg-gradient-to-t from-green-400/75": rarity === 2,
-                                        "bg-gradient-to-t from-neutral-400/75": rarity === 1
+                                        "from-orange-400/75": rarity === 6,
+                                        "from-amber-400/75": rarity === 5,
+                                        "from-purple-500/75": rarity === 4,
+                                        "from-cyan-500/75": rarity === 3,
+                                        "from-green-400/75": rarity === 2,
+                                        "from-neutral-400/75": rarity === 1,
+                                        "from-transparent": rarity === 0
+                                    }, {
+                                        "animate-vns-gradient-move": entryExist
                                     })}
                                 >
                                     <CardHeader className={`
@@ -143,21 +146,35 @@ export default function TournamentSlidePage() {
                                         h-[360px] w-[180px] self-center
                                     `}
                                     >
-                                        <Image
-                                            alt={charcode}
-                                            height={360}
-                                            src={`/operator/portraits/${charcode}_${suffix}.png`}
-                                            width={180}
-                                        />
+                                        {
+                                            entryExist
+                                                ? (
+                                                        <Image
+                                                            alt={charcode}
+                                                            className={`
+                                                                h-full w-full
+                                                                object-contain
+                                                            `}
+                                                            height={360}
+                                                            src={`/operator/portraits/${charcode}_${suffix}.png`}
+                                                            width={180}
+                                                        />
+                                                    )
+                                                : (
+                                                        <Skeleton className={clsx(`
+                                                            h-full w-full
+                                                        `)}
+                                                        />
+                                                    )
+                                        }
+
                                     </CardContent>
                                     <CardFooter className={`
-                                        flex h-24 flex-col justify-center
-                                        text-xl
+                                        flex h-24 flex-col text-xl
                                     `}
                                     >
                                         <div className={`
-                                            flex items-center justify-center
-                                            space-x-1
+                                            flex items-center space-x-1
                                         `}
                                         >
                                             {
@@ -170,8 +187,7 @@ export default function TournamentSlidePage() {
                                                 })
                                             }
                                         </div>
-                                        <div className={"text-center font-bold"}>
-                                            {/* {"Vai con cai ten nao dai hon khong chat"} */}
+                                        <div className={`text-center font-bold`}>
                                             {name}
                                         </div>
                                     </CardFooter>

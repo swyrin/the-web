@@ -28,16 +28,6 @@ export default antfu(
             "lib/supabase/terra.d.ts"
         ]
     },
-    // ignore this
-    {
-        files: ["**/*.{ts,tsx,cts,mts}"],
-        languageOptions: {
-            parser: eslintParserTypeScript,
-            parserOptions: {
-                project: true
-            }
-        }
-    },
     // Next.js
     {
         plugins: {
@@ -49,6 +39,15 @@ export default antfu(
         }
     },
     // TailwindCSS
+    {
+        files: ["**/*.{ts,tsx,cts,mts}"],
+        languageOptions: {
+            parser: eslintParserTypeScript,
+            parserOptions: {
+                project: true
+            }
+        }
+    },
     {
         files: ["**/*.{jsx,tsx}"],
         languageOptions: {

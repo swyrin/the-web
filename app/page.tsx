@@ -82,6 +82,7 @@ export default function Home() {
                         dark:invert-0
                     `}
                     height={185}
+                    priority
                     src={DRCH_Banner}
                     width={727}
                 />

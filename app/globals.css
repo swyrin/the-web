@@ -5,6 +5,15 @@
 
 @plugin "tailwind-scrollbar";
 
+@theme {
+    --animate-vns-gradient-move: vns-grad-move 500ms ease-in-out;
+
+    @keyframes vns-grad-move {
+        from { --tw-gradient-to-position: 0%; }
+        to% { --tw-gradient-to-position: 80%; }
+    }
+}
+
 @utility h-visible {
     /* Credit: Cerberose @ PR#5 */
     @apply min-h-[calc(100svh_-_80px)];
