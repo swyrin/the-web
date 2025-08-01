@@ -20,7 +20,7 @@ function ClassIcon(props: ClassIconProps) {
         >
             <Image
                 alt={props.operatorClass}
-                className={"size-auto object-contain"}
+                className="size-auto object-contain"
                 height={32}
                 priority
                 src={`/operator/classes/${props.operatorClass}.png`}

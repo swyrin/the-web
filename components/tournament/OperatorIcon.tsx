@@ -41,9 +41,7 @@ export default function OperatorIcon(props: OperatorIconProps) {
 
     return (
         <div
-            className={`
-                flex max-h-28 w-full flex-col items-center justify-start
-            `}
+            className="flex max-h-28 w-full flex-col items-center justify-start"
             onClick={props.isBanned ? () => {} : props.onClickFn}
         >
             <div
@@ -64,15 +62,13 @@ export default function OperatorIcon(props: OperatorIconProps) {
             >
                 <Image
                     alt={props.operator.name}
-                    className={"object-contain"}
+                    className="object-contain"
                     height={48}
                     src={imageSource}
                     width={48}
                 />
             </div>
-            <div className={`
-                mt-1 flex w-12 items-center justify-center text-center text-xs
-            `}
+            <div className="mt-1 flex w-12 items-center justify-center text-center text-xs"
             >
                 {props.operator.name}
             </div>

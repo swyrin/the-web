@@ -13,7 +13,7 @@
 - Dự án này tụi mình sử dụng:
 
   - [**Next.js**](https://nextjs.org/) (tất nhiên là sẽ có [**React**](https://react.dev/)) và [**TailwindCSS**](https://tailwindcss.com/) cho frontend.
-  - [**shadcn/ui**](https://ui.daisyui.com/) làm UI tookit chính.
+  - [**shadcn/ui**](https://ui.shadcn.com/) làm UI tookit chính.
   - [**Supabase**](https://supabase.com/) cho backend.
   - [**Docker**](https://www.docker.com/) để "đóng thùng" cái web đi deploy ra server riêng của team.
 

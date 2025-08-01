@@ -2,7 +2,8 @@
 
 import { clsx } from "clsx";
 import { Angry, ArrowRightLeft, Baby, BrushCleaning, Dog, Flame, Gavel, Hand, MapPinCheckInside, Scale, Shirt, ShoppingBag, Sword, Syringe, UserRoundX } from "lucide-react";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useQueryState } from "nuqs";
+import { Fragment } from "react";
 import PageTitle from "@/components/PageTitle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -110,7 +111,7 @@ const rules: RuleType[] = [
 ];
 
 function VerticalLine({ height }: { height: number }) {
-    return <div className={"w-0 border-2 border-primary"} style={{ height: `${height}px` }}></div>;
+    return <div className="w-0 border-2 border-primary" style={{ height: `${height}px` }}></div>;
 }
 
 function RuleSection({
@@ -136,13 +137,13 @@ function RuleSection({
                 grid h-50 w-full content-center
                 md:max-w-100
             `, side === "left"
-                ? `justify-items-end`
-                : `justify-items-start`)}
+                ? "justify-items-end"
+                : "justify-items-start")}
         >
             <div
                 className={clsx("flex flex-col gap-1", side === "left"
-                    ? `items-end text-right`
-                    : `items-start text-left`)}
+                    ? "items-end text-right"
+                    : "items-start text-left")}
             >
                 <h1 className={clsx(colorClass, `
                     text-2xl font-medium
@@ -156,8 +157,8 @@ function RuleSection({
                         text-lg font-medium
                         md:text-xl
                     `, side === "left"
-                        ? `text-right`
-                        : `text-left`)}
+                        ? "text-right"
+                        : "text-left")}
                 >
                     {description}
                 </p>
@@ -168,15 +169,12 @@ function RuleSection({
 
 function RulesList({ rules }: { rules: RuleType[] }) {
     return (
-        <div className={"flex w-full flex-col items-center justify-center"}>
+        <div className="flex w-full flex-col items-center justify-center">
             <div
-                className={`
-                    mb-20 grid w-full
-                    md:mb-50 md:gap-5
-                `}
+                className="mb-20 grid w-full md:mb-50 md:gap-5"
                 style={{ gridTemplateColumns: "1fr 100px 1fr" }}
             >
-                <div className={"flex flex-col items-end justify-start gap-50"}>
+                <div className="flex flex-col items-end justify-start gap-50">
                     {rules
                         .filter((_, index) => index % 2 === 0)
                         .map((rule) => {
@@ -184,7 +182,7 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                                 <RuleSection
                                     key={rule.description}
                                     description={rule.description}
-                                    side={"left"}
+                                    side="left"
                                     title={rule.title}
                                     titleColor={rule.titleColor}
                                 />
@@ -192,21 +190,16 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                         })}
                 </div>
 
-                <div className={`
-                    flex flex-1 flex-col items-center justify-start
-                `}
-                >
+                <div className="flex flex-1 flex-col items-center justify-start">
                     <VerticalLine height={50} />
                     {rules.map((rule, index) => (
                         <Fragment key={rule.description}>
                             <div
                                 key={rule.title}
-                                className={`
-                                    flex size-25 items-center justify-center
-                                `}
+                                className="flex size-25 items-center justify-center"
                             >
-                                <div className={"relative size-3/4"}>
-                                    <rule.icon className={"size-full"} />
+                                <div className="relative size-3/4">
+                                    <rule.icon className="size-full" />
                                 </div>
                             </div>
                             {index !== rules.length - 1 ? <VerticalLine height={100} /> : <></>}
@@ -214,10 +207,7 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                     ))}
                 </div>
 
-                <div className={`
-                    mt-50 flex flex-col items-start justify-start gap-50
-                `}
-                >
+                <div className="mt-50 flex flex-col items-start justify-start gap-50">
                     {rules
                         .filter((_, index) => index % 2 === 1)
                         .map((rule) => {
@@ -225,7 +215,7 @@ function RulesList({ rules }: { rules: RuleType[] }) {
                                 <RuleSection
                                     key={rule.description}
                                     description={rule.description}
-                                    side={"right"}
+                                    side="right"
                                     title={rule.title}
                                     titleColor={rule.titleColor}
                                 />
@@ -261,109 +251,43 @@ const cosplayRules: RuleType[] = [
 ];
 
 export default function RulePage() {
-    const [tab, setTab] = useState<string>("general");
-    const touchStartX = useRef<number | null>(null);
-    const touchEndX = useRef<number | null>(null);
-
-    useEffect(() => {
-        const stored = localStorage.getItem("rule-tab");
-        if (stored && stored !== "") {
-            setTab(stored);
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem("rule-tab", tab);
-    }, [tab]);
-
-    function handleTouchStart(e: React.TouchEvent) {
-        touchStartX.current = e.touches[0].clientX;
-    };
-
-    function handleTouchMove(e: React.TouchEvent) {
-        touchEndX.current = e.touches[0].clientX;
-    };
-
-    function handleTouchEnd() {
-        if (touchStartX.current === null || touchEndX.current === null) {
-            return;
-        }
-        const deltaX = touchEndX.current - touchStartX.current;
-        if (Math.abs(deltaX) > 50) {
-            if (deltaX < 0 && tab === "general") {
-                setTab("cosplay");
-            } else if (deltaX > 0 && tab === "cosplay") {
-                setTab("general");
-            }
-        }
-        touchStartX.current = null;
-        touchEndX.current = null;
-    };
+    const [tab, setTab] = useQueryState("tab", { defaultValue: "general", clearOnDefault: false });
 
     return (
-        <div className={"flex h-visible flex-col bg-vns"}>
+        <div className="flex h-visible flex-col bg-vns">
             <PageTitle
-                favorText={"Một số điều cần lưu ý khi tham gia offline"}
-                title={"NỘI QUY"}
+                favorText="Một số điều cần lưu ý khi tham gia offline"
+                title="NỘI QUY"
             />
             <div
-                className={`
-                    sticky top-[80px] h-[calc(100vh-80px)]
-                    place-content-center-safe
-                `}
-                onTouchEnd={handleTouchEnd}
-                onTouchMove={handleTouchMove}
-                onTouchStart={handleTouchStart}
+                className="sticky top-[80px] h-[calc(100vh-80px)] place-content-center-safe"
             >
-                <Tabs className={"size-full gap-y-0"} value={tab} onValueChange={setTab}>
-                    <TabsList className={`
-                        h-12 w-full rounded-none bg-background
-                    `}
-                    >
+                <Tabs className="size-full gap-y-0" value={tab} onValueChange={setTab}>
+                    <TabsList className="h-12 w-full rounded-none bg-background">
                         <TabsTrigger
-                            className={
-                                `
-                                    w-1/2 rounded-none py-3 text-lg
-                                    font-semibold transition-colors
-                                    data-[state=active]:bg-neutral-800
-                                    data-[state=active]:text-white
-                                    data-[state=inactive]:hover:bg-neutral-800/60
-                                `
-                            }
-                            value={"general"}
+                            className="w-1/2 rounded-none py-3 text-lg font-semibold transition-colors data-[state=active]:bg-neutral-800 data-[state=active]:text-white data-[state=inactive]:hover:bg-neutral-800/60"
+                            value="general"
                         >
                             Nội quy chung
                         </TabsTrigger>
                         <TabsTrigger
-                            className={
-                                `
-                                    w-1/2 rounded-none py-3 text-lg
-                                    font-semibold transition-colors
-                                    data-[state=active]:bg-neutral-800
-                                    data-[state=active]:text-white
-                                    data-[state=inactive]:hover:bg-neutral-800/60
-                                `
-                            }
-                            value={"cosplay"}
+                            className="w-1/2 rounded-none py-3 text-lg font-semibold transition-colors data-[state=active]:bg-neutral-800 data-[state=active]:text-white data-[state=inactive]:hover:bg-neutral-800/60"
+                            value="cosplay"
                         >
                             Dành cho Cosplayer
                         </TabsTrigger>
                     </TabsList>
 
                     <TabsContent
-                        className={`
-                            scrollbar-none overflow-y-auto bg-background pt-10
-                        `}
-                        value={"general"}
+                        className="scrollbar-none overflow-y-auto bg-background pt-10"
+                        value="general"
                     >
                         <RulesList rules={rules} />
                     </TabsContent>
 
                     <TabsContent
-                        className={`
-                            scrollbar-none overflow-y-auto bg-background pt-10
-                        `}
-                        value={"cosplay"}
+                        className="scrollbar-none overflow-y-auto bg-background pt-10"
+                        value="cosplay"
                     >
                         <RulesList rules={cosplayRules} />
                     </TabsContent>

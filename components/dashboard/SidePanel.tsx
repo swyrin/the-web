@@ -66,7 +66,7 @@ export default function DashboardSidePanel() {
     }, [supabase]);
 
     return (
-        <Sidebar collapsible={"icon"}>
+        <Sidebar collapsible="icon">
             {/* <SidebarHeader>
                 </SidebarHeader> */}
             <SidebarContent>
@@ -78,7 +78,7 @@ export default function DashboardSidePanel() {
                             <Collapsible
                                 key={stuff.title}
                                 asChild
-                                className={"group/collapsible"}
+                                className="group/collapsible"
                                 defaultOpen={stuff.isActive}
                             >
                                 <SidebarMenuItem>
@@ -86,11 +86,7 @@ export default function DashboardSidePanel() {
                                         <SidebarMenuButton tooltip={stuff.title}>
                                             {stuff.icon && <stuff.icon />}
                                             <span>{stuff.title}</span>
-                                            <ChevronRight className={`
-                                                ml-auto transition-transform
-                                                duration-200
-                                                group-data-[state=open]/collapsible:rotate-90
-                                            `}
+                                            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
                                             />
                                         </SidebarMenuButton>
                                     </CollapsibleTrigger>
@@ -113,7 +109,7 @@ export default function DashboardSidePanel() {
                     </SidebarMenu>
                 </SidebarGroup>
                 {/* Navigations */}
-                <SidebarGroup className={"group-data-[collapsible=icon]:hidden"}>
+                <SidebarGroup className="group-data-[collapsible=icon]:hidden">
                     <SidebarGroupLabel>Navigations</SidebarGroupLabel>
                     <SidebarMenu>
                         {sidebarData.navigations.map(navigation => (
@@ -136,27 +132,21 @@ export default function DashboardSidePanel() {
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <SidebarMenuButton
-                                    className={`
-                                        data-[state=open]:bg-sidebar-accent
-                                        data-[state=open]:text-sidebar-accent-foreground
-                                    `}
-                                    size={"lg"}
+                                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                                    size="lg"
                                 >
-                                    <Avatar className={"h-8 w-8 rounded-lg"}>
+                                    <Avatar className="h-8 w-8 rounded-lg">
                                         <AvatarImage alt={userData.name} src={userData.avatar} />
-                                        <AvatarFallback className={"rounded-lg"}>{userData.name}</AvatarFallback>
+                                        <AvatarFallback className="rounded-lg">{userData.name}</AvatarFallback>
                                     </Avatar>
-                                    <div className={`
-                                        grid flex-1 text-left text-sm
-                                        leading-tight
-                                    `}
+                                    <div className="grid flex-1 text-left text-sm leading-tight"
                                     >
-                                        <span className={"truncate font-medium"}>
+                                        <span className="truncate font-medium">
                                             Welcome,
                                             {" "}
                                             {userData.name}
                                         </span>
-                                        <span className={"truncate text-xs"}>{userData.email}</span>
+                                        <span className="truncate text-xs">{userData.email}</span>
                                     </div>
                                 </SidebarMenuButton>
                             </DropdownMenuTrigger>
@@ -165,16 +155,16 @@ export default function DashboardSidePanel() {
                     <SidebarMenuItem>
                         <SidebarMenuButton asChild>
                             <Button
-                                className={`flex cursor-pointer items-center`}
-                                variant={"destructive"}
+                                className="flex cursor-pointer items-center"
+                                variant="destructive"
                                 onClick={async () => {
                                     await supabase.auth.signOut();
                                     toast.warning("Logged out!");
                                     redirect("/auth/login");
                                 }}
                             >
-                                <LogOut className={"mt-[0.5] ml-1"} />
-                                <span className={"font-extrabold"}>Log Out</span>
+                                <LogOut className="mt-[0.5] ml-1" />
+                                <span className="font-extrabold">Log Out</span>
                             </Button>
                         </SidebarMenuButton>
                     </SidebarMenuItem>

@@ -46,8 +46,8 @@ function MobileDropdown({
 }) {
     return (
         <details>
-            <summary className={"mb-2"}>{title}</summary>
-            <div className={"flex flex-col space-y-4"}>
+            <summary className="mb-2">{title}</summary>
+            <div className="flex flex-col space-y-4">
                 {items.map(item => (
                     <Link
                         key={item.href}
@@ -80,14 +80,12 @@ function DesktopDropdown({ title, items, pathname, pathPrefix }: DesktopDropdown
                         data-[state=open]:decoration-2
                         data-[state=open]:underline-offset-8
                     `, underlineStyle(pathname, pathPrefix))}
-                    variant={"ghost"}
+                    variant="ghost"
                 >
                     {title}
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className={`
-                w-52 bg-background shadow-xs shadow-primary/50
-            `}
+            <DropdownMenuContent className="w-52 bg-background shadow-xs shadow-primary/50"
             >
                 {items.map(item => (
                     <DropdownMenuItem key={item.href} asChild>
@@ -127,7 +125,7 @@ function NavLink({
             className={underlineStyle(pathname, pathPrefix)}
             href={pathPrefix}
         >
-            <div className={"text-lg"}>{children}</div>
+            <div className="text-lg">{children}</div>
         </Link>
     );
 }
@@ -156,8 +154,8 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
 
     if (isMobile) {
         return (
-            <div className={"flex flex-col space-y-4"}>
-                <MobileDropdown items={eventItems} pathname={pathname} title={"Sự kiện"} />
+            <div className="flex flex-col space-y-4">
+                <MobileDropdown items={eventItems} pathname={pathname} title="Sự kiện" />
                 {links.map(link => (
                     <Link
                         key={link.label}
@@ -177,16 +175,13 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
     }
 
     return (
-        <div className={`
-            mr-1 hidden cursor-pointer items-center gap-3
-            lg:flex
-        `}
+        <div className="mr-1 hidden cursor-pointer items-center gap-3 lg:flex"
         >
             <DesktopDropdown
                 items={eventItems}
-                pathPrefix={"/event"}
+                pathPrefix="/event"
                 pathname={pathname}
-                title={"Sự kiện"}
+                title="Sự kiện"
             />
             <NavDivider />
             {links.map((link, index) => (
@@ -197,7 +192,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
                     </NavLink>
                 </Fragment>
             ))}
-            <NavDivider width={"w-28"} />
+            <NavDivider width="w-28" />
         </div>
     );
 }

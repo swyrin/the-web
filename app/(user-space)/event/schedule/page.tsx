@@ -51,39 +51,27 @@ export default function SchedulePage() {
     }, []);
 
     return (
-        <div className={"flex h-visible flex-col bg-vns"}>
-            <PageTitle favorText={"Các hoạt động sẽ diễn ra trong offline"} title={"Hoạt động"} />
-
-            <div className={"mx-14 flex flex-col items-center justify-center"}>
-                <div className={"text-center italic"}>(*) Kế hoạch & thời gian có thể sẽ thay đổi tùy vào tình hình thực tế.</div>
-                <div className={"text-center italic"}>(**) Cái này cập nhật theo thời gian thực.</div>
+        <div className="flex h-visible flex-col bg-vns">
+            <PageTitle favorText="Các hoạt động sẽ diễn ra trong offline" title="Hoạt động" />
+            <div className="mx-14 flex flex-col items-center justify-center">
+                <div className="text-center italic">(*) Kế hoạch & thời gian có thể sẽ thay đổi tùy vào tình hình thực tế.</div>
+                <div className="text-center italic">(**) Cái này cập nhật theo thời gian thực.</div>
 
                 <Timeline
-                    className={`
-                        mx-auto mt-32 hidden
-                        md:flex
-                    `}
-                    orientation={"horizontal"}
+                    className="mx-auto mt-32 hidden md:flex"
+                    orientation="horizontal"
                     value={progression}
                 >
                     {items.map((item, index) => (
                         <TimelineItem
                             key={item.title}
-                            className={`
-                                group-data-[orientation=horizontal]/timeline:mt-0
-                            `}
+                            className="group-data-[orientation=horizontal]/timeline:mt-0"
                             step={index + 1}
                         >
                             <TimelineHeader>
-                                <TimelineSeparator className={`
-                                    group-data-[orientation=horizontal]/timeline:top-12
-                                `}
-                                />
-                                <TimelineIndicator className={`
-                                    group-data-[orientation=horizontal]/timeline:top-12
-                                `}
-                                />
-                                <TimelineDate className={"mb-8 text-2xl"}>{item.date}</TimelineDate>
+                                <TimelineSeparator className="group-data-[orientation=horizontal]/timeline:top-12" />
+                                <TimelineIndicator className="group-data-[orientation=horizontal]/timeline:top-12" />
+                                <TimelineDate className="mb-8 text-2xl">{item.date}</TimelineDate>
                                 <TimelineTitle>{item.title}</TimelineTitle>
                             </TimelineHeader>
                         </TimelineItem>
@@ -91,28 +79,13 @@ export default function SchedulePage() {
                 </Timeline>
 
                 <Timeline
-                    className={`
-                        mt-8 flex max-h-[30svh]
-                        md:hidden
-                    `}
+                    className="mt-8 flex max-h-[30svh] md:hidden"
                     value={progression}
                 >
                     {items.map((item, index) => (
                         <TimelineItem
                             key={item.title}
-                            className={`
-                                w-[calc(50%-1.5rem)]
-                                odd:ms-auto
-                                even:text-right
-                                even:group-data-[orientation=vertical]/timeline:ms-0
-                                even:group-data-[orientation=vertical]/timeline:me-8
-                                even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:-right-6
-                                even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:left-auto
-                                even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:translate-x-1/2
-                                even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:-right-6
-                                even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:left-auto
-                                even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:translate-x-1/2
-                            `}
+                            className="w-[calc(50%-1.5rem)] odd:ms-auto even:text-right even:group-data-[orientation=vertical]/timeline:ms-0 even:group-data-[orientation=vertical]/timeline:me-8 even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:-right-6 even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:left-auto even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-indicator]]:translate-x-1/2 even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:-right-6 even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:left-auto even:group-data-[orientation=vertical]/timeline:[&_[data-slot=timeline-separator]]:translate-x-1/2"
                             step={index + 1}
                         >
                             <TimelineHeader>
@@ -125,7 +98,6 @@ export default function SchedulePage() {
                     ))}
                 </Timeline>
             </div>
-
         </div>
     );
 }

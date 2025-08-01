@@ -21,28 +21,19 @@ export default function ImageGallery({
 
     return (
         <div
-            className={"max-w-screen"}
+            className="max-w-screen"
         >
             <div
-                className={`
-                    max-w-full
-                    [column-gap:1.12rem]
-                    [column-count:2]
-                    md:[column-count:3]
-                    lg:[column-count:4]
-                `}
+                className="max-w-full [column-gap:1.12rem] [column-count:2] md:[column-count:3] lg:[column-count:4]"
             >
                 {images.map(src => (
                     <div
                         key={src}
-                        className={`
-                            mb-[1.12rem] w-full break-inside-avoid
-                            overflow-hidden rounded-xl shadow-lg
-                        `}
+                        className="mb-[1.12rem] w-full break-inside-avoid overflow-hidden rounded-xl shadow-lg"
                     >
                         <Image
-                            alt={""}
-                            className={"block object-cover"}
+                            alt=""
+                            className="block object-cover"
                             height={480}
                             priority
                             src={src}

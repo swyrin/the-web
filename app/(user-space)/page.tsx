@@ -43,25 +43,21 @@ export default function Home() {
     }, []);
 
     return (
-        <div className={`
-            flex h-visible bg-neutral-400/50
-            dark:bg-neutral-700/50
-        `}
-        >
+        <div className="flex h-visible bg-neutral-400/50 dark:bg-neutral-700/50">
             {/* Image carousel. */}
             <div
                 ref={emblaRef}
-                className={`absolute inset-0 -z-1 size-full embla`}
+                className="absolute inset-0 -z-1 size-full embla"
             >
-                <div className={"embla__container size-full"}>
+                <div className="embla__container size-full">
                     {[1, 2, 3, 4, 5, 6].map(img => (
                         <div
                             key={img}
-                            className={`relative size-full embla__slide`}
+                            className="relative size-full embla__slide"
                         >
                             <Image
                                 alt={`Banner ${img + 1}`}
-                                className={"object-cover"}
+                                className="object-cover"
                                 fill
                                 priority
                                 src={`/landing-bg/BG_${img}.jpg`}
@@ -71,30 +67,17 @@ export default function Home() {
                 </div>
             </div>
             {/* The real shit. */}
-            <div className={`
-                flex flex-1/2 flex-col items-center justify-center space-y-4
-            `}
-            >
+            <div className="flex flex-1/2 flex-col items-center justify-center space-y-4">
                 <Image
-                    alt={"DRCH"}
-                    className={`
-                        invert
-                        dark:invert-0
-                    `}
+                    alt="DRCH"
+                    className="invert dark:invert-0"
                     height={185}
                     priority
                     src={DRCH_Banner}
                     width={727}
                 />
-                <div className={`
-                    flex w-full max-w-lg items-center justify-center px-8
-                `}
-                >
-                    <div className={`
-                        text-2xl font-bold
-                        md:text-4xl
-                    `}
-                    >
+                <div className="flex w-full max-w-lg items-center justify-center px-8">
+                    <div className="text-2xl font-bold md:text-4xl">
                         {
                             [
                                 { value: timeLeft.days, label: "Ngày" },
@@ -107,34 +90,18 @@ export default function Home() {
                         }
                     </div>
                 </div>
-                <div className={`
-                    absolute bottom-5 flex flex-col gap-y-2 text-center
-                `}
-                >
-                    <span className={"font-extrabold"}>Được mang đến cho bạn bởi</span>
-                    <div className={`
-                        flex w-[96vw] items-center justify-between text-primary
-                        md:w-[60vw]
-                        lg:w-[40vw]
-                    `}
-                    >
-                        <OrganizerImage alt={"VNS"} src={VNS_Banner} />
-                        <div className={`
-                            text-xl
-                            md:block md:px-4
-                        `}
-                        >
+                <div className="absolute bottom-5 flex flex-col gap-y-2 text-center">
+                    <span className="font-extrabold">Được mang đến cho bạn bởi</span>
+                    <div className="flex w-[96vw] items-center justify-between text-primary md:w-[60vw] lg:w-[40vw]">
+                        <OrganizerImage alt="VNS" src={VNS_Banner} />
+                        <div className="text-xl md:block md:px-4">
                             •
                         </div>
-                        <OrganizerImage alt={"Mod_Squad"} src={ModSquad_Banner} />
-                        <div className={`
-                            text-xl
-                            md:block md:px-4
-                        `}
-                        >
+                        <OrganizerImage alt="Mod_Squad" src={ModSquad_Banner} />
+                        <div className="text-xl md:block md:px-4">
                             •
                         </div>
-                        <OrganizerImage alt={"Jiangles"} src={Jiangles_Banner} />
+                        <OrganizerImage alt="Jiangles" src={Jiangles_Banner} />
                     </div>
                 </div>
             </div>

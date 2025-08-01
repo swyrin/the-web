@@ -92,11 +92,11 @@ export default function TournamentSlidePage() {
     }, [supabase]);
 
     return (
-        <div className={"flex h-visible flex-col bg-vns"}>
+        <div className="flex h-visible flex-col bg-vns">
             <div
-                className={`flex flex-1/2 flex-col items-center justify-evenly`}
+                className="flex flex-1/2 flex-col items-center justify-evenly"
             >
-                <div className={"text-xl text-white"}>
+                <div className="text-xl text-white">
                     <span className={clsx(
                         "text-6xl font-extrabold text-muted-foreground",
                         isTimerLoaded && {
@@ -109,7 +109,7 @@ export default function TournamentSlidePage() {
                         {!isTimerLoaded ? "--:--" : formatTime(getDisplayTime())}
                     </span>
                 </div>
-                <div className={"flex w-full justify-evenly"}>
+                <div className="flex w-full justify-evenly">
                     {
                         [0, 1, 2, 3, 4, 5].map((i) => {
                             const entryExist = bannedOperators.at(i) !== undefined;
@@ -137,26 +137,17 @@ export default function TournamentSlidePage() {
                                         "animate-vns-gradient-move": entryExist
                                     })}
                                 >
-                                    <CardHeader className={`
-                                        text-center text-xl font-bold
-                                    `}
-                                    >
+                                    <CardHeader className="text-center text-xl font-bold">
                                         Operator #
                                         {i + 1}
                                     </CardHeader>
-                                    <CardContent className={`
-                                        h-[360px] w-[180px] self-center
-                                    `}
-                                    >
+                                    <CardContent className="h-[360px] w-[180px] self-center">
                                         {
                                             entryExist
                                                 ? (
                                                         <Image
                                                             alt={charcode}
-                                                            className={`
-                                                                h-full w-full
-                                                                object-contain
-                                                            `}
+                                                            className="h-full w-full object-contain"
                                                             height={360}
                                                             src={`/operator/portraits/${charcode}_${suffix}.png`}
                                                             width={180}
@@ -171,25 +162,19 @@ export default function TournamentSlidePage() {
                                         }
 
                                     </CardContent>
-                                    <CardFooter className={`
-                                        flex h-24 flex-col text-xl
-                                    `}
-                                    >
-                                        <div className={`
-                                            flex items-center space-x-1
-                                        `}
-                                        >
+                                    <CardFooter className="flex h-24 flex-col text-xl">
+                                        <div className="flex items-center space-x-1">
                                             {
                                                 [1, 2, 3, 4, 5, 6].map((x) => {
                                                     return (
                                                         x <= rarity
-                                                            ? <Image key={x} alt={"star"} height={16} src={StarSelected} width={16} />
-                                                            : <Image key={x} alt={"star"} height={16} src={StarUnSelected} width={16} />
+                                                            ? <Image key={x} alt="star" height={16} src={StarSelected} width={16} />
+                                                            : <Image key={x} alt="star" height={16} src={StarUnSelected} width={16} />
                                                     );
                                                 })
                                             }
                                         </div>
-                                        <div className={`text-center font-bold`}>
+                                        <div className="text-center font-bold">
                                             {name}
                                         </div>
                                     </CardFooter>
@@ -198,7 +183,7 @@ export default function TournamentSlidePage() {
                         })
                     }
                 </div>
-                <div className={"pb-8 font-extrabold text-primary"}>
+                <div className="pb-8 font-extrabold text-primary">
                     Terra #1:
                     {" "}
                     <span className={clsx({

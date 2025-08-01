@@ -9,5 +9,5 @@ export default async function LandingPage() {
         redirect("/auth/login");
     }
 
-    return <div className={"flex h-full w-full items-center justify-center"}>Look to your left.</div>;
+    return <div className="flex h-full w-full items-center justify-center">Look to your left.</div>;
 }

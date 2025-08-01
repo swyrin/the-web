@@ -79,25 +79,22 @@ type TimelineProps = {
 
 function TimelineContent({ events }: TimelineProps) {
     return (
-        <CarouselContent className={"-mt-1 h-[400px]"}>
+        <CarouselContent className="-mt-1 h-[400px]">
             {events.map((ev) => {
                 return (
                     <CarouselItem
                         key={ev.title}
-                        className={"h-full basis-full pt-4"}
+                        className="h-full basis-full pt-4"
                     >
-                        <Card className={"h-full items-center justify-center"}>
-                            <CardTitle className={"text-2xl"}>{ev.date}</CardTitle>
-                            <CardContent className={`
-                                text-center text-2xl font-light
-                            `}
-                            >
+                        <Card className="h-full items-center justify-center">
+                            <CardTitle className="text-2xl">{ev.date}</CardTitle>
+                            <CardContent className="text-center text-2xl font-light">
                                 {ev.title}
                             </CardContent>
                             {ev.href !== "#" && (
-                                <Button asChild className={"w-fit self-center"}>
+                                <Button asChild className="w-fit self-center">
                                     <Link
-                                        className={"text-sm font-extralight"}
+                                        className="text-sm font-extralight"
                                         href={ev.href}
                                     >
                                         Link bài viết
@@ -114,32 +111,21 @@ function TimelineContent({ events }: TimelineProps) {
 
 export default function TimelinePage() {
     return (
-        <div className={"flex h-visible flex-col bg-vns"}>
-            <PageTitle favorText={"Những hoạt động tụi mình đã tổ chức trong quá trình thực hiện Offline"} title={"Công tác chuẩn bị"} />
-
-            <div className={`
-                block self-center font-extrabold
-                lg:hidden
-            `}
-            >
+        <div className="flex h-visible flex-col bg-vns">
+            <PageTitle favorText="Những hoạt động tụi mình đã tổ chức trong quá trình thực hiện Offline" title="Công tác chuẩn bị" />
+            <div className="block self-center font-extrabold lg:hidden">
                 Bạn có thể scroll dọc để xem các nội dung.
             </div>
-            <div className={`
-                mx-4 mt-8 flex flex-col items-center justify-center
-            `}
-            >
+            <div className="mx-4 mt-8 flex flex-col items-center justify-center">
                 {/* The vertical one. */}
                 <Carousel
-                    className={`
-                        flex w-full max-w-lg
-                        lg:hidden
-                    `}
+                    className="flex w-full max-w-lg lg:hidden"
                     opts={{
                         align: "start",
                         skipSnaps: true,
                         dragFree: true
                     }}
-                    orientation={"vertical"}
+                    orientation="vertical"
                     plugins={[
                         WheelGesturesPlugin()
                     ]}
@@ -150,16 +136,13 @@ export default function TimelinePage() {
                 </Carousel>
                 {/* The horizontal one. */}
                 <Carousel
-                    className={`
-                        hidden w-full max-w-2xl
-                        lg:flex
-                    `}
+                    className="hidden w-full max-w-2xl lg:flex"
                     opts={{
                         align: "center",
                         skipSnaps: true,
                         dragFree: true
                     }}
-                    orientation={"horizontal"}
+                    orientation="horizontal"
                     plugins={[
                         WheelGesturesPlugin({ forceWheelAxis: "y" })
                     ]}

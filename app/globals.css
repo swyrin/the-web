@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -9,8 +9,12 @@
     --animate-vns-gradient-move: vns-grad-move 500ms ease-in-out;
 
     @keyframes vns-grad-move {
-        from { --tw-gradient-to-position: 0%; }
-        to% { --tw-gradient-to-position: 80%; }
+        from {
+            --tw-gradient-to-position: 0%;
+        }
+        to% {
+            --tw-gradient-to-position: 80%;
+        }
     }
 }
 

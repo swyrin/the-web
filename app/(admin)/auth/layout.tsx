@@ -23,13 +23,10 @@ export default function Layout(
 
     return (
         <div>
-            <div className={"absolute top-4 right-4"}>
+            <div className="absolute top-4 right-4">
                 <ThemeSwitcher />
             </div>
-            <div className={`
-                flex h-screen w-screen items-center justify-center bg-background
-            `}
-            >
+            <div className="flex h-screen w-screen items-center justify-center bg-background">
                 {children}
             </div>
         </div>

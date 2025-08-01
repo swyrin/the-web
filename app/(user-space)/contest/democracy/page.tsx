@@ -5,6 +5,7 @@ import type { OperatorClass, OperatorRarity } from "@/lib/vns";
 import { clsx } from "clsx";
 import Fuse from "fuse.js";
 import Image from "next/image";
+import { parseAsArrayOf, parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import ClassIcon from "@/components/tournament/ClassIcon";
@@ -22,16 +23,13 @@ type SelectedOperator = Pick<Operator, "name" | "rarity" | "profession" | "chari
 type OperatorClassSelection = "ALL" | OperatorClass;
 
 export default function DraftingPage() {
-    const [operatorNameSearch, setOperatorNameSearch] = useState("");
-    const [maxRarity, setMaxRarity] = useState(6);
-    const [selectedClass, setSelectedClass] = useState<OperatorClassSelection>("ALL");
-    const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
+    const [operatorNameSearch, setOperatorNameSearch] = useQueryState("search", parseAsString.withDefault(""));
+    const [maxRarity, setMaxRarity] = useQueryState("rarity", parseAsInteger.withDefault(6));
+    const [selectedClass, setSelectedClass] = useQueryState("class", { defaultValue: "ALL" });
+    const [selectedOperators, setSelectedOperators] = useQueryState("selected", parseAsArrayOf(parseAsString).withDefault([]));
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
-    const [isVotingAllowed, setIsVotingAllowed] = useState(false);
     const { isRealtimeConnected, isTimerLoaded, timerData, getDisplayTime, formatTime } = useTimer();
-
-    const supabase = createSupabase();
 
     // #region operator selection
     const fuse = useMemo(() => {
@@ -87,7 +85,6 @@ export default function DraftingPage() {
         }
 
         setSelectedOperators([]);
-        setIsVotingAllowed(false);
     }
 
     function handleOperatorSelection(charId: string) {
@@ -112,7 +109,7 @@ export default function DraftingPage() {
         setSelectedOperators(prev => prev.filter(id => id !== charId));
     }
 
-    function handleClassSelection(classType: OperatorClass) {
+    function handleClassSelection(classType: OperatorClassSelection) {
         // basically toggle the class selection
         if (selectedClass === classType) {
             setSelectedClass("ALL");
@@ -154,6 +151,8 @@ export default function DraftingPage() {
             }
         })();
 
+        const supabase = createSupabase();
+
         const channel = supabase
             .channel("ban-update")
             .on("postgres_changes", {
@@ -188,72 +187,15 @@ export default function DraftingPage() {
         return () => {
             supabase.removeChannel(channel).then();
         };
-    }, [supabase]);
-
-    useEffect(() => {
-        switch (timerData.state) {
-            case "paused":
-            case "stopped":
-                setIsVotingAllowed(false);
-                break;
-            case "running":
-                setIsVotingAllowed(true);
-                break;
-        }
-    }, [timerData.state]);
-
-    // #region data backup
-    useEffect(() => {
-        const savedSearch = localStorage.getItem("drafting-search");
-        const savedRarity = localStorage.getItem("drafting-rarity");
-        const savedClass = localStorage.getItem("drafting-class");
-        const savedOperators = localStorage.getItem("drafting-selected-operators");
-
-        if (savedSearch) {
-            setOperatorNameSearch(savedSearch);
-        }
-        if (savedRarity) {
-            setMaxRarity(Number.parseInt(savedRarity, 10));
-        }
-        if (savedClass) {
-            setSelectedClass(savedClass as OperatorClass);
-        }
-        if (savedOperators) {
-            try {
-                const parsed = JSON.parse(savedOperators) as string[];
-                setSelectedOperators(parsed);
-            } catch (error) {
-                console.warn("Failed to parse saved operators:", error);
-            }
-        }
     }, []);
 
-    useEffect(() => {
-        localStorage.setItem("drafting-search", operatorNameSearch);
-    }, [operatorNameSearch]);
-
-    useEffect(() => {
-        localStorage.setItem("drafting-rarity", maxRarity.toString());
-    }, [maxRarity]);
-
-    useEffect(() => {
-        localStorage.setItem("drafting-class", selectedClass);
-    }, [selectedClass]);
-
-    useEffect(() => {
-        localStorage.setItem("drafting-selected-operators", JSON.stringify(selectedOperators));
-    }, [selectedOperators]);
-    // #endregion data backup
+    const isVotingAllowed = timerData.state === "running";
 
     return (
-        <div className={"mx-2 scrollbar-none flex h-visible flex-col bg-vns"}>
-            <div className={`
-                flex h-[calc(100vh_-_80px)] flex-col items-center justify-evenly
-                space-y-2 py-4
-            `}
-            >
+        <div className="mx-2 scrollbar-none flex h-visible flex-col bg-vns">
+            <div className="flex h-[calc(100vh_-_80px)] flex-col items-center justify-evenly space-y-2 py-4">
                 {/* Server status */}
-                <div className={"font-bold"}>
+                <div className="font-bold">
                     PRTS:
                     {" "}
                     <span className={clsx({
@@ -265,7 +207,7 @@ export default function DraftingPage() {
                     </span>
                 </div>
                 {/* Time */}
-                <div className={"font-bold"}>
+                <div className="font-bold">
                     Thời gian còn lại:
                     {" "}
                     <span className={clsx(
@@ -281,47 +223,41 @@ export default function DraftingPage() {
                     </span>
                 </div>
                 {/* Input */}
-                <div className={"flex w-[80vw] justify-evenly"}>
-                    <Input className={"w-2/3"} placeholder={"Ghi tên op ở đây..."} value={operatorNameSearch} onChange={e => setOperatorNameSearch(e.target.value)} />
+                <div className="flex w-[80vw] justify-evenly">
+                    <Input className="w-2/3" placeholder="Ghi tên op ở đây..." value={operatorNameSearch} onChange={e => setOperatorNameSearch(e.target.value)} />
                     <Button
-                        className={"ml-2 w-1/3"}
+                        className="ml-2 w-1/3"
                         onClick={() => setOperatorNameSearch("")}
                     >
                         Clear
                     </Button>
                 </div>
                 {/* Star rating */}
-                <div className={"flex items-center justify-center space-x-1"}>
-                    <Image alt={"Star 1"} height={32} src={maxRarity >= 1 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(1)} />
-                    <Image alt={"Star 2"} height={32} src={maxRarity >= 2 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(2)} />
-                    <Image alt={"Star 3"} height={32} src={maxRarity >= 3 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(3)} />
-                    <Image alt={"Star 4"} height={32} src={maxRarity >= 4 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(4)} />
-                    <Image alt={"Star 5"} height={32} src={maxRarity >= 5 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(5)} />
-                    <Image alt={"Star 6"} height={32} src={maxRarity >= 6 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(6)} />
+                <div className="flex items-center justify-center space-x-1">
+                    <Image alt="Star 1" height={32} src={maxRarity >= 1 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(1)} />
+                    <Image alt="Star 2" height={32} src={maxRarity >= 2 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(2)} />
+                    <Image alt="Star 3" height={32} src={maxRarity >= 3 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(3)} />
+                    <Image alt="Star 4" height={32} src={maxRarity >= 4 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(4)} />
+                    <Image alt="Star 5" height={32} src={maxRarity >= 5 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(5)} />
+                    <Image alt="Star 6" height={32} src={maxRarity >= 6 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(6)} />
                 </div>
                 {/* Class */}
-                <div className={"mx-auto flex items-center justify-center"}>
-                    <div className={"pr-4 font-bold"}>Class</div>
-                    <ClassIcon active={selectedClass === "Caster"} operatorClass={"Caster"} onClick={() => handleClassSelection("Caster")} />
-                    <ClassIcon active={selectedClass === "Medic"} operatorClass={"Medic"} onClick={() => handleClassSelection("Medic")} />
-                    <ClassIcon active={selectedClass === "Guard"} operatorClass={"Guard"} onClick={() => handleClassSelection("Guard")} />
-                    <ClassIcon active={selectedClass === "Sniper"} operatorClass={"Sniper"} onClick={() => handleClassSelection("Sniper")} />
-                    <ClassIcon active={selectedClass === "Specialist"} operatorClass={"Specialist"} onClick={() => handleClassSelection("Specialist")} />
-                    <ClassIcon active={selectedClass === "Supporter"} operatorClass={"Supporter"} onClick={() => handleClassSelection("Supporter")} />
-                    <ClassIcon active={selectedClass === "Defender"} operatorClass={"Defender"} onClick={() => handleClassSelection("Defender")} />
-                    <ClassIcon active={selectedClass === "Vanguard"} operatorClass={"Vanguard"} onClick={() => handleClassSelection("Vanguard")} />
+                <div className="mx-auto flex items-center justify-center">
+                    <div className="pr-4 font-bold">Class</div>
+                    <ClassIcon active={selectedClass === "Caster"} operatorClass="Caster" onClick={() => handleClassSelection("Caster")} />
+                    <ClassIcon active={selectedClass === "Medic"} operatorClass="Medic" onClick={() => handleClassSelection("Medic")} />
+                    <ClassIcon active={selectedClass === "Guard"} operatorClass="Guard" onClick={() => handleClassSelection("Guard")} />
+                    <ClassIcon active={selectedClass === "Sniper"} operatorClass="Sniper" onClick={() => handleClassSelection("Sniper")} />
+                    <ClassIcon active={selectedClass === "Specialist"} operatorClass="Specialist" onClick={() => handleClassSelection("Specialist")} />
+                    <ClassIcon active={selectedClass === "Supporter"} operatorClass="Supporter" onClick={() => handleClassSelection("Supporter")} />
+                    <ClassIcon active={selectedClass === "Defender"} operatorClass="Defender" onClick={() => handleClassSelection("Defender")} />
+                    <ClassIcon active={selectedClass === "Vanguard"} operatorClass="Vanguard" onClick={() => handleClassSelection("Vanguard")} />
                 </div>
                 {/* List */}
                 {
-                    filteredOperators.length > 0
+                    operators.length > 0
                         ? (
-                                <div className={`
-                                    scrollbar-none grid h-[727px] w-[90vw]
-                                    grid-cols-5 gap-6 overflow-y-auto rounded-lg
-                                    border bg-background p-6
-                                    md:grid-cols-9
-                                `}
-                                >
+                                <div className="scrollbar-none grid h-[727px] w-[90vw] grid-cols-5 gap-6 overflow-y-auto rounded-lg border bg-background p-6 md:grid-cols-9">
                                     {filteredOperators.map(operator => (
                                         <OperatorIcon
                                             key={operator.charid}
@@ -339,25 +275,22 @@ export default function DraftingPage() {
                                 </div>
                             )
                         : (
-                                <Skeleton className={`
-                                    h-full w-[80vw] rounded-lg border
-                                `}
-                                />
+                                <Skeleton className="h-full w-[80vw] rounded-lg border" />
                             )
                 }
                 {/* Selection */}
-                <div className={"w-full"}>
-                    <div className={"mb-2 text-center font-extrabold"}>
+                <div className="w-full">
+                    <div className="mb-2 text-center font-extrabold">
                         Hãy chọn Operator bạn muốn cấm (
                         {selectedOperators.length}
                         /6)
                     </div>
-                    <div className={"grid grid-cols-6 gap-7"}>
+                    <div className="grid grid-cols-6 gap-7">
                         {Array.from({ length: 6 }, (_, index) => {
                             const selectedCharId = selectedOperators[index];
                             const selectedOp = selectedCharId ? operators.find(op => op.charid === selectedCharId) : null;
                             return (
-                                <div key={index} className={"h-28"}>
+                                <div key={index} className="h-28">
                                     {
                                         selectedOp
                                             ? (
@@ -373,11 +306,7 @@ export default function DraftingPage() {
                                                     />
                                                 )
                                             : (
-                                                    <div className={`
-                                                        mt-6 text-center text-xs
-                                                        text-muted-foreground
-                                                    `}
-                                                    >
+                                                    <div className="mt-6 text-center text-xs text-muted-foreground">
                                                         Empty
                                                     </div>
                                                 )
@@ -388,17 +317,17 @@ export default function DraftingPage() {
                     </div>
                 </div>
                 {/* CTA */}
-                <div className={"flex w-[90vw] justify-evenly"}>
+                <div className="flex w-[90vw] justify-evenly">
                     <Button
-                        className={"w-1/3 bg-green-600 text-white"}
+                        className="w-1/3 bg-green-600 text-white"
                         disabled={selectedOperators.length === 0}
                         onClick={() => setSelectedOperators([])}
                     >
                         CLEAR
                     </Button>
                     <Button
-                        className={"w-1/3 bg-red-600 text-white"}
-                        disabled={selectedOperators.length === 0 || !isVotingAllowed}
+                        className="w-1/3 bg-red-600 text-white"
+                        disabled={selectedOperators.length === 0 || !isVotingAllowed || getDisplayTime() <= 0}
                         onClick={async () => {
                             await handleBanSubmission();
                         }}

@@ -1,7 +1,7 @@
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import antfu from "@antfu/eslint-config";
-import nextjs from "@next/eslint-plugin-next";
-import eslintParserTypeScript from "@typescript-eslint/parser";
-import eslintPluginBetterTailwindcss from "eslint-plugin-better-tailwindcss";
+import tailwind from "eslint-plugin-tailwindcss";
 
 export default antfu(
     // anthony fu
@@ -9,14 +9,21 @@ export default antfu(
         type: "app",
         stylistic: {
             indent: 4,
-            quotes: "double",
-            semi: true
+            semi: true,
+            jsx: true,
+            overrides: {
+                "style/quotes": ["error", "double", { avoidEscape: true }]
+            }
         },
         typescript: true,
         react: true,
+        nextjs: true,
         jsx: true,
         yaml: false,
         jsonc: false,
+        formatters: {
+            css: true
+        },
         lessOpinionated: true,
         ignores: [
             ".next",
@@ -25,52 +32,17 @@ export default antfu(
             // let shadcn cook on his own.
             "components/ui/**/*.tsx",
             "components/shadcn/**/*.tsx",
+            "lib/hooks/shadcn/**/*.ts",
             // generated
             "lib/supabase/terra.d.ts"
         ]
     },
-    // Next.js
+    // Tailwind
+    ...tailwind.configs["flat/recommended"],
     {
-        plugins: {
-            "@next/next": nextjs
-        },
-        rules: {
-            ...nextjs.configs.recommended.rules,
-            ...nextjs.configs["core-web-vitals"].rules
-        }
-    },
-    // TailwindCSS
-    {
-        files: ["**/*.{ts,tsx,cts,mts}"],
-        languageOptions: {
-            parser: eslintParserTypeScript,
-            parserOptions: {
-                project: true
-            }
-        }
-    },
-    {
-        files: ["**/*.{jsx,tsx}"],
-        languageOptions: {
-            parserOptions: {
-                ecmaFeatures: {
-                    jsx: true
-                }
-            }
-        },
-        plugins: {
-            "better-tailwindcss": eslintPluginBetterTailwindcss
-        },
-        rules: {
-            ...eslintPluginBetterTailwindcss.configs["recommended-warn"].rules,
-            "better-tailwindcss/enforce-consistent-line-wrapping": ["warn", {
-                group: "newLine",
-                indent: 4
-            }]
-        },
         settings: {
-            "better-tailwindcss": {
-                entryPoint: "./app/globals.css"
+            tailwindcss: {
+                config: `${dirname(fileURLToPath(import.meta.url))}/app/globals.css`
             }
         }
     },
@@ -79,18 +51,14 @@ export default antfu(
         rules: {
             "no-console": ["warn", { allow: ["warn", "error", "info"] }],
             "ts/consistent-type-definitions": ["error", "type"],
-            "node/prefer-global/process": ["error", "always"],
+            "node/prefer-global/process": "off",
             "react-hooks-extra/no-direct-set-state-in-use-effect": "off",
             "@eslint-react/prefer-shorthand-fragment": "error",
             "@eslint-react/prefer-shorthand-boolean": "error",
             "style/brace-style": ["error", "1tbs"],
             "style/comma-dangle": ["error", "never"],
-            "style/jsx-sort-props": ["warn", {
-                callbacksLast: true,
-                reservedFirst: true
-            }],
             "style/jsx-curly-brace-presence": ["warn", {
-                props: "always",
+                props: "never",
                 children: "never",
                 propElementValues: "always"
             }],

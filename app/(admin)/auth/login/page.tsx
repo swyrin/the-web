@@ -15,7 +15,7 @@ export default function LoginPage() {
     };
 
     return (
-        <Button variant={"default"} onClick={handleLogin}>
+        <Button variant="default" onClick={handleLogin}>
             Login with Discord
         </Button>
     );

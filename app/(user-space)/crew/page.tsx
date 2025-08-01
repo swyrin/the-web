@@ -3,7 +3,7 @@
 import type { CrewMember } from "@/lib/vns";
 import { clsx } from "clsx";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useQueryState } from "nuqs";
 import PageTitle from "@/components/PageTitle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CrewMembers from "@/public/crew/_crew.json";
@@ -14,29 +14,26 @@ type CrewListProps = {
 
 function MemberBox(props: CrewMember) {
     return (
-        <div className={`
-            mb-4 flex max-h-64 min-w-64 flex-col items-center gap-y-2
-        `}
-        >
+        <div className="mb-4 flex max-h-64 min-w-64 flex-col items-center gap-y-2">
             <Image
-                alt={"VNS_Crew"}
-                className={"rounded-full ring ring-primary"}
+                alt="VNS_Crew"
+                className="rounded-full ring ring-primary"
                 height={100}
                 src={`/crew/${props.name}.jpg`}
                 width={100}
             />
-            <div className={"text-xl font-extrabold"}>{props.name}</div>
+            <div className="text-xl font-extrabold">{props.name}</div>
             {/* {props.quote !== "" && ( */}
             {/*    <div className={"text-md  text-center font-extralight italic"}> */}
             {/*        &#34;{props.quote}&#34; */}
             {/*    </div> */}
             {/* )} */}
-            <div className={"space-x-2"}>
+            <div className="space-x-2">
                 {Array.isArray(props.roles)
                     && props.roles.map((role: string) => (
                         <span
                             key={role}
-                            className={clsx(`crew-role-container font-extrabold`, role)}
+                            className={clsx("crew-role-container font-extrabold", role)}
                         >
                             {role.replaceAll("-", " ")}
                         </span>
@@ -54,16 +51,9 @@ function CrewList(props: CrewListProps) {
         <>
             {/* The reason for the horrible code is that the CEO want to have 4-5-5 layout. */}
             {/* But it looks utterly dogshit on mobile, so falling back to the default one on that. */}
-            <div className={`
-                hidden place-content-center-safe
-                lg:block
-            `}
-            >
+            <div className="hidden place-content-center-safe lg:block">
                 <div
-                    className={`
-                        flex flex-col flex-wrap place-content-evenly
-                        md:flex-row
-                    `}
+                    className="flex flex-col flex-wrap place-content-evenly md:flex-row"
                 >
                     {eliteMembers.map((member) => {
                         return (
@@ -77,21 +67,13 @@ function CrewList(props: CrewListProps) {
                     })}
                 </div>
                 <div
-                    className={`
-                        grid place-content-center-safe
-                        sm:grid-cols-1
-                        md:grid-cols-3
-                        lg:grid-cols-5
-                    `}
+                    className="grid place-content-center-safe sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-5"
                 >
                     {remainingMembers.map((member) => {
                         return (
                             <div
                                 key={member.name}
-                                className={`
-                                    w-full
-                                    md:w-auto
-                                `}
+                                className="w-full md:w-auto"
                             >
                                 <MemberBox
                                     name={member.name}
@@ -105,20 +87,13 @@ function CrewList(props: CrewListProps) {
             </div>
             {/* The other-than-hell layout. */}
             <div
-                className={`
-                    grid grid-cols-1 place-content-center-safe
-                    md:grid-cols-3
-                    lg:hidden
-                `}
+                className="grid grid-cols-1 place-content-center-safe md:grid-cols-3 lg:hidden"
             >
                 {props.members.map((member) => {
                     return (
                         <div
                             key={member.name}
-                            className={`
-                                w-full
-                                md:w-auto
-                            `}
+                            className="w-full md:w-auto"
                         >
                             <MemberBox name={member.name} quote={member.quote} roles={member.roles} />
                         </div>
@@ -133,11 +108,7 @@ function PartnerList(props: CrewListProps) {
     return (
         <>
             <div
-                className={`
-                    grid grid-cols-1 place-content-center-safe
-                    md:grid-cols-3
-                    lg:grid-cols-4
-                `}
+                className="grid grid-cols-1 place-content-center-safe md:grid-cols-3 lg:grid-cols-4"
             >
                 {props.members.map((member) => {
                     return (
@@ -155,112 +126,50 @@ function PartnerList(props: CrewListProps) {
 }
 
 export default function CrewPage() {
-    const [tab, setTab] = useState<string>("dreamchasers");
-    const touchStartX = useRef<number | null>(null);
-    const touchEndX = useRef<number | null>(null);
-
-    useEffect(() => {
-        const stored = localStorage.getItem("crew-tab");
-        if (stored && stored !== "") {
-            setTab(stored);
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem("crew-tab", tab);
-    }, [tab]);
+    const [tab, setTab] = useQueryState("tab", { defaultValue: "dreamchasers", clearOnDefault: false });
 
     const members = CrewMembers.members;
     const partners = CrewMembers.partners;
 
-    function handleTouchStart(e: React.TouchEvent) {
-        touchStartX.current = e.touches[0].clientX;
-    };
-
-    function handleTouchMove(e: React.TouchEvent) {
-        touchEndX.current = e.touches[0].clientX;
-    };
-
-    function handleTouchEnd() {
-        if (touchStartX.current === null || touchEndX.current === null) {
-            return;
-        }
-        const deltaX = touchEndX.current - touchStartX.current;
-        if (Math.abs(deltaX) > 50) {
-            if (deltaX < 0 && tab === "dreamchasers") {
-                setTab("dreamchasers");
-            } else if (deltaX > 0 && tab === "partners") {
-                setTab("partners");
-            }
-        }
-        touchStartX.current = null;
-        touchEndX.current = null;
-    };
-
     return (
-        <div className={"flex h-visible flex-col bg-vns"}>
+        <div className="flex h-visible flex-col bg-vns">
             <PageTitle
-                favorText={"Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."}
-                title={"Tổ chức"}
+                favorText="Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."
+                title="Tổ chức"
             />
             <div
-                className={`
-                    sticky top-[80px] z-0 h-[calc(100vh-80px)]
-                    place-content-center-safe
-                `}
-                onTouchEnd={handleTouchEnd}
-                onTouchMove={handleTouchMove}
-                onTouchStart={handleTouchStart}
+                className="sticky top-[80px] z-0 h-[calc(100vh-80px)] place-content-center-safe"
             >
-                <Tabs className={"size-full gap-y-0"} value={tab} onValueChange={setTab}>
-                    <TabsList className={`
-                        h-12 w-full rounded-none border-b bg-background
-                    `}
-                    >
+                <Tabs
+                    className="size-full gap-y-0"
+                    defaultValue={tab}
+                    onValueChange={setTab}
+                >
+                    <TabsList className="h-12 w-full rounded-none border-b bg-background">
                         <TabsTrigger
-                            className={
-                                `
-                                    w-1/2 rounded-none py-3 text-lg
-                                    font-semibold transition-colors
-                                    data-[state=active]:bg-neutral-800
-                                    data-[state=active]:text-white
-                                    data-[state=inactive]:hover:bg-neutral-800/60
-                                `
-                            }
-                            value={"dreamchasers"}
+                            className="w-1/2 rounded-none py-3 text-lg font-semibold transition-colors data-[state=active]:bg-neutral-800 data-[state=active]:text-white data-[state=inactive]:hover:bg-neutral-800/60"
+                            value="dreamchasers"
                         >
                             "Dreamchasers"
                         </TabsTrigger>
                         <TabsTrigger
-                            className={
-                                `
-                                    w-1/2 rounded-none py-3 text-lg
-                                    font-semibold transition-colors
-                                    data-[state=active]:bg-neutral-800
-                                    data-[state=active]:text-white
-                                    data-[state=inactive]:hover:bg-neutral-800/60
-                                `
-                            }
-                            value={"partners"}
+                            className="w-1/2 rounded-none py-3 text-lg font-semibold transition-colors data-[state=active]:bg-neutral-800 data-[state=active]:text-white data-[state=inactive]:hover:bg-neutral-800/60"
+                            value="partners"
                         >
                             Hợp tác phát triển
                         </TabsTrigger>
                     </TabsList>
 
                     <TabsContent
-                        className={`
-                            scrollbar-none overflow-y-auto bg-background pt-10
-                        `}
-                        value={"dreamchasers"}
+                        className="scrollbar-none overflow-y-auto bg-background pt-10"
+                        value="dreamchasers"
                     >
                         <CrewList members={members} />
                     </TabsContent>
 
                     <TabsContent
-                        className={`
-                            scrollbar-none overflow-y-auto bg-background pt-10
-                        `}
-                        value={"partners"}
+                        className="scrollbar-none overflow-y-auto bg-background pt-10"
+                        value="partners"
                     >
                         <PartnerList members={partners} />
                     </TabsContent>
