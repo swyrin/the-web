@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTimer } from "@/lib/hooks/use-timer";
-import { supabase } from "@/lib/supabase/client";
+import { createSupabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
 import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
 
@@ -30,6 +30,8 @@ export default function DraftingPage() {
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
     const [isVotingAllowed, setIsVotingAllowed] = useState(false);
     const { isRealtimeConnected, isTimerLoaded, timerData, getDisplayTime, formatTime } = useTimer();
+
+    const supabase = createSupabase();
 
     // #region operator selection
     const fuse = useMemo(() => {
@@ -186,7 +188,7 @@ export default function DraftingPage() {
         return () => {
             supabase.removeChannel(channel).then();
         };
-    }, []);
+    }, [supabase]);
 
     useEffect(() => {
         switch (timerData.state) {
@@ -267,11 +269,11 @@ export default function DraftingPage() {
                     Thời gian còn lại:
                     {" "}
                     <span className={clsx(
-                        "font-extrabold text-muted-foreground",
+                        "font-extrabold",
                         isTimerLoaded && {
                             "text-green-400": timerData.state === "running",
                             "text-yellow-400": timerData.state === "paused",
-                            "text-red-400": timerData.state === "stopped"
+                            "text-muted-foreground": timerData.state === "stopped"
                         }
                     )}
                     >

@@ -2,7 +2,7 @@
 
 import type { RealtimeChannel } from "@supabase/supabase-js";
 import { useEffect, useRef, useState } from "react";
-import { supabase } from "@/lib/supabase/client";
+import { createSupabase } from "@/lib/supabase/client";
 
 export type TimerState = "stopped" | "running" | "paused";
 
@@ -33,8 +33,9 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
     });
     const [isRealtimeConnected, setIsRealtimeConnected] = useState(false);
     const [isTimerLoaded, setIsTimerLoaded] = useState(false);
-
     const timerChannelRef = useRef<RealtimeChannel | null>(null);
+
+    const supabase = createSupabase();
 
     // Initial fetch and realtime subscription
     useEffect(() => {
@@ -115,7 +116,7 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
             supabase.removeChannel(channel);
             setIsRealtimeConnected(false);
         };
-    }, [channelName]);
+    }, [supabase, channelName]);
 
     // Timer update loop
     useEffect(() => {

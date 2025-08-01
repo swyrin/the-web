@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase/client";
+import { createSupabase } from "@/lib/supabase/client";
 
 /**
  * Fetch all available operators.
@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabase/client";
  * @returns The operator list.
  */
 export async function GET() {
+    const supabase = createSupabase();
     const { data: operators, error } = await supabase
         .from("operators_v2")
         .select("name,charid,rarity,profession");

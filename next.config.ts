@@ -3,9 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
     reactStrictMode: true,
     output: "standalone",
-    images: {
-        unoptimized: true
-    },
     experimental: {
         typedRoutes: true
     },
@@ -19,12 +16,6 @@ const nextConfig: NextConfig = {
                     { key: "Access-Control-Allow-Origin", value: "*" },
                     { key: "Access-Control-Allow-Methods", value: "*" },
                     { key: "Access-Control-Allow-Headers", value: "*" }
-                ]
-            },
-            {
-                source: "/:path*\\.(jpg|png)",
-                headers: [
-                    { key: "Cache-Control", value: "public, max-age=31536000, immutable" }
                 ]
             }
         ];

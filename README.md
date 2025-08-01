@@ -15,7 +15,6 @@
   - [**Next.js**](https://nextjs.org/) (tất nhiên là sẽ có [**React**](https://react.dev/)) và [**TailwindCSS**](https://tailwindcss.com/) cho frontend.
   - [**shadcn/ui**](https://ui.daisyui.com/) làm UI tookit chính.
   - [**Supabase**](https://supabase.com/) cho backend.
-  - [**nginx**](https://nginx.org/) làm reverse proxy để sử dụng SSL.
   - [**Docker**](https://www.docker.com/) để "đóng thùng" cái web đi deploy ra server riêng của team.
 
 ### 💀 Web có bug kìa...

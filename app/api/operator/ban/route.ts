@@ -2,8 +2,7 @@ import type { NextRequest } from "next/server";
 import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
 import { getHighestVotedOperator } from "@/app/api/operator/utils/operator-utils";
-import { supabase } from "@/lib/supabase/client";
-import { elevatedSupabase } from "@/lib/supabase/elevated-client";
+import { createSupabase } from "@/lib/supabase/client";
 
 /**
  * Get all current banned operators ID, at request time.
@@ -12,7 +11,9 @@ import { elevatedSupabase } from "@/lib/supabase/elevated-client";
  */
 export async function GET() {
     try {
-        const { data, error } = await supabase
+        const elevatedSupabase = createSupabase(true);
+
+        const { data, error } = await elevatedSupabase
             .from("banned_operators")
             .select("id")
             .order("since");
@@ -46,6 +47,7 @@ export async function DELETE(request: NextRequest) {
 
         // Get the operator with highest vote count
         const highestVoted = await getHighestVotedOperator();
+        const elevatedSupabase = createSupabase(true);
 
         // Add to banned_operators table
         const { data: bannedOperator, error: banError } = await elevatedSupabase
@@ -102,6 +104,8 @@ export async function POST(request: NextRequest) {
         if (!Array.isArray(ids) || ids.length === 0) {
             return NextResponse.json({ error: "No operator IDs provided" }, { status: 400 });
         }
+
+        const elevatedSupabase = createSupabase(true);
 
         // Insert all provided IDs into banned_operators
         const { error } = await elevatedSupabase

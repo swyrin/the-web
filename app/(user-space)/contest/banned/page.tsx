@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTimer } from "@/lib/hooks/use-timer";
-import { supabase } from "@/lib/supabase/client";
+import { createSupabase } from "@/lib/supabase/client";
 import StarSelected from "@/public/tournament/drafting/star-selected.svg";
 import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
 
@@ -23,6 +23,8 @@ export default function TournamentSlidePage() {
     const { isTimerLoaded, timerData, getDisplayTime, formatTime, isRealtimeConnected } = useTimer();
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
+
+    const supabase = createSupabase();
 
     // prefetch everything
     useEffect(() => {
@@ -87,7 +89,7 @@ export default function TournamentSlidePage() {
         return () => {
             supabase.removeChannel(channel).then();
         };
-    }, []);
+    }, [supabase]);
 
     return (
         <div className={"flex h-visible flex-col bg-vns"}>

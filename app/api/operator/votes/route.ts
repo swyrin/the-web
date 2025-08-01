@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
 import { getAggregatedVotes } from "@/app/api/operator/utils/operator-utils";
-import { elevatedSupabase } from "@/lib/supabase/elevated-client";
+import { createSupabase } from "@/lib/supabase/client";
 
 /**
  * Get detailed votes count for all entries, sorted descending by vote count.
@@ -46,6 +46,7 @@ export async function DELETE(request: NextRequest) {
             );
         }
 
+        const elevatedSupabase = createSupabase(true);
         await elevatedSupabase.from("member_vote").delete().neq("vote_number", 0);
 
         return NextResponse.json({ message: "All votes wiped." }, { status: 200 });

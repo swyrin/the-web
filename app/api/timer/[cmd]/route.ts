@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
-import { elevatedSupabase } from "@/lib/supabase/elevated-client";
+import { createSupabase } from "@/lib/supabase/client";
 
 const TIMER_ID = "main_timer";
 const DEFAULT_DURATION = 60;
@@ -60,6 +60,8 @@ export async function POST(
         const customTime = body.time ?? DEFAULT_DURATION;
         const now = new Date().toISOString();
 
+        const elevatedSupabase = createSupabase(true);
+
         // Get current timer state
         const { data: currentTimer, error: fetchError } = await elevatedSupabase
             .from("timer_state")
@@ -81,10 +83,11 @@ export async function POST(
                         { status: 412 }
                     );
                 }
+
                 timerData = {
                     id: TIMER_ID,
                     state: "running",
-                    remaining_time: customTime,
+                    remaining_time: calculateRemainingTime(currentTimer as TimerData),
                     started_at: now,
                     paused_at: null,
                     updated_at: now
@@ -104,10 +107,10 @@ export async function POST(
                         { status: 412 }
                     );
                 }
-                const currentRemaining = calculateRemainingTime(currentTimer as TimerData);
+
                 timerData = {
                     state: "paused",
-                    remaining_time: currentRemaining,
+                    remaining_time: calculateRemainingTime(currentTimer as TimerData),
                     started_at: null,
                     paused_at: now,
                     updated_at: now
@@ -183,6 +186,8 @@ export async function GET(
     }
 
     try {
+        const elevatedSupabase = createSupabase(true);
+
         const { data: currentTimer, error } = await elevatedSupabase
             .from("timer_state")
             .select("*")
@@ -212,6 +217,7 @@ export async function GET(
 
         const timerWithCalculatedTime = {
             ...currentTimer,
+            remaining_time: calculatedRemainingTime,
             calculated_remaining_time: calculatedRemainingTime
         };
 
