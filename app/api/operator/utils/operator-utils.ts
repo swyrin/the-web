@@ -1,4 +1,4 @@
-import { createSupabase } from "@/lib/supabase/client";
+import { createElevatedSupabase } from "@/lib/supabase/client-elevated";
 
 export type VoteCount = {
     charid: string;
@@ -10,9 +10,9 @@ export type HighestVoteResult = {
     count: number;
 };
 
-export async function getAggregatedVotes(): Promise<VoteCount[]> {
-    const elevatedSupabase = createSupabase(true);
+const elevatedSupabase = createElevatedSupabase();
 
+export async function getAggregatedVotes(): Promise<VoteCount[]> {
     const { data: votes, error } = await elevatedSupabase
         .from("member_vote")
         .select("id");

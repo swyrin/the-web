@@ -1,15 +1,16 @@
 import type { Terra } from "@/lib/supabase/terra";
-import { createBrowserClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient<Terra>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 /**
  * Get the Supabase instance.
  *
- * @param isElevated Whether is this client elevated.
  * @returns The supabase.
  */
-export function createSupabase(isElevated: boolean = false) {
-    return createBrowserClient<Terra>(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        isElevated ? process.env.SUPABASE_SERVICE_ROLE_KEY! : process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+export function createSupabase() {
+    return supabase;
 };

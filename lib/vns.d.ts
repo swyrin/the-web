@@ -17,10 +17,3 @@ export type Operator = {
 export type ApiElevatedBody = {
     token: string;
 };
-
-export type ContestantInfo = {
-    number: number;
-    name: string;
-    score: number;
-    rank: number;
-};

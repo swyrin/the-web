@@ -35,10 +35,10 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
     const [isTimerLoaded, setIsTimerLoaded] = useState(false);
     const timerChannelRef = useRef<RealtimeChannel | null>(null);
 
-    const supabase = createSupabase();
-
     // Initial fetch and realtime subscription
     useEffect(() => {
+        const supabase = createSupabase();
+
         (async () => {
             try {
                 const response = await fetch("/api/timer/status");
@@ -116,7 +116,7 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
             supabase.removeChannel(channel);
             setIsRealtimeConnected(false);
         };
-    }, [supabase, channelName]);
+    }, [channelName]);
 
     // Timer update loop
     useEffect(() => {

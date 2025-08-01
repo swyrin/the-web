@@ -1,6 +1,6 @@
 "use client";
 
-import { getProductionURL } from "@/app/web-config";
+import { BASE_URL } from "@/app/web-config";
 import { Button } from "@/components/ui/button";
 import { createSupabase } from "@/lib/supabase/client";
 
@@ -9,7 +9,7 @@ export default function LoginPage() {
         await createSupabase().auth.signInWithOAuth({
             provider: "discord",
             options: {
-                redirectTo: `${getProductionURL()}/auth/callback?next=/dashboard`
+                redirectTo: `${BASE_URL}/auth/callback?next=/dashboard`
             }
         });
     };

@@ -4,6 +4,7 @@ import type { Terra } from "@/lib/supabase/terra";
 import { clsx } from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import {
     Card,
     CardContent,
@@ -19,7 +20,7 @@ import StarUnSelected from "@/public/tournament/drafting/star-unselected.svg";
 type Operator = Terra["public"]["Tables"]["operators_v2"]["Row"];
 type SelectedOperator = Pick<Operator, "name" | "rarity" | "profession" | "charid">;
 
-export default function TournamentSlidePage() {
+export default function ContestBannedPage() {
     const { isTimerLoaded, timerData, getDisplayTime, formatTime, isRealtimeConnected } = useTimer();
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
@@ -29,15 +30,16 @@ export default function TournamentSlidePage() {
     // prefetch everything
     useEffect(() => {
         (async () => {
-            try {
-                const res = await fetch("/api/operator");
-                if (res.ok) {
-                    const operators = await res.json();
-                    setOperators(operators);
-                }
-            } catch (e) {
-                console.error("Failed to fetch operators", e);
+            const supabase = createSupabase();
+            const { data: operators, error } = await supabase
+                .from("operators_v2")
+                .select("name,charid,rarity,profession");
+
+            if (operators?.length === 0 || error) {
+                toast.error("We are cooked");
             }
+
+            setOperators(operators!);
         })();
 
         (async () => {

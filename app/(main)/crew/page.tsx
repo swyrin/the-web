@@ -1,9 +1,9 @@
-"use client";
-
+import type { SearchParams } from "nuqs/server";
 import type { CrewMember } from "@/lib/vns";
 import { clsx } from "clsx";
 import Image from "next/image";
-import { useQueryState } from "nuqs";
+import Link from "next/link";
+import { createLoader, parseAsStringLiteral } from "nuqs/server";
 import PageTitle from "@/components/PageTitle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CrewMembers from "@/public/crew/_crew.json";
@@ -11,6 +11,9 @@ import CrewMembers from "@/public/crew/_crew.json";
 type CrewListProps = {
     members: CrewMember[];
 };
+
+const members = CrewMembers.members;
+const partners = CrewMembers.partners;
 
 function MemberBox(props: CrewMember) {
     return (
@@ -23,11 +26,11 @@ function MemberBox(props: CrewMember) {
                 width={100}
             />
             <div className="text-xl font-extrabold">{props.name}</div>
-            {/* {props.quote !== "" && ( */}
-            {/*    <div className={"text-md  text-center font-extralight italic"}> */}
-            {/*        &#34;{props.quote}&#34; */}
-            {/*    </div> */}
-            {/* )} */}
+            {/* {props.quote !== "" && (
+                <div className={"text-md  text-center font-extralight italic"}>
+                    &#34;{props.quote}&#34;
+                </div>
+            )} */}
             <div className="space-x-2">
                 {Array.isArray(props.roles)
                     && props.roles.map((role: string) => (
@@ -125,11 +128,20 @@ function PartnerList(props: CrewListProps) {
     );
 }
 
-export default function CrewPage() {
-    const [tab, setTab] = useQueryState("tab", { defaultValue: "dreamchasers", clearOnDefault: false });
+const opts = ["dreamchasers", "partners"] as const;
 
-    const members = CrewMembers.members;
-    const partners = CrewMembers.partners;
+const tabParams = {
+    tab: parseAsStringLiteral(opts).withDefault("dreamchasers")
+};
+
+const loadParams = createLoader(tabParams);
+
+type PageProps = {
+    searchParams: Promise<SearchParams>;
+};
+
+export default async function CrewPage({ searchParams }: PageProps) {
+    const { tab } = await loadParams(searchParams);
 
     return (
         <div className="flex h-visible flex-col bg-vns">
@@ -137,26 +149,30 @@ export default function CrewPage() {
                 favorText="Những người đã góp hết sức mình để mang đến cho các bạn những cái event cực cháy."
                 title="Tổ chức"
             />
-            <div
-                className="sticky top-[80px] z-0 h-[calc(100vh-80px)] place-content-center-safe"
-            >
+            <div className="sticky top-[80px] z-0 h-[calc(100vh-80px)] place-content-center-safe">
                 <Tabs
                     className="size-full gap-y-0"
-                    defaultValue={tab}
-                    onValueChange={setTab}
+                    value={tab}
+                    defaultValue="dreamchasers"
                 >
                     <TabsList className="h-12 w-full rounded-none border-b bg-background">
                         <TabsTrigger
+                            asChild
                             className="w-1/2 rounded-none py-3 text-lg font-semibold transition-colors data-[state=active]:bg-neutral-800 data-[state=active]:text-white data-[state=inactive]:hover:bg-neutral-800/60"
                             value="dreamchasers"
                         >
-                            "Dreamchasers"
+                            <Link href="/crew?tab=dreamchasers">
+                                "Dreamchasers"
+                            </Link>
                         </TabsTrigger>
                         <TabsTrigger
+                            asChild
                             className="w-1/2 rounded-none py-3 text-lg font-semibold transition-colors data-[state=active]:bg-neutral-800 data-[state=active]:text-white data-[state=inactive]:hover:bg-neutral-800/60"
                             value="partners"
                         >
-                            Hợp tác phát triển
+                            <Link href="/crew?tab=partners">
+                                Hợp tác phát triển
+                            </Link>
                         </TabsTrigger>
                     </TabsList>
 

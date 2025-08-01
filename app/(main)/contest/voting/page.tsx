@@ -5,7 +5,6 @@ import type { OperatorClass, OperatorRarity } from "@/lib/vns";
 import { clsx } from "clsx";
 import Fuse from "fuse.js";
 import Image from "next/image";
-import { parseAsArrayOf, parseAsInteger, parseAsString, useQueryState } from "nuqs";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import ClassIcon from "@/components/tournament/ClassIcon";
@@ -22,14 +21,15 @@ type Operator = Terra["public"]["Tables"]["operators_v2"]["Row"];
 type SelectedOperator = Pick<Operator, "name" | "rarity" | "profession" | "charid">;
 type OperatorClassSelection = "ALL" | OperatorClass;
 
-export default function DraftingPage() {
-    const [operatorNameSearch, setOperatorNameSearch] = useQueryState("search", parseAsString.withDefault(""));
-    const [maxRarity, setMaxRarity] = useQueryState("rarity", parseAsInteger.withDefault(6));
-    const [selectedClass, setSelectedClass] = useQueryState("class", { defaultValue: "ALL" });
-    const [selectedOperators, setSelectedOperators] = useQueryState("selected", parseAsArrayOf(parseAsString).withDefault([]));
+export default function VotingPage() {
+    const [operatorNameSearch, setOperatorNameSearch] = useState("");
+    const [maxRarity, setMaxRarity] = useState(6);
+    const [selectedClass, setSelectedClass] = useState<OperatorClassSelection>("ALL");
+    const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
-    const [operators, setOperators] = useState<SelectedOperator[]>([]);
+    const [isBanSubmitted, setIsBanSubmitted] = useState(false);
     const { isRealtimeConnected, isTimerLoaded, timerData, getDisplayTime, formatTime } = useTimer();
+    const [operators, setOperators] = useState<SelectedOperator[]>([]);
 
     // #region operator selection
     const fuse = useMemo(() => {
@@ -82,13 +82,12 @@ export default function DraftingPage() {
             toast.error("Đã có lỗi trong việc gửi BAN :<");
         } else {
             toast.success("Gửi BAN thành công :D");
+            setSelectedOperators([]);
+            setIsBanSubmitted(true);
         }
-
-        setSelectedOperators([]);
     }
 
     function handleOperatorSelection(charId: string) {
-        // Prevent selection if operator is banned
         if (bannedOperators.includes(charId)) {
             return;
         }
@@ -132,26 +131,24 @@ export default function DraftingPage() {
                 const data = await response.json();
                 const bannedIds = data.map((item: { id: string }) => item.id);
                 setBannedOperators(bannedIds);
-            } catch (error) {
-                toast.error(`Error fetching banned operators: ${error instanceof Error ? error.message : String(error)}`);
-            }
-        })();
-
-        // fetch the operators
-        (async () => {
-            try {
-                const response = await fetch("/api/operator");
-                if (!response.ok) {
-                    throw new Error("Failed to fetch operators");
-                }
-                const operators = await response.json();
-                setOperators(operators);
-            } catch (error) {
-                toast.error(`Error fetching operators: ${error instanceof Error ? error.message : String(error)}`);
+            } catch {
+                toast.error("Có lỗi xảy ra, bạn thử load lại nhé!");
             }
         })();
 
         const supabase = createSupabase();
+
+        (async () => {
+            const { data: operators, error } = await supabase
+                .from("operators_v2")
+                .select("name,charid,rarity,profession");
+
+            if (operators?.length === 0 || error) {
+                toast.error("We are cooked");
+            }
+
+            setOperators(operators!);
+        })();
 
         const channel = supabase
             .channel("ban-update")
@@ -162,6 +159,8 @@ export default function DraftingPage() {
             }, (payload) => {
                 console.info("New ban added:", payload.new.id);
                 setBannedOperators(prev => [...prev, payload.new.id]);
+                setIsBanSubmitted(false);
+                toast("Đã có operator bị ban!");
             })
             .on("postgres_changes", {
                 event: "UPDATE",
@@ -173,6 +172,8 @@ export default function DraftingPage() {
                     const filtered = prev.filter(id => id !== payload.old.id);
                     return [...filtered, payload.new.id];
                 });
+                setIsBanSubmitted(false);
+                toast("Đã có operator bị ban!");
             })
             .on("postgres_changes", {
                 event: "DELETE",
@@ -181,6 +182,8 @@ export default function DraftingPage() {
             }, (payload) => {
                 console.info("New ban nuked:", payload.old.id);
                 setBannedOperators(prev => prev.filter(id => id !== payload.old.id));
+                setIsBanSubmitted(false);
+                toast("Đã có operator bị ban!");
             })
             .subscribe();
 
@@ -189,7 +192,7 @@ export default function DraftingPage() {
         };
     }, []);
 
-    const isVotingAllowed = timerData.state === "running";
+    const isVotingAllowed = !isBanSubmitted && timerData.state === "running";
 
     return (
         <div className="mx-2 scrollbar-none flex h-visible flex-col bg-vns">
@@ -234,12 +237,12 @@ export default function DraftingPage() {
                 </div>
                 {/* Star rating */}
                 <div className="flex items-center justify-center space-x-1">
-                    <Image alt="Star 1" height={32} src={maxRarity >= 1 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(1)} />
-                    <Image alt="Star 2" height={32} src={maxRarity >= 2 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(2)} />
-                    <Image alt="Star 3" height={32} src={maxRarity >= 3 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(3)} />
-                    <Image alt="Star 4" height={32} src={maxRarity >= 4 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(4)} />
-                    <Image alt="Star 5" height={32} src={maxRarity >= 5 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(5)} />
-                    <Image alt="Star 6" height={32} src={maxRarity >= 6 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(6)} />
+                    <Image alt="Star 1" priority height={32} src={maxRarity >= 1 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(1)} />
+                    <Image alt="Star 2" priority height={32} src={maxRarity >= 2 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(2)} />
+                    <Image alt="Star 3" priority height={32} src={maxRarity >= 3 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(3)} />
+                    <Image alt="Star 4" priority height={32} src={maxRarity >= 4 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(4)} />
+                    <Image alt="Star 5" priority height={32} src={maxRarity >= 5 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(5)} />
+                    <Image alt="Star 6" priority height={32} src={maxRarity >= 6 ? StarSelected : StarUnSelected} onClick={() => setMaxRarity(6)} />
                 </div>
                 {/* Class */}
                 <div className="mx-auto flex items-center justify-center">

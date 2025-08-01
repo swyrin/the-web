@@ -1,8 +1,9 @@
 import type { NextRequest } from "next/server";
 import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
-import { createSupabase } from "@/lib/supabase/client";
+import { createElevatedSupabase } from "@/lib/supabase/client-elevated";
 
+const elevatedSupabase = createElevatedSupabase();
 const TIMER_ID = "main_timer";
 const DEFAULT_DURATION = 60;
 
@@ -59,8 +60,6 @@ export async function POST(
         const command = cmd as TimerCommand;
         const customTime = body.time ?? DEFAULT_DURATION;
         const now = new Date().toISOString();
-
-        const elevatedSupabase = createSupabase(true);
 
         // Get current timer state
         const { data: currentTimer, error: fetchError } = await elevatedSupabase
@@ -186,8 +185,6 @@ export async function GET(
     }
 
     try {
-        const elevatedSupabase = createSupabase(true);
-
         const { data: currentTimer, error } = await elevatedSupabase
             .from("timer_state")
             .select("*")

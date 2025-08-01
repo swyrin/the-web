@@ -1,8 +1,8 @@
-"use client";
-
+import type { SearchParams } from "nuqs/server";
 import { clsx } from "clsx";
 import { Angry, ArrowRightLeft, Baby, BrushCleaning, Dog, Flame, Gavel, Hand, MapPinCheckInside, Scale, Shirt, ShoppingBag, Sword, Syringe, UserRoundX } from "lucide-react";
-import { useQueryState } from "nuqs";
+import Link from "next/link";
+import { createLoader, parseAsStringLiteral } from "nuqs/server";
 import { Fragment } from "react";
 import PageTitle from "@/components/PageTitle";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -250,31 +250,51 @@ const cosplayRules: RuleType[] = [
     }
 ];
 
-export default function RulePage() {
-    const [tab, setTab] = useQueryState("tab", { defaultValue: "general", clearOnDefault: false });
+const opts = ["general", "cosplay"] as const;
+
+const tabParams = {
+    tab: parseAsStringLiteral(opts).withDefault("general")
+};
+
+const loadParams = createLoader(tabParams);
+
+type PageProps = {
+    searchParams: Promise<SearchParams>;
+};
+
+export default async function EventRulesPage({ searchParams }: PageProps) {
+    const { tab } = await loadParams(searchParams);
 
     return (
         <div className="flex h-visible flex-col bg-vns">
             <PageTitle
                 favorText="Một số điều cần lưu ý khi tham gia offline"
-                title="NỘI QUY"
+                title="Nội quy"
             />
-            <div
-                className="sticky top-[80px] h-[calc(100vh-80px)] place-content-center-safe"
-            >
-                <Tabs className="size-full gap-y-0" value={tab} onValueChange={setTab}>
+            <div className="sticky top-[80px] z-0 h-[calc(100vh-80px)] place-content-center-safe">
+                <Tabs
+                    className="size-full gap-y-0"
+                    defaultValue="general"
+                    value={tab}
+                >
                     <TabsList className="h-12 w-full rounded-none bg-background">
                         <TabsTrigger
+                            asChild
                             className="w-1/2 rounded-none py-3 text-lg font-semibold transition-colors data-[state=active]:bg-neutral-800 data-[state=active]:text-white data-[state=inactive]:hover:bg-neutral-800/60"
                             value="general"
                         >
-                            Nội quy chung
+                            <Link href="/event/regulations?tab=general">
+                                Nội quy chung
+                            </Link>
                         </TabsTrigger>
                         <TabsTrigger
+                            asChild
                             className="w-1/2 rounded-none py-3 text-lg font-semibold transition-colors data-[state=active]:bg-neutral-800 data-[state=active]:text-white data-[state=inactive]:hover:bg-neutral-800/60"
                             value="cosplay"
                         >
-                            Dành cho Cosplayer
+                            <Link href="/event/regulations?tab=cosplay">
+                                Dành cho cosplayer
+                            </Link>
                         </TabsTrigger>
                     </TabsList>
 
@@ -294,5 +314,6 @@ export default function RulePage() {
                 </Tabs>
             </div>
         </div>
+
     );
 }

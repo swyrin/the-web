@@ -26,6 +26,7 @@ export default function PrizePage() {
                                 alt="map-info"
                                 className="object-contain"
                                 src={Artbook}
+                                priority
                             />
                         </CardContent>
                         <CardFooter className="flex flex-col items-center justify-between space-y-2">
@@ -44,6 +45,7 @@ export default function PrizePage() {
                                 alt="map-info"
                                 className="object-contain"
                                 src={Amiyi}
+                                priority
                             />
                         </CardContent>
                         <CardFooter className="flex flex-col items-center justify-between space-y-2">
@@ -64,6 +66,7 @@ export default function PrizePage() {
                                 height={200}
                                 src={Ines}
                                 width={200}
+                                priority
                             />
                         </CardContent>
                         <CardFooter className="flex flex-col items-center justify-between space-y-2">

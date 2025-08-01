@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { getProductionURL } from "@/app/web-config";
+import { BASE_URL } from "@/app/web-config";
 import NavBar from "@/components/navbar/NavBar";
 
 export const metadata: Metadata = {
-    metadataBase: new URL(getProductionURL()),
+    metadataBase: new URL(BASE_URL),
     title: "Dreamchasers @ 2025",
     description: "For the Doctors, by the Doctors.",
     authors: [
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         }
     ],
     openGraph: {
-        url: getProductionURL(),
+        url: BASE_URL,
         title: "Dreamchasers @ 2025",
         siteName: "Arknights VNS - Dreamchasers",
         description: "For the Doctors, by the Doctors.",

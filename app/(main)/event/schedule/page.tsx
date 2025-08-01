@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import PageTitle from "@/components/PageTitle";
 import {
     Timeline,
@@ -36,19 +33,11 @@ const items = [
 ];
 
 export default function SchedulePage() {
-    const [progression, setProgression] = useState(1);
+    const now = new Date();
 
-    useEffect(() => {
-        // this is unoptimized af.
-        // but it works.
-        const now = new Date();
-        items.forEach((item, index) => {
-            const target = new Date(`2025-08-10T${item.date}:00+07:00`);
-            if (now >= target) {
-                setProgression(index + 1);
-            }
-        });
-    }, []);
+    const completed = items.filter((item) => {
+        return now >= new Date(`2025-08-10T${item.date}:00+07:00`);
+    });
 
     return (
         <div className="flex h-visible flex-col bg-vns">
@@ -60,7 +49,7 @@ export default function SchedulePage() {
                 <Timeline
                     className="mx-auto mt-32 hidden md:flex"
                     orientation="horizontal"
-                    value={progression}
+                    value={completed.length + 1}
                 >
                     {items.map((item, index) => (
                         <TimelineItem
@@ -80,7 +69,7 @@ export default function SchedulePage() {
 
                 <Timeline
                     className="mt-8 flex max-h-[30svh] md:hidden"
-                    value={progression}
+                    value={completed.length + 1}
                 >
                     {items.map((item, index) => (
                         <TimelineItem

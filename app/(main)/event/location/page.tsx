@@ -22,6 +22,7 @@ export default function LocationPage() {
                             height={600}
                             src={Mcafe}
                             width={800}
+                            priority
                         />
                     </div>
                     <div className="min-h-[48px] text-center text-primary">
@@ -38,7 +39,7 @@ export default function LocationPage() {
                         <iframe
                             allowFullScreen
                             className="mx-8 h-64 w-full object-cover lg:h-80"
-                            loading="lazy"
+                            loading="eager"
                             referrerPolicy="no-referrer-when-downgrade"
                             sandbox="allow-scripts allow-popups allow-top-navigation allow-forms"
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.5424037182813!2d106.72501623850003!3d10.804816497336429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175273e10990f3b%3A0xc0521b630c53b06!2zTWNhZsOp!5e0!3m2!1sen!2s!4v1751777410957!5m2!1sen!2s"

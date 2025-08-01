@@ -1,7 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getProductionURL } from "@/app/web-config";
-
-const BASE_URL = getProductionURL();
+import { BASE_URL } from "@/app/web-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     return [

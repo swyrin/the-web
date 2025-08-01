@@ -52,7 +52,7 @@ export default antfu(
             "no-console": ["warn", { allow: ["warn", "error", "info"] }],
             "ts/consistent-type-definitions": ["error", "type"],
             "node/prefer-global/process": "off",
-            "react-hooks-extra/no-direct-set-state-in-use-effect": "off",
+            // "react-hooks-extra/no-direct-set-state-in-use-effect": "off",
             "@eslint-react/prefer-shorthand-fragment": "error",
             "@eslint-react/prefer-shorthand-boolean": "error",
             "style/brace-style": ["error", "1tbs"],

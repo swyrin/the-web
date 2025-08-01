@@ -146,7 +146,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
         { href: "/event/roadmap", label: "Công tác chuẩn bị" },
         { href: "/event/schedule", label: "Hoạt động của Offline" },
         { href: "/event/location", label: "Địa điểm tổ chức" },
-        { href: "/event/rules", label: "Nội quy tham gia" }
+        { href: "/event/regulations", label: "Nội quy tham gia" }
     ];
 
     const pathname = usePathname();

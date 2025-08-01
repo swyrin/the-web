@@ -2,7 +2,9 @@ import type { NextRequest } from "next/server";
 import type { ApiElevatedBody } from "@/lib/vns";
 import { NextResponse } from "next/server";
 import { getHighestVotedOperator } from "@/app/api/operator/utils/operator-utils";
-import { createSupabase } from "@/lib/supabase/client";
+import { createElevatedSupabase } from "@/lib/supabase/client-elevated";
+
+const elevatedSupabase = createElevatedSupabase();
 
 /**
  * Get all current banned operators ID, at request time.
@@ -11,8 +13,6 @@ import { createSupabase } from "@/lib/supabase/client";
  */
 export async function GET() {
     try {
-        const elevatedSupabase = createSupabase(true);
-
         const { data, error } = await elevatedSupabase
             .from("banned_operators")
             .select("id")
@@ -47,7 +47,6 @@ export async function DELETE(request: NextRequest) {
 
         // Get the operator with highest vote count
         const highestVoted = await getHighestVotedOperator();
-        const elevatedSupabase = createSupabase(true);
 
         // Add to banned_operators table
         const { data: bannedOperator, error: banError } = await elevatedSupabase
@@ -75,8 +74,6 @@ export async function DELETE(request: NextRequest) {
 
         return NextResponse.json(bannedOperator, { status: 201 });
     } catch (error) {
-        console.error("Operator ban API error:", error);
-
         if (error instanceof Error && error.message === "No votes found") {
             return NextResponse.json(
                 { error: "No votes found to ban" },
@@ -104,8 +101,6 @@ export async function POST(request: NextRequest) {
         if (!Array.isArray(ids) || ids.length === 0) {
             return NextResponse.json({ error: "No operator IDs provided" }, { status: 400 });
         }
-
-        const elevatedSupabase = createSupabase(true);
 
         // Insert all provided IDs into banned_operators
         const { error } = await elevatedSupabase
