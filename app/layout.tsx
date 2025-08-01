@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { clsx } from "clsx";
 import { Quicksand as VNS_Font } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { TerraTheme } from "@/components/ThemeProvider";
+import { TerraTheme } from "@/components/TerraTheme";
 import { Toaster } from "@/components/ui/sonner";
 import "@/app/globals.css";
 
@@ -25,14 +25,8 @@ export default function RootLayout({
     return (
         <html lang="vn" suppressHydrationWarning>
             <body className={clsx("font-[family-name:var(--font-vns)] antialiased", mainFont.variable)}>
-                <TerraTheme
-                    attribute="class"
-                    defaultTheme="dark"
-                    enableSystem
-                >
-                    <NuqsAdapter>
-                        {children}
-                    </NuqsAdapter>
+                <TerraTheme>
+                    <NuqsAdapter>{children}</NuqsAdapter>
                     <Toaster position="top-center" richColors />
                 </TerraTheme>
             </body>
