@@ -4,9 +4,6 @@
     "private": true,
     "description": "The promotional website for Arknights VNS Offline 2025: Dreamchasers.",
     "readme": "README.md",
-    "engines": {
-        "node": ">=24"
-    },
     "scripts": {
         "dev": "next dev",
         "build": "next build",
