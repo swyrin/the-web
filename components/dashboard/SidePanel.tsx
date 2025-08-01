@@ -86,8 +86,7 @@ export default function DashboardSidePanel() {
                                         <SidebarMenuButton tooltip={stuff.title}>
                                             {stuff.icon && <stuff.icon />}
                                             <span>{stuff.title}</span>
-                                            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90"
-                                            />
+                                            <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                                         </SidebarMenuButton>
                                     </CollapsibleTrigger>
                                     <CollapsibleContent>
@@ -139,8 +138,7 @@ export default function DashboardSidePanel() {
                                         <AvatarImage alt={userData.name} src={userData.avatar} />
                                         <AvatarFallback className="rounded-lg">{userData.name}</AvatarFallback>
                                     </Avatar>
-                                    <div className="grid flex-1 text-left text-sm leading-tight"
-                                    >
+                                    <div className="grid flex-1 text-left text-sm leading-tight">
                                         <span className="truncate font-medium">
                                             Welcome,
                                             {" "}

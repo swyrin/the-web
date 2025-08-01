@@ -85,8 +85,7 @@ function DesktopDropdown({ title, items, pathname, pathPrefix }: DesktopDropdown
                     {title}
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-52 bg-background shadow-xs shadow-primary/50"
-            >
+            <DropdownMenuContent className="w-52 bg-background shadow-xs shadow-primary/50">
                 {items.map(item => (
                     <DropdownMenuItem key={item.href} asChild>
                         <Link
@@ -175,8 +174,7 @@ export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }
     }
 
     return (
-        <div className="mr-1 hidden cursor-pointer items-center gap-3 lg:flex"
-        >
+        <div className="mr-1 hidden cursor-pointer items-center gap-3 lg:flex">
             <DesktopDropdown
                 items={eventItems}
                 pathPrefix="/event"

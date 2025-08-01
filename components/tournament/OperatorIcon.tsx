@@ -68,8 +68,7 @@ export default function OperatorIcon(props: OperatorIconProps) {
                     width={48}
                 />
             </div>
-            <div className="mt-1 flex w-12 items-center justify-center text-center text-xs"
-            >
+            <div className="mt-1 flex w-12 items-center justify-center text-center text-xs">
                 {props.operator.name}
             </div>
         </div>

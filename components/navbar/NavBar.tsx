@@ -10,8 +10,7 @@ import DRCH_Logo from "@/public/DRCH_Logo.png";
 
 export default function NavBar() {
     return (
-        <header className="sticky top-0 z-50 flex h-20 w-full bg-background/60 shadow-xs/50 shadow-primary backdrop-blur-xs"
-        >
+        <header className="sticky top-0 z-50 flex h-20 w-full bg-background/60 shadow-xs/50 shadow-primary backdrop-blur-xs">
             <Sheet>
                 <SheetTrigger asChild>
                     <Button
@@ -36,17 +35,14 @@ export default function NavBar() {
                     className="size-[50px] dark:invert"
                     src={DRCH_Logo}
                 />
-                <span className="hidden text-xl font-bold md:inline"
-                >
+                <span className="hidden text-xl font-bold md:inline">
                     Dreamchasers
                 </span>
             </Link>
-            <nav className="ml-auto hidden gap-6 lg:flex"
-            >
+            <nav className="ml-auto hidden gap-6 lg:flex">
                 <NavBarItems />
             </nav>
-            <div className="ml-auto flex items-center space-x-2 lg:ml-1"
-            >
+            <div className="ml-auto flex items-center space-x-2 lg:ml-1">
                 <PurchaseTicketButton />
                 <ThemeSwitcher />
             </div>
