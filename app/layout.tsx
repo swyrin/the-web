@@ -27,7 +27,7 @@ export default function RootLayout({
             <body className={clsx("font-[family-name:var(--font-vns)] antialiased", mainFont.variable)}>
                 <TerraTheme>
                     <NuqsAdapter>{children}</NuqsAdapter>
-                    <Toaster position="top-center" richColors />
+                    <Toaster position="top-right" richColors />
                 </TerraTheme>
             </body>
         </html>

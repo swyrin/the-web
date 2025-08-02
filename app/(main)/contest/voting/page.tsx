@@ -27,7 +27,7 @@ export default function VotingPage() {
     const [selectedClass, setSelectedClass] = useState<OperatorClassSelection>("ALL");
     const [selectedOperators, setSelectedOperators] = useState<string[]>([]);
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
-    const [isBanSubmitted, setIsBanSubmitted] = useState(false);
+    const [isVotingAllowed, setIsVotingAllowed] = useState(false);
     const { isRealtimeConnected, isTimerLoaded, timerData, getDisplayTime, formatTime } = useTimer();
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
 
@@ -83,7 +83,7 @@ export default function VotingPage() {
         } else {
             toast.success("Gửi BAN thành công :D");
             setSelectedOperators([]);
-            setIsBanSubmitted(true);
+            setIsVotingAllowed(false);
         }
     }
 
@@ -139,13 +139,9 @@ export default function VotingPage() {
         const supabase = createSupabase();
 
         (async () => {
-            const { data: operators, error } = await supabase
+            const { data: operators } = await supabase
                 .from("operators_v2")
                 .select("name,charid,rarity,profession");
-
-            if (operators?.length === 0 || error) {
-                toast.error("We are cooked");
-            }
 
             setOperators(operators!);
         })();
@@ -159,8 +155,7 @@ export default function VotingPage() {
             }, (payload) => {
                 console.info("New ban added:", payload.new.id);
                 setBannedOperators(prev => [...prev, payload.new.id]);
-                setIsBanSubmitted(false);
-                toast("Đã có operator bị ban!");
+                toast.error("Đã có operator bị ban!");
             })
             .on("postgres_changes", {
                 event: "UPDATE",
@@ -172,8 +167,7 @@ export default function VotingPage() {
                     const filtered = prev.filter(id => id !== payload.old.id);
                     return [...filtered, payload.new.id];
                 });
-                setIsBanSubmitted(false);
-                toast("Đã có operator bị ban!");
+                toast.warning("Đã có thay đổi operator bị ban!");
             })
             .on("postgres_changes", {
                 event: "DELETE",
@@ -182,8 +176,7 @@ export default function VotingPage() {
             }, (payload) => {
                 console.info("New ban nuked:", payload.old.id);
                 setBannedOperators(prev => prev.filter(id => id !== payload.old.id));
-                setIsBanSubmitted(false);
-                toast("Đã có operator bị ban!");
+                toast.warning("Đã có operator bị gỡ ban!");
             })
             .subscribe();
 
@@ -192,7 +185,22 @@ export default function VotingPage() {
         };
     }, []);
 
-    const isVotingAllowed = !isBanSubmitted && timerData.state === "running";
+    useEffect(() => {
+        switch (timerData.state) {
+            case "paused":
+                toast.error("Vote đã bị tạm ngưng.");
+                // fall through
+            case "stopped":
+                // eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect
+                setIsVotingAllowed(false);
+                break;
+            case "running":
+                toast.success("Vote đã bật!");
+                // eslint-disable-next-line react-hooks-extra/no-direct-set-state-in-use-effect
+                setIsVotingAllowed(true);
+                break;
+        }
+    }, [timerData.state]);
 
     return (
         <div className="mx-2 scrollbar-none flex h-visible flex-col bg-vns">

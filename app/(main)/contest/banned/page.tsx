@@ -4,7 +4,6 @@ import type { Terra } from "@/lib/supabase/terra";
 import { clsx } from "clsx";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import {
     Card,
     CardContent,
@@ -25,19 +24,14 @@ export default function ContestBannedPage() {
     const [bannedOperators, setBannedOperators] = useState<string[]>([]);
     const [operators, setOperators] = useState<SelectedOperator[]>([]);
 
-    const supabase = createSupabase();
-
     // prefetch everything
     useEffect(() => {
         (async () => {
             const supabase = createSupabase();
-            const { data: operators, error } = await supabase
+
+            const { data: operators } = await supabase
                 .from("operators_v2")
                 .select("name,charid,rarity,profession");
-
-            if (operators?.length === 0 || error) {
-                toast.error("We are cooked");
-            }
 
             setOperators(operators!);
         })();
@@ -57,6 +51,8 @@ export default function ContestBannedPage() {
 
     // update operator list
     useEffect(() => {
+        const supabase = createSupabase();
+
         const channel = supabase
             .channel("ban-update")
             .on("postgres_changes", {
@@ -91,7 +87,7 @@ export default function ContestBannedPage() {
         return () => {
             supabase.removeChannel(channel).then();
         };
-    }, [supabase]);
+    }, []);
 
     return (
         <div className="flex h-visible flex-col bg-vns">
@@ -100,7 +96,7 @@ export default function ContestBannedPage() {
             >
                 <div className="text-xl text-white">
                     <span className={clsx(
-                        "text-6xl font-extrabold text-muted-foreground",
+                        "text-6xl font-extrabold",
                         isTimerLoaded && {
                             "text-green-400": timerData.state === "running",
                             "text-yellow-400": timerData.state === "paused",
@@ -115,7 +111,7 @@ export default function ContestBannedPage() {
                     {
                         [0, 1, 2, 3, 4, 5].map((i) => {
                             const entryExist = bannedOperators.at(i) !== undefined;
-                            const charcode = bannedOperators.at(i) ?? "[redacted]";
+                            const charcode = bannedOperators.at(i) ?? `[redacted_${i}]`;
                             const operator = operators.find(x => x.charid === charcode);
                             const name = operator?.name ?? "[REDACTED]";
                             const rarity = operator?.rarity ?? 0;
@@ -123,7 +119,7 @@ export default function ContestBannedPage() {
 
                             return (
                                 <Card
-                                    key={i}
+                                    key={charcode}
                                     className={clsx(`
                                         h-115 w-57 border-neutral-500
                                         bg-gradient-to-t transition-all
