@@ -214,7 +214,6 @@ export async function GET(
 
         const timerWithCalculatedTime = {
             ...currentTimer,
-            remaining_time: calculatedRemainingTime,
             calculated_remaining_time: calculatedRemainingTime
         };
 

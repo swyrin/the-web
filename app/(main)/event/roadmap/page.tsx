@@ -1,6 +1,5 @@
 "use client";
 
-import type { Route } from "next";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import Link from "next/link";
 import PageTitle from "@/components/PageTitle";
@@ -11,7 +10,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 type Event = {
     date: string;
     title: string;
-    href: Route;
+    href: string;
 };
 
 const events: Event[] = [

@@ -5,7 +5,7 @@
     "description": "The promotional website for Arknights VNS Offline 2025: Dreamchasers.",
     "readme": "README.md",
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev --turbo",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"

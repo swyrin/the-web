@@ -1,4 +1,3 @@
-import type { Route } from "next";
 import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +6,7 @@ type RetroItemProps = {
     title: string;
     description: string;
     imageSrc: StaticImageData | string;
-    href: Route;
+    href: string;
 };
 
 export default function RetroItem(props: RetroItemProps) {

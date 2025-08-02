@@ -1,6 +1,5 @@
 "use client";
 
-import type { Route } from "next";
 import type { ReactNode } from "react";
 import { clsx } from "clsx";
 import Link from "next/link";
@@ -30,7 +29,7 @@ function underlineStyle(currentPath: string, targetPathPrefx: string) {
 
 type DesktopDropdownProps = {
     title: string;
-    items: Array<{ href: Route; label: string }>;
+    items: Array<{ href: string; label: string }>;
     pathname: string;
     pathPrefix: string;
 };
@@ -41,7 +40,7 @@ function MobileDropdown({
     pathname
 }: {
     title: string;
-    items: Array<{ href: Route; label: string }>;
+    items: Array<{ href: string; label: string }>;
     pathname: string;
 }) {
     return (
@@ -115,7 +114,7 @@ function NavLink({
     children,
     pathname
 }: {
-    pathPrefix: Route;
+    pathPrefix: string;
     children: ReactNode;
     pathname: string;
 }) {
@@ -136,13 +135,13 @@ function NavDivider({ width = "w-8" }: { width?: string }) {
 }
 
 export default function NavBarItems({ isMobile = false }: { isMobile?: boolean }) {
-    const links: { label: string; href: Route }[] = [
+    const links: { label: string; href: string }[] = [
         { label: "Tổ chức", href: "/crew" },
         { label: "Kỷ niệm", href: "/retro" },
-        { label: "Tournament", href: "#" }
+        { label: "Tournament", href: "/contest" }
     ];
 
-    const eventItems: { label: string; href: Route }[] = [
+    const eventItems: { label: string; href: string }[] = [
         { href: "/event/roadmap", label: "Công tác chuẩn bị" },
         { href: "/event/schedule", label: "Hoạt động của Offline" },
         { href: "/event/location", label: "Địa điểm tổ chức" },
