@@ -1,11 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-lib/prisma/**
-
-# Shush
-components/dashboard/blocks/*
-app/(admin)/dashboard/*
-
 # dependencies
 /node_modules
 /.pnp
