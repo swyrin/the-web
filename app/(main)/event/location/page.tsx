@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import PageTitle from "@/components/PageTitle";
+import { Button } from "@/components/ui/button";
 import Mcafe from "@/public/MCafe_Entry.jpg";
 
 export default function LocationPage() {
@@ -10,7 +11,10 @@ export default function LocationPage() {
                 favorText="Một số thông tin hỗ trợ bạn trong quá trình di chuyển đến địa điểm offline."
                 title="Địa điểm"
             />
-            <div className="mx-4 flex flex-col gap-4 lg:flex-row">
+            <Button asChild className="mb-2 w-fit self-center" size="lg">
+                <Link href="https://youtu.be/lyPB05h6Axw">Hướng dẫn di chuyển từ Metro</Link>
+            </Button>
+            <div className="mx-4 flex flex-col gap-8 lg:flex-row">
                 <div className="flex flex-col justify-center space-y-4 lg:w-1/2">
                     <div className="text-center text-2xl font-extrabold text-primary">
                         Cửa chính sẽ giống thế này

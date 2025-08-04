@@ -11,24 +11,40 @@ import {
 
 const items = [
     {
-        date: "09:15",
-        title: "Mở check-in & Khai mạc"
+        date: "09:00",
+        title: "Check-in"
     },
     {
-        date: "09:30",
-        title: "Mini-games"
+        date: "10:00",
+        title: "Đoán nhạc"
     },
     {
-        date: "12:20",
+        date: "10:30",
+        title: "Arknights Wordle"
+    },
+    {
+        date: "11:15",
+        title: "Kahoot!"
+    },
+    {
+        date: "12:30",
+        title: "Nghỉ trưa"
+    },
+    {
+        date: "12:50",
+        title: "Gacha"
+    },
+    {
+        date: "13:50",
         title: "Mini-Tournament"
     },
     {
-        date: "13:25",
-        title: "Gacha Banner"
+        date: "15:25",
+        title: "Give-Away & Bế mạc"
     },
     {
-        date: "15:00",
-        title: "Give-Away & Bế mạc"
+        date: "16:00",
+        title: "Bế mạc"
     }
 ];
 
@@ -42,6 +58,7 @@ export default function SchedulePage() {
     return (
         <div className="flex h-visible flex-col bg-vns">
             <PageTitle favorText="Các hoạt động sẽ diễn ra trong offline" title="Hoạt động" />
+
             <div className="mx-14 flex flex-col items-center justify-center">
                 <div className="text-center italic">(*) Kế hoạch & thời gian có thể sẽ thay đổi tùy vào tình hình thực tế.</div>
                 <div className="text-center italic">(**) Cái này cập nhật theo thời gian thực.</div>
@@ -68,7 +85,7 @@ export default function SchedulePage() {
                 </Timeline>
 
                 <Timeline
-                    className="mt-8 flex max-h-[30svh] md:hidden"
+                    className="m-8 flex max-h-[30svh] md:hidden"
                     value={completed.length + 1}
                 >
                     {items.map((item, index) => (

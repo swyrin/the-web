@@ -62,49 +62,48 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
             }
         })();
 
-        const channel = supabase.channel(channelName)
+        const channel = supabase
+            .channel(channelName)
             .on("postgres_changes", {
                 event: "*",
                 schema: "public",
                 table: "timer_state",
                 filter: "id=eq.main_timer"
             }, (payload) => {
-                console.info(`${channelName} received timer state change:`, payload);
-                if (payload.new && typeof payload.new === "object") {
-                    const newTimer = payload.new as any;
-                    const remainingTime = Number(newTimer.remaining_time);
+                const newTimer = payload.new as TimerData;
+                const remainingTime = newTimer.remaining_time;
 
-                    if (!Number.isFinite(remainingTime) || remainingTime < 0) {
-                        console.warn("Invalid remaining_time received:", newTimer.remaining_time);
-                        return;
-                    }
-
-                    let calculatedRemainingTime = remainingTime;
-                    if (newTimer.state === "running" && newTimer.started_at) {
-                        const startTime = new Date(newTimer.started_at).getTime();
-                        if (Number.isFinite(startTime)) {
-                            const elapsed = Math.floor((Date.now() - startTime) / 1000);
-                            calculatedRemainingTime = Math.max(0, remainingTime - elapsed);
-                        }
-                    }
-
-                    if (!Number.isFinite(calculatedRemainingTime)) {
-                        console.warn("Invalid calculated remaining time:", calculatedRemainingTime);
-                        calculatedRemainingTime = remainingTime;
-                    }
-
-                    const updatedTimerData = {
-                        state: newTimer.state || "stopped",
-                        remaining_time: remainingTime,
-                        started_at: newTimer.started_at ? new Date(newTimer.started_at).getTime() : null,
-                        paused_at: newTimer.paused_at ? new Date(newTimer.paused_at).getTime() : null,
-                        updated_at: new Date(newTimer.updated_at).getTime(),
-                        calculated_remaining_time: calculatedRemainingTime
-                    };
-
-                    setTimerData(updatedTimerData);
-                    setIsTimerLoaded(true);
+                if (!Number.isFinite(remainingTime) || remainingTime < 0) {
+                    console.error("Invalid remaining_time received:", newTimer.remaining_time);
+                    return;
                 }
+
+                let calculatedRemainingTime = remainingTime;
+
+                if (newTimer.state === "running" && newTimer.started_at) {
+                    const startTime = new Date(newTimer.started_at).getTime();
+                    if (Number.isFinite(startTime)) {
+                        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+                        calculatedRemainingTime = Math.max(0, remainingTime - elapsed);
+                    }
+                }
+
+                if (!Number.isFinite(calculatedRemainingTime)) {
+                    console.warn("Invalid calculated remaining time:", calculatedRemainingTime);
+                    calculatedRemainingTime = remainingTime;
+                }
+
+                const updatedTimerData = {
+                    state: newTimer.state || "stopped",
+                    remaining_time: remainingTime,
+                    started_at: newTimer.started_at ? new Date(newTimer.started_at).getTime() : null,
+                    paused_at: newTimer.paused_at ? new Date(newTimer.paused_at).getTime() : null,
+                    updated_at: new Date(newTimer.updated_at).getTime(),
+                    calculated_remaining_time: calculatedRemainingTime
+                };
+
+                setTimerData(updatedTimerData);
+                setIsTimerLoaded(true);
             })
             .subscribe((status) => {
                 setIsRealtimeConnected(status === "SUBSCRIBED");
@@ -113,7 +112,7 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
         timerChannelRef.current = channel;
 
         return () => {
-            supabase.removeChannel(channel);
+            supabase.removeChannel(channel).then();
             setIsRealtimeConnected(false);
         };
     }, [channelName]);
@@ -150,6 +149,9 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
         return () => clearInterval(interval);
     }, [timerData.state, timerData.started_at, timerData.remaining_time]);
 
+    /**
+     * The formatted time as MM:SS
+     */
     function formatTime(seconds: number) {
         const totalSec = Math.max(0, Math.floor(seconds));
         const minutes = Math.floor(totalSec / 60);
@@ -158,6 +160,9 @@ export function useTimer(channelName: string = "timer-state-changes"): TimerHook
         return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
     }
 
+    /**
+     * Get the current time, **in seconds**.
+     */
     function getDisplayTime(): number {
         if (timerData.calculated_remaining_time !== undefined && Number.isFinite(timerData.calculated_remaining_time)) {
             return timerData.calculated_remaining_time;

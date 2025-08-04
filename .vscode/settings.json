@@ -24,7 +24,7 @@
     "files.exclude": {
         ".next": true,
         ".idea": true,
-        "node_modules": true,
+        "node_modules": true
     },
 
     // https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
@@ -52,5 +52,5 @@
         { "rule": "*-newline", "severity": "off", "fixable": true },
         { "rule": "*quotes", "severity": "off", "fixable": true },
         { "rule": "*semi", "severity": "off", "fixable": true }
-    ],
+    ]
 }

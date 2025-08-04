@@ -57,11 +57,14 @@ export default antfu(
             "@eslint-react/prefer-shorthand-boolean": "error",
             "style/brace-style": ["error", "1tbs"],
             "style/comma-dangle": ["error", "never"],
-            "style/jsx-curly-brace-presence": ["warn", {
-                props: "never",
-                children: "never",
-                propElementValues: "always"
-            }],
+            "style/jsx-curly-brace-presence": [
+                "warn",
+                {
+                    props: "never",
+                    children: "never",
+                    propElementValues: "always"
+                }
+            ],
             "no-restricted-syntax": [
                 "error",
                 {
